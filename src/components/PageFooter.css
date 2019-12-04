@@ -1,0 +1,35 @@
+#page-footer {
+  text-align: center;
+  /*min-height: 50px;*/
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  box-shadow: 0 0 5px 0px #999;
+}
+#page-footer > * {
+  margin-top: 8px;
+}
+.page-footer__socials > a {
+  margin: 0 5px;
+}
+.page-footer__socials > a > img {
+  width: 30px;
+  height: 30px;
+}
+.page-footer__terms-of-use {
+  text-align: right;
+  flex: 2
+}
+.page-footer__label {
+  flex: 3;
+}
+.page-footer__socials {
+  flex: 2;
+}
+
+@media screen and ( max-width: 700px ) {
+  #page-footer {
+    display: block;
+  }
+}

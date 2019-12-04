@@ -1,0 +1,15 @@
+.login-switch {
+  width: 100%;
+  text-align: center;
+}
+.login-switch a {
+  color: var(--color5);
+  display: inline-block;
+  width: 50%;
+  height: 60px;
+  line-height: 60px;
+  font-weight: 800;
+}
+.login-switch a.active {
+  color: var(--color2);
+}
