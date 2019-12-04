@@ -2,6 +2,8 @@ import React from 'react';
 import './PasswordResetRequestView.css'
 import Form from './Form.js'
 
+import passwordResetRequestApi from '../../api/passwordResetRequest.js';
+
 function PasswordResetRequestView(props) {/*updateLocation*/
   return (
     <Form
@@ -9,7 +11,7 @@ function PasswordResetRequestView(props) {/*updateLocation*/
       submitTitle="ОТПРАВИТЬ"
       submitLink="/passwordReset"
       submitCallback={data => {
-        return Promise.reject('ERR!11');
+        return passwordResetRequestApi(data);
       }}
       updateLocation = { props.updateLocation }>
       <input required/><label>Ваш E-mail</label>

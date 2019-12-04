@@ -4,13 +4,15 @@ import Form from './Form.js'
 import Switch from './Switch.js'
 import Link from '../Link.js'
 
+import signinApi from '../../api/signin.js';
+
 function SignInView(props) {/*updateLocation*/
   return (
     <Form
       submitTitle="ВОЙТИ"
       submitLink="#"
       submitCallback={data => {
-        return Promise.reject('ERR!11');
+        return signinApi(data);
       }}
       updateLocation = { props.updateLocation }>
       <Switch action="/signin" updateLocation={ props.updateLocation }></Switch>

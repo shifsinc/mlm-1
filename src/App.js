@@ -11,6 +11,8 @@ import PasswordResetRequestView from './components/Login/PasswordResetRequestVie
 import PasswordResetView from './components/Login/PasswordResetView.js';
 import TermsView from './components/TermsView';
 
+import signoutApi from './api/signout.js'
+
 class App extends React.Component {
   constructor(props){
     super(props);
@@ -38,6 +40,7 @@ class App extends React.Component {
   _getCurrentView = () => {
     switch( this.state.location ){
       case '/signout':
+        signoutApi().catch(e => alert(e));
       case '/':
         return <StartView updateLocation={ this._updateLocation }></StartView>;
       case '/signin':
