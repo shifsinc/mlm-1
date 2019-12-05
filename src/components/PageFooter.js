@@ -10,7 +10,7 @@ function PageFooter(props){/*updateLocation*/
   return (
     <footer id="page-footer">
       <Link
-      className="page-footer__terms-of-use"
+      className="page-footer__terms"
       title="Пользовательское соглашение"
       path="/terms"
       updateLocation={ props.updateLocation }></Link>

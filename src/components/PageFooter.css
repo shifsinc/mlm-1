@@ -7,9 +7,6 @@
   padding: 5px;
   box-shadow: 0 0 5px 0px #999;
 }
-#page-footer > * {
-  margin-top: 8px;
-}
 .page-footer__socials > a {
   margin: 0 5px;
 }
@@ -17,7 +14,7 @@
   width: 30px;
   height: 30px;
 }
-.page-footer__terms-of-use {
+.page-footer__terms {
   text-align: right;
   flex: 2
 }
@@ -26,10 +23,14 @@
 }
 .page-footer__socials {
   flex: 2;
+  height: 30px;
 }
 
 @media screen and ( max-width: 700px ) {
   #page-footer {
     display: block;
+  }
+  #page-footer > * {
+    margin-top: 8px;
   }
 }
