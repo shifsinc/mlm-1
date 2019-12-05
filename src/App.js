@@ -7,6 +7,7 @@ import PageFooter from './components/PageFooter.js';
 import StartView from './components/StartView.js';
 import SignInView from './components/Login/SignInView.js';
 import SignUpView from './components/Login/SignUpView.js';
+import FillDataView from './components/Login/FillDataView.js';
 import PasswordResetRequestView from './components/Login/PasswordResetRequestView.js';
 import PasswordResetView from './components/Login/PasswordResetView.js';
 import TermsView from './components/TermsView';
@@ -47,6 +48,8 @@ class App extends React.Component {
         return <SignInView updateLocation={ this._updateLocation }></SignInView>;
       case '/signup':
         return <SignUpView updateLocation={ this._updateLocation }></SignUpView>;
+      case '/fillData':
+        return <FillDataView updateLocation={ this._updateLocation }></FillDataView>;
       case '/passwordResetRequest':
         return <PasswordResetRequestView updateLocation={ this._updateLocation }></PasswordResetRequestView>;
       case '/passwordReset':
