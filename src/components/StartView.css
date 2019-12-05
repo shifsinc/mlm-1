@@ -6,6 +6,7 @@
   display: block;
   margin: 0 auto 30px auto;
   transition: width 0.2s;
+  user-select: none;
 }
 .start-view__join-button {
   background-color: var(--color1);

@@ -1,6 +1,7 @@
 import React from 'react';
 import './SignInView.css'
 import Form from './Form.js'
+import Input from '../Input.js'
 import Switch from './Switch.js'
 import Link from '../Link.js'
 
@@ -16,8 +17,8 @@ function SignInView(props) {/*updateLocation*/
       }}
       updateLocation = { props.updateLocation }>
       <Switch action="/signin" updateLocation={ props.updateLocation }></Switch>
-      <input required name="login"/><label>E-mail или логин</label>
-      <input required  name="password"/><label>Пароль</label>
+      <Input name="login" label="E-mail или логин"></Input>
+      <Input name="password" label="Пароль"></Input>
       <div className="signin-view__reset-pass">
         Забыли пароль?
         <Link

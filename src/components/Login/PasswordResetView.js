@@ -1,6 +1,7 @@
 import React from 'react';
 import './PasswordResetView.css'
 import Form from './Form.js'
+import Input from '../Input.js'
 
 import passwordResetApi from '../../api/passwordReset.js';
 
@@ -14,8 +15,8 @@ function PasswordResetView(props) {/*updateLocation*/
       return passwordResetApi(data);
     }}
     updateLocation = { props.updateLocation }>
-    <input required name="password"/><label>Пароль</label>
-    <input required name="password_repeat"/><label>Повторите пароль</label>
+    <Input name="password" label="Пароль"></Input>
+    <Input name="password_repeat" label="Повторите пароль"></Input>
     </Form>
   );
 }

@@ -1,0 +1,34 @@
+.input {
+  position: relative;
+  padding-top: 20px;
+  margin-top: 8px;
+}
+.input input {
+  width: 100%;
+  height: 35px;
+  padding: 5px 15px;
+  outline: none;
+  box-shadow: none;
+  border: solid 1px var(--color3);
+  border-radius: 3px;
+  color: var(--color4);
+  position: relative;
+  z-index: 2;
+  background: transparent;
+}
+.input input:focus + .input__label,
+.input input:valid + .input__label {
+  transform: none;
+}
+.input input.incorrect {
+  border-color: var(--color1);
+}
+
+.input__label {
+  display: block;
+  transition: transform 0.1s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(10px, 28px);
+}
