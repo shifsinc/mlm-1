@@ -11,11 +11,14 @@ function SignInView(props){/*formTitle, submitTitle, submitLink, submitCallback*
         <a className="link button login-view__button" href={ props.submitLink }
           onClick={e => {
             e.preventDefault();
-            props.submitCallback().then(r => {
+            var data = {};
+            Array.prototype.forEach.call( form.querySelectorAll('input'), inp => data[ inp.name ] = inp.value);
+            props.submitCallback( data ).then(r => {
               window.history.pushState(null, '', props.submitLink);
               props.updateLocation();
             }).catch(err => {
-              error.innerHTML = err;
+              error.innerHTML = err.message;
+              if(err.fields) err.fields.forEach(f => form.querySelector('input[name="' + f + '"]').classList.add('incorrect'));
               form.classList.add('show-error');
             });
           }}>{ props.submitTitle }</a>

@@ -1,3 +1,3 @@
-export default function(){
-  return Promise.reject('Логин или пароль введены неправильно!');
+export default function(data){
+  return Promise.reject({ message: 'Логин или пароль введены неправильно!', fields: ['password'] });
 }

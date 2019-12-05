@@ -1,3 +1,3 @@
-export default function(){
-  return Promise.reject('ERR!11');
+export default function(data){
+  return Promise.reject({ message: 'ERR!11', fields: ['password'] });
 }

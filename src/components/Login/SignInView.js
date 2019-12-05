@@ -16,8 +16,8 @@ function SignInView(props) {/*updateLocation*/
       }}
       updateLocation = { props.updateLocation }>
       <Switch action="/signin" updateLocation={ props.updateLocation }></Switch>
-      <input required/><label>E-mail или логин</label>
-      <input required/><label>Пароль</label>
+      <input required name="login"/><label>E-mail или логин</label>
+      <input required  name="password"/><label>Пароль</label>
       <div className="signin-view__reset-pass">
         Забыли пароль?
         <Link

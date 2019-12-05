@@ -15,12 +15,12 @@ function SignUpView(props){/*updateLocation*/
     }}
     updateLocation = { props.updateLocation }>
       <Switch action="/signup" updateLocation={ props.updateLocation }></Switch>
-      <input required/><label>Логин</label>
+      <input required name="login"/><label>Логин</label>
 
-      <input required/><label>E-mail</label>
-      <input required/><label>Повторите E-mail</label>
-      <input required/><label>Пароль</label>
-      <input required/><label>Повторите пароль</label>
+      <input required name="email"/><label>E-mail</label>
+      <input required name="email_repeat"/><label>Повторите E-mail</label>
+      <input required name="password"/><label>Пароль</label>
+      <input required  name="password_repeat"/><label>Повторите пароль</label>
     </Form>
   );
 }

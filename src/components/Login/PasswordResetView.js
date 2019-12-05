@@ -14,8 +14,8 @@ function PasswordResetView(props) {/*updateLocation*/
       return passwordResetApi(data);
     }}
     updateLocation = { props.updateLocation }>
-    <input required/><label>Пароль</label>
-    <input required/><label>Повторите пароль</label>
+    <input required name="password"/><label>Пароль</label>
+    <input required name="password_repeat"/><label>Повторите пароль</label>
     </Form>
   );
 }
