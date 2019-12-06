@@ -16,10 +16,12 @@ function PageFooter(props){/*updateLocation*/
       updateLocation={ props.updateLocation }></Link>
       <div className="page-footer__label">YODAFX.PRO© 2019</div>
       <div className="page-footer__socials">
-        <a href="#"><img src={ facebookLogo } alt="facebook"/></a>
-        <a href="#"><img src={ instagramLogo } alt="inatagram"/></a>
-        <a href="#"><img src={ telegramLogo } alt="telegram"/></a>
-        <a href="#"><img src={ vkLogo } alt="vk"/></a>
+        <a href="#" target="_blank" rel="noopener noreferrer"><img src={ facebookLogo } alt="facebook"/></a>
+        <a href="https://instagram.com/yodafxpro_offical" target="_blank" rel="noopener noreferrer">
+          <img src={ instagramLogo } alt="inatagram"/>
+        </a>
+        <a href="https://t.me/yodafxstart" target="_blank" rel="noopener noreferrer"><img src={ telegramLogo } alt="telegram"/></a>
+        <a href="#" target="_blank" rel="noopener noreferrer"><img src={ vkLogo } alt="vk"/></a>
       </div>
     </footer>
   );
