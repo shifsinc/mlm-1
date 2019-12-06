@@ -17,7 +17,8 @@
   background: transparent;
 }
 .input input:focus + .input__label,
-.input input:valid + .input__label {
+.input input:valid + .input__label,
+.input.label-top input + .input__label {
   transform: none;
 }
 .input input.incorrect {
