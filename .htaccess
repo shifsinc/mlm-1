@@ -1,0 +1,10 @@
+RewriteEngine on
+
+RewriteRule signin /
+RewriteRule signup /
+RewriteRule fillData /
+RewriteRule passwordResetRequest /
+RewriteRule passwordReset /
+RewriteRule terms /
+RewriteRule account /
+RewriteRule signout / [L]
