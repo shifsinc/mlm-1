@@ -16,7 +16,8 @@
 }
 .page-footer__terms {
   text-align: right;
-  flex: 2
+  flex: 2;
+  color: var(--color2) !important;
 }
 .page-footer__label {
   flex: 3;

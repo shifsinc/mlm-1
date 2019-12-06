@@ -14,7 +14,7 @@ function PageFooter(props){/*updateLocation*/
       title="Пользовательское соглашение"
       path="/terms"
       updateLocation={ props.updateLocation }></Link>
-      <div className="page-footer__label">YODATX.PRO© 2019</div>
+      <div className="page-footer__label">YODAFX.PRO© 2019</div>
       <div className="page-footer__socials">
         <a href="#"><img src={ facebookLogo } alt="facebook"/></a>
         <a href="#"><img src={ instagramLogo } alt="inatagram"/></a>

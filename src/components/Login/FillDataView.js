@@ -13,7 +13,7 @@ function FillDataView(props){/*updateLocation*/
       className="fill-data-view"
       formTitle="Заполните личные данные"
       submitTitle="СОХРАНИТЬ"
-      submitLink="#"
+      submitLink="/terms"
       submitCallback={data => {
         return fillDataApi(data);
       }}
@@ -23,19 +23,19 @@ function FillDataView(props){/*updateLocation*/
           <input name="photo" type="file" onInput={e => {
             photo.src = URL.createObjectURL( e.target.files[0].slice() );
           }}/>
-          <img src={noPhoto} ref={ r => photo = r }/>
+          <img alt="avatar" src={noPhoto} ref={ r => photo = r }/>
         </label>
         <div className="fill-data-view__fields">
-          <Input name="login" label="Ваш логин"></Input>
-          <Input name="email" label="Ваш E-mail"></Input>
+          <Input attr={{ name: 'login' }} label="Ваш логин"></Input>
+          <Input attr={{ name: 'email' }} label="Ваш E-mail"></Input>
           <div className="fill-data-view__cont">
-            <Input name="name" label="Имя"></Input>
-            <Input name="lastname" label="Фамилия"></Input>
+            <Input attr={{ name: 'name' }} label="Имя"></Input>
+            <Input attr={{ name: 'lastname' }} label="Фамилия"></Input>
           </div>
-          <Input name="phone" label="Телефон"></Input>
+          <Input attr={{ name: 'phone' }} label="Телефон"></Input>
           <div className="fill-data-view__cont">
-            <Input name="social_link" label="Страница в социальной сети"></Input>
-            <Input name="telegram" label="Telegram"></Input>
+            <Input attr={{ name: 'social_link' }} label="Страница в социальной сети"></Input>
+            <Input attr={{ name: 'telegram' }} label="Telegram"></Input>
           </div>
         </div>
       </div>

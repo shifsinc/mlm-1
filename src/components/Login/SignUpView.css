@@ -1,0 +1,16 @@
+.sign-up-view__cont {
+  position: relative;
+}
+.sign-up-view__referer {
+  width: 100%;
+}
+
+@media screen and (min-width: 850px) {
+  .sign-up-view__referer {
+    min-width: 0;
+    width: 200px;
+    position: absolute;
+    left: -220px;
+    top: 0;
+  }
+}

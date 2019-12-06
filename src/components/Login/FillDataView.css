@@ -1,9 +1,6 @@
 .fill-data-view {
   max-width: 900px;
 }
-.fill-data-view > .form-view__title {
-  margin-bottom: 0;
-}
 
 .fill-data-view__photo {
   cursor: pointer;
@@ -12,9 +9,6 @@
 }
 .fill-data-view__photo input {
   display: none;
-}
-.fill-data-view__fields {
-  margin-bottom: 18px;
 }
 
 

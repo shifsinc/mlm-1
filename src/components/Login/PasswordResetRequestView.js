@@ -10,12 +10,12 @@ function PasswordResetRequestView(props) {/*updateLocation*/
     <Form
       formTitle="Запрос сброса пароля"
       submitTitle="ОТПРАВИТЬ"
-      submitLink="/passwordReset"
+      submitLink="#"
       submitCallback={data => {
         return passwordResetRequestApi(data);
       }}
       updateLocation = { props.updateLocation }>
-      <Input name="email" label="Ваш E-mail"></Input>
+      <Input attr={{ name: 'email' }} label="Ваш E-mail"></Input>
     </Form>
   );
 }

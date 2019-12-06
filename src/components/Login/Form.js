@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SignInView(props){/*formTitle, submitTitle, submitLink, submitCallback, className*/
+function Form(props){/*formTitle, submitTitle, submitLink, submitCallback, className*/
   var form, error;
   return (
     <form className={ 'form-view interface-block login-view' + (props.className ? ' ' + props.className : '') } ref={r => form = r}>
@@ -14,7 +14,7 @@ function SignInView(props){/*formTitle, submitTitle, submitLink, submitCallback,
             e.preventDefault();
             var data = {};
             Array.prototype.forEach.call( form.querySelectorAll('input'), inp => {
-              if(inp.type == 'file') data[ inp.name ] = inp.files.length ? inp.files[0].slice() : null;
+              if(inp.type === 'file') data[ inp.name ] = inp.files.length ? inp.files[0].slice() : null;
               else data[ inp.name ] = inp.value
             });
             props.submitCallback( data ).then(r => {
@@ -32,4 +32,4 @@ function SignInView(props){/*formTitle, submitTitle, submitLink, submitCallback,
   );
 }
 
-export default SignInView;
+export default Form;

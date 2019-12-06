@@ -11,14 +11,14 @@ function SignInView(props) {/*updateLocation*/
   return (
     <Form
       submitTitle="ВОЙТИ"
-      submitLink="#"
+      submitLink="/account"
       submitCallback={data => {
         return signinApi(data);
       }}
       updateLocation = { props.updateLocation }>
       <Switch action="/signin" updateLocation={ props.updateLocation }></Switch>
-      <Input name="login" label="E-mail или логин"></Input>
-      <Input name="password" label="Пароль"></Input>
+      <Input attr={{ name: 'login' }} label="E-mail или логин"></Input>
+      <Input attr={{ name: 'password' }} label="Пароль"></Input>
       <div className="signin-view__reset-pass">
         Забыли пароль?
         <Link

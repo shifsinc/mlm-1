@@ -12,6 +12,8 @@ import PasswordResetRequestView from './components/Login/PasswordResetRequestVie
 import PasswordResetView from './components/Login/PasswordResetView.js';
 import TermsView from './components/TermsView';
 
+import MainView from './components/Main/MainView.js';
+
 import signoutApi from './api/signout.js'
 
 class App extends React.Component {
@@ -39,30 +41,47 @@ class App extends React.Component {
   }
 
   _getCurrentView = () => {
+    var params = {
+      updateLocation: this._updateLocation,
+      params: this._getSearchParams(),
+      action: this.state.action
+    };
     switch( this.state.location ){
+      case '/signin':
+        return <SignInView { ...params }></SignInView>;
+      case '/signup':
+        return <SignUpView { ...params }></SignUpView>;
+      case '/fillData':
+        return <FillDataView { ...params }></FillDataView>;
+      case '/passwordResetRequest':
+        return <PasswordResetRequestView { ...params }></PasswordResetRequestView>;
+      case '/passwordReset':
+        return <PasswordResetView { ...params }></PasswordResetView>;
+      case '/terms':
+        return <TermsView { ...params }></TermsView>;
+
+      case '/account':
+        return <MainView { ...params }></MainView>;
+
       case '/signout':
         signoutApi().catch(e => alert(e));
-      case '/':
-        return <StartView updateLocation={ this._updateLocation }></StartView>;
-      case '/signin':
-        return <SignInView updateLocation={ this._updateLocation }></SignInView>;
-      case '/signup':
-        return <SignUpView updateLocation={ this._updateLocation }></SignUpView>;
-      case '/fillData':
-        return <FillDataView updateLocation={ this._updateLocation }></FillDataView>;
-      case '/passwordResetRequest':
-        return <PasswordResetRequestView updateLocation={ this._updateLocation }></PasswordResetRequestView>;
-      case '/passwordReset':
-        return <PasswordResetView updateLocation={ this._updateLocation }></PasswordResetView>;
-      case '/terms':
-        return <TermsView updateLocation={ this._updateLocation }></TermsView>;
       default:
-
+        return <StartView { ...params }></StartView>;
     }
   }
 
   _updateLocation = () => {
     this.setState({ location: window.location.pathname });
+  }
+
+  _getSearchParams = () => {
+    var get = {};
+    if( !window.location.search.length ) return get;
+    window.location.search.slice(1).split('&').forEach(p => {
+    	var t = p.split('=');
+    	get[ decodeURIComponent( t[0] ) ] = decodeURIComponent( t[1] );
+    });
+    return get;
   }
 
 }

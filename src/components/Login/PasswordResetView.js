@@ -10,13 +10,13 @@ function PasswordResetView(props) {/*updateLocation*/
     <Form
     formTitle="Сброс пароля"
     submitTitle="СБРОСИТЬ"
-    submitLink="#"
+    submitLink="/signin"
     submitCallback={data => {
-      return passwordResetApi(data);
+      return passwordResetApi({ ...data, token: props.params.token });
     }}
     updateLocation = { props.updateLocation }>
-    <Input name="password" label="Пароль"></Input>
-    <Input name="password_repeat" label="Повторите пароль"></Input>
+    <Input attr={{ name: 'password' }} label="Пароль"></Input>
+    <Input attr={{ name: 'password_repeat' }} label="Повторите пароль"></Input>
     </Form>
   );
 }

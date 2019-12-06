@@ -23,7 +23,7 @@ function TermsView(props){/*updateLocation*/
       <Link
       className="button terms-view__button"
       title="Я СОГЛАСЕН"
-      path=""
+      path="/account"
       updateLocation={ props.updateLocation }></Link>
     </div>
   );
