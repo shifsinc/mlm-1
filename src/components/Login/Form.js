@@ -1,10 +1,11 @@
 import React from 'react';
+import './Form.css';
 
 function Form(props){/*formTitle, submitTitle, submitLink, submitCallback, className*/
-  var form, error;
+  var form, message;
   return (
     <form className={ 'form-view interface-block login-view' + (props.className ? ' ' + props.className : '') } ref={r => form = r}>
-      <div className="error" ref={r => error = r}>{ props.formError ? props.formError: '' }</div>
+      <div className="message" ref={r => message = r}></div>
       { props.formTitle ? <h3 className="form-view__title">{ props.formTitle }</h3> : undefined }
       <div className="form-view__cont">
         { props.children }
@@ -21,9 +22,9 @@ function Form(props){/*formTitle, submitTitle, submitLink, submitCallback, class
               window.history.pushState(null, '', props.submitLink);
               props.updateLocation();
             }).catch(err => {
-              error.innerHTML = err.message;
+              message.innerHTML = err.message;
               if(err.fields) err.fields.forEach(f => form.querySelector('input[name="' + f + '"]').classList.add('incorrect'));
-              form.classList.add('show-error');
+              form.classList.add('show-message');
             });
 
           }}>{ props.submitTitle }</a>
