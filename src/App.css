@@ -63,8 +63,16 @@ html, body, #root  {
   text-align: center;
   font-weight: 800;
 }
-.button_inactive {
+.button:hover {
+  color: #FFF;
+  background-color: var(--color1);
+}
+.button.button_inactive {
   border-color: #000;
+}
+.button.button_inactive:hover {
+  color: #FFF;
+  background-color: #000;
 }
 
 .interface-block {
