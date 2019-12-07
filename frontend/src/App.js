@@ -14,7 +14,7 @@ import TermsView from './components/TermsView';
 
 import MainView from './components/Main/MainView.js';
 
-import signoutApi from './api/signout.js'
+import apiCall from './apiCall.js'
 
 class App extends React.Component {
   constructor(props){
@@ -64,7 +64,7 @@ class App extends React.Component {
         return <MainView { ...params }></MainView>;
 
       case '/signout':
-        signoutApi().catch(e => alert(e));
+        apiCall('signout');
       default:
         return <StartView { ...params }></StartView>;
     }

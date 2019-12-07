@@ -4,7 +4,7 @@ import Form from './Form.js'
 import Input from '../Input.js'
 import noPhoto from '../../img/noPhoto.png';
 
-import fillDataApi from '../../api/fillData.js';
+import apiCall from '../../apiCall.js'
 
 function FillDataView(props){/*updateLocation*/
   var photo;
@@ -13,9 +13,8 @@ function FillDataView(props){/*updateLocation*/
       className="fill-data-view"
       formTitle="Заполните личные данные"
       submitTitle="СОХРАНИТЬ"
-      submitLink="/terms"
       submitCallback={data => {
-        return fillDataApi(data);
+        return apiCall('fillData', data);
       }}
       updateLocation = { props.updateLocation }>
       <div className="fill-data-view__flex-cont">

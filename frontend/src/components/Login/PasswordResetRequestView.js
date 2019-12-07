@@ -3,19 +3,19 @@ import './PasswordResetRequestView.css'
 import Form from './Form.js'
 import Input from '../Input.js'
 
-import passwordResetRequestApi from '../../api/passwordResetRequest.js';
+import apiCall from '../../apiCall.js'
 
 function PasswordResetRequestView(props) {/*updateLocation*/
+  var emailRegexp = '^[\\w\\.]+@([a-zA-Z\\-0-9]\\.?)+$';
   return (
     <Form
       formTitle="Запрос сброса пароля"
       submitTitle="ОТПРАВИТЬ"
-      submitLink="#"
       submitCallback={data => {
-        return passwordResetRequestApi(data);
+        return apiCall('passwordResetRequest', data);
       }}
       updateLocation = { props.updateLocation }>
-      <Input attr={{ name: 'email' }} label="Ваш E-mail"></Input>
+      <Input attr={{ name: 'email', 'data-regexp': emailRegexp }} label="Ваш E-mail"></Input>
     </Form>
   );
 }

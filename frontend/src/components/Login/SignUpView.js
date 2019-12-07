@@ -5,29 +5,33 @@ import Input from '../Input.js'
 import Switch from './Switch.js'
 import noPhoto from '../../img/noPhoto.png';
 
-import signupApi from '../../api/signup.js'
-import getReferInfoApi from '../../api/getReferInfo.js'
+import apiCall from '../../apiCall.js'
 
 function SignUpView(props){/*updateLocation*/
   var refer = props.params.refer ? props.params.refer : '', mode = props.m ? props.m : 'g',
     referEmail, referPhoto, referCode;
 
+  var _setReferDefault = () => {
+    referPhoto.src = noPhoto;
+    referEmail.value = '';
+  }
   var onReferChange = value => {
-    if( !( /^[0-9]{11,15}$/.test(value) ) ){
-      referPhoto.src = noPhoto;
-      referEmail.value = '';
-    } else {
-      getReferInfoApi(value).then(r => {
-        referPhoto.src = r.photoUrl;
-        referEmail.value = r.email;
-      }).catch(e => {
-        referPhoto.src = noPhoto;
-        referEmail.value = '';
+    if( !( /^[0-9]{11,15}$/.test(value) ) )_setReferDefault();
+    else {
+      apiCall('getReferInfo', { code: value }).then(r => {
+        if( !r.result.length ) _setReferDefault();
+        else {
+          referPhoto.src = r.photoUrl;
+          referEmail.value = r.email;
+        }
       });
     }
   }
   setTimeout(() => {referCode.value = refer;onReferChange(refer)}, 0);
 
+  var loginRegexp = '^\\w{5,30}$',
+    emailRegexp = '^[\\w\\.]+@([a-zA-Z\\-0-9]\\.?)+$',
+    passwordRegexp = '';
   return (
     <div className="login-view sign-up-view__cont">
       <div className="form-view interface-block sign-up-view__refer"><div className="form-view__cont">
@@ -40,18 +44,17 @@ function SignUpView(props){/*updateLocation*/
       </div></div>
       <Form
           submitTitle="РЕГИСТРАЦИЯ"
-          submitLink="/fillData"
           submitCallback={data => {
-            return signupApi({ ...data, refer, mode });
+            return apiCall('signup', { ...data, refer, mode });
           }}
           updateLocation = { props.updateLocation }>
         <Switch action="/signup" updateLocation={ props.updateLocation }></Switch>
-        <Input attr={{ name: 'login' }} label="Логин"></Input>
+        <Input attr={{ name: 'login', 'data-regexp': loginRegexp }} label="Логин"></Input>
 
-        <Input attr={{ name: 'email' }} label="E-mail"></Input>
-        <Input attr={{ name: 'email_repeat' }} label="Повторите E-mail"></Input>
-        <Input attr={{ name: 'password' }} label="Пароль"></Input>
-        <Input attr={{ name: 'password_repeat' }} label="Повторите пароль"></Input>
+        <Input attr={{ name: 'email', 'data-regexp': emailRegexp  }} label="E-mail"></Input>
+        <Input attr={{ name: 'email_repeat', 'data-regexp': emailRegexp }} label="Повторите E-mail"></Input>
+        <Input attr={{ name: 'password', 'data-regexp': passwordRegexp, type: 'password' }} label="Пароль"></Input>
+        <Input attr={{ name: 'password_repeat', 'data-regexp': passwordRegexp, type: 'password' }} label="Повторите пароль"></Input>
       </Form>
     </div>
   );
