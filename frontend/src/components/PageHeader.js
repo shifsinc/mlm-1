@@ -4,7 +4,7 @@ import Link from './Link.js'
 import logo from '../img/logo_small.png'
 import logo2x from '../img/logo_small@2x.png'
 
-function PageHeader(props){/*isSignedIn, updateLocation*/
+export default function(props){/*isSignedIn, updateLocation*/
   var buttonHref, buttonTitle, buttonClass;
   if( props.isSignedIn ){
     buttonHref = '/signout';
@@ -31,5 +31,3 @@ function PageHeader(props){/*isSignedIn, updateLocation*/
     </header>
   );
 }
-
-export default PageHeader;

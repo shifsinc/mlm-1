@@ -1,7 +1,7 @@
 import React from 'react';
 import './Link.css';
 
-function Link(props) {/*className, title, path, updateLocation*/
+export default function(props) {/*className, title, path, updateLocation*/
   return (
     <a className={ 'link ' + (props.className ? props.className : '') } href={ props.path }
         onClick={e => {
@@ -11,5 +11,3 @@ function Link(props) {/*className, title, path, updateLocation*/
         }}>{ props.children ? props.children : props.title }</a>
   );
 }
-
-export default Link;

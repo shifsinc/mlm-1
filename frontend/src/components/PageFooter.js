@@ -6,7 +6,7 @@ import instagramLogo from '../img/icon/instagram@2x.png'
 import telegramLogo from '../img/icon/telegram@2x.png'
 import vkLogo from '../img/icon/vk@2x.png'
 
-function PageFooter(props){/*updateLocation*/
+export default function(props){/*updateLocation*/
   return (
     <footer id="page-footer">
       <Link
@@ -14,7 +14,7 @@ function PageFooter(props){/*updateLocation*/
       title="Пользовательское соглашение"
       path="/terms"
       updateLocation={ props.updateLocation }></Link>
-      <div className="page-footer__label">YODAFX.PRO© 2019</div>
+      <div className="page-footer__label">YODAFX.PRO © 2019</div>
       <div className="page-footer__socials">
         <a href="#" target="_blank" rel="noopener noreferrer"><img src={ facebookLogo } alt="facebook"/></a>
         <a href="https://instagram.com/yodafxpro_offical" target="_blank" rel="noopener noreferrer">
@@ -26,5 +26,3 @@ function PageFooter(props){/*updateLocation*/
     </footer>
   );
 }
-
-export default PageFooter;

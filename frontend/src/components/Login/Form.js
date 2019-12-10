@@ -1,7 +1,7 @@
 import React from 'react';
 import './Form.css';
 
-function Form(props){/*formTitle, submitTitle, submitCallback, className*/
+export default function(props){/*formTitle, submitTitle, submitCallback, className*/
   var form, message,
     showMessage = msg => {
       message.innerHTML = msg;
@@ -17,25 +17,18 @@ function Form(props){/*formTitle, submitTitle, submitCallback, className*/
           onClick={e => {
 
             e.preventDefault();
-            var data = {}, fl = false;
+            var data = {};
+            if( form.querySelector('input.incorrect') ) return;
             Array.prototype.forEach.call( form.querySelectorAll('input'), inp => {
               if(inp.type === 'file') data[ inp.name ] = inp.files.length ? inp.files[0].slice() : null;
-              else {
-                if( inp.dataset.regexp && !new RegExp( inp.dataset.regexp ).test( inp.value ) ){
-                  fl = true;
-                  inp.classList.add('incorrect');
-                } else {
-                  data[ inp.name ] = inp.value;
-                  inp.classList.remove('incorrect');
-                }
-              }
+              else data[ inp.name ] = inp.value;
             });
-            if(fl) return;
-            props.submitCallback( data ).then(r => {/*result, text, fields, path*/
-              if( r.text ) showMessage( r.text );
-              if( r.fields ) r.fields.forEach(f => form.querySelector('input[name="' + f + '"]').classList.add('incorrect'));
-              if( r.path ){
-                window.history.pushState(null, '', r.path);
+            props.submitCallback( data ).then(({ action }) => {/*text, fields, path*/
+              if( !action ) return;
+              if( action.text ) showMessage( action.text );
+              if( action.fields ) action.fields.forEach(f => form.querySelector('input[name="' + f + '"]').classList.add('incorrect'));
+              if( action.path ){
+                window.history.pushState(null, '', action.path);
                 props.updateLocation();
               }
             });
@@ -45,5 +38,3 @@ function Form(props){/*formTitle, submitTitle, submitCallback, className*/
     </form>
   );
 }
-
-export default Form;

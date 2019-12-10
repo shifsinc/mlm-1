@@ -4,7 +4,7 @@ import Link from './Link.js';
 import logo from '../img/logo.png'
 import logo2x from '../img/logo@2x.png'
 
-function StartView(props){/*isSignedIn, updateLocation*/
+export default function(props){/*isSignedIn, updateLocation*/
   var buttonHref, buttonTitle;
   if( props.isSignedIn ){
     buttonHref = '/account';
@@ -25,5 +25,3 @@ function StartView(props){/*isSignedIn, updateLocation*/
     </div>
   );
 }
-
-export default StartView;

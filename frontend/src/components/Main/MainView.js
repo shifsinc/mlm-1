@@ -2,16 +2,16 @@ import React from 'react';
 import MenuView from './MenuView.js'
 import AccountView from './AccountView.js'
 
-function MainView(props) {/*updateLocation, action*/
+function MainView(props) {/*updateLocation, location*/
   var view;
-  switch( props.action ){
+  switch( props.location ){
     case '/account':
       view = <AccountView updateLocation={ props.updateLocation }></AccountView>
       break;
   }
   return (
     <div>
-      <MenuView action={ props.action }></MenuView>
+      <MenuView action={ props.location }></MenuView>
       { view }
     </div>
   );

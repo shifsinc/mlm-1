@@ -4,60 +4,58 @@ import Form from './Form.js'
 import Input from '../Input.js'
 import Switch from './Switch.js'
 import noPhoto from '../../img/noPhoto.png';
+import { loginRegexp, emailRegexp, passwordRegexp } from '../../const.js';
 
-import apiCall from '../../apiCall.js'
+export default function(props){/*updateLocation*/
+  var refer = props.params.refer ? props.params.refer : '', type = props.params.type ? props.params.type : 'g',
+    referPhoto, referEmail, referPhone,
+    email, emailRepeat,
+    password, passwordRepeat;
 
-function SignUpView(props){/*updateLocation*/
-  var refer = props.params.refer ? props.params.refer : '', mode = props.m ? props.m : 'g',
-    referEmail, referPhoto, referCode;
-
-  var _setReferDefault = () => {
-    referPhoto.src = noPhoto;
-    referEmail.value = '';
-  }
   var onReferChange = value => {
-    if( !( /^[0-9]{11,15}$/.test(value) ) )_setReferDefault();
-    else {
-      apiCall('getReferInfo', { code: value }).then(r => {
-        if( !r.result.length ) _setReferDefault();
-        else {
-          referPhoto.src = r.photoUrl;
-          referEmail.value = r.email;
-        }
-      });
-    }
+    props.apiCall('getReferInfo', value).then(res=> {
+      if( res.status !== 'error' ){console.log(res)
+        referPhoto.src = res.result.photoUrl;
+        referEmail.value = res.result.user_email;
+        referPhone.value = refer = res.result.user_phone;
+      }
+    });
   }
-  setTimeout(() => {referCode.value = refer;onReferChange(refer)}, 0);
+  setTimeout(() => { referPhone.value = refer; onReferChange({ user_phone: refer }) }, 0);
 
-  var loginRegexp = '^\\w{5,30}$',
-    emailRegexp = '^[\\w\\.]+@([a-zA-Z\\-0-9]\\.?)+$',
-    passwordRegexp = '';
   return (
     <div className="login-view sign-up-view__cont">
       <div className="form-view interface-block sign-up-view__refer"><div className="form-view__cont">
         <div className="form-view__title">Ваш рефер</div>
         <img alt="avatar" src={ noPhoto } ref={r => referPhoto = r}/>
-        <Input attr={{ name: 'email', readOnly: true, ref: r => referEmail = r }}
-          className="label-top" label="E-mail"></Input>
-        <Input attr={{ name: 'refer', ref: r => referCode = r , onChange: e => onReferChange(e.target.value) }}
-          className="label-top" label="Код рефера"></Input>
+        <Input attr={{ name: 'email', ref: r => referEmail = r, onChange: e => onReferChange({ user_email: e.target.value }) }}
+          label="E-mail"></Input>
+        <Input attr={{ name: 'phone', ref: r => referPhone = r , onChange: e => onReferChange({ user_phone: e.target.value }) }}
+          label="Код рефера"></Input>
       </div></div>
       <Form
           submitTitle="РЕГИСТРАЦИЯ"
           submitCallback={data => {
-            return apiCall('signup', { ...data, refer, mode });
+            var errFields = [];
+            if( email.value !== emailRepeat.value ) errFields.push('email', 'email_repeat');
+            if( password.value !== passwordRepeat.value ) errFields.push('password', 'password_repeat');
+            return errFields.length ?
+              Promise.resolve({ action: { fields: errFields } }) :
+              props.apiCall('signup', { ...data, refer, type });
           }}
           updateLocation = { props.updateLocation }>
         <Switch action="/signup" updateLocation={ props.updateLocation }></Switch>
-        <Input attr={{ name: 'login', 'data-regexp': loginRegexp }} label="Логин"></Input>
+        <Input attr={{ name: 'login' }} regexp={ loginRegexp } label="Логин"></Input>
 
-        <Input attr={{ name: 'email', 'data-regexp': emailRegexp  }} label="E-mail"></Input>
-        <Input attr={{ name: 'email_repeat', 'data-regexp': emailRegexp }} label="Повторите E-mail"></Input>
-        <Input attr={{ name: 'password', 'data-regexp': passwordRegexp, type: 'password' }} label="Пароль"></Input>
-        <Input attr={{ name: 'password_repeat', 'data-regexp': passwordRegexp, type: 'password' }} label="Повторите пароль"></Input>
+        <Input attr={{ name: 'email', ref: r => email = r  }}
+          regexp={ emailRegexp } label="E-mail"></Input>
+        <Input attr={{ name: 'email_repeat', ref: r => emailRepeat = r }}
+          regexp={ emailRegexp } label="Повторите E-mail"></Input>
+        <Input attr={{ name: 'password', type: 'password', ref: r => password = r }}
+          regexp={ passwordRegexp } label="Пароль"></Input>
+        <Input attr={{ name: 'password_repeat', type: 'password', ref: r => passwordRepeat = r }}
+          regexp={ passwordRegexp } label="Повторите пароль"></Input>
       </Form>
     </div>
   );
 }
-
-export default SignUpView;

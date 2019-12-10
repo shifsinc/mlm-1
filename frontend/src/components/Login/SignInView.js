@@ -4,20 +4,18 @@ import Form from './Form.js'
 import Input from '../Input.js'
 import Switch from './Switch.js'
 import Link from '../Link.js'
+import { loginRegexp } from '../../const.js';
 
-import apiCall from '../../apiCall.js'
-
-function SignInView(props) {/*updateLocation*/
-  var loginRegexp = '^(\\w{5,30})|([\\w\\.]+@([a-zA-Z\\-0-9]\\.?)+)$';
+export default function(props) {/*updateLocation, updateToken*/
   return (
     <Form
       submitTitle="ВОЙТИ"
       submitCallback={data => {
-        return apiCall('signin', data);
+        return props.apiCall('signin', data).then( r => r.status === 'ok' ? (props.updateToken(r.result.token) && r) : r );
       }}
       updateLocation = { props.updateLocation }>
       <Switch action="/signin" updateLocation={ props.updateLocation }></Switch>
-      <Input attr={{ name: 'login', 'data-regexp': loginRegexp }} label="E-mail или логин" ></Input>
+      <Input attr={{ name: 'login' }} regexp={ loginRegexp } label="E-mail или логин" ></Input>
       <Input attr={{ name: 'password', type: 'password' }} label="Пароль"></Input>
       <div className="signin-view__reset-pass">
         Забыли пароль?
@@ -30,5 +28,3 @@ function SignInView(props) {/*updateLocation*/
       </Form>
   );
 }
-
-export default SignInView;

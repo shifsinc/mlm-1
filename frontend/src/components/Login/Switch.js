@@ -2,7 +2,7 @@ import React from 'react';
 import './Switch.css'
 import Link from '../Link.js'
 
-function Switch(props){/*action, updateLocation*/
+export default function(props){/*action, updateLocation*/
   var action = props.action
   return (
     <div className="login-switch">
@@ -21,5 +21,3 @@ function Switch(props){/*action, updateLocation*/
     </div>
   );
 }
-
-export default Switch;

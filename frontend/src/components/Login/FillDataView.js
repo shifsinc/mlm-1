@@ -3,10 +3,9 @@ import './FillDataView.css'
 import Form from './Form.js'
 import Input from '../Input.js'
 import noPhoto from '../../img/noPhoto.png';
+import { nameRegexp, phoneRegexp, linkRegexp, telegramRegexp } from '../../const.js';
 
-import apiCall from '../../apiCall.js'
-
-function FillDataView(props){/*updateLocation*/
+export default function(props){/*updateLocation*/
   var photo;
   return (
     <Form
@@ -14,7 +13,7 @@ function FillDataView(props){/*updateLocation*/
       formTitle="Заполните личные данные"
       submitTitle="СОХРАНИТЬ"
       submitCallback={data => {
-        return apiCall('fillData', data);
+        return props.apiCall('fillData', { ...data, token: props.token });
       }}
       updateLocation = { props.updateLocation }>
       <div className="fill-data-view__flex-cont">
@@ -25,21 +24,19 @@ function FillDataView(props){/*updateLocation*/
           <img alt="avatar" src={noPhoto} ref={ r => photo = r }/>
         </label>
         <div className="fill-data-view__fields">
-          <Input attr={{ name: 'login' }} label="Ваш логин"></Input>
-          <Input attr={{ name: 'email' }} label="Ваш E-mail"></Input>
+          <Input attr={{ name: 'login', readOnly: true }} label="Ваш логин"></Input>
+          <Input attr={{ name: 'email', readOnly: true }} label="Ваш E-mail"></Input>
           <div className="fill-data-view__cont">
-            <Input attr={{ name: 'name' }} label="Имя"></Input>
-            <Input attr={{ name: 'lastname' }} label="Фамилия"></Input>
+            <Input attr={{ name: 'name' }} regexp={ nameRegexp } label="Имя"></Input>
+            <Input attr={{ name: 'lastname' }} regexp={ nameRegexp } label="Фамилия"></Input>
           </div>
-          <Input attr={{ name: 'phone' }} label="Телефон"></Input>
+          <Input attr={{ name: 'phone' }} regexp={ phoneRegexp } label="Телефон"></Input>
           <div className="fill-data-view__cont">
-            <Input attr={{ name: 'social_link' }} label="Страница в социальной сети"></Input>
-            <Input attr={{ name: 'telegram' }} label="Telegram"></Input>
+            <Input attr={{ name: 'social_link' }} regexp={ linkRegexp } label="Страница в социальной сети"></Input>
+            <Input attr={{ name: 'telegram' }}regexp={ telegramRegexp }  label="Telegram"></Input>
           </div>
         </div>
       </div>
     </Form>
   );
 }
-
-export default FillDataView;
