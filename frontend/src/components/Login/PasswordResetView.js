@@ -11,7 +11,7 @@ export default function(props) {/*updateLocation*/
     submitTitle="СБРОСИТЬ"
     submitCallback={data => {
       var errFields = [];
-      if( password.value !== passwordRepeat.value ) errFields.push('password', 'password_repeat');
+      if( password.value !== passwordRepeat.value ) errFields.push('password_repeat');
       return errFields.length ?
         Promise.resolve({ action: { fields: errFields } }) :
         props.apiCall('passwordReset', { ...data, resetToken: props.params.resetToken });

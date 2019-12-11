@@ -6,8 +6,7 @@ export default function(props) {/*className, title, path, updateLocation*/
     <a className={ 'link ' + (props.className ? props.className : '') } href={ props.path }
         onClick={e => {
           e.preventDefault();
-          window.history.pushState(null, '', props.path);
-          props.updateLocation();
+          props.updateLocation( props.path );
         }}>{ props.children ? props.children : props.title }</a>
   );
 }

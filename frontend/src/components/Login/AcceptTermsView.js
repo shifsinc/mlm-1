@@ -10,7 +10,7 @@ export default function(props){/*updateLocation*/
       <Link
       className="button accept-terms-view__button"
       title="Я СОГЛАСЕН"
-      path="/account"
+      path="/fillData"
       updateLocation={ props.updateLocation }></Link>
     </div>
   );

@@ -6,7 +6,14 @@ import noPhoto from '../../img/noPhoto.png';
 import { nameRegexp, phoneRegexp, linkRegexp, telegramRegexp } from '../../const.js';
 
 export default function(props){/*updateLocation*/
-  var photo;
+  var photo, login, email;
+  setTimeout(() => {
+    props.apiCall('getUserInfo').then(r => {
+      if( !r.result ) return;
+      login.value = r.result.user_login;
+      email.value = r.result.user_email;
+    });
+  }, 0);
   return (
     <Form
       className="fill-data-view"
@@ -24,8 +31,8 @@ export default function(props){/*updateLocation*/
           <img alt="avatar" src={noPhoto} ref={ r => photo = r }/>
         </label>
         <div className="fill-data-view__fields">
-          <Input attr={{ name: 'login', readOnly: true }} label="Ваш логин"></Input>
-          <Input attr={{ name: 'email', readOnly: true }} label="Ваш E-mail"></Input>
+          <Input attr={{ name: 'login', readOnly: true, ref: r => login = r }} label="Ваш логин" className="label-top"></Input>
+          <Input attr={{ name: 'email', readOnly: true, ref: r => email = r }} label="Ваш E-mail" className="label-top"></Input>
           <div className="fill-data-view__cont">
             <Input attr={{ name: 'name' }} regexp={ nameRegexp } label="Имя"></Input>
             <Input attr={{ name: 'lastname' }} regexp={ nameRegexp } label="Фамилия"></Input>

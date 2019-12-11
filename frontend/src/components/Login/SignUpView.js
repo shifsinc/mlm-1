@@ -14,8 +14,8 @@ export default function(props){/*updateLocation*/
 
   var onReferChange = value => {
     props.apiCall('getReferInfo', value).then(res=> {
-      if( res.status !== 'error' ){console.log(res)
-        referPhoto.src = res.result.photoUrl;
+      if( res.status !== 'error' ){
+        referPhoto.src = res.result.user_photo;
         referEmail.value = res.result.user_email;
         referPhone.value = refer = res.result.user_phone;
       }
@@ -37,14 +37,14 @@ export default function(props){/*updateLocation*/
           submitTitle="РЕГИСТРАЦИЯ"
           submitCallback={data => {
             var errFields = [];
-            if( email.value !== emailRepeat.value ) errFields.push('email', 'email_repeat');
-            if( password.value !== passwordRepeat.value ) errFields.push('password', 'password_repeat');
+            if( email.value !== emailRepeat.value ) errFields.push('email_repeat');
+            if( password.value !== passwordRepeat.value ) errFields.push('password_repeat');
             return errFields.length ?
               Promise.resolve({ action: { fields: errFields } }) :
               props.apiCall('signup', { ...data, refer, type });
           }}
           updateLocation = { props.updateLocation }>
-        <Switch action="/signup" updateLocation={ props.updateLocation }></Switch>
+        <Switch location="/signup" updateLocation={ props.updateLocation }></Switch>
         <Input attr={{ name: 'login' }} regexp={ loginRegexp } label="Логин"></Input>
 
         <Input attr={{ name: 'email', ref: r => email = r  }}

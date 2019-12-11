@@ -22,7 +22,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       location: window.location.pathname,
-      token: window.localStorage['authToken']
+      authToken: window.localStorage['authToken']
     };
   }
 
@@ -31,7 +31,7 @@ class App extends React.Component {
   }
 
   render(){
-    var mainCont = this._getCurrentView(), isSignedIn = this.state.token ? true : false;
+    var mainCont = this._getCurrentView(), isSignedIn = this.state.authToken ? true : false;
     return (
       <div className="App">
         <PageHeader isSignedIn={ isSignedIn } updateLocation={ this._updateLocation }></PageHeader>
@@ -42,57 +42,71 @@ class App extends React.Component {
   }
 
   _getCurrentView = () => {
-    var isSignedIn = this.state.token ? true : false;
+    var isSignedIn = this.state.authToken ? true : false;
     var props = {
       updateLocation: this._updateLocation,
       apiCall: this._apiCall,
       params: this._getSearchParams(),
-      location: this.state.location,
-      token: this.state.token
+      location: this.state.location
     };
     switch( this.state.location ){
       case '/signin':
-        //if( isSignedIn ) return this.setState({ location: '/account' });
-        return <SignInView { ...props } updateToken={ this._updateToken }></SignInView>;
+        //if( isSignedIn ) return this._updateLocation('/account');
+        return <SignInView { ...props } updateAuthToken={ this._updateAuthToken }></SignInView>;
       case '/signup':
-        //if( isSignedIn ) return this.setState({ location: '/account' });
+        if( isSignedIn ) return this._updateLocation('/account');
         return <SignUpView { ...props }></SignUpView>;
       case '/fillData':
+        if( !isSignedIn ) return this._updateLocation('/signin');
         return <FillDataView { ...props }></FillDataView>;
       case '/acceptTerms':
+        if( !isSignedIn ) return this._updateLocation('/signin');
         return <AcceptTermsView { ...props }></AcceptTermsView>;
       case '/passwordResetRequest':
-        //if( isSignedIn ) return this.setState({ location: '/account' });
+        if( isSignedIn ) return this._updateLocation('/account');
         return <PasswordResetRequestView { ...props }></PasswordResetRequestView>;
       case '/passwordReset':
+        if( isSignedIn ) return this._updateLocation('/account');
         return <PasswordResetView { ...props }></PasswordResetView>;
       case '/terms':
         return <TermsView { ...props }></TermsView>;
 
       case '/account':
-        //if( !isSignedIn ) return this.setState({ location: '/signin' });
+        if( !isSignedIn ) return this._updateLocation('/signin');
         return <MainView { ...props }></MainView>;
 
       case '/signout':
-        apiCall('signout', props.token).then(r => {
-          if( r.status === 'ok' ) window.localStorage.clear('authToken');
+        this._apiCall('signout').then(r => {
+          if( r.status === 'ok' ){
+            window.localStorage.clear('authToken');
+            this.setState({ authToken: null });
+          }
+          this._updateLocation('/');
         });
+        break;
+      case '/confirmEmail':
+        this._apiCall('confirmEmail', { confirmToken: props.params.confirmToken }).then(r => {
+          this._updateLocation(r.action.path);
+        });
+        break;
       default:
+        if( isSignedIn ) return this._updateLocation('/account');
         return <StartView { ...props }></StartView>;
     }
   }
 
-  _updateLocation = () => {
-    this.setState({ location: window.location.pathname });
+  _updateLocation = location => {
+    window.history.pushState(null, '', location);
+    setTimeout( () => this.setState({ location: location }), 0 );
   }
 
-  _updateToken = token => {
-    window.localStorage['authToken'] = token;
-    this.setState({ token: token });
+  _updateAuthToken = authToken => {
+    window.localStorage['authToken'] = authToken;
+    setTimeout( () => this.setState({ authToken }), 0 );
   }
 
   _apiCall = (method, data) => {
-    return apiCall(method, this.state.token, data);
+    return apiCall(method, this.state.authToken, data);
   }
 
   _getSearchParams = () => {
