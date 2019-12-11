@@ -56,23 +56,26 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`users` (
   `user_id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_login` VARCHAR(30) NOT NULL,
   `user_password_hash` VARCHAR(65) NOT NULL,
-  `user_name` VARCHAR(40) NOT NULL,
-  `user_surname` VARCHAR(40) NOT NULL,
-  `user_status` INT(11) NOT NULL,
+  `user_name` VARCHAR(40) NULL DEFAULT NULL,
+  `user_surname` VARCHAR(40) NULL DEFAULT NULL,
   `user_dt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `role_id` INT(11) NOT NULL DEFAULT 2,
   `user_refer` INT(11) NULL DEFAULT NULL,
   `user_email` VARCHAR(45) NOT NULL,
-  `user_phone` INT(13) NULL DEFAULT NULL,
+  `user_phone` BIGINT(52) NULL DEFAULT NULL,
   `user_social` VARCHAR(45) NULL DEFAULT NULL,
   `user_telegram` VARCHAR(45) NULL DEFAULT NULL,
   `user_photo` VARCHAR(45) NULL DEFAULT NULL,
   `user_bonus_level` INT(10) ZEROFILL NULL,
   `user_rate` INT(10) NULL,
-  `left_ref` VARCHAR(45) NULL,
-  `right_ref` VARCHAR(45) NULL,
-  `common_ref` VARCHAR(45) NULL,
   `account_id` INT NOT NULL,
+
+  `user_refer_type` ENUM('l', 'r', 'g') NOT NULL DEFAULT 'g',
+  `password_reset_token` VARCHAR(32) NULL DEFAULT NULL,
+  `password_reset_token_ts` TIMESTAMP NULL DEFAULT NULL,
+  `user_data_filled` BOOL NOT NULL DEFAULT FALSE,
+  `email_confirm_token` VARCHAR(32) NULL DEFAULT NULL,
+
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `user_login_UNIQUE` (`user_login` ASC),
   UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC),
@@ -99,6 +102,23 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`users` (
 ENGINE = InnoDB
 AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mlm_db`.`users_sessions`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mlm_db`.`users_sessions` ;
+
+CREATE TABLE IF NOT EXISTS `mlm_db`.`users_sessions` (
+  `user_id` INT NOT NULL,
+  `token` VARCHAR(32) NOT NULL,
+  UNIQUE INDEX `token_UNIQUE` (`token` ASC),
+  CONSTRAINT `user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `mlm_db`.`users` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const { MYSQL_AUTH } = require('./config.js');
-const { INCORRECT_QUERY, AUTH_FAILED } = require('./const.js');
+const { INCORRECT_QUERY, AUTH_FAILED, tokenRegexp, ADMIN_ROLE, FORBIDDEN } = require('./const.js');
 
 
 var _con;
@@ -11,10 +11,11 @@ function initMysqlConnection(onSuccess, onError){
     else onSuccess();
   });
 }
-function makeQuery(query, params = [], callback){
+function makeQuery(query, params = [], onSuccess, onError){
   if(!_con) return;
   _con.query(query, params, (err, result) => {
-    if(callback) callback( err ? { status: 'error', text: err.sqlMessage/*'Internal error'*/ } : {status: 'ok', result} );
+    if(err) onError && onError({ status: 'error', text: err.sqlMessage/*'Internal error'*/ });
+    else onSuccess && onSuccess({ status: 'ok', result } );
   });
 }
 module.exports.makeQuery = makeQuery;
@@ -22,17 +23,40 @@ module.exports.initMysqlConnection = initMysqlConnection;
 
 ///////////////////////
 
-var checkAuth = (token, onSuccess, onFailed) => {
-  if( !( /^[a-z0-9]{32}$/.test(token) ) ) return onFailed( INCORRECT_QUERY );
-  onFailed( AUTH_FAILED );
-  /*makeQuery(`SELECT user_id, role_id FROM users WHERE user_hash=?`, [ token ],
+module.exports.checkAuth = (token, onSuccess, onFailed, onError) => {
+  if( !tokenRegexp.test(token) ) return onError( INCORRECT_QUERY );
+  makeQuery(`SELECT user_id FROM users_sessions WHERE token=?`, [ token ],
   res => {
-    if(res.status == 'error') return onFailed( res );
-    if(res.result.length === 1) onSuccess( res.result[0].user_id, res.result[0].role_id );
+    if(res.result.length === 1) onSuccess( res.result[0].user_id );
     else onFailed( AUTH_FAILED );
-  });*/
+  }, onError);
 }
-module.exports.checkAuth = checkAuth;
+
+module.exports.validateUser = function(user_id, onSuccess, onFailed, onError){
+  makeQuery(`SELECT email_confirm_token, user_data_filled FROM users WHERE user_id=?`, [ user_id ],
+    res => {
+    if( !res.result.length ) return onError({ status: 'error', text: 'user doesn\'t exist' });
+
+    if( res.result[0].email_confirm_token !== null )
+      onFailed({ status: 'error', text: 'email not confirmed', action: {
+        text: 'Пожалуйста, подтвердите электронную почту'
+      } });
+    else if( !res.result[0].user_data_filled )
+      onFailed({ status: 'error', text: 'user data doesn\'t filled', action: {
+        path: '/acceptTerms',
+        text: 'Пожалуйста, заполните данные'
+      } });
+    else onSuccess();
+  }, onError);
+}
+
+module.exports.checkAdmin = (user_id, onSuccess, onFailed, onError) => {
+  makeQuery(`SELECT role_id FROM users WHERE user_id=?`, [ user_id ],
+  res => {
+    if( res.result[0].role_id == ADMIN_ROLE ) onSuccess();
+    else onFailed( FORBIDDEN );
+  }, onError);
+}
 
 //////////////////////
 

@@ -1,9 +1,26 @@
-const { checkAuth } = require('./utils.js');
+const { checkAuth, validateUser, checkAdmin } = require('./utils.js');
 
-var authWrapper = method => {
+const authWrapper = method => {
   return (callback, params) => checkAuth(params.token,
-    (user_id, role_id) => method(callback, { ...params, user_id, role_id }),
-    err => callback(err)
+    user_id => method(callback, params, user_id),
+    callback,
+    callback
+  );
+}
+
+const validateWrapper = method => {
+  return (callback, params, user_id) => validateUser(params.user_id,
+    () => method(callback, params, user_id),
+    callback,
+    callback
+  );
+}
+
+const adminWrapper = method => {
+  return (callback, params, user_id) => checkAdmin(params.user_id,
+    () => method(callback, params, user_id),
+    callback,
+    callback
   );
 }
 
@@ -15,6 +32,9 @@ module.exports = {
     '/fillData': authWrapper( require('./methods/fillData.js') ),
     '/passwordResetRequest': require('./methods/passwordResetRequest.js'),
     '/passwordReset': require('./methods/passwordReset.js'),
-    '/getReferInfo': require('./methods/getReferInfo.js')
+    '/getReferInfo': require('./methods/getReferInfo.js'),
+    '/confirmEmail': require('./methods/confirmEmail.js'),
+
+    '/getUserInfo': authWrapper( require('./methods/getUserInfo.js') )
   }
 }

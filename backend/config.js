@@ -1,5 +1,5 @@
 exports.SERVER_HOST = '0.0.0.0';
-exports.SERVER_PORT = 8080;//8081;
+exports.SERVER_PORT = 8081;
 
 const MYSQL_HOST = 'localhost';
 const MYSQL_USER = 'root';
