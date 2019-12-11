@@ -8,6 +8,8 @@ function MainView(props) {/*updateLocation, location*/
     case '/account':
       view = <AccountView updateLocation={ props.updateLocation }></AccountView>
       break;
+    default:
+      
   }
   return (
     <div>
