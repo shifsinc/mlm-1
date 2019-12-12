@@ -1,0 +1,31 @@
+.main-view {
+  display: flex;
+  justify-content: space-between;
+  min-width: 700px;
+  max-width: 900px;
+  width: 100%;
+  margin: 30px auto;
+}
+.main-view__menu {
+  width: 26%;
+}
+.main-view__content {
+  width: 70%;
+}
+
+@media screen and (max-width: 910px){
+  .main-view {
+    margin: 5px;
+  }
+}
+@media screen and (max-width: 700px){
+  .main-view {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+  .main-view__menu,
+  .main-view__content {
+    width: 100%;
+  }
+}

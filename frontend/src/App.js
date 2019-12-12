@@ -35,7 +35,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <PageHeader isSignedIn={ isSignedIn } updateLocation={ this._updateLocation }></PageHeader>
-        <div className="main-view">{ mainCont }</div>
+        <div id="content-view">{ mainCont }</div>
         <PageFooter updateLocation={ this._updateLocation }></PageFooter>
       </div>
     );
@@ -72,6 +72,12 @@ class App extends React.Component {
         return <TermsView { ...props }></TermsView>;
 
       case '/account':
+    	case '/robot':
+    	case '/team':
+    	case '/marketing':
+    	case '/finance':
+    	case '/instructions':
+      case '/settings':
         if( !isSignedIn ) return this._updateLocation('/signin');
         return <MainView { ...props }></MainView>;
 

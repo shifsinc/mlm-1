@@ -27,11 +27,12 @@ html, body, #root  {
 .App {
   background: url('./img/background.png') no-repeat;
   background-size: 100% 100%;
+  background-attachment: fixed;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.main-view {
+#content-view {
   width: 100%;
   position: relative;
 }
@@ -40,7 +41,7 @@ html, body, #root  {
     background: url('./img/background_mobile.png') no-repeat;
     background-size: 100% 100%;
   }
-  .main-view {
+  #content-view {
     padding: 0 10px;
   }
 }
