@@ -1,5 +1,5 @@
 const { makeQuery } = require('../utils.js');
-const { INCORRECT_QUERY, OK, PASSWORD_RESET_TOKEN_VALID, passwordRegexp, tokenRegexp } = require('../const.js');
+const { INCORRECT_QUERY, OK, INCORRECT_TOKEN, PASSWORD_RESET_TOKEN_VALID_TIME, passwordRegexp, tokenRegexp } = require('../const.js');
 
 module.exports = function(callback, params){/*resetToken, password*/
   var resetToken = params.resetToken, password = params.password;
@@ -9,14 +9,14 @@ module.exports = function(callback, params){/*resetToken, password*/
 
   makeQuery(`SELECT password_reset_token_ts FROM users WHERE password_reset_token=?`, [ resetToken ],
   res => {
-    if( !res.result.length ) return callback({ status: 'error', text: 'token invalid' });
+    if( !res.result.length ) return callback( INCORRECT_TOKEN );
 
     var tokenDate = new Date( res.result[0].password_reset_token_ts ), nowDate = new Date();
-    if( ( nowDate.valueOf() - tokenDate.valueOf() ) > PASSWORD_RESET_TOKEN_VALID ){
+    if( ( nowDate.valueOf() - tokenDate.valueOf() ) > PASSWORD_RESET_TOKEN_VALID_TIME ){
       makeQuery(`UPDATE users SET
         password_reset_token=null,password_reset_token_ts=null
         WHERE password_reset_token=?`, [ resetToken ]);
-      return callback({ status: 'error', text: 'token invalid' });
+      return callback( INCORRECT_TOKEN );
     }
 
     makeQuery(`UPDATE users SET
@@ -25,7 +25,9 @@ module.exports = function(callback, params){/*resetToken, password*/
       password_reset_token_ts=null
     WHERE password_reset_token=?`, [ password, resetToken ],
     res => {
-      callback( OK );
+      var res = OK;
+      res.action.path = '/signin';
+      callback( res );
     }, callback);
 
   }, callback);

@@ -12,7 +12,8 @@ exports.linkRegexp = /^https?:\/\/[a-zA-Z\-0-9\.]+(\/.*)?$/;
 exports.telegramRegexp = /^\w+$/;
 exports.tokenRegexp = /^[a-z0-9]{32}$/;
 
-exports.PASSWORD_RESET_TOKEN_VALID = 24*60*60*1000//ms
+exports.PASSWORD_RESET_TOKEN_VALID_TIME = 24*60*60*1000//ms
+exports.INCORRECT_TOKEN = { status: 'error', text: 'token invalid', action: { text: 'Ссылка недействительна' } };
 
 exports.ADMIN_ROLE = 2;
 exports.USER_ROLE = 1;
