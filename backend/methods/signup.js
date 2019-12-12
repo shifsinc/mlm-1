@@ -28,7 +28,7 @@ module.exports = function(callback, params){/*login, password, email, refer, typ
       query = `INSERT INTO
         users(user_login, user_password_hash, user_email, user_refer, user_refer_type, email_confirm_token, account_id)
       VALUES(?,md5(?),?,?,?,md5(rand()),2)`;
-      values = [ login, password, email, res.result[0].user_id, refer_type ];
+      values = [ login, password, email, res.result[0].user_id, type ];
     }
     makeQuery(query, values,
       res => {
