@@ -1,0 +1,41 @@
+.account__info {
+  width: 100%;
+  display: flex;
+}
+.account__info__photo {
+  margin-right: 20px;
+}
+.account__info__photo img {
+  max-height: 350px;
+  max-width: 260px;
+}
+.account__info__cont {
+  width: 100%;
+}
+.account__info__cont1,
+.account__info__cont2 {
+  border-bottom: solid 1px var(--color4);
+}
+.account__info__cont1 {
+  border-bottom: solid 1px var(--color4);
+  padding-bottom: 20px;
+}
+.account__info__cont1 > h2 {
+  display: inline;
+}
+.account__info__bunus-level {
+  float: right;
+  color: var(--color4);
+}
+.account__info__cont2 {
+
+}
+.account__info__cont2 td {
+  padding: 6px;
+}
+.account__info__cont3 {
+
+}
+.account__info__cont3 {
+
+}

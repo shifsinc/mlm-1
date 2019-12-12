@@ -3,19 +3,19 @@ import './App.css';
 
 import PageHeader from './components/PageHeader.js';
 import PageFooter from './components/PageFooter.js';
-import TermsView from './components/TermsView.js';
+import Terms from './components/Terms.js';
 
-import StartView from './components/StartView.js';
-import SignInView from './components/Login/SignInView.js';
-import SignUpView from './components/Login/SignUpView.js';
-import FillDataView from './components/Login/FillDataView.js';
-import PasswordResetRequestView from './components/Login/PasswordResetRequestView.js';
-import PasswordResetView from './components/Login/PasswordResetView.js';
-import AcceptTermsView from './components/Login/AcceptTermsView.js';
+import Start from './components/Start.js';
+import SignIn from './components/Login/SignIn.js';
+import SignUp from './components/Login/SignUp.js';
+import FillData from './components/Login/FillData.js';
+import PasswordResetRequest from './components/Login/PasswordResetRequest.js';
+import PasswordReset from './components/Login/PasswordReset.js';
+import AcceptTerms from './components/Login/AcceptTerms.js';
 
-import MainView from './components/Main/MainView.js';
+import Main from './components/Main/Main.js';
 
-import apiCall from './apiCall.js'
+import apiCall from './apiCall.js';
 
 class App extends React.Component {
   constructor(props){
@@ -35,7 +35,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <PageHeader isSignedIn={ isSignedIn } updateLocation={ this._updateLocation }></PageHeader>
-        <div id="content-view">{ mainCont }</div>
+        <div id="content">{ mainCont }</div>
         <PageFooter updateLocation={ this._updateLocation }></PageFooter>
       </div>
     );
@@ -52,34 +52,34 @@ class App extends React.Component {
     switch( this.state.location ){
       case '/signin':
         //if( isSignedIn ) return this._updateLocation('/account');
-        return <SignInView { ...props } updateAuthToken={ this._updateAuthToken }></SignInView>;
+        return <SignIn { ...props } updateAuthToken={ this._updateAuthToken }></SignIn>;
       case '/signup':
         if( isSignedIn ) return this._updateLocation('/account');
-        return <SignUpView { ...props }></SignUpView>;
+        return <SignUp { ...props }></SignUp>;
       case '/fillData':
         if( !isSignedIn ) return this._updateLocation('/signin');
-        return <FillDataView { ...props }></FillDataView>;
+        return <FillData { ...props }></FillData>;
       case '/acceptTerms':
         if( !isSignedIn ) return this._updateLocation('/signin');
-        return <AcceptTermsView { ...props }></AcceptTermsView>;
+        return <AcceptTerms { ...props }></AcceptTerms>;
       case '/passwordResetRequest':
         if( isSignedIn ) return this._updateLocation('/account');
-        return <PasswordResetRequestView { ...props }></PasswordResetRequestView>;
+        return <PasswordResetRequest { ...props }></PasswordResetRequest>;
       case '/passwordReset':
         if( isSignedIn ) return this._updateLocation('/account');
-        return <PasswordResetView { ...props }></PasswordResetView>;
+        return <PasswordReset { ...props }></PasswordReset>;
       case '/terms':
-        return <TermsView { ...props }></TermsView>;
+        return <Terms { ...props }></Terms>;
 
       case '/account':
     	case '/robot':
     	case '/team':
     	case '/marketing':
-    	case '/finance':
+    	case '/finances':
     	case '/instructions':
       case '/settings':
         if( !isSignedIn ) return this._updateLocation('/signin');
-        return <MainView { ...props }></MainView>;
+        return <Main { ...props }></Main>;
 
       case '/signout':
         this._apiCall('signout').then(r => {
@@ -97,7 +97,7 @@ class App extends React.Component {
         break;
       default:
         if( isSignedIn ) return this._updateLocation('/account');
-        return <StartView { ...props }></StartView>;
+        return <Start { ...props }></Start>;
     }
   }
 

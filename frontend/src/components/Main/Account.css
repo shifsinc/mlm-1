@@ -1,0 +1,25 @@
+.account {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.account__referals,
+.account__sponsors {
+  width: calc(30% - 20px);
+}
+.account__referals {
+
+}
+.account__sponsors {
+
+}
+.account__links,
+.account__news {
+  width: calc(70% - 20px);
+}
+.account__links {
+
+}
+.account__news {
+
+}

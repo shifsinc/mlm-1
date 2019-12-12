@@ -1,0 +1,6 @@
+.login-form {
+  display: block;
+  min-width: 300px;
+  max-width: 380px;
+  margin: 30px auto !important;
+}

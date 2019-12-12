@@ -1,0 +1,60 @@
+#menu {
+  width: calc(100% - 20px);
+}
+.menu__item {
+  display: block;
+  padding: 15px 5px;
+  height: 50px;
+  border-bottom: solid 1px var(--color5);
+  line-height: 20px;
+}
+.menu__item.active {
+  font-weight: 800;
+}
+.menu__item.active,
+.menu__item:hover {
+  color: var(--color2);
+}
+
+
+.menu__item:before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin: 0 10px 0 0;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50%;
+}
+@media screen and (max-width: 700px){
+  .menu__item {
+    text-align: right;
+  }
+  .menu__item:before {
+    float: right;
+    margin: 0 0 0 10px;
+  }
+}
+.account-icon:before {
+  background-image: url('../../img/icon/account.png');
+}
+.robot-icon:before {
+  background-image: url('../../img/icon/robot.png');
+}
+.team-icon:before {
+  background-image: url('../../img/icon/team.png');
+}
+.marketing-icon:before {
+  background-image: url('../../img/icon/marketing.png');
+}
+.finances-icon:before {
+  background-image: url('../../img/icon/finance.png');
+}
+.instructions-icon:before {
+  background-image: url('../../img/icon/instructions.png');
+}
+.settings-icon:before {
+  background-image: url('../../img/icon/settings.png');
+}

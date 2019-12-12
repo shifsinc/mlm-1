@@ -1,0 +1,23 @@
+.sign-up__cont {
+  position: relative;
+  text-align: center;
+}
+.sign-up__refer {
+  width: 100%;
+  margin: 0 !important;
+}
+.sign-up__refer img {
+  max-width: 100%;
+  max-height: 200px;
+  margin-top: 10px;
+}
+
+@media screen and (min-width: 850px) {
+  .sign-up__refer {
+    min-width: 0;
+    width: 200px;
+    position: absolute;
+    left: -220px;
+    top: 0;
+  }
+}

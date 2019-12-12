@@ -1,0 +1,7 @@
+.sign-in__reset-pass {
+  margin: 20px 0;
+}
+.sign-in__reset-pass a {
+  margin-left: 8px;
+  color: var(--color2);
+}
