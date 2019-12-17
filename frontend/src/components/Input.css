@@ -6,7 +6,7 @@
 .input input {
   width: 100%;
   height: 35px;
-  padding: 5px 15px;
+  padding: 5px 35px 5px 15px;
   outline: none;
   box-shadow: none;
   border: solid 1px var(--color3);
@@ -33,4 +33,17 @@
   left: 0;
   transform: translate(16px, 28px);
   color: var(--color4);
+}
+.input__button {
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  border-left: solid 1px var(--color3);
+  cursor: pointer;
+  z-index: 3;
+  display: none;
 }
