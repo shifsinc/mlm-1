@@ -1,12 +1,16 @@
 #menu {
-  width: calc(100% - 20px);
+  margin-top: 0;
+  position: relative;
+  transition: height 1s;
+}
+.menu-mobile-cover {
+  display: none;
 }
 .menu__item {
   display: block;
-  padding: 15px 5px;
   height: 50px;
+  padding: 15px 5px;
   border-bottom: solid 1px var(--color5);
-  line-height: 20px;
 }
 .menu__item.active {
   font-weight: 800;
@@ -15,7 +19,17 @@
 .menu__item:hover {
   color: var(--color2);
 }
-
+.main__menu__mobile {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  display: none;
+  cursor: pointer;
+}
+#menu.open .main__menu__mobile {
+  display: none;
+}
 
 .menu__item:before {
   content: '';
@@ -28,13 +42,37 @@
   background-size: contain;
   background-position: 50%;
 }
-@media screen and (max-width: 700px){
+@media screen and (max-width: 900px){
+  #menu {
+    position: absolute;
+    z-index: 20;
+  }
+  .menu-mobile-cover {
+    display: block;
+  }
   .menu__item {
     text-align: right;
   }
   .menu__item:before {
     float: right;
     margin: 0 0 0 10px;
+  }
+  #menu.close {
+    background-color: transparent;
+    box-shadow: none;
+  }
+  #menu.close + .menu-mobile-cover {
+    display: none;
+  }
+  #menu.close .main__menu__mobile {
+    display: block;
+  }
+  #menu.close .menu__item {
+    display: none;
+    border: none;
+  }
+  .menu__item.active {
+    display: block !important;
   }
 }
 .account-icon:before {
