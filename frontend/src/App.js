@@ -27,7 +27,7 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    window.addEventListener('popstate', this._updateLocation);
+    window.addEventListener('popstate', () => this.setState({ location: window.location.pathname }));
   }
 
   render(){
@@ -96,8 +96,7 @@ class App extends React.Component {
         });
         break;
       default:
-        if( isSignedIn ) return this._updateLocation('/account');
-        return <Start { ...props }></Start>;
+        return <Start { ...props } isSignedIn={ isSignedIn }></Start>;
     }
   }
 
