@@ -1,3 +1,54 @@
-.account__links {
-
+.account__links_cont {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 160px;
+}
+.account__links .input,
+.account__links__switch {
+  width: 48%;
+}
+.account__links__switch {
+  margin-top: 20px;
+  height: 35px;
+  border: solid 1px var(--color3);
+  border-radius: 3px;
+}
+.account__links__switch * {
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  height: 35px;
+  line-height: 35px;
+  cursor: pointer;
+  font-weight: 200;
+}
+.account__links__switch *:first-child {
+  transform: translate(-1px,-1px);
+}
+.account__links__switch *:last-child {
+  transform: translate(1px,-1px);
+}
+.account__links__switch > .active {
+  border: solid 1px var(--color2);
+  color: var(--color2);
+  border-radius: 3px;
+}
+.account__links__copy-link {
+  background-image: url('../../../img/icon/copy@2x.png');
+  display: block;
+}
+@media screen and ( max-width: 900px ) {
+  .account__links_cont {
+    height: max-content;
+  }
+  .account__links_cont *:nth-child(2) {
+    margin-bottom: 30px;
+  }
+  .account__links__switch {
+    width: 100%;
+  }
+  .account__links .input {
+    width: 100%;
+  }
 }
