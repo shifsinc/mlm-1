@@ -1,0 +1,25 @@
+.settings__cont {
+  padding: 0;
+}
+.settings__form {
+
+}
+.settings__confirm {
+  width: 300px;
+  height: 200px;
+  position: absolute;
+  top: calc(50% - 100px);
+  left: calc(50% - 150px);
+}
+.confirm-password-cover {
+  display: none;
+}
+
+@media screen and ( max-width: 900px ) {
+
+}
+@media screen and ( min-width: 901px ) {
+  .settings__cont a.button {
+    width: 250px;
+  }
+}
