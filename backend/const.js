@@ -1,7 +1,7 @@
 exports.INCORRECT_QUERY = { status: 'error', text: 'incorrect query', action: {} }
 exports.AUTH_FAILED = { status: 'error', text: 'auth failed', action: {} }
 exports.OK = { status: 'ok', action: { text: 'OK' } }
-exports.FORBIDDEN = { status: 'error', text: 'forbidden' }
+exports.FORBIDDEN = { status: 'error', text: 'forbidden', action: { text: 'Forbidden' }}
 
 exports.loginRegexp = /^\w{5,30}$/;
 exports.emailRegexp = /^.+@[a-zA-Z\-0-9\.]+$/;

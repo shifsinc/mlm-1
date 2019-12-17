@@ -4,7 +4,7 @@
 }
 .sign-up__refer {
   width: 100%;
-  margin: 0 !important;
+  margin-top: 0;
 }
 .sign-up__refer img {
   max-width: 100%;
@@ -12,9 +12,8 @@
   margin-top: 10px;
 }
 
-@media screen and (min-width: 850px) {
+@media screen and (min-width: 900px) {
   .sign-up__refer {
-    min-width: 0;
     width: 200px;
     position: absolute;
     left: -220px;

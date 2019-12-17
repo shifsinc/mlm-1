@@ -9,9 +9,7 @@ import { loginRegexp, emailRegexp, passwordRegexp } from '../../const.js';
 
 export default function(props){/*updateLocation*/
   var refer = props.params.refer ? props.params.refer : '', type = props.params.type ? props.params.type : 'g',
-    referPhoto, referEmail, referPhone,
-    email, emailRepeat,
-    password, passwordRepeat;
+    referPhoto, referEmail, referPhone;
 
   var onReferChange = value => {
     props.apiCall('getReferInfo', value).then(res=> {
@@ -35,27 +33,22 @@ export default function(props){/*updateLocation*/
           label="Код рефера"></Input>
       </div></div>
       <Form
-          className="login-form"
+          className="login-form interface-block"
           submitTitle="РЕГИСТРАЦИЯ"
           submitCallback={data => {
-            var errFields = [];
-            if( email.value !== emailRepeat.value ) errFields.push('email_repeat');
-            if( password.value !== passwordRepeat.value ) errFields.push('password_repeat');
-            return errFields.length ?
-              Promise.resolve({ action: { fields: errFields } }) :
-              props.apiCall('signup', { ...data, refer, type });
+            return props.apiCall('signup', { ...data, refer, type });
           }}
           updateLocation = { props.updateLocation }>
         <Switch location="/signup" updateLocation={ props.updateLocation }></Switch>
         <Input attr={{ name: 'login' }} regexp={ loginRegexp } label="Логин"></Input>
 
-        <Input attr={{ name: 'email', ref: r => email = r  }}
+        <Input attr={{ name: 'email'  }}
           regexp={ emailRegexp } label="E-mail"></Input>
-        <Input attr={{ name: 'email_repeat', ref: r => emailRepeat = r }}
+        <Input attr={{ name: 'email_repeat' }}
           regexp={ emailRegexp } label="Повторите E-mail"></Input>
-        <Input attr={{ name: 'password', type: 'password', ref: r => password = r }}
+        <Input attr={{ name: 'password', type: 'password' }}
           regexp={ passwordRegexp } label="Пароль"></Input>
-        <Input attr={{ name: 'password_repeat', type: 'password', ref: r => passwordRepeat = r }}
+        <Input attr={{ name: 'password_repeat', type: 'password' }}
           regexp={ passwordRegexp } label="Повторите пароль"></Input>
       </Form>
     </div>

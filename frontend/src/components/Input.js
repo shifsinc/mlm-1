@@ -1,10 +1,11 @@
 import React from 'react';
 import './Input.css';
 
-export default function(props){
+export default function(props){/*regexp, className, attr, label*/
   var _onBlur = e => {
-    if( props.regexp && !props.regexp.test( e.target.value ) ) e.target.classList.add('incorrect');
-    else e.target.classList.remove('incorrect');
+    var targ = e.target;
+    if( targ.value && props.regexp && !props.regexp.test( targ.value ) ) targ.classList.add('incorrect');
+    else targ.classList.remove('incorrect');
   }
   return (
     <div className={ 'input' + (props.className ? ' ' + props.className : '') }>

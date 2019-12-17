@@ -9,7 +9,7 @@ import { loginRegexp } from '../../const.js';
 export default function(props) {/*updateLocation, updateAuthToken*/
   return (
     <Form
-      className="login-form"
+      className="login-form interface-block"
       submitTitle="ВОЙТИ"
       submitCallback={data => {
         return props.apiCall('signin', data).then( r => {
@@ -24,10 +24,9 @@ export default function(props) {/*updateLocation, updateAuthToken*/
       <div className="sign-in__reset-pass">
         Забыли пароль?
         <Link
-          title="Нажмите, чтобы сбросить"
           path="/passwordResetRequest"
           updateLocation={ props.updateLocation }>
-        </Link>
+          Нажмите, чтобы сбросить</Link>
       </div>
       </Form>
   );

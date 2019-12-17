@@ -8,16 +8,14 @@ export default function(props){/*location, updateLocation*/
     <div className="login-switch">
       <Link
         className={ location === '/signin' ? 'active' : '' }
-        title="ВХОД"
         path="/signin"
         updateLocation={ props.updateLocation }>
-      </Link>
+        ВХОД</Link>
       <Link
         className={ location === '/signup' ? 'active' : '' }
-        title="РЕГИСТРАЦИЯ"
         path="/signup"
         updateLocation={ props.updateLocation }>
-      </Link>
+        РЕГИСТРАЦИЯ</Link>
     </div>
   );
 }

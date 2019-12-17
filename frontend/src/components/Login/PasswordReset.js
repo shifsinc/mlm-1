@@ -7,7 +7,7 @@ export default function(props) {/*updateLocation*/
   var password, passwordRepeat;
   return (
     <Form
-    className="login-form"
+    className="login-form interface-block"
     formTitle="Сброс пароля"
     submitTitle="СБРОСИТЬ"
     submitCallback={data => {

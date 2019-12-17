@@ -25,7 +25,7 @@ module.exports.initMysqlConnection = initMysqlConnection;
 
 module.exports.checkAuth = (token, onSuccess, onFailed, onError) => {
   if( !tokenRegexp.test(token) ) return onError( INCORRECT_QUERY );
-  makeQuery(`SELECT user_id FROM users_sessions WHERE token=?`, [ token ],
+  makeQuery(`SELECT user_id FROM sessions WHERE token=?`, [ token ],
   res => {
     if(res.result.length === 1) onSuccess( res.result[0].user_id );
     else onFailed( AUTH_FAILED );

@@ -1,12 +1,14 @@
 import React from 'react';
 import './Link.css';
 
-export default function(props) {/*className, title, path, updateLocation*/
+export default function(props) {/*className, path, updateLocation, onClick*/
+  var path = props.path ? props.path : '##';
   return (
-    <a className={ 'link ' + (props.className ? props.className : '') } href={ props.path }
+    <a className={ 'link ' + (props.className ? props.className : '') } href={ path }
         onClick={e => {
           e.preventDefault();
-          props.updateLocation( props.path );
-        }}>{ props.children ? props.children : props.title }</a>
+          if(props.onClick) props.onClick(e);
+          if(props.path) props.updateLocation( path );
+        }}>{ props.children }</a>
   );
 }

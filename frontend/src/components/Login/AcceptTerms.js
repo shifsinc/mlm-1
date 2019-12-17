@@ -9,9 +9,9 @@ export default function(props){/*updateLocation*/
       <TermsText></TermsText>
       <Link
       className="button accept-terms__button"
-      title="Я СОГЛАСЕН"
       path="/fillData"
-      updateLocation={ props.updateLocation }></Link>
+      updateLocation={ props.updateLocation }>
+      Я СОГЛАСЕН</Link>
     </div>
   );
 }

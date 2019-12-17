@@ -7,7 +7,7 @@ import { emailRegexp } from '../../const.js';
 export default function(props) {/*updateLocation*/
   return (
     <Form
-      className="login-form"
+      className="login-form interface-block"
       formTitle="Запрос сброса пароля"
       submitTitle="ОТПРАВИТЬ"
       submitCallback={data => {

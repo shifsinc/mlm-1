@@ -16,12 +16,8 @@ export default function(props) {/*updateLocation, location*/
   var View = VIEWS[ props.location ];
   return (
     <div className="main">
-      <div className="main__menu">
-        <Menu { ...props } ></Menu>
-      </div>
-      <div className="main__content">
-        <View { ...props }></View>
-      </div>
+      <Menu { ...props } ></Menu>
+      <View { ...props }></View>
     </div>
   );
 }
