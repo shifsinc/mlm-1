@@ -1,25 +1,27 @@
 .account {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-.account__referals,
-.account__sponsors {
-  width: calc(30% - 20px);
-}
-.account__referals {
 
 }
-.account__sponsors {
-
+.account__users {
+  height: 220px;
+  width: 260px;
+  float: left;
 }
 .account__links,
 .account__news {
-  width: calc(70% - 20px);
+  margin-left: 290px;
+  margin-top: 20px;
 }
 .account__links {
-
+  height: 220px;
 }
-.account__news {
 
+@media screen and ( max-width: 900px ) {
+  .account__users,
+  .account__links,
+  .account__news {
+    height: auto;
+    width: 100%;
+    float: none;
+    margin-left: 0;
+  }
 }

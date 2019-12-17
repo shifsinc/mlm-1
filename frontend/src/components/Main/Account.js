@@ -4,17 +4,21 @@ import './Account.css'
 import Info from './Account/Info.js';
 import Links from './Account/Links.js';
 import News from './Account/News.js';
-import Referals from './Account/Referals.js';
-import Sponsors from './Account/Sponsors.js';
+import Users from './Account/Users.js';
 
 export default function(props) {/*updateLocation*/
+  var checkResult = r => r.result ? r.result : [];
+  var users = props.apiCall('getUserInfo').then( checkResult ),
+    referals = props.apiCall('getReferals', { count: 7 }).then( checkResult ),
+    sponsors = props.apiCall('getSponsors', { count: 7 }).then( checkResult ),
+    news = props.apiCall('getNews').then( checkResult );
   return (
-    <div className="account">
-      <Info { ...props }></Info>
-      <Links { ...props }></Links>
-      <News { ...props }></News>
-      <Referals { ...props }></Referals>
-      <Sponsors { ...props }></Sponsors>
+    <div className="account main__content">
+      <Info { ...props } dataSrc={ users }></Info>
+      <Users { ...props } title="Мои рефералы" dataSrc={ referals }></Users>
+      <Links { ...props } dataSrc={ users }></Links>
+      <Users { ...props } title="Мои спонсоры" dataSrc={ sponsors }></Users>
+      <News { ...props } dataSrc={ news }></News>
     </div>
   );
 }

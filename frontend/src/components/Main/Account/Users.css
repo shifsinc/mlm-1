@@ -1,0 +1,28 @@
+.account__users__cont {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  justify-content: space-between;
+  height: calc(100% - 34px);
+}
+.account__users__user,
+.account__users__more {
+  width: 25%;
+  height: 70px;
+  text-align: center;
+  cursor: pointer;
+}
+.account__users__user img {
+  max-width: 45px;
+  max-height: 45px;
+}
+.account__users__more > div {
+  width: 45px;
+  height: 45px;
+  border: solid 1px var(--color2);
+  border-radius: 3px;
+  position: relative;
+  background-image: url('../../../img/icon/users_more@2x.png');
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
