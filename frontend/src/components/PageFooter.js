@@ -11,9 +11,9 @@ export default function(props){/*updateLocation*/
     <footer id="page-footer">
       <Link
       className="page-footer__terms"
-      title="Пользовательское соглашение"
       path="/terms"
-      updateLocation={ props.updateLocation }></Link>
+      updateLocation={ props.updateLocation }>
+      Пользовательское соглашение</Link>
       <div className="page-footer__label">YODAFX.PRO © 2019</div>
       <div className="page-footer__socials">
         <a href="#" target="_blank" rel="noopener noreferrer"><img src={ facebookLogo } alt="facebook"/></a>

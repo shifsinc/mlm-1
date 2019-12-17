@@ -1,11 +1,17 @@
 #start {
   text-align: center;
+  width: 500px;
+  height: 300px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 .start__logo {
-  width: 485px;
-  display: block;
-  margin: 0 auto 30px auto;
-  transition: width 0.2s;
+  width: 100%;
+  margin-bottom: 30px;
   user-select: none;
 }
 .start__join-button {
@@ -15,17 +21,11 @@
   height: 40px;
   line-height: 36px;
 }
-@media screen and ( max-width: 700px ) {
+@media screen and ( max-width: 900px ) {
 
   #start {
-    width: auto;
-  }
-  .start__logo {
-    width: 100%;
-  }
-  .start__join-button {
-    width: 60%;
-    max-width: 270px
+    width: 320px;
+    height: 192px;
   }
 
 }

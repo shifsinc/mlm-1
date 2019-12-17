@@ -3,7 +3,7 @@
   box-shadow: 0 0 5px 0px #999;
   padding: 0 18.75%;
   background-color: #FFF;
-  transition: padding 0.2s;
+  margin-bottom: 30px;
 }
 #page-header__logo {
   float: left;
@@ -16,10 +16,8 @@
   margin: 15px 0;
 }
 
-@media screen and ( max-width: 700px ) {
-
+@media screen and ( max-width: 900px ) {
   #page-header {
     padding: 0 10px;
   }
-
 }

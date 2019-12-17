@@ -14,14 +14,13 @@ export default function(props){/*isSignedIn, updateLocation*/
     buttonTitle = 'ПРИСОЕДИНИТЬСЯ';
   }
   return (
-    <div id="start" className="vertical-center__cont" ref={r => r ? r.parentNode.classList.add('vertical-center') : null}>
+    <div id="start">
       <img className="start__logo" src={ logo } srcSet={ logo2x + ' 2x' } alt="Logo"/>
       <Link
         className="button start__join-button"
-        title={ buttonTitle }
         path={ buttonHref }
         updateLocation={ props.updateLocation }>
-      </Link>
+      { buttonTitle }</Link>
     </div>
   );
 }

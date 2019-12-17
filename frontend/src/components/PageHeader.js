@@ -24,10 +24,9 @@ export default function(props){/*isSignedIn, updateLocation*/
     </Link>
       <Link
         className={ 'page-header__sign-in-button ' + buttonClass }
-        title={ buttonTitle }
         path={ buttonHref }
         updateLocation={ props.updateLocation }>
-      </Link>
+      { buttonTitle }</Link>
     </header>
   );
 }
