@@ -11,7 +11,7 @@ export default function(props) {/*updateLocation*/
   var users = props.apiCall('getUserInfo').then( checkResult ),
     referals = props.apiCall('getReferals', { count: 7 }).then( checkResult ),
     sponsors = props.apiCall('getSponsors', { count: 7 }).then( checkResult ),
-    news = props.apiCall('getNews').then( checkResult );
+    news = props.apiCall('getNews', { offset: 0, count: 10 }).then( checkResult );
   return (
     <div className="account main__content">
       <Info { ...props } dataSrc={ users }></Info>
