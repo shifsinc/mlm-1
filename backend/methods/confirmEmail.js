@@ -8,7 +8,7 @@ module.exports = function(callback, params){/*confirmToken*/
   makeQuery(`UPDATE users SET email_confirm_token=null WHERE email_confirm_token=?`, [ confirmToken ],
     res => {
       if( params.token ){
-        makeQuery(`SELECT user_id FROM users_sessions WHERE token=?`, [ params.token ],
+        makeQuery(`SELECT user_id FROM sessions WHERE token=?`, [ params.token ],
         res => {
           if( !res.result.length ) return callback({ status: 'ok', action: { path: '/signin' } });
 

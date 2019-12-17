@@ -10,7 +10,7 @@ module.exports = function(callback, params){/*login, password*/
   res => {
     if( res.result.length === 1 ){
       res.result = res.result[0];
-      makeQuery(`INSERT INTO users_sessions(user_id, token) VALUES(?,?)`, [ res.result.user_id,  res.result.token ]);
+      makeQuery(`INSERT INTO sessions(user_id, token) VALUES(?,?)`, [ res.result.user_id,  res.result.token ]);
 
       validateUser(res.result.user_id, () => {
         res.action = { path: '/account' };

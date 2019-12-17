@@ -16,10 +16,12 @@ module.exports = function(callback, params, _user_id){/**/
     u.user_rate,
     u.user_refer,
     u.user_refer_type,
+    u.general_link_type,
+    _u.user_id AS user_refer_id,
     _u.user_name AS user_refer_name,
     _u.user_surname AS user_refer_surname
 
-    FROM users u JOIN users _u ON u.user_refer=_u.user_id WHERE u.user_id=?`, [ _user_id ],
+    FROM users u LEFT JOIN users _u ON u.user_refer=_u.user_id WHERE u.user_id=?`, [ _user_id ],
     res => {
       res.result = res.result[0];
       callback(res);
