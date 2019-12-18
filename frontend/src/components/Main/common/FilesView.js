@@ -13,7 +13,7 @@ export default function(props){/*updateLocation, header, dataSrc*/
   return (
     <div className="files-view interface-block">
       <h3>{ props.header }</h3>
-      <table>
+      <table className="table">
         <thead><tr><th>ФАЙЛ</th><th>ОПИСАНИЕ</th></tr></thead>
         <tbody ref={ r => cont = r }>
         </tbody>
