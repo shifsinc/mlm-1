@@ -9,7 +9,15 @@ import Popup from '../Popup.js'
 import { passwordRegexp } from '../../const.js'
 
 export default function(props){/*updateLocation*/
-  var passCallback = () => {};
+  var passCallback = () => {}, ethereum, paypal;
+  setTimeout(() => {
+    props.apiCall('getBilling').then(r => {
+      if( !r.result ) return;
+      var res = r.result;
+      ethereum.value = res.account_ethereum;
+      paypal.value = res.account_paypal;
+    });
+  }, 0);
   return (
     <div className="settings main__content">
       <TabView titles={[ 'Личные данные', 'Платежные данные' ]}
@@ -24,7 +32,7 @@ export default function(props){/*updateLocation*/
               var resolve;
               passCallback = pass => {
                 Object.assign(data, pass);
-                resolve( props.apiCall('updateData', data) );
+                resolve( props.apiCall('updateUserInfo', data) );
               }
               window.document.body.querySelector('.confirm-password-cover').style.display = 'block';
               return new Promise( (res, rej) => {
@@ -44,9 +52,9 @@ export default function(props){/*updateLocation*/
         </div>
 
         <div>
-          <Form submitTitle="СОХРАНИТЬ" submitCallback={ () => {} }>
-            <Input label="Ваш Ethereum-адрес"/>
-            <Input label="Ваш PayPal"/>
+          <Form submitTitle="СОХРАНИТЬ" submitCallback={ data => props.apiCall('updateBilling', data) }>
+            <Input attr={{ name: "ethereum", ref: r => ethereum = r }} label="Ваш Ethereum-адрес"/>
+            <Input attr={{ name: "paypal", ref: r => paypal = r }} label="Ваш PayPal"/>
           </Form>
         </div>
 

@@ -6,6 +6,6 @@ export default function(props){/*updateLocation*/
     title="Заполните личные данные"
     className="login-form interface-block"
     submitCallback={data => {
-      return props.apiCall('fillData', data);
+      return props.apiCall('fillUserInfo', data);
     }}></DataForm>);
 }
