@@ -9,13 +9,13 @@
 .account__links,
 .account__news {
   margin-left: 290px;
-  margin-top: 20px;
 }
 .account__links {
   height: 220px;
 }
 
 @media screen and ( max-width: 900px ) {
+  .account__info,
   .account__users,
   .account__links,
   .account__news {
@@ -23,5 +23,11 @@
     width: 100%;
     float: none;
     margin-left: 0;
+  }
+}
+@media screen and ( min-width: 901px ) {
+  .account__links,
+  .account__news {
+    margin-top: 20px;
   }
 }

@@ -4,3 +4,9 @@
   margin-bottom: 10px;
   width: 100%;
 }
+
+@media screen and (max-width: 900px) {
+  .account__block {
+    display: inline-block;
+  }
+}
