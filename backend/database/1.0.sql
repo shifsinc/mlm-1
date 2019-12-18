@@ -25,7 +25,9 @@ DROP TABLE IF EXISTS `mlm_db`.`accounts` ;
 
 CREATE TABLE IF NOT EXISTS `mlm_db`.`accounts` (
   `account_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `account_current_value` DOUBLE NOT NULL DEFAULT '0',
+  `account_value` DOUBLE NOT NULL DEFAULT '0',
+  `account_ethereum` VARCHAR(64) NULL DEFAULT NULL,
+  `account_paypal` VARCHAR(64) NULL DEFAULT NULL,
   PRIMARY KEY (`account_id`),
   UNIQUE INDEX `account_id_UNIQUE` (`account_id` ASC))
 ENGINE = InnoDB
@@ -65,21 +67,19 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`users` (
   `role_id` INT(11) NOT NULL DEFAULT '2',
   `user_refer` INT(11) NULL DEFAULT NULL,
   `user_email` VARCHAR(45) NOT NULL,
-  `user_phone` BIGINT(13) NULL DEFAULT NULL,
+  `user_phone` VARCHAR(16) NULL DEFAULT NULL,
   `user_social` VARCHAR(45) NULL DEFAULT NULL,
   `user_telegram` VARCHAR(45) NULL DEFAULT NULL,
-  `user_photo` VARCHAR(45) NULL DEFAULT NULL,
+  `user_photo` VARCHAR(45) NULL DEFAULT 'noPhoto.png',
   `user_bonus_level` INT(10) UNSIGNED ZEROFILL NULL DEFAULT NULL,
   `user_rate` INT(10) NULL DEFAULT NULL,
-  `left_ref` VARCHAR(45) NULL DEFAULT NULL,
-  `right_ref` VARCHAR(45) NULL DEFAULT NULL,
-  `common_ref` VARCHAR(45) NULL DEFAULT NULL,
   `account_id` INT(11) NULL DEFAULT NULL,
-  `user_refer_type` ENUM('l', 'r', 'g') NOT NULL DEFAULT 'g',
+  `user_refer_type` ENUM('l', 'r') NULL DEFAULT NULL,
   `password_reset_token` VARCHAR(32) NULL DEFAULT NULL,
   `password_reset_token_ts` TIMESTAMP(6) NULL DEFAULT NULL,
   `user_data_filled` TINYINT(4) NOT NULL DEFAULT '0',
   `email_confirm_token` VARCHAR(32) NULL DEFAULT NULL,
+  `general_link_type` ENUM('l', 'r') NOT NULL DEFAULT 'l',
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `user_login_UNIQUE` (`user_login` ASC),
   UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC),
@@ -128,6 +128,65 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`news` (
     REFERENCES `mlm_db`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mlm_db`.`files`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mlm_db`.`files` ;
+
+CREATE TABLE IF NOT EXISTS `mlm_db`.`files` (
+  `file_id` INT NOT NULL AUTO_INCREMENT,
+  `file_dt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `file_author` INT(11) NOT NULL,
+  `file_type` VARCHAR(16) NOT NULL DEFAULT 'file',
+  `file_title` VARCHAR(64) NULL,
+  `file_descr` VARCHAR(128) NULL,
+  `file_section` ENUM('marketing', 'instructions', 'videos') NOT NULL,
+  `file_name` VARCHAR(32) NOT NULL,
+  PRIMARY KEY (`file_id`),
+  UNIQUE INDEX `file_id_UNIQUE` (`file_id` ASC),
+  INDEX `author_idx` (`file_author` ASC),
+  INDEX `section` (`file_section`),
+  CONSTRAINT `author_fk`
+    FOREIGN KEY (`file_author`)
+    REFERENCES `mlm_db`.`users` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mlm_db`.`transactions`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mlm_db`.`transactions` ;
+
+CREATE TABLE IF NOT EXISTS `mlm_db`.`transactions` (
+  `tr_id` INT NOT NULL AUTO_INCREMENT,
+  `tr_dt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tr_descr` VARCHAR(128) NULL,
+  `tr_real_amount` DOUBLE NULL,
+  `tr_platform_amount` DOUBLE NOT NULL,
+  `tr_pay_method` ENUM('ethereum', 'paypal') NULL,
+  `tr_status` ENUM('wait', 'ok', 'rejected') NOT NULL DEFAULT 'wait',
+  `tr_sender_id` INT NULL,
+  `tr_receiver_id` INT NOT NULL,
+  `tr_type` ENUM('in', 'out', 'internal') NOT NULL,
+  PRIMARY KEY (`tr_id`),
+  UNIQUE INDEX `tr_id_UNIQUE` (`tr_id` ASC),
+  CONSTRAINT `sender`
+    FOREIGN KEY (`tr_sender_id`)
+    REFERENCES `mlm_db`.`users` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `receiver`
+    FOREIGN KEY (`tr_receiver_id`)
+    REFERENCES `mlm_db`.`users` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  INDEX `sender_idx` (`tr_sender_id`),
+  INDEX `receiver_idx` (`tr_receiver_id`))
 ENGINE = InnoDB;
 
 
@@ -188,27 +247,6 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mlm_db`;
-INSERT INTO `mlm_db`.`users` (`user_id`, `user_login`, `user_password_hash`, `user_name`, `user_surname`, `user_status`, `user_dt`, `role_id`, `user_refer`, `user_email`, `user_phone`, `user_social`, `user_telegram`, `user_photo`, `user_bonus_level`, `user_rate`, `left_ref`, `right_ref`, `common_ref`, `account_id`, `user_refer_type`, `password_reset_token`, `password_reset_token_ts`, `user_data_filled`, `email_confirm_token`) VALUES (1, 'root', 'dsadada', 'root', NULL, '0', DEFAULT, 1, 1, 'example@email.com', 213312345, 'vk.com/id0', '@telegram', '/home/mlm/default.png', NULL, 12, NULL, NULL, NULL, NULL, DEFAULT, NULL, NULL, 1, NULL);
+INSERT INTO `mlm_db`.`users` (`user_id`, `user_login`, `user_password_hash`, `user_name`, `user_email`, `user_data_filled`) VALUES (1, 'root', md5('rootPass12345aA!'), 'root', 'root@email', 1);
 
 COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `mlm_db`.`news`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `mlm_db`;
-INSERT INTO `mlm_db`.`news` (`news_id`, `news_dt`, `news_title`, `news_text`, `news_status`, `news_author`) VALUES (1, DEFAULT, 'Открытие сайта!', 'Поздравляем', 1, 1);
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `mlm_db`.`sessions`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `mlm_db`;
-INSERT INTO `mlm_db`.`sessions` (`user_id`, `token`) VALUES (1, 'sdfsfsdf');
-
-COMMIT;
-
