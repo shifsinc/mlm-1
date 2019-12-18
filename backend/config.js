@@ -12,3 +12,9 @@ exports.MYSQL_AUTH = {
   password: MYSQL_PASSWORD,
   database: MYSQL_DATABASE
 }
+
+exports.PHOTOS_PATH = './files';
+exports.PHOTOS_PREFIX = '/files';
+
+exports.FILES_PATH = './files';
+exports.FILES_PREFIX = '/files';

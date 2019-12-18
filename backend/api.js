@@ -40,6 +40,7 @@ module.exports = {
     '/setGeneralLinkType': authWrapper( require('./methods/setGeneralLinkType.js') ),
     '/getSponsors': authWrapper( require('./methods/getSponsors.js') ),
     '/getReferals': authWrapper( require('./methods/getReferals.js') ),
-    '/getNews': authWrapper( require('./methods/getNews.js') )
+    '/getNews': authWrapper( require('./methods/getNews.js') ),
+    '/getFiles': authWrapper( require('./methods/getFiles.js') ),
   }
 }
