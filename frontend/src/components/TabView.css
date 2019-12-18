@@ -8,10 +8,12 @@
   padding: 0 20px;
   color: var(--color4);
 }
+.tab-view__header__item.active {
+  background-color: #FFF;
+}
 .tab-view__content > * {
   display: none;
 }
 .tab-view__content > .active {
   display: block;
-  background-color: #FFF;
 }
