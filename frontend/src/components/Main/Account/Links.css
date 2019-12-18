@@ -1,4 +1,4 @@
-.account__links_cont {
+.account__links__cont {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -34,15 +34,15 @@
   color: var(--color2);
   border-radius: 3px;
 }
-.account__links__copy-link {
+.account__links__cont .input__button {
   background-image: url('../../../img/icon/copy@2x.png');
   display: block;
 }
 @media screen and ( max-width: 900px ) {
-  .account__links_cont {
+  .account__links__cont {
     height: max-content;
   }
-  .account__links_cont *:nth-child(2) {
+  .account__links__cont *:nth-child(2) {
     margin-bottom: 30px;
   }
   .account__links__switch {

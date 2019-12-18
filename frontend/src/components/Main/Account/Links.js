@@ -30,15 +30,15 @@ export default class extends React.Component {
       }
     return (
       <Block title="Мои ссылки" className="account__links">
-        <div className="account__links_cont">
+        <div className="account__links__cont">
         <Input attr={{ readOnly: true, value: link + '?refer=' + this.state.phone + '&type=l' }}
-          label="Ссылка на левую ногу" className="label-top" buttonClassName="account__links__copy-link"
+          label="Ссылка на левую ногу" className="label-top"
           buttonClick={e => copyText( e.target.parentNode.querySelector('input') )}></Input>
         <Input attr={{ readOnly: true, value: link + '?refer=' + this.state.phone + '&type=r'  }}
-          label="Ссылка на правую ногу" className="label-top" buttonClassName="account__links__copy-link"
+          label="Ссылка на правую ногу" className="label-top"
           buttonClick={e => copyText( e.target.parentNode.querySelector('input') )}></Input>
         <Input attr={{ readOnly: true, value: link + '?refer=' + this.state.phone }}
-          label="Общая ссылка" className="label-top" buttonClassName="account__links__copy-link"
+          label="Общая ссылка" className="label-top"
           buttonClick={e => copyText( e.target.parentNode.querySelector('input') )}></Input>
         <div className="account__links__switch">
           <div onClick={ () => setTarget('l') } className={ this.state.general_type === 'l' ? 'active': '' }>Левая нога</div>
