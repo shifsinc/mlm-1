@@ -1,0 +1,30 @@
+.files-view > h3 {
+  color: var(--color3);
+  margin: 10px 0 15px 8px;
+  font-weight: 600;
+}
+.files-view > table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+.files-view > table th,
+.files-view > table td {
+  border-bottom: solid 1px var(--color5);
+  padding: 8px 10px;
+}
+.files-view > table thead tr {
+  color: var(--color1);
+  font-size: 12px;
+}
+.files-view > table td > a:before {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background-image: url('../../../img/icon/download@2x.png');
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: 100%;
+  margin-right: 8px;
+}
