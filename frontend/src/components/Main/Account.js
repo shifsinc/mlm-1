@@ -19,6 +19,7 @@ export default function(props) {/*updateLocation*/
       <Links { ...props } dataSrc={ users }></Links>
       <Users { ...props } title="Мои спонсоры" dataSrc={ sponsors }></Users>
       <News { ...props } dataSrc={ news }></News>
+      <div style={{ clear: 'both' }}></div>
     </div>
   );
 }
