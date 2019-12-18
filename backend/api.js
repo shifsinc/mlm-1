@@ -34,13 +34,15 @@ module.exports = {
     '/getReferInfo': require('./methods/getReferInfo.js'),
     '/confirmEmail': require('./methods/confirmEmail.js'),
 
-    '/fillData': authWrapper( require('./methods/fillData.js') ),
-    '/updateData': authWrapper( require('./methods/updateData.js') ),
+    '/fillUserInfo': authWrapper( require('./methods/fillUserInfo.js') ),
+    '/updateUserInfo': authWrapper( require('./methods/updateUserInfo.js') ),
     '/getUserInfo': authWrapper( require('./methods/getUserInfo.js') ),
     '/setGeneralLinkType': authWrapper( require('./methods/setGeneralLinkType.js') ),
     '/getSponsors': authWrapper( require('./methods/getSponsors.js') ),
     '/getReferals': authWrapper( require('./methods/getReferals.js') ),
     '/getNews': authWrapper( require('./methods/getNews.js') ),
     '/getFiles': authWrapper( require('./methods/getFiles.js') ),
+    '/getBilling': authWrapper( require('./methods/getBilling.js') ),
+    '/updateBilling': authWrapper( require('./methods/updateBilling.js') )
   }
 }
