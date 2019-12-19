@@ -13,7 +13,7 @@ import PasswordResetRequest from './components/Login/PasswordResetRequest.js';
 import PasswordReset from './components/Login/PasswordReset.js';
 import AcceptTerms from './components/Login/AcceptTerms.js';
 
-import Main from './components/Main/Main.js';
+import Main from './components/Main/common/Main.js';
 
 import apiCall from './apiCall.js';
 

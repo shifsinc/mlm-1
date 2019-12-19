@@ -8,7 +8,7 @@ export default function(props){/*updateLocation, titles*/
     <div className={ 'tab-view' + ( props.className ? ' ' + props.className : '') }>
     <div className="tab-view__header" ref={ r => {header = r; if(r) r.children[0].classList.add('active')} }>
       { props.titles.map((t, i) =>
-          <Link className="tab-view__header__item" updateLocation={ props.updateLocation } onClick={ () => {
+          <Link key={ i } className="tab-view__header__item" updateLocation={ props.updateLocation } onClick={ () => {
             cont.children[ lastActive ].classList.remove('active');
             cont.children[ i ].classList.add('active');
             header.children[ lastActive ].classList.remove('active');

@@ -11,6 +11,7 @@ export default function(props){/*updateLocation, title, passwordField, className
     props.apiCall('getUserInfo').then(r => {
       if( !r.result ) return;
       var res = r.result;
+      photo.src = res.user_photo_url.endsWith('noPhoto.png') ? addPhoto : res.user_photo_url;
       login.value = res.user_login;
       email.value = res.user_email;
       name.value = res.user_name;
@@ -32,7 +33,7 @@ export default function(props){/*updateLocation, title, passwordField, className
           <input name="photo" type="file" onInput={e => {
             photo.src = URL.createObjectURL( e.target.files[0].slice() );
           }}/>
-          <img alt="avatar" src={ addPhoto } ref={ r => photo = r }/>
+          <img alt="avatar" ref={ r => photo = r }/>
         </label>
         <div className="data-form__fields">
           <Input attr={{ name: 'login', readOnly: true, ref: r => login = r }} label="Ваш логин" className="label-top"></Input>

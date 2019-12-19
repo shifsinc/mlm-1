@@ -14,7 +14,7 @@ export default function(props){/*updateLocation*/
   var onReferChange = value => {
     props.apiCall('getReferInfo', value).then(res=> {
       if( res.status !== 'error' ){
-        referPhoto.src = res.result.user_photo;
+        referPhoto.src = res.result.user_photo_url;
         referEmail.value = res.result.user_email;
         referPhone.value = refer = res.result.user_phone;
       }

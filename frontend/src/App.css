@@ -16,6 +16,10 @@ body {
   --color4: #707070;
   --color5: #C9CACD;
   --color6: #F0F0F0;
+  --client-color: #015809;
+  --light-color: #0929B2;
+  --advanced-color: #0E0E0E;
+  --master-color: #960007;
 }
 html, body, #root  {
   height: 100%;
@@ -38,6 +42,7 @@ a, a:visited {
 }
 #content {
   width: 100%;
+  padding: 0 10px;
 }
 
 .button {
@@ -68,22 +73,8 @@ a, a:visited {
   border-radius: 5px;
   box-shadow: 0 0 5px 0px #999;
   padding: 10px;
-  margin: 10px;
+  margin-bottom: 20px;
   overflow: hidden;
-}
-
-.table {
-  text-align: left;
-  border-collapse: collapse;
-}
-.table th,
-.table td {
-  border-bottom: solid 1px var(--color5);
-  padding: 8px 10px;
-}
-.table thead tr {
-  color: var(--color1);
-  font-size: 12px;
 }
 
 
@@ -95,8 +86,5 @@ a, a:visited {
   }
   #content {
     padding: 0 10px;
-  }
-  .interface-block {
-    margin: 10px 0;
   }
 }
