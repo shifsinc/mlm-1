@@ -1,5 +1,6 @@
 const { makeQuery } = require('../utils.js');
 const { INCORRECT_QUERY } = require('../const.js');
+const { PHOTOS_PREFIX } = require('../config.js');
 
 module.exports = function(callback, params, _user_id){/*count*/
   var count = params.count;
@@ -27,7 +28,8 @@ module.exports = function(callback, params, _user_id){/*count*/
           user_id: res.result[0]['user_id_' + i],
           user_name: res.result[0]['user_name_' + i],
           user_surname: res.result[0]['user_surname_' + i],
-          user_photo: res.result[0]['user_photo_' + i]
+          user_photo: res.result[0]['user_photo_' + i],
+          user_photo_url: PHOTOS_PREFIX + res.result[0]['user_photo_' + i]
         });
       }
       res.result = arr;

@@ -13,8 +13,8 @@ exports.MYSQL_AUTH = {
   database: MYSQL_DATABASE
 }
 
-exports.PHOTOS_PATH = './files';
-exports.PHOTOS_PREFIX = '/files';
+exports.PHOTOS_PATH = './photos/';
+exports.PHOTOS_PREFIX = '/photos/';
 
-exports.FILES_PATH = './files';
-exports.FILES_PREFIX = '/files';
+exports.FILES_PATH = './files/';
+exports.FILES_PREFIX = '/files/';

@@ -1,5 +1,6 @@
 const { makeQuery } = require('../utils.js');
 const { INCORRECT_QUERY } = require('../const.js');
+const { PHOTOS_PREFIX } = require('../config.js');
 
 module.exports = function(callback, params, _user_id){/**/
   makeQuery(`SELECT
@@ -24,6 +25,7 @@ module.exports = function(callback, params, _user_id){/**/
     FROM users u LEFT JOIN users _u ON u.user_refer=_u.user_id WHERE u.user_id=?`, [ _user_id ],
     res => {
       res.result = res.result[0];
+      res.result.user_photo_url = PHOTOS_PREFIX + res.result.user_photo;
       callback(res);
   }, callback);
 }

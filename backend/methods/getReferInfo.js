@@ -1,5 +1,6 @@
 const { makeQuery } = require('../utils.js');
 const { INCORRECT_QUERY, phoneRegexp, emailRegexp } = require('../const.js');
+const { PHOTOS_PREFIX } = require('../config.js');
 
 module.exports = function(callback, params){/*phone, email*/
   var phone = params.user_phone ? params.user_phone : '00000000000',
@@ -13,6 +14,7 @@ module.exports = function(callback, params){/*phone, email*/
     res => {
       if( !res.result.length ) return callback({ status: 'error', text: 'refer doesn\'t exist' });
       res.result = res.result[0];
+      res.result.user_photo_url = PHOTOS_PREFIX + res.result.user_photo;
       callback(res);
   }, callback);
 }
