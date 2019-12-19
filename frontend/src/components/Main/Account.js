@@ -13,7 +13,7 @@ export default function(props) {/*updateLocation*/
     sponsors = props.apiCall('getSponsors', { count: 7 }).then( checkResult ),
     news = props.apiCall('getNews', { offset: 0, count: 10 }).then( checkResult );
   return (
-    <div className="account main__content">
+    <div className="main__content account">
       <Info { ...props } dataSrc={ users }></Info>
       <Users { ...props } title="Мои рефералы" dataSrc={ referals }></Users>
       <Links { ...props } dataSrc={ users }></Links>

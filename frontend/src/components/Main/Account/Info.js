@@ -1,22 +1,23 @@
 import React from 'react';
 import './Info.css'
 import noPhoto from '../../../img/noPhoto.png';
+import getDataSrc from '../common/getDataSrc.js'
 
 export default function(props) {/*updateLocation, dataSrc*/
   var photo, name, bonusLevel, id, email, phone, social, sponsor;
-  setTimeout( () =>
-    props.dataSrc.then(res => {
-      if( res.user_photo ) photo.src = res.user_photo;
-      name.innerHTML = res.user_name + ' ' + res.user_surname;
-      bonusLevel.innerHTML = 'Бонусный уровень: ' + res.user_bonus_level;
-      id.innerHTML = res.user_id;
-      email.innerHTML = res.user_email;
-      phone.innerHTML = res.user_phone;
-      social.innerHTML = res.user_social;
-      social.href= res.user_social;
-      if(res.user_refer_id) sponsor.innerHTML = res.user_refer_name + ' ' + res.user_refer_surname;
-      else sponsor.parentNode.style.display = 'none';
-  }), 0);
+  getDataSrc(props.dataSrc, res => {
+    if( res.user_photo_url ) photo.src = res.user_photo_url;
+    name.innerHTML = res.user_name + ' ' + res.user_surname;
+    bonusLevel.innerHTML = 'Бонусный уровень: ' + res.user_bonus_level;
+    id.innerHTML = res.user_id;
+    email.innerHTML = res.user_email;
+    phone.innerHTML = res.user_phone;
+    social.innerHTML = res.user_social;
+    social.href= res.user_social;
+    if(res.user_refer_id) sponsor.innerHTML = res.user_refer_name + ' ' + res.user_refer_surname;
+    else sponsor.parentNode.style.display = 'none';
+  });
+
   return (
     <div className="account__info interface-block">
       <div className="account__info__photo">

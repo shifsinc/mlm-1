@@ -1,8 +1,8 @@
 import React from 'react';
 import './Links.css'
-import Block from './Block.js'
+import TitleBlock from '../common/TitleBlock.js'
 import Input from '../../Input.js'
-import { domain } from '../../../config.js'
+import { DOMAIN } from '../../../config.js'
 
 export default class extends React.Component {
   constructor(props) {/*updateLocation, dataSrc*/
@@ -16,7 +16,7 @@ export default class extends React.Component {
     })
   }
   render(){
-    var link = 'https://' + domain + '/signup',
+    var link = 'https://' + DOMAIN + '/signup',
       setTarget = type => {
         if(type === this.state.general_type) return;
         this.props.apiCall('setGeneralLinkType', { type }).then( r => {
@@ -29,7 +29,7 @@ export default class extends React.Component {
         input.blur();
       }
     return (
-      <Block title="Мои ссылки" className="account__links">
+      <TitleBlock title="Мои ссылки" className="account__links">
         <div className="account__links__cont">
         <Input attr={{ readOnly: true, value: link + '?refer=' + this.state.phone + '&type=l' }}
           label="Ссылка на левую ногу" className="label-top"
@@ -45,7 +45,7 @@ export default class extends React.Component {
           <div onClick={ () => setTarget('r') } className={ this.state.general_type === 'r' ? 'active': '' }>Правая нога</div>
         </div>
         </div>
-      </Block>
+      </TitleBlock>
     );
   }
 }

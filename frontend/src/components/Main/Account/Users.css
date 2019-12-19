@@ -2,7 +2,6 @@
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
-  justify-content: space-between;
   height: calc(100% - 34px);
 }
 .account__users__user,
@@ -17,6 +16,7 @@
   max-height: 45px;
 }
 .account__users__more > div {
+  display: inline-block;
   width: 45px;
   height: 45px;
   border: solid 1px var(--color2);

@@ -1,11 +1,12 @@
 import React from 'react';
 import './News.css'
-import Block from './Block.js'
+import TitleBlock from '../common/TitleBlock.js'
+import getDataSrc from '../common/getDataSrc.js'
 
 export default function(props) {/*updateLocation*/
   var cont;
-  props.dataSrc.then(res => {
-    res.forEach(r => {
+  getDataSrc(props.dataSrc, r => {
+    r.forEach(r => {
       var item = document.createElement('div');
       item.className = 'account__news__item';
       var date = new Date( r.news_dt );
@@ -14,10 +15,10 @@ export default function(props) {/*updateLocation*/
       cont.appendChild(item);
     });
   });
+
   return (
-    <Block title="Новости" className="account__news" >
-      <div className="account__news__cont" ref={ r => cont = r }>
-      </div>
-    </Block>
+    <TitleBlock title="Новости" className="account__news" >
+      <div className="account__news__cont" ref={ r => cont = r }></div>
+    </TitleBlock>
   );
 }
