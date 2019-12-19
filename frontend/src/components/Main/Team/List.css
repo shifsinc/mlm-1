@@ -1,0 +1,10 @@
+.team__list {
+  overflow-x: scroll;
+}
+.team__list .table {
+  min-width: 100%;
+}
+.team__list .table > tbody > tr *:first-child,
+.team__list .table > tbody > tr *:last-child {
+  color: var(--color2);
+}

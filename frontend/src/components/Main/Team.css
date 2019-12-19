@@ -1,0 +1,28 @@
+.team__flex-cont {
+  display: flex;
+}
+.team__cont {
+  flex: 7;
+}
+.team__stats {
+  flex: 3;
+  margin-left: 20px;
+}
+.team__search .input__button {
+  background-image: url('../../img/icon/search@2x.png');
+  display: block;
+  border: none;
+}
+
+@media screen and (max-width: 900px) {
+  .team .interface-block {
+    display: inline-block;
+    width: 100%;
+  }
+  .team__flex-cont {
+    display: block;
+  }
+  .team__stats {
+    margin-left: 0;
+  }
+}

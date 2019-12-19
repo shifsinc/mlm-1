@@ -1,0 +1,15 @@
+.team__stats__item {
+  min-height: 50px;
+  width: 100%;
+  border-bottom: solid 1px var(--color5);
+  font-size: 14px;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+}
+.team__stats__item > span:last-child {
+  font-weight: bold;
+}
+.team__stats__item * {
+  margin: auto 5px;
+}

@@ -1,0 +1,6 @@
+.team__lines {
+  overflow-x: scroll;
+}
+.team__lines .table {
+  min-width: 100%;
+}
