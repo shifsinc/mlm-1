@@ -6,7 +6,7 @@ import Input from '../Input.js'
 import TabView from '../TabView.js'
 import Popup from '../Popup.js'
 
-import { passwordRegexp } from '../../const.js'
+import { passwordRegexp, ethereumRegexp, paypalRegexp } from '../../const.js'
 
 export default function(props){/*updateLocation*/
   var passCallback = () => {}, ethereum, paypal;
@@ -19,7 +19,7 @@ export default function(props){/*updateLocation*/
     });
   }, 0);
   return (
-    <div className="settings main__content">
+    <div className="main__content settings">
       <TabView titles={[ 'Личные данные', 'Платежные данные' ]}
         className="settings__cont interface-block" { ...props }>
 
@@ -53,8 +53,8 @@ export default function(props){/*updateLocation*/
 
         <div>
           <Form submitTitle="СОХРАНИТЬ" submitCallback={ data => props.apiCall('updateBilling', data) }>
-            <Input attr={{ name: "ethereum", ref: r => ethereum = r }} label="Ваш Ethereum-адрес"/>
-            <Input attr={{ name: "paypal", ref: r => paypal = r }} label="Ваш PayPal"/>
+            <Input attr={{ name: "ethereum", ref: r => ethereum = r }} regexp={ ethereumRegexp } label="Ваш Ethereum-адрес"/>
+            <Input attr={{ name: "paypal", ref: r => paypal = r }} regexp={ paypalRegexp } label="Ваш PayPal"/>
           </Form>
         </div>
 
