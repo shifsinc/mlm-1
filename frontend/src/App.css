@@ -76,6 +76,16 @@ a, a:visited {
   margin-bottom: 20px;
   overflow: hidden;
 }
+.icon-before-text:before {
+  content: '';
+  float: left;
+  width: 19px;
+  height: 19px;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: 80%;
+  margin-right: 8px;
+}
 
 
 @media screen and ( max-width: 900px ) {

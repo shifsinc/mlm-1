@@ -9,7 +9,10 @@ export default function(props) {/*updateLocation, title, dataSrc, className*/
   getDataSrc(props.dataSrc, r => {
     r.forEach(f => {
       var tr = document.createElement('tr');
-      tr.innerHTML = `<td><a target="_blank" href="` + f.file_url + `">` + f.file_type + `</a></td><td>` + f.file_descr + `</td>`;
+      tr.innerHTML = `
+        <td>
+          <a class="icon-before-text" target="_blank" href="` + f.file_url + `">` + f.file_type + `</a></td><td>` + f.file_descr + `
+          </td>`;
       cont.appendChild(tr);
     });
   });

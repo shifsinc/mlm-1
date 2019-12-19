@@ -6,14 +6,6 @@
 .files-view > .table {
   width: 100%;
 }
-.files-view > .table td > a:before {
-  content: '';
-  display: inline-block;
-  width: 14px;
-  height: 14px;
+.files-view a.icon-before-text:before {
   background-image: url('../../../img/icon/download@2x.png');
-  background-repeat: no-repeat;
-  background-position: 50%;
-  background-size: 100%;
-  margin-right: 8px;
 }
