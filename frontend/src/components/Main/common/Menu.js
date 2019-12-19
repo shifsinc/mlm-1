@@ -1,6 +1,6 @@
 import React from 'react';
 import './Menu.css'
-import Link from '../Link.js'
+import Link from '../../Link.js'
 
 export default function(props){/*updateLocation*/
   var commonProps = { updateLocation: props.updateLocation }, loc = props.location, menu;

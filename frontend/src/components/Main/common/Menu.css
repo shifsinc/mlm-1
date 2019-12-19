@@ -76,23 +76,23 @@
   }
 }
 .account-icon:before {
-  background-image: url('../../img/icon/account.png');
+  background-image: url('../../../img/icon/account.png');
 }
 .robot-icon:before {
-  background-image: url('../../img/icon/robot.png');
+  background-image: url('../../../img/icon/robot.png');
 }
 .team-icon:before {
-  background-image: url('../../img/icon/team.png');
+  background-image: url('../../../img/icon/team.png');
 }
 .marketing-icon:before {
-  background-image: url('../../img/icon/marketing.png');
+  background-image: url('../../../img/icon/marketing.png');
 }
 .finances-icon:before {
-  background-image: url('../../img/icon/finance.png');
+  background-image: url('../../../img/icon/finance.png');
 }
 .instructions-icon:before {
-  background-image: url('../../img/icon/instructions.png');
+  background-image: url('../../../img/icon/instructions.png');
 }
 .settings-icon:before {
-  background-image: url('../../img/icon/settings.png');
+  background-image: url('../../../img/icon/settings.png');
 }
