@@ -1,0 +1,19 @@
+.robot__cont {
+  display: flex;
+}
+.robot__files {
+  flex: 7;
+}
+.robot__updates {
+  flex: 3;
+  margin-left: 20px;
+}
+
+@media screen and (max-width: 900px) {
+  .robot__cont {
+    display: block;
+  }
+  .robot__updates {
+    margin-left: 0;
+  }
+}

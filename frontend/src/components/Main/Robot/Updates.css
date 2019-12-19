@@ -1,0 +1,8 @@
+.robot__updates__item {
+  border-bottom: solid 1px var(--color5);
+  padding: 10px 0;
+}
+.robot__updates__item *:first-child {
+  font-size: 12px;
+  margin-bottom: 10px;
+}
