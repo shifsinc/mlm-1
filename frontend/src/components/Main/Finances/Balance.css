@@ -1,0 +1,28 @@
+.finances__balance {
+  height: 150px;
+}
+.finances__balance__label {
+  color: var(--color4);
+  margin: 10px 0;
+}
+.finances__balance__value {
+  font-weight: 800;
+  color: var(--color2);
+  margin: 20px 0;
+}
+.finances__balance__button {
+  height: 30px;
+  line-height: 30px;
+  width: 50%;
+  overflow: hidden;
+  margin: 5px 0;
+}
+
+@media screen and (max-width: 900px) {
+  .finances__balance {
+    height: auto;
+  }
+  .finances__balance__button {
+    width: 100%;
+  }
+}

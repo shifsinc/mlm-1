@@ -1,0 +1,8 @@
+.finances__history .table {
+  width: 100%;
+}
+.finances__history__title {
+  color: var(--color4);
+  margin: 0 0 10px 0;
+  font-weight: 500;
+}

@@ -1,0 +1,23 @@
+.finances__cont {
+  margin-top: 0;
+  display: flex;
+}
+.finances__cont > * {
+  margin-top: 0;
+}
+.finances__balance {
+  flex: 5;
+}
+.finances__bonuses {
+  flex: 6;
+  margin: 0 0 20px 20px;
+}
+
+@media screen and (max-width: 900px) {
+  .finances__cont {
+    display: block;
+  }
+  .finances__bonuses {
+    margin-left: 0;
+  }
+}
