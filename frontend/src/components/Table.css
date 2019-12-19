@@ -1,0 +1,13 @@
+.table {
+  text-align: left;
+  border-collapse: collapse;
+}
+.table th,
+.table td {
+  border-bottom: solid 1px var(--color5);
+  padding: 8px 10px;
+}
+.table thead tr {
+  color: var(--color1);
+  font-size: 12px;
+}
