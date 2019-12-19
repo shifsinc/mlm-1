@@ -6,6 +6,7 @@
   display: flex;
   align-content: center;
   justify-content: space-between;
+  padding: 5px 0;
 }
 .team__stats__item > span:last-child {
   font-weight: bold;
