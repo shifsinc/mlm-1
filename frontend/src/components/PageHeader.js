@@ -17,16 +17,18 @@ export default function(props){/*isSignedIn, updateLocation*/
   }
   return (
     <header id="page-header">
-    <Link
-      path='/'
-      updateLocation={ props.updateLocation }>
-      <img id="page-header__logo" src={ logo } srcSet={ logo2x + ' 2x' } alt="Logo"/>
-    </Link>
-      <Link
-        className={ 'page-header__sign-in-button ' + buttonClass }
-        path={ buttonHref }
-        updateLocation={ props.updateLocation }>
-      { buttonTitle }</Link>
+      <div className="page-header__cont">
+        <Link
+          path='/'
+          updateLocation={ props.updateLocation }>
+          <img id="page-header__logo" src={ logo } srcSet={ logo2x + ' 2x' } alt="Logo"/>
+        </Link>
+          <Link
+            className={ 'page-header__sign-in-button ' + buttonClass }
+            path={ buttonHref }
+            updateLocation={ props.updateLocation }>
+          { buttonTitle }</Link>
+      </div>
     </header>
   );
 }

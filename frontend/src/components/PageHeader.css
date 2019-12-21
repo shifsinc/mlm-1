@@ -1,9 +1,13 @@
 #page-header {
-  height: 60px;
   box-shadow: 0 0 5px 0px #999;
-  padding: 0 18.75%;
   background-color: #FFF;
   margin-bottom: 30px;
+  padding: 0 10px;
+}
+.page-header__cont {
+  max-width: 1200px;
+  margin: auto;
+  height: 60px;
 }
 #page-header__logo {
   float: left;

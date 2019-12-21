@@ -1,25 +1,28 @@
 #page-footer {
-  text-align: center;
   background-color: #FFF;
-  display: flex;
-  align-items: center;
-  padding: 5px;
+  padding: 0 10px;
   box-shadow: 0 0 5px 0px #999;
   position: absolute;
   bottom: 0;
   width: 100%;
+}
+.page-footer__cont {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  max-width: 1200px;
+  margin: auto;
   height: 50px;
+  text-align: center;
 }
 .page-footer__terms {
   text-align: right;
-  flex: 2;
   color: var(--color2) !important;
 }
 .page-footer__label {
-  flex: 3;
+
 }
 .page-footer__socials {
-  flex: 2;
   display: inline-block;
   text-align: left;
 }
@@ -32,11 +35,8 @@
 }
 
 @media screen and ( max-width: 900px ) {
-  #page-footer {
-    display: block;
+  .page-footer__cont {
+    flex-direction: column;
     height: 100px;
-  }
-  #page-footer > * {
-    margin-top: 8px;
   }
 }
