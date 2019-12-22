@@ -1,62 +1,54 @@
 import React from 'react';
 import './Info.css'
 import noPhoto from '../../../img/noPhoto.png';
-import getDataSrc from '../common/getDataSrc.js'
 
-export default function(props) {/*updateLocation, dataSrc*/
-  var photo, name, bonusLevel, id, email, phone, social, sponsor;
-  getDataSrc(props.dataSrc, res => {
-    if( res.user_photo_url ) photo.src = res.user_photo_url;
-    name.innerHTML = res.user_name + ' ' + res.user_surname;
-    bonusLevel.innerHTML = 'Бонусный уровень: ' + res.user_bonus_level;
-    id.innerHTML = res.user_id;
-    email.innerHTML = res.user_email;
-    phone.innerHTML = res.user_phone;
-    social.innerHTML = res.user_social;
-    social.href= res.user_social;
-    if(res.user_refer_id) sponsor.innerHTML = res.user_refer_name + ' ' + res.user_refer_surname;
-    else sponsor.parentNode.style.display = 'none';
-  });
-
+export default function(props){/*data*/
+  var data = props.data ? props.data : {};
   return (
     <div className="account__info interface-block">
       <div className="account__info__photo">
-        <img className="account__photo" src={ noPhoto } alt="User avatar" ref={ r => photo = r }/>
+        <img className="account__photo" src={ data.user_photo_url ? data.user_photo_url : noPhoto } alt="User avatar"/>
       </div>
       <div className="account__info__cont">
         <div className="account__info__cont1">
-          <h2 ref={ r => name = r }></h2>
-          <span></span>
-          <span className="account__info__bunus-level" ref={ r => bonusLevel = r }></span>
+          <span className="account__info__bunus-level">{ data.user_bonus_level }</span>
+          <span className="account__info__rate">{ data.user_rate }</span>
+          <h2>{ data.user_name + ' ' + data.user_surname }</h2>
+          <div>{ data.user_status }</div>
         </div>
         <div className="account__info__cont2">
           <table><tbody>
-            <tr><td>ID:</td><td ref={ r => id = r }></td></tr>
-            <tr><td>E-mail:</td><td ref={ r => email = r }></td></tr>
-            <tr><td>Телефон:</td><td ref={ r => phone = r }></td></tr>
-            <tr><td>Соцсеть:</td><td><a target="_blank" ref={ r => social = r }></a></td></tr>
-            <tr><td>Спонсор:</td><td ref={ r => sponsor = r }></td></tr>
+            <tr><td>ID:</td><td>{ data.user_id }</td></tr>
+            <tr><td>E-mail:</td><td>{ data.user_email }</td></tr>
+            <tr><td>Телефон:</td><td>{ data.user_phone }</td></tr>
+            <tr>
+              <td>Соцсеть:</td>
+              <td><a target="_blank noopener noreferrer" href={ data.user_social }>{ data.user_social }</a></td>
+            </tr>
+            { data.user_refer_id ? (
+              <tr><td>Спонсор:</td><td>{ data.user_refer_name + ' ' + data.user_refer_surname }</td></tr>
+            ) : undefined }
           </tbody></table>
 
         </div>
         <div className="account__info__cont3">
           <div className="account__info__cont3__item">
-            <div>56</div><div>Мои рефералы</div>
+            <div>{ data.referals_count }</div><div>Мои рефералы</div>
           </div>
           <div className="account__info__cont3__item">
-            <div>0.00</div><div>Дневной доход</div>
+            <div>{ data.day_profit }</div><div>Дневной доход</div>
           </div>
           <div className="account__info__cont3__item">
-            <div>25.50</div><div>Баланс YT</div>
+            <div>{ data.account_balance }</div><div>Баланс YT</div>
           </div>
           <div className="account__info__cont3__item">
-            <div>0</div><div>YT слева</div>
+            <div>{ data.yt_left }</div><div>YT слева</div>
           </div>
           <div className="account__info__cont3__item">
-            <div>25 000</div><div>YT справа</div>
+            <div>{ data.yt_right }</div><div>YT справа</div>
           </div>
           <div className="account__info__cont3__item">
-            <div>14/74</div><div>Бинарные циклы</div>
+            <div>{ data.binary_cycles }</div><div>Бинарные циклы</div>
           </div>
         </div>
       </div>

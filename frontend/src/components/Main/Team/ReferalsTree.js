@@ -1,0 +1,81 @@
+import React from 'react';
+import './ReferalsTree.css'
+import noPhoto from '../../../img/noPhoto.png'
+const RATES = {
+  'client': require('../../../img/robot_client@2x.png'),
+  'light': require('../../../img/robot_light@2x.png'),
+  'advanced': require('../../../img/robot_advanced@2x.png'),
+  'master': require('../../../img/robot_master@2x.png')
+}
+
+export default class extends React.Component {
+  constructor(props) {/*apiCall*/
+    super(props);
+    this.state = { tree: null };
+
+    this._updateTree();
+  }
+
+  _updateTree = user_id => {
+    this.props.apiCall('getReferalsTree', { levels: 5, user_id }).then( r => this.setState({ tree: r.result }) );;
+  }
+
+  render(){
+    var flatTree = this._decompose(this.state.tree);
+    var row0 = flatTree[0] ? flatTree[0] : [],
+      row1 = flatTree[1] ? flatTree[1] : [],
+      row2 = flatTree[2] ? flatTree[2] : [],
+      row3 = flatTree[3] ? flatTree[3] : [];
+    return (
+      <div className="team__referals-tree" ref={ r => this.cont = r }>
+        <div className="team__referals-tree__row">
+          { this._getTreeNode( row0[0] ) }
+        </div>
+        <div className="team__referals-tree__row">
+          {[ this._getTreeNode( row1[0] ), this._getTreeNode( row1[1] ) ]}
+        </div>
+        <div className="team__referals-tree__row">
+          {[ this._getTreeNode( row2[0] ), this._getTreeNode( row2[1] ),
+            this._getTreeNode( row2[2] ), this._getTreeNode( row2[3] ) ]}
+        </div>
+        <div className="team__referals-tree__row">
+          {[ this._getTreeNode( row3[0] ), this._getTreeNode( row3[1] ),
+           this._getTreeNode( row3[2] ), this._getTreeNode( row3[3] ),
+           this._getTreeNode( row3[4] ), this._getTreeNode( row3[5] ),
+           this._getTreeNode( row3[6] ), this._getTreeNode( row3[7] ) ]}
+        </div>
+      </div>
+    );
+  }
+
+  _decompose = tree => {
+    var arr = [];
+    const f = (node, level = 0, num = 0) => {
+      if( !node ) return;
+      if( !arr[level] ) arr[level] = {};
+      arr[level][num] = node;
+      f(node._left, level + 1, num*2);
+      f(node._right, level + 1, num*2+1);
+    }
+    f(tree);
+    return arr;
+  }
+
+  _getTreeNode = node => {
+    if( !node ) return <div key={ Math.random() }></div>;
+
+    return (<div key={ node.user_id } className="team__referals-tree__user">
+      <div className="team__referals-tree__user__cont">
+        <div className="team__referals-tree__user__info">
+          <img alt="user avatar" src={ node.user_photo_url }/>
+          <div>{ node.user_name }</div><div>{ node.user_surname }</div>
+        </div>
+        <div className="team__referals-tree__user__rate">
+          <img alt={ node.user_rate } src={ RATES[ node.user_rate ] ? RATES[ node.user_rate ] : noPhoto }/>
+        </div>
+        <div className="team__referals-tree__user__yt"><span>{ node.yt_left }</span><span>{ node.yt_right }</span></div>
+      </div>
+    </div>);
+  }
+
+}

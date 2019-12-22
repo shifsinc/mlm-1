@@ -1,5 +1,5 @@
 const { makeQuery, validateUser } = require('../utils.js');
-const { INCORRECT_QUERY, OK, tokenRegexp } = require('../const.js');
+const { INCORRECT_QUERY, tokenRegexp } = require('../const.js');
 
 module.exports = function(callback, params){/*confirmToken*/
   var confirmToken = params.confirmToken;

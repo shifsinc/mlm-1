@@ -1,24 +1,23 @@
 import React from 'react';
 import './News.css'
-import TitleBlock from '../common/TitleBlock.js'
-import getDataSrc from '../common/getDataSrc.js'
 
-export default function(props) {/*updateLocation*/
-  var cont;
-  getDataSrc(props.dataSrc, r => {
-    r.forEach(r => {
-      var item = document.createElement('div');
-      item.className = 'account__news__item';
-      var date = new Date( r.news_dt );
-      item.innerHTML = `<div class="account__news__item__text">` + r.news_text + `</div>
-      <div class="account__news__item__date">` + (date.getDate() + '.' + date.getMonth() + '.' + (date.getYear()+1900)) + `</div>`;
-      cont.appendChild(item);
-    });
-  });
-
+export default function(props){/*data*/
+  var data = props.data ? props.data : [];
   return (
-    <TitleBlock title="Новости" className="account__news" >
-      <div className="account__news__cont" ref={ r => cont = r }></div>
-    </TitleBlock>
+    <div className="account__news__cont">
+      {
+        data.map((d, i) => {
+          var date = new Date( d.news_dt );
+
+          return (<div key={ i } className="account__news__item">
+            <div className="account__news__item__text">{ d.news_text }</div>
+            <div className="account__news__item__date">
+              { date.getDate() + '.' + date.getMonth() + '.' + (date.getYear()+1900) }
+            </div>
+          </div>);
+
+        })
+      }
+    </div>
   );
 }

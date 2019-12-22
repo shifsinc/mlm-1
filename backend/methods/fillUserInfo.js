@@ -1,6 +1,6 @@
 const { makeQuery } = require('../utils.js');
-const { INCORRECT_QUERY, AUTH_FAILED, FORBIDDEN,
-    nameRegexp, phoneRegexp, linkRegexp, telegramRegexp, passwordRegexp } = require('../const.js');
+const { INCORRECT_QUERY, FORBIDDEN,
+    nameRegexp, phoneRegexp, linkRegexp, telegramRegexp } = require('../const.js');
 
 module.exports = function(callback, params, _user_id){/*name, surname, phone, social_link, telegram*/
   var name = params.name, surname = params.surname, phone = params.phone, social = params.social_link, telegram = params.telegram;

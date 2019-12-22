@@ -1,24 +1,19 @@
 import React from 'react';
 import './FilesView.css'
 import Table from '../../Table.js'
-import TitleBlock from '../common/TitleBlock.js'
-import getDataSrc from '../common/getDataSrc.js'
 
-export default function(props) {/*updateLocation, title, dataSrc, className*/
-  var cont;
-  getDataSrc(props.dataSrc, r => {
-    r.forEach(f => {
-      var tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>
-          <a class="icon-before-text" target="_blank" href="` + f.file_url + `">` + f.file_type + `</a></td><td>` + f.file_descr + `
-          </td>`;
-      cont.appendChild(tr);
-    });
-  });
+export default function(props){/*data*/
+  var data = props.data ? props.data : [];
   return (
-    <TitleBlock title={ props.title } className={ 'files-view' + (props.className ? ' ' + props.className : '') }>
-      <Table titles={ [ 'ФАЙЛ', 'ОПИСАНИЕ' ] } contRef={ r => cont = r }></Table>
-    </TitleBlock>
+    <Table titles={ [ 'ФАЙЛ', 'ОПИСАНИЕ' ] } className="files-view" children=
+      {
+        data.map((d, i) => {
+          return (<tr key={ i }>
+            <td><a className="icon-before-text" target="_blank noopener noreferrer" href={ d.file_url }>{ d.file_type }</a></td>
+            <td>{ d.file_descr }</td>
+          </tr>);
+        })
+      }>
+    </Table>
   );
 }

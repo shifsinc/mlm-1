@@ -15,8 +15,7 @@ module.exports = function(callback, params, _user_id){/*ethereum, paypal*/
   if( !fields.length ) return callback( INCORRECT_QUERY );
   //check acc exist
 
-  makeQuery(`UPDATE accounts SET ` + fields.join(',') + ` WHERE account_id=
-    (SELECT account_id FROM users WHERE user_id=?)`, [ ...values, _user_id ],
+  makeQuery(`UPDATE accounts SET ` + fields.join(',') + ` WHERE account_owner=?`, [ ...values, _user_id ],
     res => {
       res = OK;
       res.action.text = 'Платежные данные успешно обновлены!';

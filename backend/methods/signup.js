@@ -1,9 +1,9 @@
 const { makeQuery } = require('../utils.js');
 const { INCORRECT_QUERY, loginRegexp, passwordRegexp, emailRegexp, phoneRegexp } = require('../const.js');
 
-module.exports = function(callback, params){/*login, password, email, refer, type*/
+module.exports = function(callback, params){/*login, password, email, refer_phone, refer_type*/
   var login = params.login, password = params.password, email = params.email,
-    refer = params.refer ? params.refer : '00000000000', refer_type = params.type ? params.type : 'g';
+    refer = params.refer_phone ? params.refer_phone : '00000000000', refer_type = params.refer_type ? params.refer_type : 'g';
   if( login === undefined || !loginRegexp.test(login) ||
       password === undefined || !passwordRegexp.test(password) ||
       email === undefined || !emailRegexp.test(email) ||

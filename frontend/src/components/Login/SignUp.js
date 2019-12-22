@@ -5,52 +5,82 @@ import Form from '../Form.js'
 import Input from '../Input.js'
 import Switch from './Switch.js'
 import noPhoto from '../../img/noPhoto.png';
-import { loginRegexp, emailRegexp, passwordRegexp } from '../../const.js';
+import { loginRegexp, emailRegexp, phoneRegexp, passwordRegexp } from '../../const.js';
 
-export default function(props){/*updateLocation*/
-  var refer = props.params.refer ? props.params.refer : '', type = props.params.type ? props.params.type : 'g',
-    referPhoto, referEmail, referPhone;
+export default class extends React.Component {
+  constructor(props){/*updateLocation*/
+    super(props);
 
-  var onReferChange = value => {
-    props.apiCall('getReferInfo', value).then(res=> {
-      if( res.status !== 'error' ){
-        referPhoto.src = res.result.user_photo_url;
-        referEmail.value = res.result.user_email;
-        referPhone.value = refer = res.result.user_phone;
-      }
+    var refer_phone = props.params.refer ? props.params.refer : '', refer_type = props.params.type ? props.params.type : 'g';
+    this.state = {
+      refer_photo_url: noPhoto,
+      refer_email: '',
+      refer_phone,
+      _refer_phone: refer_phone,
+      refer_type
+    };
+    this._fetchRefer({ refer_phone });
+  }
+  
+  render(){
+    return (
+      <div className="login-form sign-up__cont">
+        <div className="form interface-block sign-up__refer"><div className="form__cont">
+          <div className="form__title">Ваш рефер</div>
+          <img alt="avatar" src={ this.state.refer_photo_url }/>
+          <Input attr={{ name: 'email', value: this.state.refer_email,
+            onChange: e => {
+              var val = { refer_email: e.target.value };
+              this.setState( val );
+              if( !emailRegexp.test(e.target.value) ) return;
+              this._fetchRefer( val );
+            } }}
+            regexp={ emailRegexp }
+            label="E-mail"></Input>
+          <Input attr={{ name: 'phone', value: this.state.refer_phone,
+            onChange: e => {
+              var val = { refer_phone: e.target.value };
+              this.setState( val );
+              if( !phoneRegexp.test(e.target.value) ) return;
+              this._fetchRefer( val );
+            } }}
+            regexp={ phoneRegexp }
+            label="Код рефера"></Input>
+        </div></div>
+        <Form
+            className="login-form interface-block"
+            submitTitle="РЕГИСТРАЦИЯ"
+            submitCallback={data => {
+              return this.props.apiCall('signup',
+                { ...data, refer_phone: this.state._refer_phone, refer_type: this.state.refer_type });
+            }}
+            updateLocation = { this.props.updateLocation }>
+          <Switch location="/signup" updateLocation={ this.props.updateLocation }></Switch>
+          <Input attr={{ name: 'login' }} regexp={ loginRegexp } label="Логин"></Input>
+
+          <Input attr={{ name: 'email'  }}
+            regexp={ emailRegexp } label="E-mail"></Input>
+          <Input attr={{ name: 'email_repeat' }}
+            regexp={ emailRegexp } label="Повторите E-mail"></Input>
+          <Input attr={{ name: 'password', type: 'password' }}
+            regexp={ passwordRegexp } label="Пароль"></Input>
+          <Input attr={{ name: 'password_repeat', type: 'password' }}
+            regexp={ passwordRegexp } label="Повторите пароль"></Input>
+        </Form>
+      </div>
+    );
+  }
+
+  _fetchRefer = value => {
+    this.props.apiCall('getReferInfo', value).then(res=> {
+      if( res.status === 'error' ) return;
+      this.setState({
+        refer_photo_url: res.result.user_photo_url,
+        refer_email: res.result.user_email,
+        refer_phone: res.result.user_phone,
+        _refer_phone: res.result.user_phone
+      });
     });
   }
-  setTimeout(() => { referPhone.value = refer; onReferChange({ user_phone: refer }) }, 0);
 
-  return (
-    <div className="login-form sign-up__cont">
-      <div className="form interface-block sign-up__refer"><div className="form__cont">
-        <div className="form__title">Ваш рефер</div>
-        <img alt="avatar" src={ noPhoto } ref={r => referPhoto = r}/>
-        <Input attr={{ name: 'email', ref: r => referEmail = r, onChange: e => onReferChange({ user_email: e.target.value }) }}
-          label="E-mail"></Input>
-        <Input attr={{ name: 'phone', ref: r => referPhone = r , onChange: e => onReferChange({ user_phone: e.target.value }) }}
-          label="Код рефера"></Input>
-      </div></div>
-      <Form
-          className="login-form interface-block"
-          submitTitle="РЕГИСТРАЦИЯ"
-          submitCallback={data => {
-            return props.apiCall('signup', { ...data, refer, type });
-          }}
-          updateLocation = { props.updateLocation }>
-        <Switch location="/signup" updateLocation={ props.updateLocation }></Switch>
-        <Input attr={{ name: 'login' }} regexp={ loginRegexp } label="Логин"></Input>
-
-        <Input attr={{ name: 'email'  }}
-          regexp={ emailRegexp } label="E-mail"></Input>
-        <Input attr={{ name: 'email_repeat' }}
-          regexp={ emailRegexp } label="Повторите E-mail"></Input>
-        <Input attr={{ name: 'password', type: 'password' }}
-          regexp={ passwordRegexp } label="Пароль"></Input>
-        <Input attr={{ name: 'password_repeat', type: 'password' }}
-          regexp={ passwordRegexp } label="Повторите пароль"></Input>
-      </Form>
-    </div>
-  );
 }

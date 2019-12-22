@@ -83,10 +83,8 @@ class App extends React.Component {
 
       case '/signout':
         this._apiCall('signout').then(r => {
-          if( r.status === 'ok' ){
-            window.localStorage.clear('authToken');
-            this.setState({ authToken: null });
-          }
+          window.localStorage.clear('authToken');
+          this.setState({ authToken: null });
           this._updateLocation('/');
         });
         break;

@@ -11,6 +11,15 @@ module.exports = function(callback, params, _user_id){/*count, offset*/
     news_text
     FROM news ORDER BY news_dt DESC LIMIT ?,?`, [ offset, count ],
     res => {
-      callback(res);
+
+      makeQuery(`SELECT COUNT(*) AS count FROM news`, [],
+        count => {
+          res.result = {
+            count: count.result[0].count,
+            data: res.result
+          }
+          callback(res);
+        }, callback);
+
   }, callback);
 }

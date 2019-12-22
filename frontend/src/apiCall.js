@@ -1,6 +1,6 @@
 import { API_ENDPOINT } from './config.js'
 
-export default (method, token, data = {}) => {
+export default (method, token, data = {}) => {console.log(method,data)
   return fetch(API_ENDPOINT + method, {
       method: 'POST',
       body: JSON.stringify({ ...data, token })

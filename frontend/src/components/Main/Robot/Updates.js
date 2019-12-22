@@ -1,18 +1,24 @@
 import React from 'react';
 import './Updates.css'
-import TitleBlock from '../common/TitleBlock.js'
-import getDataSrc from '../common/getDataSrc.js'
 
-export default function(props) {/*updateLocation, dataSrc*/
-  var cont;
-  getDataSrc(props.dataSrc, r => {
-    cont.innerHTML = `
-    <div class="robot__updates__item"><div>17.11.2019 15:14</div><div>Обновлено до версии 1.23</div></div>`;
-  });
+export default function(props){/*data*/
+  var data = props.data ? props.data : [];
   return (
-    <TitleBlock title="Обновления" className="robot__updates">
-      <div className="robot__updates__cont" ref={ r => cont = r }>
-      </div>
-    </TitleBlock>
+    <div className="robot__updates__cont">
+      {
+        data.map((d, i) => {
+          return (<div key={ i } className="robot__updates__item"><div>{ d.date }</div><div>{ d.text }</div></div>);
+        })
+      }
+    </div>
   );
 }
+
+/*{
+  date: '17.11.2019 15:14',
+  text: 'Обновлено до версии 1.23'
+},
+{
+  date: '18.12.2019 15:14',
+  text: 'Обновлено до версии 1.26'
+}*/

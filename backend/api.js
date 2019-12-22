@@ -43,6 +43,13 @@ module.exports = {
     '/getNews': authWrapper( require('./methods/getNews.js') ),
     '/getFiles': authWrapper( require('./methods/getFiles.js') ),
     '/getBilling': authWrapper( require('./methods/getBilling.js') ),
-    '/updateBilling': authWrapper( require('./methods/updateBilling.js') )
+    '/updateBilling': authWrapper( require('./methods/updateBilling.js') ),
+    '/getUserBalance': authWrapper( require('./methods/getUserBalance.js') ),
+    '/getTransactions': authWrapper( require('./methods/getTransactions.js') ),
+    '/getUserStats': authWrapper( require('./methods/getUserStats.js') ),
+    '/getReferalsTree': authWrapper( require('./methods/getReferalsTree.js') ),
+    '/getUserBonuses': authWrapper( require('./methods/getUserBonuses.js') ),
+    '/getRobotFiles': authWrapper( require('./methods/getRobotFiles.js') ),
+    '/getRobotUpdates': authWrapper( require('./methods/getRobotUpdates.js') )
   }
 }

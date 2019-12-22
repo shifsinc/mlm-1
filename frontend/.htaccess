@@ -1,18 +1,18 @@
 RewriteEngine on
 
-RewriteRule signin /
-RewriteRule signup /
-RewriteRule fillData /
-RewriteRule acceptTerms /
-RewriteRule passwordResetRequest /
-RewriteRule passwordReset /
-RewriteRule terms /
-RewriteRule account /
-RewriteRule robot /
-RewriteRule team /
-RewriteRule marketing /
-RewriteRule finances /
-RewriteRule instructions /
-RewriteRule settings /
-RewriteRule signout /
-RewriteRule confirmEmail / [L]
+RewriteRule "^signin$" /
+RewriteRule "^signup$" /
+RewriteRule "^fillData$" /
+RewriteRule "^acceptTerms$" /
+RewriteRule "^passwordResetRequest$" /
+RewriteRule "^passwordReset$" /
+RewriteRule "^terms$" /
+RewriteRule "^account$" /
+RewriteRule "^robot$" /
+RewriteRule "^team$" /
+RewriteRule "^marketing$" /
+RewriteRule "^finances$" /
+RewriteRule "^instructions$" /
+RewriteRule "^settings$" /
+RewriteRule "^signout$" /
+RewriteRule "^confirmEmail$" / [L]

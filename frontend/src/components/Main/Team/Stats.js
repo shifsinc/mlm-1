@@ -1,29 +1,29 @@
 import React from 'react';
 import './Stats.css'
-import getDataSrc from '../common/getDataSrc.js'
 
-export default function(props) {/*updateLocation, dataSrc*/
-  var bothLines, binaryUsers, referals, moneyAmount;
-  getDataSrc(props.dataSrc, r => {
-    bothLines.innerHTML = '92';
-    binaryUsers.innerHTML = '76';
-    referals.innerHTML = '29/47';
-    moneyAmount.innerHTML = '0/21250';
-  });
+export default function(props){/*data*/
+  var data = props.data ? props.data : {};
   return (
     <div className="interface-block team__stats">
       <div className="team__stats__item">
-        <span>Пользователей в обеих линиях</span><span ref={ r => bothLines = r }></span>
+        <span>Пользователей в обеих линиях</span><span>{ data.bothLinesUsers }</span>
       </div>
       <div className="team__stats__item">
-        <span>Бинарных пользователей</span><span ref={ r => binaryUsers = r }></span>
+        <span>Бинарных пользователей</span><span>{ data.binaryUsers }</span>
       </div>
       <div className="team__stats__item">
-        <span>Рефералов в левой/правой ноге</span><span ref={ r => referals = r }></span>
+        <span>Рефералов в левой/правой ноге</span><span>{ data.referals }</span>
       </div>
       <div className="team__stats__item">
-        <span>Количество YT, заработанное в левой/правой ноге</span><span ref={ r => moneyAmount = r }></span>
+        <span>YT в левой/правой ноге</span><span>{ data.money }</span>
       </div>
     </div>
   );
 }
+
+/*{
+  bothLinesUsers: '92',
+  binaryUsers: '76',
+  referals: '29/47',
+  money: '0/21250'
+}*/

@@ -1,18 +1,20 @@
 import React from 'react';
 import './Lines.css'
 import Table from '../../Table.js'
-import getDataSrc from '../common/getDataSrc.js'
 
-export default function(props) {/*updateLocation, dataSrc*/
-  var cont;
-  getDataSrc(props.dataSrc, r => {
-    cont.innerHTML = `
-    <tr><td>Первая линия</td><td>115</td><td>93</td></tr>
-    <tr><td>Вторая линия</td><td>30</td><td>22</td></tr>`;
-  });
+export default function(props){/*data*/
+  var data = props.data ? props.data : {};
   return (
     <div className="interface-block team__lines">
-      <Table titles={ [ 'РАСПРЕДЕЛЕНИЕ', 'ПОЛЬЗОВАТЕЛИ', 'АКТИВНЫЕ ПОЛЬЗОВАТЕЛИ' ] } contRef={ r => cont = r }></Table>
+      <Table titles={ [ 'РАСПРЕДЕЛЕНИЕ', 'ПОЛЬЗОВАТЕЛИ', 'АКТИВНЫЕ ПОЛЬЗОВАТЕЛИ' ] }>
+        <tr><td>Первая линия</td><td>{ data.firstLineTotal }</td><td>{ data.firstLineActive }</td></tr>
+        <tr><td>Вторая линия</td><td>{ data.secondLineTotal }</td><td>{ data.secondLineActive }</td></tr>
+      </Table>
     </div>
   );
 }
+
+/*firstLineTotal: 115,
+firstLineActive: 93,
+secondLineTotal: 30,
+secondLineActive: 22*/

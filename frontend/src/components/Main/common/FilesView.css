@@ -1,11 +1,3 @@
-.files-view > h3 {
-  color: var(--color3);
-  margin: 10px 0 15px 8px;
-  font-weight: 600;
-}
-.files-view > .table {
-  width: 100%;
-}
 .files-view a.icon-before-text:before {
   background-image: url('../../../img/icon/download@2x.png');
 }

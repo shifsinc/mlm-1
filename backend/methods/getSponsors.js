@@ -2,9 +2,9 @@ const { makeQuery } = require('../utils.js');
 const { INCORRECT_QUERY } = require('../const.js');
 const { PHOTOS_PREFIX } = require('../config.js');
 
-module.exports = function(callback, params, _user_id){/*count*/
-  var count = params.count;
-  if( isNaN(count) || count < 1 || count > 20 ) return callback( INCORRECT_QUERY );
+module.exports = function(callback, params, _user_id){/*count, offset*/
+  var count = params.count;/*, offset = params.offset;*/
+  if( isNaN(count) || count < 1 || count > 20 /*|| isNaN(offset)*/ ) return callback( INCORRECT_QUERY );
 
   var fields = ['u1.user_id AS user_id_1',
   'u1.user_name AS user_name_1',
@@ -24,6 +24,7 @@ module.exports = function(callback, params, _user_id){/*count*/
     res => {
       var arr = [];
       for(var i = 1 ; i <= count ; i++){
+        if( res.result[0]['user_id_' + i] === null ) break;
         arr.push({
           user_id: res.result[0]['user_id_' + i],
           user_name: res.result[0]['user_name_' + i],
@@ -32,7 +33,10 @@ module.exports = function(callback, params, _user_id){/*count*/
           user_photo_url: PHOTOS_PREFIX + res.result[0]['user_photo_' + i]
         });
       }
-      res.result = arr;
+      res.result = {
+        count: null,
+        data: arr
+      }
       callback(res);
   }, callback);
 }

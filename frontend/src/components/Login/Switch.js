@@ -3,7 +3,7 @@ import './Switch.css'
 import Link from '../Link.js'
 
 export default function(props){/*location, updateLocation*/
-  var location = props.location
+  var location = props.location;
   return (
     <div className="login-switch">
       <Link

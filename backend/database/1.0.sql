@@ -25,11 +25,45 @@ DROP TABLE IF EXISTS `mlm_db`.`accounts` ;
 
 CREATE TABLE IF NOT EXISTS `mlm_db`.`accounts` (
   `account_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `account_value` DOUBLE NOT NULL DEFAULT '0',
+  `account_owner` INT(11) NOT NULL,
+  `account_balance` DOUBLE NOT NULL DEFAULT '0',
   `account_ethereum` VARCHAR(64) NULL DEFAULT NULL,
   `account_paypal` VARCHAR(64) NULL DEFAULT NULL,
   PRIMARY KEY (`account_id`),
-  UNIQUE INDEX `account_id_UNIQUE` (`account_id` ASC))
+  UNIQUE INDEX `account_id_UNIQUE` (`account_id` ASC),
+  UNIQUE INDEX `owner_id_UNIQUE` (`account_owner` ASC),
+  CONSTRAINT `owner_fk`
+    FOREIGN KEY (`account_owner`)
+    REFERENCES `mlm_db`.`users` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 3
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mlm_db`.`stats`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mlm_db`.`stats` ;
+
+CREATE TABLE IF NOT EXISTS `mlm_db`.`stats` (
+  `stats_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL,
+  `referals_count` INT(11) NOT NULL DEFAULT '0',
+  `yt_left` DOUBLE NOT NULL DEFAULT '0',
+  `yt_right` DOUBLE NOT NULL DEFAULT '0',
+  `binary_cycles` INT(11) NOT NULL DEFAULT '0',
+  `day_profit` DOUBLE NOT NULL DEFAULT '0',
+  `day_profit_ts` TIMESTAMP NULL DEFAULT NULL,
+  PRIMARY KEY (`stats_id`),
+  UNIQUE INDEX `stats_id_UNIQUE` (`stats_id` ASC),
+  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC),
+  CONSTRAINT `user_fk`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `mlm_db`.`users` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
@@ -60,39 +94,33 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`users` (
   `user_id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_login` VARCHAR(30) NOT NULL,
   `user_password_hash` VARCHAR(65) NOT NULL,
-  `user_name` VARCHAR(40) NULL DEFAULT NULL,
-  `user_surname` VARCHAR(40) NULL DEFAULT NULL,
-  `user_status` VARCHAR(45) NULL DEFAULT NULL,
   `user_dt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `role_id` INT(11) NOT NULL DEFAULT '2',
   `user_refer` INT(11) NULL DEFAULT NULL,
+  `user_refer_type` ENUM('l', 'r') NULL DEFAULT NULL,
+  `user_name` VARCHAR(40) NULL DEFAULT NULL,
+  `user_surname` VARCHAR(40) NULL DEFAULT NULL,
   `user_email` VARCHAR(45) NOT NULL,
   `user_phone` VARCHAR(16) NULL DEFAULT NULL,
   `user_social` VARCHAR(45) NULL DEFAULT NULL,
   `user_telegram` VARCHAR(45) NULL DEFAULT NULL,
   `user_photo` VARCHAR(45) NULL DEFAULT 'noPhoto.png',
+  `user_status` VARCHAR(45) NULL DEFAULT NULL,
   `user_bonus_level` INT(10) UNSIGNED ZEROFILL NULL DEFAULT NULL,
-  `user_rate` INT(10) NULL DEFAULT NULL,
-  `account_id` INT(11) NULL DEFAULT NULL,
-  `user_refer_type` ENUM('l', 'r') NULL DEFAULT NULL,
+  `user_rate` ENUM('client', 'light', 'advanced', 'master') NULL DEFAULT NULL,
   `password_reset_token` VARCHAR(32) NULL DEFAULT NULL,
   `password_reset_token_ts` TIMESTAMP(6) NULL DEFAULT NULL,
   `user_data_filled` TINYINT(4) NOT NULL DEFAULT '0',
+  `user_start_work` TINYINT(4) NOT NULL DEFAULT '0',
   `email_confirm_token` VARCHAR(32) NULL DEFAULT NULL,
   `general_link_type` ENUM('l', 'r') NOT NULL DEFAULT 'l',
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `user_login_UNIQUE` (`user_login` ASC),
   UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC),
   UNIQUE INDEX `user_email_UNIQUE` (`user_email` ASC),
-  UNIQUE INDEX `account_id_UNIQUE` (`account_id` ASC),
   UNIQUE INDEX `user_phone_UNIQUE` (`user_phone` ASC),
   INDEX `role_idx` (`role_id` ASC),
   INDEX `refer_idx` (`user_refer` ASC),
-  CONSTRAINT `money`
-    FOREIGN KEY (`account_id`)
-    REFERENCES `mlm_db`.`accounts` (`account_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `refer`
     FOREIGN KEY (`user_refer`)
     REFERENCES `mlm_db`.`users` (`user_id`)
@@ -143,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`files` (
   `file_type` VARCHAR(16) NOT NULL DEFAULT 'file',
   `file_title` VARCHAR(64) NULL,
   `file_descr` VARCHAR(128) NULL,
-  `file_section` ENUM('marketing', 'instructions', 'videos') NOT NULL,
+  `file_section` ENUM('marketing', 'instructions', 'videos', 'robot') NOT NULL,
   `file_name` VARCHAR(32) NOT NULL,
   PRIMARY KEY (`file_id`),
   UNIQUE INDEX `file_id_UNIQUE` (`file_id` ASC),
@@ -177,12 +205,12 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`transactions` (
   UNIQUE INDEX `tr_id_UNIQUE` (`tr_id` ASC),
   CONSTRAINT `sender`
     FOREIGN KEY (`tr_sender_id`)
-    REFERENCES `mlm_db`.`users` (`user_id`)
+    REFERENCES `mlm_db`.`accounts` (`account_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `receiver`
     FOREIGN KEY (`tr_receiver_id`)
-    REFERENCES `mlm_db`.`users` (`user_id`)
+    REFERENCES `mlm_db`.`accounts` (`account_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   INDEX `sender_idx` (`tr_sender_id`),
@@ -198,8 +226,8 @@ DROP TABLE IF EXISTS `mlm_db`.`sessions` ;
 CREATE TABLE IF NOT EXISTS `mlm_db`.`sessions` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
   `token` VARCHAR(32) NOT NULL,
-  PRIMARY KEY (`user_id`),
-  UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC),
+  PRIMARY KEY (`token`),
+  UNIQUE INDEX `token_UNIQUE` (`token` ASC),
   CONSTRAINT `user`
     FOREIGN KEY (`user_id`)
     REFERENCES `mlm_db`.`users` (`user_id`)
@@ -212,15 +240,12 @@ USE `mlm_db`;
 DELIMITER $$
 
 USE `mlm_db`$$
-DROP TRIGGER IF EXISTS `mlm_db`.`users_BEFORE_INSERT` $$
+DROP TRIGGER IF EXISTS `mlm_db`.`users_AFTER_INSERT` $$
 USE `mlm_db`$$
-CREATE DEFINER = CURRENT_USER TRIGGER `mlm_db`.`users_BEFORE_INSERT` BEFORE INSERT ON `users` FOR EACH ROW
+CREATE DEFINER = CURRENT_USER TRIGGER `mlm_db`.`users_AFTER_INSERT` AFTER INSERT ON `users` FOR EACH ROW
 BEGIN
-	DECLARE acc_id INT(11);
-	INSERT INTO accounts
-    VALUES ();
-    SELECT LAST_INSERT_ID() INTO acc_id FROM accounts LIMIT 1;
-    SET new.account_id = acc_id;
+  INSERT INTO accounts(account_owner) VALUES(new.user_id);
+  INSERT INTO stats(user_id) VALUES(new.user_id);
 END$$
 
 

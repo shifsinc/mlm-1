@@ -1,60 +1,70 @@
 import React from 'react';
 import './Form.css';
 
-export default function(props){/*formTitle, submitTitle, submitCallback, className*/
-  var form, message,
+export default class extends React.Component{/*formTitle, submitTitle, submitCallback, className*/
+  render(){
+    return (
+      <form className={ 'form' + (this.props.className ? ' ' + this.props.className : '') } ref={ r => this.form = r }
+        onSubmit={ this._onSubmit }>
 
-    checkRepeat = inputs => {
-      var ret = true;
-      Array.prototype.forEach.call( inputs, inp => {
-        var repeat = /^(.+)_repeat$/.exec( inp.name );
-        if( !repeat ) return;
-        var field = form.querySelector( 'input[name="' + repeat[1] + '"]' );
-        if( !field ) return;
-        if( inp.value !== field.value ){
-          inp.classList.add('incorrect');
-          ret = false;
-        }
-      });
-      return ret;
-    },
+        <div className="message" ref={ r => this.message = r }></div>
+        { this.props.formTitle ? <h3 className="form__title">{ this.props.formTitle }</h3> : undefined }
+        <div className="form__cont">
+          { this.props.children }
+          <a className="link button form__button" href="##"
+            onClick={ this._onSubmit }>{ this.props.submitTitle }</a>
+          <input type="submit" onClick={ this._onSubmit } style={{ display: 'none' }}/>
+        </div>
 
-    onSubmit = e => {
-      e.preventDefault();
-      if( form.querySelector('input.incorrect') ) return;
+      </form>
+    );
+  }
 
-      var inputs = form.querySelectorAll('input');
-      if( !checkRepeat(inputs) ) return;
+  _checkRepeat = inputs => {
+    var ret = true;
+    Array.prototype.forEach.call( inputs, inp => {
+      var repeat = /^(.+)_repeat$/.exec( inp.name );
+      if( !repeat ) return;
+      var field = this.form.querySelector( 'input[name="' + repeat[1] + '"]' );
+      if( !field ) return;
+      if( inp.value !== field.value ){
+        inp.classList.add('incorrect');
+        ret = false;
+      }
+    });
+    return ret;
+  }
 
-      var data = {};
-      Array.prototype.forEach.call( inputs, inp => {
-        if(inp.type === 'file') data[ inp.name ] = inp.files.length ? inp.files[0].slice() : null;
-        else data[ inp.name ] = inp.value;
-      });
+  _onSubmit = e => {
+    e.preventDefault();
+    if( this.form.querySelector('input.incorrect') ) return;
 
-      var prom = props.submitCallback( data );
-      if( !prom ) return;
-      prom.then(({ action }) => {/*text, fields, path*/
-        if( !action ) return;
-        if( action.text ){
-          message.innerHTML = action.text;
-          form.classList.add('show-message');
-        }
-        if( action.fields ) action.fields.forEach(f => form.querySelector('input[name="' + f + '"]').classList.add('incorrect'));
-        if( action.path ) props.updateLocation( action.path );
-      });
-    }
+    var inputs = this.form.querySelectorAll('input');
+    if( !this._checkRepeat(inputs) ) return;
 
-  return (
-    <form className={ 'form' + (props.className ? ' ' + props.className : '') } ref={r => form = r}>
-      <div className="message" ref={r => message = r}></div>
-      { props.formTitle ? <h3 className="form__title">{ props.formTitle }</h3> : undefined }
-      <div className="form__cont">
-        { props.children }
-        <a className="link button form__button" href="##"
-          onClick={ onSubmit }>{ props.submitTitle }</a>
-        <button onClick={ onSubmit } style={{ display: 'none' }}></button>
-      </div>
-    </form>
-  );
+    var data = {};
+    Array.prototype.forEach.call( inputs, inp => {
+      if( inp.type === 'submit' ) return;
+      if( inp.type === 'file' ) data[ inp.name ] = inp.files.length ? inp.files[0].slice() : null;
+      else data[ inp.name ] = inp.value;
+    });
+
+    var prom = this.props.submitCallback( data );
+    if( !prom ) return;
+    prom.then( ({ action }) => {/*text, fields, path*/
+      if( !action ) return;
+      if( action.text ){
+        this.message.innerHTML = action.text;
+        this.form.classList.add('show-message');
+      }
+      if( action.fields ){
+        action.fields.forEach(f => {
+          var field = this.form.querySelector('input[name="' + f + '"]');
+          if(field) field.classList.add('incorrect');
+        });
+      }
+      if( action.path ) this.props.updateLocation( action.path );
+    } );
+  }
+
 }

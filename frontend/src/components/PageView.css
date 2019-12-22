@@ -1,0 +1,18 @@
+.page-view__pages {
+  
+}
+.page-view__pages__select {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  border-radius: 3px;
+  color: var(--color2) !important;
+  text-align: center;
+  line-height: 30px;
+}
+.page-view__pages__select.active {
+  color: #FFF !important;
+  font-weight: 600;
+  background-color: var(--color2);
+}

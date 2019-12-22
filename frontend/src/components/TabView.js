@@ -2,24 +2,40 @@ import React from 'react';
 import './TabView.css'
 import Link from './Link.js'
 
-export default function(props){/*updateLocation, titles*/
-  var cont, header, lastActive = 0;
-  return (
-    <div className={ 'tab-view' + ( props.className ? ' ' + props.className : '') }>
-    <div className="tab-view__header" ref={ r => {header = r; if(r) r.children[0].classList.add('active')} }>
-      { props.titles.map((t, i) =>
-          <Link key={ i } className="tab-view__header__item" updateLocation={ props.updateLocation } onClick={ () => {
-            cont.children[ lastActive ].classList.remove('active');
-            cont.children[ i ].classList.add('active');
-            header.children[ lastActive ].classList.remove('active');
-            header.children[ i ].classList.add('active');
-            lastActive = i;
-          } }>{ t }</Link>
-        ) }
-    </div>
-    <div className="tab-view__content" ref={ r => {cont = r; if(r) r.children[0].classList.add('active')} }>
-      { props.children }
-    </div>
-    </div>
-  );
+export default class extends React.Component {
+  constructor(props){/*updateLocation, titles*/
+    super(props);
+    
+    this.lastActive = 0;
+  }
+
+  componentDidMount = () => this.makeActive(0);
+
+  render(){
+    return (
+      <div className={ 'tab-view' + ( this.props.className ? ' ' + this.props.className : '') }>
+        <div className="tab-view__header" ref={ r => this.header = r }>
+          { this.props.titles.map((text, ind) =>
+
+              <Link key={ ind } className="tab-view__header__item" updateLocation={ this.props.updateLocation }
+                onClick={ () => {
+                  this.makeActive(ind);
+                } }>{ text }</Link>
+
+            ) }
+        </div>
+        <div className="tab-view__content" ref={ r => this.cont = r }>
+          { this.props.children }
+        </div>
+      </div>
+    );
+  }
+
+  makeActive = ind => {
+    this.header.children[ this.lastActive ].classList.remove('active');
+    this.cont.children[ this.lastActive ].classList.remove('active');
+    this.header.children[ ind ].classList.add('active');
+    this.cont.children[ ind ].classList.add('active');
+    this.lastActive = ind;
+  }
 }
