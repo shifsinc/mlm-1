@@ -1,6 +1,7 @@
 import React from 'react';
 import './Info.css'
 import noPhoto from '../../../img/noPhoto.png';
+import { STATUS_TITLES, BINARY_CYCLE_AMOUNT } from '../../../const.js'
 
 export default function(props){/*data*/
   var data = props.data ? props.data : {};
@@ -11,10 +12,14 @@ export default function(props){/*data*/
       </div>
       <div className="account__info__cont">
         <div className="account__info__cont1">
-          <span className="account__info__bunus-level">{ data.user_bonus_level }</span>
-          <span className="account__info__rate">{ data.user_rate }</span>
-          <h2>{ data.user_name + ' ' + data.user_surname }</h2>
-          <div>{ data.user_status }</div>
+          <div className="account__info__account-info">
+            <div className="account__info__bunus-level">
+              { data.user_bonus_level ? 'Бонусный уровень: ' + data.user_bonus_level : '' }
+            </div>
+            <div className="account__info__rate">{ data.user_rate ? 'Аккаунт: ' + data.user_rate.toUpperCase() : '' }</div>
+          </div>
+          <h2>{ data.user_name } { data.user_surname }</h2>
+          <div className="account__info__status">{ STATUS_TITLES[ data.user_status ] }</div>
         </div>
         <div className="account__info__cont2">
           <table><tbody>
@@ -33,22 +38,24 @@ export default function(props){/*data*/
         </div>
         <div className="account__info__cont3">
           <div className="account__info__cont3__item">
-            <div>{ data.referals_count }</div><div>Мои рефералы</div>
+            <div>{ data.stats_first_line_referals + '' }</div><div>Мои рефералы</div>
           </div>
           <div className="account__info__cont3__item">
-            <div>{ data.day_profit }</div><div>Дневной доход</div>
+            <div>{ data.stats_day_profit }</div><div>Дневной доход</div>
           </div>
           <div className="account__info__cont3__item">
             <div>{ data.account_balance }</div><div>Баланс YT</div>
           </div>
           <div className="account__info__cont3__item">
-            <div>{ data.yt_left }</div><div>YT слева</div>
+            <div>{ data.stats_yt_left }</div><div>YT слева</div>
           </div>
           <div className="account__info__cont3__item">
-            <div>{ data.yt_right }</div><div>YT справа</div>
+            <div>{ data.stats_yt_right }</div><div>YT справа</div>
           </div>
           <div className="account__info__cont3__item">
-            <div>{ data.binary_cycles }</div><div>Бинарные циклы</div>
+            <div>{ ( Math.floor( data.stats_binary_cycles_left / BINARY_CYCLE_AMOUNT ) ) + '/' +
+              ( Math.floor( data.stats_binary_cycles_right / BINARY_CYCLE_AMOUNT )  ) }</div>
+            <div>Бинарные циклы</div>
           </div>
         </div>
       </div>

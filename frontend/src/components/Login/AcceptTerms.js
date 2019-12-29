@@ -1,7 +1,7 @@
 import React from 'react';
 import './AcceptTerms.css'
-import Link from '../Link.js'
-import TermsText from '../TermsText.js'
+import Link from '../common/Link.js'
+import TermsText from '../common/TermsText.js'
 
 export default function(props){/*updateLocation*/
   return (

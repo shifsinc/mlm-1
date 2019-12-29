@@ -1,0 +1,22 @@
+.start-work .form__button,
+.start-work__button {
+  width: 200px;
+  height: 30px;
+  line-height: 30px;
+  margin-top: 15px;
+  padding: 0;
+}
+
+.step-view_step2 {
+  background-color: transparent;
+  box-shadow: none;
+  padding: 0;
+  overflow: visible;
+}
+
+@media screen and (max-width: 900px) {
+  .start-work .form__button,
+  .start-work__button {
+    width: 120px;
+  }
+}

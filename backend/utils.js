@@ -2,9 +2,8 @@ const mysql = require('mysql');
 const { MYSQL_AUTH } = require('./config.js');
 const { INCORRECT_QUERY, AUTH_FAILED, tokenRegexp, ADMIN_ROLE, FORBIDDEN } = require('./const.js');
 
-
 var _con;
-function initMysqlConnection(onSuccess, onError){
+module.exports.initMysqlConnection = function(onSuccess, onError){
   _con = mysql.createConnection( MYSQL_AUTH );
   _con.connect( err => {
     if(err && onError) onError( { status: 'error', text: err.sqlMessage/*'Internal error'*/ } );
@@ -19,7 +18,12 @@ function makeQuery(query, params = [], onSuccess, onError){
   });
 }
 module.exports.makeQuery = makeQuery;
-module.exports.initMysqlConnection = initMysqlConnection;
+module.exports.beginTransaction = function(callback, onError){
+  _con.beginTransaction(e => {
+    if(e) onError && onError(e);
+    else callback( _con );
+  });
+}
 
 ///////////////////////
 
@@ -71,3 +75,14 @@ function parseGetParams(query){
 module.exports.parseGetParams = parseGetParams;
 
 //////////////////////
+
+module.exports.checkUserPwd = function(user_id, pwd, onSuccess, onError){
+  makeQuery(`SELECT user_id FROM users WHERE user_id=? AND user_password_hash=md5(?)`, [ user_id, pwd ],
+    res => {
+      if( !res.result.length ){
+        res = AUTH_FAILED;
+        res.action.text = 'Пароль введен неверно';
+        if(onError) onError( res );
+      } else onSuccess()
+    }, onError);
+}

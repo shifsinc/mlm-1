@@ -1,6 +1,6 @@
 import React from 'react';
 import './Menu.css'
-import Link from '../../Link.js'
+import Link from '../../common/Link.js'
 
 export default function(props){/*updateLocation*/
   var commonProps = { updateLocation: props.updateLocation }, loc = props.location, menu;
@@ -16,12 +16,19 @@ export default function(props){/*updateLocation*/
         Моя команда</Link>
       <Link { ...commonProps } path="/marketing" className={ 'menu__item marketing-icon' + ( loc === '/marketing' ? ' active' : '' ) }>
         Маркетинг</Link>
-      <Link { ...commonProps } path="/finances" className={ 'menu__item finances-icon' + ( loc === '/finances' ? ' active' : '' ) }>
+      <Link { ...commonProps } path="/finances"
+        className={ 'menu__item finances-icon' + ( ( loc === '/finances' || loc === '/refill' || loc === '/transfer' ) ? ' active' : '' ) }>
         Финансы</Link>
       <Link { ...commonProps } path="/instructions" className={ 'menu__item instructions-icon' + ( loc === '/instructions' ? ' active' : '' ) }>
         Инструкции</Link>
       <Link { ...commonProps } path="/settings" className={ 'menu__item settings-icon' + ( loc === '/settings' ? ' active' : '' ) }>
         Настройки</Link>
+        {
+          props.admin ?
+            <Link { ...commonProps } path="/admin" className={ 'menu__item admin-icon' + ( loc === '/admin' ? ' active' : '' ) }>
+              Управление</Link>
+              : undefined
+        }
     </div>
     <div className="cover menu-mobile-cover" onClick={ e => menu.classList.add('close') }></div>
     </div>

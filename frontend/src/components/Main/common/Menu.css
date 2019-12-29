@@ -12,6 +12,9 @@
   padding: 15px 5px;
   border-bottom: solid 1px var(--color5);
 }
+.menu__item:last-child {
+  border: none;
+}
 .menu__item.active {
   font-weight: 800;
 }
@@ -45,7 +48,7 @@
 @media screen and (max-width: 900px){
   #menu {
     position: absolute;
-    z-index: 20;
+    z-index: 200;
   }
   .menu-mobile-cover {
     display: block;
@@ -76,23 +79,26 @@
   }
 }
 .account-icon:before {
-  background-image: url('../../../img/icon/account.png');
+  background-image: url('../../../img/icon/account@2x.png');
 }
 .robot-icon:before {
-  background-image: url('../../../img/icon/robot.png');
+  background-image: url('../../../img/icon/robot@2x.png');
 }
 .team-icon:before {
-  background-image: url('../../../img/icon/team.png');
+  background-image: url('../../../img/icon/team@2x.png');
 }
 .marketing-icon:before {
-  background-image: url('../../../img/icon/marketing.png');
+  background-image: url('../../../img/icon/marketing@2x.png');
 }
 .finances-icon:before {
-  background-image: url('../../../img/icon/finance.png');
+  background-image: url('../../../img/icon/finance@2x.png');
 }
 .instructions-icon:before {
-  background-image: url('../../../img/icon/instructions.png');
+  background-image: url('../../../img/icon/instructions@2x.png');
 }
 .settings-icon:before {
-  background-image: url('../../../img/icon/settings.png');
+  background-image: url('../../../img/icon/settings@2x.png');
+}
+.admin-icon:before {
+  background-image: url('../../../img/icon/admin@2x.png');
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import './History.css'
-import Table from '../../Table.js'
+import Table from '../../common/Table.js'
+import { formatDate } from '../../../utils.js'
 
 export default function(props){/*data*/
   var data = props.data ? props.data : [];
@@ -11,7 +12,7 @@ export default function(props){/*data*/
           return (<tr key={ i }>
             <td>{ d.tr_platform_amount + ' YT' }</td>
             <td>{ d.tr_descr }</td>
-            <td>{ d.tr_dt }</td>
+            <td>{ formatDate( d.tr_dt ) }</td>
             <td>{ d.tr_status }</td>
           </tr>);
         })

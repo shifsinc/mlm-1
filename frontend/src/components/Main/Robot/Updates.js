@@ -1,5 +1,6 @@
 import React from 'react';
 import './Updates.css'
+import { formatDate } from '../../../utils.js'
 
 export default function(props){/*data*/
   var data = props.data ? props.data : [];
@@ -7,18 +8,11 @@ export default function(props){/*data*/
     <div className="robot__updates__cont">
       {
         data.map((d, i) => {
-          return (<div key={ i } className="robot__updates__item"><div>{ d.date }</div><div>{ d.text }</div></div>);
+          return (<div key={ i } className="robot__updates__item">
+            <div>{ formatDate( d.news_dt ) }</div><div>{ d.news_text }</div>
+          </div>);
         })
       }
     </div>
   );
 }
-
-/*{
-  date: '17.11.2019 15:14',
-  text: 'Обновлено до версии 1.23'
-},
-{
-  date: '18.12.2019 15:14',
-  text: 'Обновлено до версии 1.26'
-}*/

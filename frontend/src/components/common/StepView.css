@@ -1,0 +1,24 @@
+.step-view {
+
+}
+.step-view__header {
+  padding: 0;
+}
+.step-view__header__title {
+  margin: 10px 0 15px 15px;
+}
+.step-view__header__progress {
+  height: 5px;
+  background-color: var(--color6);
+}
+.step-view__header__progress > div {
+  height: 100%;
+  background-color: var(--color2);
+}
+.step-view__cont {
+  
+}
+.step-view__step-title {
+  margin: 10px 0;
+  color: var(--color4);
+}

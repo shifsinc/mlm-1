@@ -1,7 +1,7 @@
 import React from 'react';
 import './PasswordReset.css'
-import Form from '../Form.js'
-import Input from '../Input.js'
+import Form from '../common/Form.js'
+import Input from '../common/Input.js'
 
 export default function(props) {/*updateLocation*/
   return (
@@ -13,7 +13,7 @@ export default function(props) {/*updateLocation*/
       return props.apiCall('passwordReset', { ...data, resetToken: props.params.resetToken });
     }}
     updateLocation = { props.updateLocation }>
-    <Input attr={{ name: 'password', type: 'password' }} label="Пароль"></Input>
+    <Input attr={{ name: 'password', autoFocus: true, type: 'password' }} label="Пароль"></Input>
     <Input attr={{ name: 'password_repeat', type: 'password' }} label="Повторите пароль"></Input>
     </Form>
   );

@@ -1,0 +1,26 @@
+.switch {
+  height: 35px;
+  border: solid 1px var(--color3);
+  border-radius: 3px;
+  margin-top: 24px;
+}
+.switch * {
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  height: 35px;
+  line-height: 35px;
+  cursor: pointer;
+  font-weight: 200;
+}
+.switch *:first-child {
+  transform: translate(-1px,-1px);
+}
+.switch *:last-child {
+  transform: translate(1px,-1px);
+}
+.switch > .active {
+  border: solid 1px var(--color2);
+  color: var(--color2);
+  border-radius: 3px;
+}

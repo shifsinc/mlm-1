@@ -1,0 +1,33 @@
+.add-money__transaction {
+  padding: 0;
+}
+.add-money__cont {
+  padding: 10px;
+  font-weight: 400;
+  color: var(--color4);
+}
+.add-money__cont > h2,
+.add-money__cont > h3 {
+  font-weight: 400;
+  margin: 15px 0;
+}
+.add-money__wallet {
+  margin-top: 20px;
+}
+.add-money__sum-label {
+  position: absolute;
+  right: 10px;
+  top: 34px;
+  font-size: 12px;
+  color: var(--color4);
+}
+.add-money__total {
+
+}
+.add-money__total > input {
+  border: solid 2px var(--color2);
+  color: var(--color2);
+}
+.add-money__total > .input__label {
+  color: var(--color2);
+}

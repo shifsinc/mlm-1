@@ -8,7 +8,8 @@ const { parseGetParams, initMysqlConnection, makeQuery } = require('./utils.js')
 const { INCORRECT_QUERY } = require('./const.js');
 
 function serverHnd(request, response){
-		response.setHeader('Access-Control-Allow-Origin', "*");
+		response.setHeader('Access-Control-Allow-Origin', '*');
+		response.setHeader('Access-Control-Allow-Headers', '*');
   response.setHeader('Content-Type', 'text/json');
 
   var _url = url.parse( request.url ),
@@ -18,17 +19,22 @@ function serverHnd(request, response){
   console.log('request: ', methodPath);
   if( !method ) return response.end( JSON.stringify({ status: 'error', text: 'method doesn\'t exist' }) );
 
-  if(request.method == 'GET'){
+  if(request.method === 'GET'){
     method( resp => response.end( JSON.stringify(resp) ), parseGetParams( _url.query ) );
-  } else if(request.method == 'POST'){
-    var jsonStr = '', params;
-    request.on('data', d => jsonStr += d);
+  } else if(request.method === 'POST'){
+		var body = '', params, getParams = parseGetParams( _url.query );
+    request.on('data', d => body += d);
     request.on('end', () => {
-      try{
-        params = JSON.parse( jsonStr );
-      } catch(e){
-        return response.end( JSON.stringify( INCORRECT_QUERY ) );
-      }
+			if( getParams._file ){
+				params = getParams;
+				params._file = body;
+			} else {
+      	try{
+        	params = JSON.parse( body );
+      	} catch(e){
+        	return response.end( JSON.stringify( INCORRECT_QUERY ) );
+      	}
+			}
       method( resp => response.end( JSON.stringify(resp) ), params );
     });
   }

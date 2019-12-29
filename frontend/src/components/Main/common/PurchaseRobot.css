@@ -1,0 +1,64 @@
+.purchase-robot__robot {
+  width: 25%;
+  display: inline-block;
+  text-align: center;
+}
+.purchase-robot__robot img {
+  width: 100%;
+  max-width: 200px;
+  display: block;
+  margin: auto;
+}
+
+.button-client,
+.button-light,
+.button-advanced,
+.button-master {
+  border: none;
+  color: #FFF !important;
+  height: 25px;
+  line-height: 25px;
+}
+.button-client {
+  background-color: var(--client-color);
+}
+.button-light {
+  background-color: var(--light-color);
+}
+.button-advanced {
+  background-color: var(--advanced-color);
+}
+.button-master {
+  background-color: var(--master-color);
+}
+
+.purchase-robot__popup-confirm {
+  width: 400px;
+  text-align: center;
+}
+.purchase-robot__popup-confirm__button {
+  width: 120px !important;
+  height: 30px !important;
+  line-height: 30px !important;
+  margin: 0 0 20px 0 !important;
+}
+.purchase-robot__popup-confirm__button:first-child {
+  float: left;
+}
+.purchase-robot__popup-confirm__button:nth-child(2) {
+  float: right;
+}
+
+.purchase-robot__save-accounts {
+  width: 100% !important;
+  margin-top: 24px;
+}
+
+@media screen and (max-width: 900px) {
+  .purchase-robot__robot {
+    width: 50%;
+  }
+  .purchase-robot__popup-confirm {
+    width: 300px;
+  }
+}

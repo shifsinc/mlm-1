@@ -1,6 +1,6 @@
 import React from 'react';
 import './PageHeader.css'
-import Link from './Link.js'
+import Link from './common/Link.js'
 import logo from '../img/logo_small.png'
 import logo2x from '../img/logo_small@2x.png'
 

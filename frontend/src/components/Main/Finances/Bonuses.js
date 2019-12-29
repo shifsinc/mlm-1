@@ -27,7 +27,7 @@ export default function(props){/*data*/
       </div>
       <div className="interface-block finances__bonuses__item">
         <div>Списания</div>
-        <div>{ data.bonus_withdraws }</div>
+        <div>{ data.account_withdraws }</div>
       </div>
     </div>
   );

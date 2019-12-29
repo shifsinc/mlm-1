@@ -1,55 +1,40 @@
 import React from 'react';
 import './Links.css'
 import TitleBlock from '../common/TitleBlock.js'
-import Input from '../../Input.js'
+import Input from '../../common/Input.js'
+import Switch from '../../common/Switch.js'
 import { DOMAIN } from '../../../config.js'
 
-export default class extends React.Component {
-  constructor(props) {/*data*/
-    super(props);
-    this.state = props.data;
-  }
+export default function(props){/*data, toggleLink*/
+    var link = 'https://' + DOMAIN + '/signup', data = props.data ? props.data : {};
+    const linkTypes = [ 'l', 'r' ];
 
-  render(){
-    var link = 'https://' + DOMAIN + '/signup';
+    const _copyText = input => {
+      input.select();
+      document.execCommand('copy');
+      input.blur();
+    }
+
     return (
       <TitleBlock title="Мои ссылки" className="account__links">
         <div className="account__links__cont">
 
-        <Input attr={{ readOnly: true, value: link + '?refer=' + this.state.user_phone + '&type=l' }}
+        <Input attr={{ readOnly: true, value: link + '?refer=' + data.user_phone + '&type=l' }}
           label="Ссылка на левую ногу" className="label-top"
-          buttonClick={e => this._copyText( e.target.parentNode.querySelector('input') )}></Input>
+          buttonClick={e => _copyText( e.target.parentNode.querySelector('input') )}></Input>
 
-        <Input attr={{ readOnly: true, value: link + '?refer=' + this.state.user_phone + '&type=r'  }}
+        <Input attr={{ readOnly: true, value: link + '?refer=' + data.user_phone + '&type=r'  }}
           label="Ссылка на правую ногу" className="label-top"
-          buttonClick={e => this._copyText( e.target.parentNode.querySelector('input') )}></Input>
+          buttonClick={e => _copyText( e.target.parentNode.querySelector('input') )}></Input>
 
-        <Input attr={{ readOnly: true, value: link + '?refer=' + this.state.user_phone }}
+        <Input attr={{ readOnly: true, value: link + '?refer=' + data.user_phone }}
           label="Общая ссылка" className="label-top"
-          buttonClick={e => this._copyText( e.target.parentNode.querySelector('input') )}></Input>
+          buttonClick={e => _copyText( e.target.parentNode.querySelector('input') )}></Input>
 
-        <div className="account__links__switch">
-          <div onClick={ () => this._setTarget('l') }
-            className={ this.state.general_link_type === 'l' ? 'active': '' }>Левая нога</div>
-          <div onClick={ () => this._setTarget('r') }
-            className={ this.state.general_link_type === 'r' ? 'active': '' }>Правая нога</div>
-        </div>
+        <Switch className="account__links__switch"
+          active={ linkTypes.indexOf( data.general_link_type ) } titles={[ 'Левая нога', 'Правая нога' ]}
+          onClick={ ind => props.toggleLink( linkTypes[ind] ) }></Switch>
         </div>
       </TitleBlock>
     );
   }
-
-  _setTarget = type => {
-    if( type === this.state.general_type ) return;
-    this.props.apiCall('setGeneralLinkType', { type }).then( r => {
-      if(r.status === 'ok') this.setState({ general_link_type: type });
-    })
-  }
-
-  _copyText = input => {
-    input.select();
-    document.execCommand('copy');
-    input.blur();
-  }
-
-}

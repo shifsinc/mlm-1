@@ -1,6 +1,7 @@
 import React from 'react';
 import './Keys.css'
-import Table from '../../Table.js'
+import Table from '../../common/Table.js'
+import { formatDate } from '../../../utils.js'
 
 export default function(props){/*data*/
   var data = props.data ? props.data : [];
@@ -9,20 +10,13 @@ export default function(props){/*data*/
       {
         data.map((d, i) => {
           return (<tr key={ i }>
-            <td className="icon-before-text">{ d.account }</td>
-            <td>{ d.deposit }</td>
-            <td>{ d.license ? 'Активна' : 'Не активна' }</td>
-            <td>{ d.date }</td>
+            <td className="icon-before-text">{ d.key_account }</td>
+            <td>{ '$ ' + d.key_max_deposit }</td>
+            <td>{ d.key_license ? 'Активна' : 'Не активна' }</td>
+            <td>{ formatDate( new Date( d.key_dt ) ) }</td>
           </tr>);
         })
       }
     </Table>
   );
 }
-
-/*{
-  account: '105056',
-  deposit: '$ 50 000',
-  license: true,
-  date: '17.11.2020 14:43'
-}*/

@@ -1,7 +1,7 @@
 import React from 'react';
 import './PasswordResetRequest.css'
-import Form from '../Form.js'
-import Input from '../Input.js'
+import Form from '../common/Form.js'
+import Input from '../common/Input.js'
 import { emailRegexp } from '../../const.js';
 
 export default function(props) {/*updateLocation*/
@@ -14,7 +14,7 @@ export default function(props) {/*updateLocation*/
         return props.apiCall('passwordResetRequest', data);
       }}
       updateLocation = { props.updateLocation }>
-      <Input attr={{ name: 'email' }} regexp={ emailRegexp } label="Ваш E-mail"></Input>
+      <Input attr={{ name: 'email', autoFocus: true }} regexp={ emailRegexp } label="Ваш E-mail"></Input>
     </Form>
   );
 }

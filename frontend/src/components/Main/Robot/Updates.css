@@ -1,3 +1,6 @@
+.robot__updates__cont > *:last-child {
+  border: none;
+}
 .robot__updates__item {
   border-bottom: solid 1px var(--color5);
   padding: 10px 0;

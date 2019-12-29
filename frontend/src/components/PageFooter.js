@@ -1,6 +1,6 @@
 import React from 'react';
 import './PageFooter.css'
-import Link from './Link.js';
+import Link from './common/Link.js';
 import facebookLogo from '../img/icon/facebook@2x.png'
 import instagramLogo from '../img/icon/instagram@2x.png'
 import telegramLogo from '../img/icon/telegram@2x.png'

@@ -1,6 +1,6 @@
 import React from 'react';
 import './Terms.css'
-import TermsText from './TermsText.js'
+import TermsText from './common/TermsText.js'
 
 
 export default function(props){/*updateLocation*/

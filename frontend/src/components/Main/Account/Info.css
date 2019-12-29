@@ -5,6 +5,7 @@
   position: absolute;
   width: 230px;
   text-align: center;
+  margin: auto;
 }
 .account__info__photo img {
   max-height: 320px;
@@ -24,12 +25,16 @@
 }
 
 .account__info__cont1 {
-  padding-bottom: 20px;
+  padding-bottom: 15px;
 }
 .account__info__cont1 > h2 {
   display: inline;
 }
-.account__info__bunus-level {
+.account__info__status {
+  margin-top: 5px;
+  font-size: 14px;
+}
+.account__info__account-info {
   float: right;
   color: var(--color4);
 }

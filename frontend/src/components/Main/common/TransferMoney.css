@@ -1,0 +1,16 @@
+.transfer-money__popup {
+  width: 400px;
+}
+.transfer-money__popup table tr td:first-child {
+  font-weight: 600;
+}
+.transfer-money__popup > span {
+  display: block;
+  margin: 40px 0;
+}
+
+@media screen and (max-width: 900px) {
+  .transfer-money__popup {
+    width: 300px;
+  }
+}

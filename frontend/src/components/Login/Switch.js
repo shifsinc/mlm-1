@@ -1,6 +1,6 @@
 import React from 'react';
 import './Switch.css'
-import Link from '../Link.js'
+import Link from '../common/Link.js'
 
 export default function(props){/*location, updateLocation*/
   var location = props.location;

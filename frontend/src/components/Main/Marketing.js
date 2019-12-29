@@ -2,13 +2,9 @@ import React from 'react';
 import './Marketing.css'
 import FilesView from './common/FilesView.js'
 import TitleBlock from './common/TitleBlock.js'
-import PageView from '../PageView.js'
+import PageView from '../common/PageView.js'
 
-export default class extends React.Component {
-  constructor(props){/*apiCall*/
-    super(props);
-  }
-
+export default class extends React.Component {/*apiCall*/
   render(){
     return (
       <div className="main__content">

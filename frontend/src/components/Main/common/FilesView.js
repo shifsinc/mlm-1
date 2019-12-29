@@ -1,6 +1,6 @@
 import React from 'react';
 import './FilesView.css'
-import Table from '../../Table.js'
+import Table from '../../common/Table.js'
 
 export default function(props){/*data*/
   var data = props.data ? props.data : [];

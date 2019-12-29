@@ -12,6 +12,8 @@ RewriteRule "^robot$" /
 RewriteRule "^team$" /
 RewriteRule "^marketing$" /
 RewriteRule "^finances$" /
+RewriteRule "^refill$" /
+RewriteRule "^transfer$" /
 RewriteRule "^instructions$" /
 RewriteRule "^settings$" /
 RewriteRule "^signout$" /

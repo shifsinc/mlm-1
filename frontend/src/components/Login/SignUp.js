@@ -1,9 +1,9 @@
 import React from 'react';
 import './SignUp.css'
 import './common.css'
-import Form from '../Form.js'
-import Input from '../Input.js'
-import Switch from './Switch.js'
+import Form from '../common/Form.js'
+import Input from '../common/Input.js'
+import Switch from '../common/Switch.js'
 import noPhoto from '../../img/noPhoto.png';
 import { loginRegexp, emailRegexp, phoneRegexp, passwordRegexp } from '../../const.js';
 
@@ -21,32 +21,34 @@ export default class extends React.Component {
     };
     this._fetchRefer({ refer_phone });
   }
-  
+
   render(){
     return (
       <div className="login-form sign-up__cont">
-        <div className="form interface-block sign-up__refer"><div className="form__cont">
-          <div className="form__title">Ваш рефер</div>
-          <img alt="avatar" src={ this.state.refer_photo_url }/>
-          <Input attr={{ name: 'email', value: this.state.refer_email,
-            onChange: e => {
-              var val = { refer_email: e.target.value };
-              this.setState( val );
-              if( !emailRegexp.test(e.target.value) ) return;
-              this._fetchRefer( val );
-            } }}
-            regexp={ emailRegexp }
-            label="E-mail"></Input>
-          <Input attr={{ name: 'phone', value: this.state.refer_phone,
-            onChange: e => {
-              var val = { refer_phone: e.target.value };
-              this.setState( val );
-              if( !phoneRegexp.test(e.target.value) ) return;
-              this._fetchRefer( val );
-            } }}
-            regexp={ phoneRegexp }
-            label="Код рефера"></Input>
-        </div></div>
+        { this.state.refer_phone ? (
+          <div className="form interface-block sign-up__refer"><div className="form__cont">
+            <div className="form__title">Ваш рефер</div>
+            <img alt="avatar" src={ this.state.refer_photo_url }/>
+            <Input attr={{ name: 'email', value: this.state.refer_email,
+              onChange: e => {
+                var val = { refer_email: e.target.value };
+                this.setState( val );
+                if( !emailRegexp.test(e.target.value) ) return;
+                this._fetchRefer( val );
+              } }}
+              regexp={ emailRegexp }
+              label="E-mail"></Input>
+            <Input attr={{ name: 'phone', value: this.state.refer_phone,
+              onChange: e => {
+                var val = { refer_phone: e.target.value };
+                this.setState( val );
+                if( !phoneRegexp.test(e.target.value) ) return;
+                this._fetchRefer( val );
+              } }}
+              regexp={ phoneRegexp }
+              label="Код рефера"></Input>
+          </div></div> ) : undefined
+        }
         <Form
             className="login-form interface-block"
             submitTitle="РЕГИСТРАЦИЯ"
@@ -56,7 +58,7 @@ export default class extends React.Component {
             }}
             updateLocation = { this.props.updateLocation }>
           <Switch location="/signup" updateLocation={ this.props.updateLocation }></Switch>
-          <Input attr={{ name: 'login' }} regexp={ loginRegexp } label="Логин"></Input>
+          <Input attr={{ name: 'login', autoFocus: true }} regexp={ loginRegexp } label="Логин"></Input>
 
           <Input attr={{ name: 'email'  }}
             regexp={ emailRegexp } label="E-mail"></Input>

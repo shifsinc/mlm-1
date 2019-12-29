@@ -1,0 +1,76 @@
+.status-investor:before,
+.status-bronze:before,
+.status-silver:before,
+.status-gold:before,
+.status-platinum:before,
+.status-sapphire:before,
+.status-emerald:before,
+.status-diamond:before,
+.status-diamond2:before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 5px;
+  z-index: -1;
+}
+.status-investor:before,
+.status-bronze:before,
+.status-silver:before {
+  background-image: linear-gradient(to bottom, #1A9122, #0E4911);
+}
+.status-gold:before,
+.status-platinum:before {
+  background-image: linear-gradient(to bottom, #EECA1B, #D86806);
+}
+.status-sapphire:before,
+.status-emerald:before {
+  background-image: linear-gradient(to bottom, #BE0000, #600000);
+}
+.status-diamond:before,
+.status-diamond2:before {
+  background-image: linear-gradient(to bottom, #7984C5, #222743);
+}
+
+.status-investor-avatar,
+.status-bronze-avatar,
+.status-silver-avatar,
+.status-gold-avatar,
+.status-platinum-avatar,
+.status-sapphire-avatar,
+.status-emerald-avatar,
+.status-diamond-avatar,
+.status-diamond2-avatar {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: 50%;
+}
+.status-investor-avatar {
+  background-image: url('../../../img/icons_status/investor.png');
+}
+.status-bronze-avatar {
+  background-image: url('../../../img/icons_status/bronze.png')
+}
+.status-silver-avatar {
+  background-image: url('../../../img/icons_status/silver.png')
+}
+.status-gold-avatar {
+  background-image: url('../../../img/icons_status/gold.png')
+}
+.status-platinum-avatar {
+  background-image: url('../../../img/icons_status/platinum.png')
+}
+.status-sapphire-avatar {
+  background-image: url('../../../img/icons_status/sapphire.png')
+}
+.status-emerald-avatar {
+  background-image: url('../../../img/icons_status/emerald.png')
+}
+.status-diamond-avatar {
+  background-image: url('../../../img/icons_status/diamond.png')
+}
+.status-diamond2-avatar {
+  background-image: url('../../../img/icons_status/diamond2.png')
+}

@@ -10,15 +10,22 @@
   color: var(--color2);
   margin: 20px 0;
 }
+.finances__balance__cont {
+  display: flex;
+  justify-content: space-between;
+}
 .finances__balance__button {
   height: 30px;
   line-height: 30px;
-  width: 50%;
+  width: 48%;
   overflow: hidden;
   margin: 5px 0;
 }
 
 @media screen and (max-width: 900px) {
+  .finances__balance__cont {
+    display: block;
+  }
   .finances__balance {
     height: auto;
   }

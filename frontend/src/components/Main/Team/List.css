@@ -8,3 +8,6 @@
 .team__list .table > tbody > tr *:last-child {
   color: var(--color2);
 }
+.team__list .table > tbody > tr *:first-child {
+  cursor: pointer;
+}

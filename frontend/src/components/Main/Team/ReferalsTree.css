@@ -2,67 +2,125 @@
   width: 100%;
   max-width: 800px;
   margin: auto;
-  text-align: center;
   position: relative;
+  padding-bottom: 50px;
 }
 .team__referals-tree__row {
   display: flex;
   justify-content: space-around;
 }
-.team__referals-tree__row > div {
-  display: inline-block;
-  width: 180px;
-  height: 240px;
+
+.team__referals-tree__user {
+  position: relative;
+  margin: 10px 0;
+}
+.team__referals-tree__user:before {
+  z-index: 1;
 }
 
 .team__referals-tree > *:nth-child(1) > div {
-
+  width: 180px;
 }
 .team__referals-tree > *:nth-child(2) > div {
-  transform: scale(0.95);
+  min-width: 150px;
+  max-width: 180px;
+  font-size: 14px;
 }
 .team__referals-tree > *:nth-child(3) > div {
-  transform: scale(0.85);
+  width: 20%;
+  font-size: 12px;
 }
 .team__referals-tree > *:nth-child(4) > div {
-  transform: scale(0.8);
+  width: 10%;
+  font-size: 6px;
+}
+.team__referals-tree > *:nth-child(4) > div .team__referals-tree__user__more {
+  display: block;
 }
 
-.team__referals-tree__user {
-  display: inline-block;
-  position: relative;
+.team__referals-tree__user__more {
+  background: url('../../../img/icon/more@2x.png') no-repeat;
+  background-size: 100%;
+  background-position: 50%;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: calc(50% - 10px);
+  bottom: -40px;
+  cursor: pointer;
+  display: none;
+}
+.team__referals-tree__user__ratio {
+  padding-top: 160%;
+}
+.team__referals-tree__user__cont {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
   background-color: #FFF;
-  border: solid 5px #1B9123;
-  border-radius: 3px;
-  margin: 10px;
 }
 .team__referals-tree__user__info {
-  padding: 10px 5px;
-  text-align: left;
+  height: 25%;
+  padding: 5%;
 }
-.team__referals-tree__user__info > img {
-  border-radius: 100px;
-  width: 50px;
-  height: 50px;
+.team__referals-tree__user__info-button {
+  float: right;
+}
+.team__referals-tree__user-avatar {
+  width: 33.33%;
+  height: 100%;
+  max-height: 100%;
   float: left;
+  margin-right: 5%;
+}
+.team__referals-tree__user__info > span {
+  display: block;
+  font-weight: 600;
+  height: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.team__referals-tree__user__info > span:nth-child(3) {
+  padding-top: 3%;
+}
+.team__referals-tree__user__info > span:nth-child(4) {
+  padding-bottom: 3%;
 }
 .team__referals-tree__user__rate {
-  border-top: solid 1px var(--color5);
-  border-bottom: solid 1px var(--color5);
-  padding: 5px;
+  height: 65%;
+  text-align: center;
+  position: relative;
+  border: solid var(--color5);
+  border-width: 1px 0 1px 0;
+  padding: 5% 0;
 }
 .team__referals-tree__user__rate > img {
-  max-width: 100%;
-  max-height: 100px;
+  max-height: 100%;
 }
 .team__referals-tree__user__yt {
+  height: 10%;
   color: var(--color2);
   font-weight: 800;
-  padding: 5px;
+  padding: 2% 5%;
 }
 .team__referals-tree__user__yt > *:first-child {
   float: left;
 }
 .team__referals-tree__user__yt > *:last-child {
   float: right;
+}
+
+@media screen and (max-width: 900px) {
+  .team__referals-tree > *:nth-child(n+3) > div {
+    display: none;
+  }
+  .team__referals-tree > *:nth-child(2) > div .team__referals-tree__user__more {
+    display: block;
+  }
 }

@@ -1,20 +1,21 @@
 import React from 'react';
 import './Settings.css'
-import DataForm from '../DataForm.js'
-import Form from '../Form.js'
-import Input from '../Input.js'
-import TabView from '../TabView.js'
-import Popup from '../Popup.js'
+import DataForm from '../common/DataForm.js'
+import Form from '../common/Form.js'
+import Input from '../common/Input.js'
+import TabView from '../common/TabView.js'
+import Popup from '../common/Popup.js'
 
 import { passwordRegexp, ethereumRegexp, paypalRegexp } from '../../const.js'
 
 export default class extends React.Component {
-  constructor(props){/*apiCall*/
+  constructor(props){/*apiCall, uploadFile*/
     super(props);
 
     this.state = {
       account_ethereum: '',
-      account_paypal: ''
+      account_paypal: '',
+      popupDisplay: false
     };
     props.apiCall('getBilling').then(r => {
       if( !r.result ) return;
@@ -24,10 +25,10 @@ export default class extends React.Component {
         account_paypal: res.account_paypal ? res.account_paypal : ''
       });
     });
+    this.passCallback = () => {};
   }
 
   render(){
-    var passCallback = () => {}, curPass;
     return (
       <div className="main__content settings">
         <TabView titles={[ 'Личные данные', 'Платежные данные' ]}
@@ -39,42 +40,72 @@ export default class extends React.Component {
               passwordFields={ true }
               className="settings__form"
               submitCallback={data => {
-                var resolve;
-                passCallback = pass => {
-                  Object.assign(data, pass);
-                  resolve( this.props.apiCall('updateUserInfo', data) );
+                var resolve, ret = new Promise( res => resolve = res );
+                const next = () => {
+                  this.passCallback = pass => {
+                    Object.assign(data, pass);
+                    resolve( this.props.apiCall('updateUserInfo', data) );
+                  }
+                  this.setState({ popupDisplay: true });
                 }
-                window.document.body.querySelector('.confirm-password-cover').style.display = 'block';
-                curPass.focus();
-                return new Promise( (res, rej) => {
-                  resolve = res;
-                } );
+                if( data.photo ){
+                  this.props.uploadFile( 'uploadPhoto', data.photo ).then(r => {
+                    if( !r.result ) return resolve(r);
+                    data.photo = r.result.filename;
+                    next();
+                  });
+                } else next();
+
+                return ret;
+
               }} ></DataForm>
-            <Popup className="confirm-password-cover">
-              <Form formTitle="ПОДТВЕРДИТЕ ИЗМЕНЕНИЯ" submitTitle="ПОДТВЕРДИТЬ" className="settings__confirm interface-block"
-                submitCallback={ d => {
-                  curPass.value = '';
-                  window.document.body.querySelector('.confirm-password-cover').style.display = 'none';
-                  passCallback(d);
-                }}>
-                <Input attr={{ name: 'current_password', type: 'password', ref: r => curPass = r  }}
-                  regexp={ passwordRegexp } label="Введите текущий пароль"></Input>
-              </Form>
-            </Popup>
           </div>
 
           <div>
-            <Form submitTitle="СОХРАНИТЬ" submitCallback={ data => this.props.apiCall('updateBilling', data) }>
+            <Form submitTitle="СОХРАНИТЬ" submitCallback={ data => {
+              var resolve, ret = new Promise( res => resolve = res );
+              this.passCallback = pass => {
+                Object.assign(data, pass);
+                resolve( this.props.apiCall('updateBilling', data) );
+              }
+              this.setState({ popupDisplay: true });
+              return ret;
+            } }>
+
               <Input attr={{ name: "ethereum",
-                value: this.state.account_ethereum, onChange: e => this.setState({ account_ethereum: e.target.value }) }}
+                value: this.state.account_ethereum,
+                onChange: e => this.setState({ account_ethereum: e.target.value }) }}
                 regexp={ ethereumRegexp } label="Ваш Ethereum-адрес"/>
+
               <Input attr={{ name: "paypal",
-                value: this.state.account_paypal, onChange: e => this.setState({ account_paypal: e.target.value }) }}
+                value: this.state.account_paypal,
+                onChange: e => this.setState({ account_paypal: e.target.value }) }}
                 regexp={ paypalRegexp } label="Ваш PayPal"/>
+
             </Form>
           </div>
 
         </TabView>
+
+        { this.state.popupDisplay ? (
+          <Popup className="settings__confirm" display={ this.state.popupDisplay }
+            onClose={ () => this.setState({ popupDisplay: false }) }>
+
+            <Form formTitle="ПОДТВЕРДИТЕ ИЗМЕНЕНИЯ" submitTitle="ПОДТВЕРДИТЬ"
+              submitCallback={ d => {
+                this.passCallback(d);
+                this.setState({ popupDisplay: false });
+              }}>
+
+              <Input attr={{ name: 'current_password', type: 'password', autoFocus: true }}
+                regexp={ passwordRegexp } label="Введите текущий пароль"></Input>
+
+            </Form>
+
+          </Popup>
+        ) : undefined
+      }
+
       </div>
     );
   }
