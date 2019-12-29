@@ -31,3 +31,4 @@ exports.MAX_DEPOSITS = {
   'advanced': 1000,
   'master': 2000
 }
+exports.WITHDRAW_COMMISSION = 0.02;

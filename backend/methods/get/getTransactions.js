@@ -17,7 +17,7 @@ module.exports = function(callback, params, _user_id){/*count, offset*/
         tr_platform_amount,
         tr_status
         FROM transactions
-        WHERE tr_sender_id=? OR tr_receiver_id=? LIMIT ?,?`, [ acc_id, acc_id, offset, count ],
+        WHERE tr_sender_id=? OR tr_receiver_id=? ORDER BY tr_dt DESC LIMIT ?,?`, [ acc_id, acc_id, offset, count ],
         res => {
 
           makeQuery(`SELECT COUNT(*) AS count FROM transactions WHERE tr_sender_id=? OR tr_receiver_id=?`, [ acc_id, acc_id ],

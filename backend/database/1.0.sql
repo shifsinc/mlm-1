@@ -199,6 +199,27 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `mlm_db`.`events`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mlm_db`.`events` ;
+
+CREATE TABLE IF NOT EXISTS `mlm_db`.`events` (
+  `events_id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL,
+  `events_dt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `events_text` TEXT(1000) NULL,
+  `events_type` ENUM('withdraw') NOT NULL,
+  PRIMARY KEY (`events_id`),
+  UNIQUE INDEX `events_id_UNIQUE` (`events_id` ASC),
+  CONSTRAINT `user_id_fk2`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `mlm_db`.`users` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `mlm_db`.`files`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `mlm_db`.`files` ;

@@ -40,7 +40,7 @@ export default class extends React.Component {
     if( this.state.amount <= 0 || this.state.amount > this.props.data.account_balance ) return;
     this.props.apiCall('withdrawMoney', { amount: this.state.amount }).then(r => {
       if( r.status === 'error' ) this.setState({ msg: r.action.text });
-      else this.setState({ amount: 0, msg: r.action.text });
+      else this.setState({ amount: '', msg: r.action.text });
     });
   }
 
