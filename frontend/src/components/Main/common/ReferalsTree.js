@@ -1,14 +1,14 @@
 import React from 'react';
 import './ReferalsTree.css'
-import '../common/userStatus.css'
+import './userStatus.css'
 import { RATES } from '../../../const.js'
 
 export default class extends React.Component {
-  constructor(props) {/*apiCall, userClick*/
+  constructor(props) {/*apiCall, userClick, userId*/
     super(props);
     this.state = { tree: null };
 
-    this._updateTree();
+    this._updateTree( props.userId );
   }
 
   _updateTree = user_id => {
@@ -22,18 +22,18 @@ export default class extends React.Component {
       row2 = flatTree[2] ? flatTree[2] : [],
       row3 = flatTree[3] ? flatTree[3] : [];
     return (
-      <div className="team__referals-tree" ref={ r => this.cont = r }>
-        <div className="team__referals-tree__row">
+      <div className="referals-tree" ref={ r => this.cont = r }>
+        <div className="referals-tree__row">
           { this._getTreeNode( row0[0] ) }
         </div>
-        <div className="team__referals-tree__row">
+        <div className="referals-tree__row">
           {[ this._getTreeNode( row1[0] ), this._getTreeNode( row1[1] ) ]}
         </div>
-        <div className="team__referals-tree__row">
+        <div className="referals-tree__row">
           {[ this._getTreeNode( row2[0] ), this._getTreeNode( row2[1] ),
             this._getTreeNode( row2[2] ), this._getTreeNode( row2[3] ) ]}
         </div>
-        <div className="team__referals-tree__row">
+        <div className="referals-tree__row">
           {[ this._getTreeNode( row3[0] ), this._getTreeNode( row3[1] ),
            this._getTreeNode( row3[2] ), this._getTreeNode( row3[3] ),
            this._getTreeNode( row3[4] ), this._getTreeNode( row3[5] ),
@@ -59,22 +59,22 @@ export default class extends React.Component {
   _getTreeNode = node => {
     if( !node ) return <div key={ Math.random() }></div>;
 
-    return (<div key={ node.user_id } className={ 'team__referals-tree__user status-' + node.user_status }>
-      <div className="team__referals-tree__user__ratio">
-        <div className="team__referals-tree__user__cont">
-          <div className="team__referals-tree__user__info">
-            <div className="info-button team__referals-tree__user__info-button" onClick={ () => this.props.userClick(node) }></div>
-            <div className={ 'team__referals-tree__user-avatar status-' + node.user_status + '-avatar' }></div>
+    return (<div key={ node.user_id } className={ 'referals-tree__user status-' + node.user_status }>
+      <div className="referals-tree__user__ratio">
+        <div className="referals-tree__user__cont">
+          <div className="referals-tree__user__info">
+            <div className="info-button referals-tree__user__info-button" onClick={ () => this.props.userClick(node) }></div>
+            <div className={ 'referals-tree__user-avatar status-' + node.user_status + '-avatar' }></div>
             <span>{ node.user_name }</span>
             <span>{node.user_surname }</span>
           </div>
-          <div className="team__referals-tree__user__rate">
+          <div className="referals-tree__user__rate">
             <img alt={ node.user_rate } src={ RATES[ node.user_rate ] ? RATES[ node.user_rate ] : undefined }/>
           </div>
-          <div className="team__referals-tree__user__yt"><span>{ node.stats_yt_left }</span><span>{ node.stats_yt_right }</span></div>
+          <div className="referals-tree__user__yt"><span>{ node.stats_yt_left }</span><span>{ node.stats_yt_right }</span></div>
         </div>
       </div>
-      <div className="team__referals-tree__user__more" onClick={ () => this._updateTree(node.user_id) }></div>
+      <div className="referals-tree__user__more" onClick={ () => this._updateTree(node.user_id) }></div>
     </div>);
   }
 

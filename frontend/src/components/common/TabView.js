@@ -24,7 +24,8 @@ export default class extends React.Component {
 
             ) }
         </div>
-        <div className="tab-view__content" ref={ r => this.cont = r }>
+        <div className={ 'tab-view__content ' + ( this.props.contClassName ? this.props.contClassName : '' ) }
+          ref={ r => this.cont = r }>
           { this.props.children }
         </div>
       </div>

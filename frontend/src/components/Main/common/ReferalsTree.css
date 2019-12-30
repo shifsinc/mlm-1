@@ -1,44 +1,44 @@
-.team__referals-tree {
+.referals-tree {
   width: 100%;
   max-width: 800px;
   margin: auto;
   position: relative;
   padding-bottom: 50px;
 }
-.team__referals-tree__row {
+.referals-tree__row {
   display: flex;
   justify-content: space-around;
 }
 
-.team__referals-tree__user {
+.referals-tree__user {
   position: relative;
   margin: 10px 0;
 }
-.team__referals-tree__user:before {
+.referals-tree__user:before {
   z-index: 1;
 }
 
-.team__referals-tree > *:nth-child(1) > div {
+.referals-tree > *:nth-child(1) > div {
   width: 180px;
 }
-.team__referals-tree > *:nth-child(2) > div {
+.referals-tree > *:nth-child(2) > div {
   min-width: 150px;
   max-width: 180px;
   font-size: 14px;
 }
-.team__referals-tree > *:nth-child(3) > div {
+.referals-tree > *:nth-child(3) > div {
   width: 20%;
   font-size: 12px;
 }
-.team__referals-tree > *:nth-child(4) > div {
+.referals-tree > *:nth-child(4) > div {
   width: 10%;
   font-size: 6px;
 }
-.team__referals-tree > *:nth-child(4) > div .team__referals-tree__user__more {
+.referals-tree > *:nth-child(4) > div .referals-tree__user__more {
   display: block;
 }
 
-.team__referals-tree__user__more {
+.referals-tree__user__more {
   background: url('../../../img/icon/more@2x.png') no-repeat;
   background-size: 100%;
   background-position: 50%;
@@ -50,10 +50,10 @@
   cursor: pointer;
   display: none;
 }
-.team__referals-tree__user__ratio {
+.referals-tree__user__ratio {
   padding-top: 160%;
 }
-.team__referals-tree__user__cont {
+.referals-tree__user__cont {
   position: absolute;
   top: 0;
   left: 0;
@@ -64,21 +64,21 @@
   z-index: 2;
   background-color: #FFF;
 }
-.team__referals-tree__user__info {
+.referals-tree__user__info {
   height: 25%;
   padding: 5%;
 }
-.team__referals-tree__user__info-button {
+.referals-tree__user__info-button {
   float: right;
 }
-.team__referals-tree__user-avatar {
+.referals-tree__user-avatar {
   width: 33.33%;
   height: 100%;
   max-height: 100%;
   float: left;
   margin-right: 5%;
 }
-.team__referals-tree__user__info > span {
+.referals-tree__user__info > span {
   display: block;
   font-weight: 600;
   height: 50%;
@@ -86,13 +86,13 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.team__referals-tree__user__info > span:nth-child(3) {
+.referals-tree__user__info > span:nth-child(3) {
   padding-top: 3%;
 }
-.team__referals-tree__user__info > span:nth-child(4) {
+.referals-tree__user__info > span:nth-child(4) {
   padding-bottom: 3%;
 }
-.team__referals-tree__user__rate {
+.referals-tree__user__rate {
   height: 65%;
   text-align: center;
   position: relative;
@@ -100,27 +100,27 @@
   border-width: 1px 0 1px 0;
   padding: 5% 0;
 }
-.team__referals-tree__user__rate > img {
+.referals-tree__user__rate > img {
   max-height: 100%;
 }
-.team__referals-tree__user__yt {
+.referals-tree__user__yt {
   height: 10%;
   color: var(--color2);
   font-weight: 800;
   padding: 2% 5%;
 }
-.team__referals-tree__user__yt > *:first-child {
+.referals-tree__user__yt > *:first-child {
   float: left;
 }
-.team__referals-tree__user__yt > *:last-child {
+.referals-tree__user__yt > *:last-child {
   float: right;
 }
 
 @media screen and (max-width: 900px) {
-  .team__referals-tree > *:nth-child(n+3) > div {
+  .referals-tree > *:nth-child(n+3) > div {
     display: none;
   }
-  .team__referals-tree > *:nth-child(2) > div .team__referals-tree__user__more {
+  .referals-tree > *:nth-child(2) > div .referals-tree__user__more {
     display: block;
   }
 }

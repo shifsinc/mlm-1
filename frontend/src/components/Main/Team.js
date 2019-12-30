@@ -4,7 +4,7 @@ import Lines from './Team/Lines.js'
 import Stats from './Team/Stats.js'
 import List from './Team/List.js'
 import Input from '../common/Input.js'
-import UsersTree from './Team/ReferalsTree.js'
+import ReferalsTree from './common/ReferalsTree.js'
 import PageView from '../common/PageView.js'
 import UserCard from './common/UserCard.js'
 import { getUserCardInfo } from '../../utils.js'
@@ -31,7 +31,7 @@ export default class extends React.Component {
           <PageView callback={ p => this.props.apiCall('getReferals', p).then(r => r.result ? r.result : []) }
             component={ List } componentProps={{ userClick: this._userClick }} onPageCount={ 5 }></PageView>
         </div>
-        <UsersTree apiCall={ this.props.apiCall } userClick={ this._userClick }></UsersTree>
+        <ReferalsTree apiCall={ this.props.apiCall } userClick={ this._userClick }></ReferalsTree>
 
         <UserCard data={ this.state.cardData }
           display={ this.state.cardDisplay }

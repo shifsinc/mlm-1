@@ -1,5 +1,8 @@
-.settings__cont {
+.settings {
   padding: 0;
+}
+.settings__cont {
+  padding: 10px;
 }
 .settings__form {
 
