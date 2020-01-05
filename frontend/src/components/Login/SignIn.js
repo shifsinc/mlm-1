@@ -2,7 +2,7 @@ import React from 'react';
 import './SignIn.css'
 import Form from '../common/Form.js'
 import Input from '../common/Input.js'
-import Switch from '../common/Switch.js'
+import Switch from './Switch.js'
 import Link from '../common/Link.js'
 import { loginRegexp } from '../../const.js';
 

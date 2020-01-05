@@ -32,7 +32,7 @@
   background-color: var(--master-color);
 }
 
-.purchase-robot__popup-confirm {
+.purchase-robot__popup {
   width: 400px;
   text-align: center;
 }
@@ -58,7 +58,10 @@
   .purchase-robot__robot {
     width: 50%;
   }
-  .purchase-robot__popup-confirm {
+  .purchase-robot__popup {
+    width: 300px;
+  }
+  .purchase-robot__save-accounts {
     width: 300px;
   }
 }

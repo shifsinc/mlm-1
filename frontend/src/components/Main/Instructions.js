@@ -3,7 +3,7 @@ import './Instructions.css'
 import FilesView from './common/FilesView.js'
 import TitleBlock from './common/TitleBlock.js'
 import PageView from '../common/PageView.js'
-import Videos from './Instructions/Videos.js'
+import VideosView from './common/VideosView.js'
 
 export default class extends React.Component {
   constructor(props){/*apiCall*/
@@ -18,12 +18,14 @@ export default class extends React.Component {
       <div className="main__content">
         <TitleBlock title="Инструкции">
           <PageView
-            callback={ p => this.props.apiCall('getFiles', { section: 'instructions', ...p }).then(r => r.result ? r.result : []) }
+            callback={ p => this.props.apiCall('getFiles', { section: 'instructions', ...p }).then(r => r.result ? r.result : {}) }
             component={ FilesView }  onPageCount={ 5 }></PageView>
         </TitleBlock>
-        <PageView
-          callback={ p => this.props.apiCall('getFiles', { section: 'videos', ...p }).then(r => r.result ? r.result : []) }
-          component={ Videos }  onPageCount={ 4 }></PageView>
+        <div className="interface-block">
+          <PageView
+            callback={ p => this.props.apiCall('getFiles', { section: 'videos', ...p }).then(r => r.result ? r.result : {}) }
+            component={ VideosView }  onPageCount={ 4 }></PageView>
+        </div>
       </div>
     );
   }

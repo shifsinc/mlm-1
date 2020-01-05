@@ -12,7 +12,7 @@ export default function(props){/*updateLocation, apiCall, uploadFile*/
         });
 
       if( data.photo ){
-        this.props.uploadFile( 'uploadPhoto', data.photo ).then(r => {
+        props.uploadFile( 'uploadPhoto', data.photo ).then(r => {
           if( !r.result ) return resolve(r);
           data.photo = r.result.filename;
           resolve( props.apiCall('fillUserInfo', data) );

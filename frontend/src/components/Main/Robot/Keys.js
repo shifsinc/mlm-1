@@ -12,8 +12,8 @@ export default function(props){/*data*/
           return (<tr key={ i }>
             <td className="icon-before-text">{ d.key_account }</td>
             <td>{ '$ ' + d.key_max_deposit }</td>
-            <td>{ d.key_license ? 'Активна' : 'Не активна' }</td>
-            <td>{ formatDate( new Date( d.key_dt ) ) }</td>
+            <td>{ ( new Date(d.key_valid_dt) - new Date() > 0 ) ? 'Активна' : 'Не активна' }</td>
+            <td>{ formatDate( d.key_valid_dt ) }</td>
           </tr>);
         })
       }

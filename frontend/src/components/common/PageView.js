@@ -2,8 +2,10 @@ import React from 'react';
 import './PageView.css'
 import Link from './Link.js'
 
+const sidePages = 2;
+
 export default class extends React.Component {
-  constructor(props){/*callback, component, componentProps, onPageCount*/
+  constructor(props){/*callback, callbackArgs, component, componentProps, onPageCount*/
     super(props);
     this.state = {
       currentPage: 0,
@@ -11,7 +13,11 @@ export default class extends React.Component {
       data: []
     }
 
-    props.callback({ offset: 0, count: props.onPageCount })
+    this._fetchData();
+  }
+
+  _fetchData = () => {
+    this.props.callback({ offset: 0, count: this.props.onPageCount, ...this.props.callbackArgs })
       .then(r => this.setState({
         pagesCount: Math.ceil( r.count / this.props.onPageCount ),
         data: r.data
@@ -30,17 +36,51 @@ export default class extends React.Component {
       }) );
   }
 
+  componentDidUpdate = prevProps => {
+    if( prevProps.callbackArgs !== this.props.callbackArgs ){
+      this._fetchData();
+    }
+  }
+
   render(){
     var Component = this.props.component;
 
-    var pages = [];
     if( this.state.pagesCount > 1 ){
-      for(var i = 0 ; i < this.state.pagesCount ; i++)
+      var pages = [], start = this.state.currentPage - sidePages, fin = this.state.currentPage + sidePages;
+      if( start < 0 ){
+        start = 0;
+        fin = sidePages * 2;
+      }
+      if( fin >= this.state.pagesCount ){
+        fin = this.state.pagesCount - 1;
+        start = fin - sidePages * 2;
+        if( start < 0 ) start = 0;
+      }
+
+      if( start >= sidePages ){
+        pages.push(<Link key={ -1 }
+          className="page-view__pages__select"
+          onClick={ () => this.updatePage(0) }>
+          { 1 }
+        </Link>);
+        pages.push(<div className="page-view__pages__select">...</div>);
+      }
+
+      for(var i = start ; i <= fin ; i++)
         pages.push(<Link key={ i }
           className={ 'page-view__pages__select' + ( i === this.state.currentPage ? ' active' : '' ) }
           onClick={ ( page => () => this.updatePage(page) )(i) }>
           { i + 1 }
         </Link>)
+
+        if( fin <= this.state.pagesCount - 1 - sidePages ){
+          pages.push(<div className="page-view__pages__select">...</div>);
+          pages.push(<Link key={ -2 }
+            className="page-view__pages__select"
+            onClick={ () => this.updatePage(this.state.pagesCount - 1) }>
+            { this.state.pagesCount }
+          </Link>);
+        }
     }
 
     return (<div className="page-view">

@@ -3,6 +3,7 @@
 }
 .team__cont {
   flex: 7;
+  position: relative;
 }
 .team__stats {
   flex: 3;
@@ -15,7 +16,10 @@
 }
 
 @media screen and (max-width: 900px) {
-  .team .interface-block {
+  .team__search,
+  .team__lines,
+  .team__stats,
+  .team__list {
     display: inline-block;
     width: 100%;
   }

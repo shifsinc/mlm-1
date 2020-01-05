@@ -6,6 +6,10 @@ export default function(props){/*data*/
   return (
     <div className="finances__bonuses">
       <div className="interface-block finances__bonuses__item">
+        <div>Линейный бонус</div>
+        <div>{ data.bonus_linear }</div>
+      </div>
+      <div className="interface-block finances__bonuses__item">
         <div>Бинарный бонус</div>
         <div>{ data.bonus_binary }</div>
       </div>
@@ -14,20 +18,16 @@ export default function(props){/*data*/
         <div>{ data.bonus_match }</div>
       </div>
       <div className="interface-block finances__bonuses__item">
-        <div>Yoda-бонус</div>
-        <div>{ data.bonus_yoda }</div>
+        <div>Лидерский бонус</div>
+        <div>{ data.bonus_lead }</div>
       </div>
       <div className="interface-block finances__bonuses__item">
-        <div>Линейный 1</div>
-        <div>{ data.bonus_linear1 }</div>
+        <div>Extra-бонус</div>
+        <div>{ data.bonus_extra }</div>
       </div>
       <div className="interface-block finances__bonuses__item">
-        <div> Линейный 2</div>
-        <div>{ data.bonus_linear2 }</div>
-      </div>
-      <div className="interface-block finances__bonuses__item">
-        <div>Списания</div>
-        <div>{ data.account_withdraws }</div>
+        <div>---</div>
+        <div>---</div>
       </div>
     </div>
   );

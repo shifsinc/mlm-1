@@ -1,0 +1,11 @@
+.blog__item__title {
+  font-weight: 800;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+.blog__item__date {
+  color: var(--color3);
+}
+.blog__text {
+  color: var(--color4);
+}

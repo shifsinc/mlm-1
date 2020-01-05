@@ -1,5 +1,5 @@
 .page-view__pages {
-  
+
 }
 .page-view__pages__select {
   display: inline-block;
@@ -10,6 +10,7 @@
   color: var(--color2) !important;
   text-align: center;
   line-height: 30px;
+  user-select: none;
 }
 .page-view__pages__select.active {
   color: #FFF !important;

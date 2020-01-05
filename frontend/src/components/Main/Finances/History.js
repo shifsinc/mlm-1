@@ -13,7 +13,7 @@ export default function(props){/*data*/
             <td>{ d.tr_platform_amount + ' YT' }</td>
             <td>{ d.tr_descr }</td>
             <td>{ formatDate( d.tr_dt ) }</td>
-            <td>{ d.tr_status }</td>
+            <td><div className={ 'transaction-status-' + d.tr_status }></div></td>
           </tr>);
         })
       }

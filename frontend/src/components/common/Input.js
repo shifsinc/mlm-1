@@ -10,10 +10,15 @@ export default function(props){/*regexp, className, attr, label, buttonClick*/
   }
   return (
     <div className={ 'input' + (props.className ? ' ' + props.className : '') }>
-      <input required {...props.attr} onBlur={ _onBlur }/>
-      <label className="input__label">{ props.label }</label>
-      <div className="input__button" onClick={ props.buttonClick ? props.buttonClick : () => {} }></div>
-      { props.children }
+      <label>
+        <input required {...props.attr} onBlur={ e => {
+            _onBlur(e);
+            if( props.attr && props.attr.onBlur ) props.attr.onBlur(e);
+          } }/>
+        <div className="input__label">{ props.label }</div>
+        <div className="input__button" onClick={ props.buttonClick ? props.buttonClick : () => {} }></div>
+        { props.children }
+      </label>
     </div>
   );
 }

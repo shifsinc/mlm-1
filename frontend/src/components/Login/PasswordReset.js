@@ -6,15 +6,15 @@ import Input from '../common/Input.js'
 export default function(props) {/*updateLocation*/
   return (
     <Form
-    className="login-form interface-block"
-    formTitle="Сброс пароля"
-    submitTitle="СБРОСИТЬ"
-    submitCallback={data => {
-      return props.apiCall('passwordReset', { ...data, resetToken: props.params.resetToken });
-    }}
-    updateLocation = { props.updateLocation }>
-    <Input attr={{ name: 'password', autoFocus: true, type: 'password' }} label="Пароль"></Input>
-    <Input attr={{ name: 'password_repeat', type: 'password' }} label="Повторите пароль"></Input>
+      className="login-form interface-block"
+      formTitle="Сброс пароля"
+      submitTitle="СБРОСИТЬ"
+      submitCallback={data => {
+        return props.apiCall('passwordReset', { ...data, resetToken: props.params.resetToken });
+      }}
+      updateLocation = { props.updateLocation }>
+      <Input attr={{ name: 'password', autoFocus: true, type: 'password' }} label="Пароль"></Input>
+      <Input attr={{ name: 'password_repeat', type: 'password' }} label="Повторите пароль"></Input>
     </Form>
   );
 }

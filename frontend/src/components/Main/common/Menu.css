@@ -18,6 +18,12 @@
 .menu__item.active {
   font-weight: 800;
 }
+.menu__item.inactive {
+  background-color: var(--color6);
+}
+.menu__item.inactive:hover {
+  color: unset;
+}
 .menu__item.active,
 .menu__item:hover {
   color: var(--color2);
@@ -95,6 +101,9 @@
 }
 .instructions-icon:before {
   background-image: url('../../../img/icon/instructions@2x.png');
+}
+.blog-icon:before {
+  background-image: url('../../../img/icon/blog@2x.png');
 }
 .settings-icon:before {
   background-image: url('../../../img/icon/settings@2x.png');

@@ -1,0 +1,60 @@
+.money-cont__main {
+    width: calc(80% - 20px);
+    display: inline-block;
+}
+.money-cont__info {
+  float: right;
+  width: 20%;
+}
+.money-cont__info > div {
+  width: 100%;
+  text-align: right;
+}
+.money-cont__info > div .label {
+  color: var(--color4);
+  font-size: 14px;
+}
+.money-cont__info > div .value {
+  display: block;
+  font-size: 20px;
+  font-weight: 800;
+  margin-top: 10px;
+}
+
+.money-cont__main .form > .form__cont {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.money-cont__main .form .form__title {
+  text-align: left;
+}
+.money-cont__main .form .input,
+.money-cont__main .form .switch,
+.money-cont__main .form .form__button {
+  width: 48%;
+}
+.money-cont__main .form .form__button {
+  margin-top: 24px;
+}
+
+@media screen and (max-width: 900px){
+  .money-cont__main,
+  .money-cont__info {
+    float: none;
+    width: 100%;
+  }
+  .money-cont__info {
+    display: flex;
+    justify-content: space-between;
+  }
+  .money-cont__info > div {
+    width: calc(50% - 10px);
+    display: inline-block;
+  }
+  .money-cont__main .form .input,
+  .money-cont__main .form .switch,
+  .money-cont__main .form .form__button {
+    width: 100%;
+  }
+}

@@ -4,104 +4,107 @@ import Link from '../../common/Link.js'
 import Popup from '../../common/Popup.js'
 import Form from '../../common/Form.js'
 import Input from '../../common/Input.js'
-import { RATES_PRICE, passwordRegexp } from '../../../const.js'
-
-import robotClient from '../../../img/robot_client@2x.png'
-import robotLight from '../../../img/robot_light@2x.png'
-import robotAdvanced from '../../../img/robot_advanced@2x.png'
-import robotMaster from '../../../img/robot_master@2x.png'
+import ViewSelect from '../../common/ViewSelect.js'
+import { RATES_PRICES, RATES_IMAGES, RATES_TITLES, passwordRegexp } from '../../../const.js'
 
 export default class extends React.Component {
-  constructor(props){/*updateLocation, apiCall, noMoneyCallback*/
+  constructor(props){/*updateLocation, apiCall, noMoneyCallback, data*/
     super(props);
     this.state = {
-      popupDisplay: 0,
-      selectedRate: ''
+      popup: null,
+      selectedRate: null,
+      currentRate: props.data ? props.data.user_rate : null
     };
   }
-  render(){/*data*/
-    var data = this.props.data ? this.props.data : {}, popup;
+  render(){
+    var currentRate = this.state.currentRate ? this.state.currentRate : (this.props.data ? this.props.data.user_rate : null);
+    Object.assign(this.state, { currentRate });
 
-    if( this.state.popupDisplay === 1 ){
-
-      popup = (<Popup display={ true } className="purchase-robot__popup-confirm"
-        onClose={ () => this.setState({ popupDisplay: 0 }) }>
-        <h3>КУПИТЬ ПАКЕТ "{ this.state.selectedRate }"?</h3>
-        <Form submitTitle="Да"
-          submitClassName="purchase-robot__popup-confirm__button"
-          submitCallback={() => {
-            return this.props.apiCall('buyRobot', { rate: this.state.selectedRate }).then(r => {
-              if( r.status === 'error' ) return r;
-              this.setState({ popupDisplay: 2 });
-              return r;
-            });
-          }}>
-
-          <Link className="button button-inactive purchase-robot__popup-confirm__button"
-            onClick={ () => this.setState({ popupDisplay: 0 }) }>Нет</Link>
-
-        </Form>
-      </Popup>);
-
-    } else if( this.state.popupDisplay === 2 ){
-
-      popup = (<Popup display={ true } onClose={ () => this.setState({ popupDisplay: 0 }) }>
-        <Form formTitle="ПОЗДРАВЛЯЕМ С ПОКУПКОЙ РОБОТА!" submitTitle="Сохранить" submitClassName="purchase-robot__save-accounts"
-          submitCallback={ d => {
-            return this.props.apiCall('addRobotKeys', { ...d, rate: this.state.selectedRate }).then(r => {
-              if( r.status === 'error' ) return r;
-              this.setState({ popupDisplay: 0 });
-              this.props.updateLocation('/robot');
-              return r;
-            });
-          } }>
-          <Input label="Введите номер счета 1" attr={{ name: 'account1', autoFocus: true }}></Input>
-
-          { ( this.state.selectedRate === 'advanced' || this.state.selectedRate === 'master' ) ? (
-            <Input label="Введите номер счета 2" attr={{ name: 'account2' }}></Input>
-          ) : undefined }
-
-          <Input label="Введите пароль" regexp={ passwordRegexp } attr={{ name: 'current_password', type: 'password' }}></Input>
-        </Form>
-      </Popup>);
-
-    }
+    var popupInputs, popupTitle;
+    if( this.state.selectedRate > this.state.currentRate ){
+      popupInputs = (<><Input label="Введите номер счета 1" attr={{ name: 'account1', autoFocus: true }}></Input>
+      { ( this.state.selectedRate >= 3 ) ? (<Input label="Введите номер счета 2" attr={{ name: 'account2' }}></Input>) : undefined }
+      </>);
+      popupTitle = 'ПОЗДРАВЛЯЕМ С ПОКУПКОЙ РОБОТА!';
+    } else if( this.state.selectedRate < this.state.currentRate ) popupTitle = 'ЗАМЕНА РОБОТА';
+    else popupTitle = 'ПРОДЛЕНИЕ РОБОТА';
 
     return (<div className="purchase-robot">
       <div className="purchase-robot__robot">
-        <img src={ robotClient } alt="client"/>
-        <Link className="button button-client" onClick={() => this._onClick('client')}>
-          { data.user_rate === 'client' ? 'Куплено' : 'Купить' }
+        <img src={ RATES_IMAGES[ 1 ] } alt="client"/>
+        <Link className="button button-client" onClick={() => this._onBuyClick(1)}>
+          { currentRate === 1 ? 'Продлить' : 'Купить' }
         </Link>
       </div>
       <div className="purchase-robot__robot">
-        <img src={ robotLight } alt="light"/>
-        <Link className="button button-light" onClick={() => this._onClick('light')}>
-          { data.user_rate === 'light' ? 'Куплено' : 'Купить' }
+        <img src={ RATES_IMAGES[ 2 ] } alt="light"/>
+        <Link className="button button-light" onClick={() => this._onBuyClick(2)}>
+          { currentRate === 2 ? 'Продлить' : 'Купить' }
         </Link>
       </div>
       <div className="purchase-robot__robot">
-        <img src={ robotAdvanced } alt="advanced"/>
-        <Link className="button button-advanced" onClick={() => this._onClick('advanced')}>
-          { data.user_rate === 'advanced' ? 'Куплено' : 'Купить' }
+        <img src={ RATES_IMAGES[ 3 ] } alt="advanced"/>
+        <Link className="button button-advanced" onClick={() => this._onBuyClick(3)}>
+          { currentRate === 3 ? 'Продлить' : 'Купить' }
         </Link>
       </div>
       <div className="purchase-robot__robot">
-        <img src={ robotMaster } alt="master"/>
-        <Link className="button button-master" onClick={() => this._onClick('master')}>
-          { data.user_rate === 'master' ? 'Куплено' : 'Купить' }
+        <img src={ RATES_IMAGES[ 4 ] } alt="master"/>
+        <Link className="button button-master" onClick={() => this._onBuyClick(4)}>
+          { currentRate === 4 ? 'Продлить' : 'Купить' }
         </Link>
       </div>
-      { popup }
+
+      <ViewSelect active={ this.state.popup }>
+
+        <Popup className="purchase-robot__popup" onClose={ () => this.setState({ popup: null }) }>
+          <h3>КУПИТЬ ПАКЕТ "{ RATES_TITLES[ this.state.selectedRate ] }"?</h3>
+          <Form submitTitle="Да"
+            submitClassName="purchase-robot__popup-confirm__button"
+            submitCallback={() => this.setState({ popup: 1 }) }>
+
+            <Link className="button button-inactive purchase-robot__popup-confirm__button"
+              onClick={ () => this.setState({ popup: null }) }>Нет</Link>
+
+          </Form>
+        </Popup>
+
+        <Popup className="purchase-robot__popup" onClose={ () => this.setState({ popup: null }) }>
+          <Form formTitle={ popupTitle } submitTitle="Сохранить" submitClassName="purchase-robot__save-accounts"
+            submitCallback={ this._onSubmit }>
+            { popupInputs }
+            <Input label="Введите пароль" regexp={ passwordRegexp } attr={{ name: 'current_password', type: 'password' }}></Input>
+          </Form>
+        </Popup>
+
+      </ViewSelect>
+
     </div>);
   }
 
-  _onClick = rate => {
-    if( this.props.data && this.props.data.user_rate === rate ) return //this.setState({ popupDisplay: 2, selectedRate: rate });
+  _onSubmit = d => {
+    var rate = this.state.selectedRate;
+    return this.props.apiCall('buyRobot', { rate, ...d }).then(r => {
+      if( r.status === 'error' ) return r;
+      this.setState({ popup: null, currentRate: rate });
+      this.props.updateLocation('/robot');
+      return r;
+    });
+  }
+
+  _onBuyClick = rate => {
     this.props.apiCall('getUserBalance').then(r => {
       if( r.status === 'error' ) return;
-      if( r.result.account_balance < RATES_PRICE[ rate ] ) this.props.noMoneyCallback();
-      else this.setState({ popupDisplay: 1, selectedRate: rate });
+
+      var price, curRate = this.state.currentRate ? this.state.currentRate : 0;
+      if( rate <= curRate ) price = 0;
+      else price = RATES_PRICES[ rate ] - RATES_PRICES[ curRate ];
+
+      if( r.result.account_balance < price ) this.props.noMoneyCallback();
+      else {
+        var popup = ( rate > this.state.currentRate ) ? 0 : 1;
+        this.setState({ popup, selectedRate: rate });
+      }
     });
   }
 }

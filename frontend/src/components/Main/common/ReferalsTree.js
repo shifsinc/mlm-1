@@ -1,7 +1,7 @@
 import React from 'react';
 import './ReferalsTree.css'
 import './userStatus.css'
-import { RATES } from '../../../const.js'
+import { RATES_IMAGES, RATES_TITLES } from '../../../const.js'
 
 export default class extends React.Component {
   constructor(props) {/*apiCall, userClick, userId*/
@@ -69,7 +69,8 @@ export default class extends React.Component {
             <span>{node.user_surname }</span>
           </div>
           <div className="referals-tree__user__rate">
-            <img alt={ node.user_rate } src={ RATES[ node.user_rate ] ? RATES[ node.user_rate ] : undefined }/>
+            <img alt={ RATES_TITLES[ node.user_rate ] }
+              src={ RATES_IMAGES[ node.user_rate ] ? RATES_IMAGES[ node.user_rate ] : undefined }/>
           </div>
           <div className="referals-tree__user__yt"><span>{ node.stats_yt_left }</span><span>{ node.stats_yt_right }</span></div>
         </div>

@@ -1,0 +1,4 @@
+.blog__item > * {
+  color: var(--color4);
+  margin: 15px 0;
+}

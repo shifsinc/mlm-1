@@ -3,15 +3,16 @@ import './AddMoney.css'
 import Form from '../../common/Form.js'
 import Input from '../../common/Input.js'
 import Switch from '../../common/Switch.js'
-import MoneyFormContainer from './MoneyFormContainer.js'
-import { TRANSACTION_STATUS } from '../../../const.js'
+import ViewSelect from '../../common/ViewSelect.js'
+import { TRANSACTION_STATUS_TITLES } from '../../../const.js'
 
 export default class extends React.Component {
   constructor(props) {/*apiCall*/
     super(props);
     this.state = {
       balance: {},
-      rate: {},
+      moneyRate: {},
+      wallets: {},
       payMethod: 0,
       ytAmount: '',
       view: 0,
@@ -24,7 +25,7 @@ export default class extends React.Component {
     });
     props.apiCall('getMoneyRate').then(r => {
       if( r.status === 'error' ) return;
-      this.setState({ rate: r.result });
+      this.setState({ moneyRate: r.result });
     });
     props.apiCall('getPaymentWallets').then(r => {
       this.setState({ wallets: r.result });
@@ -32,59 +33,55 @@ export default class extends React.Component {
   }
 
   render(){
-    var money = this._calcMoney(), view;
-    if( this.state.view === 0 ) {
+    var money = this._calcMoney();
+    return (<div className="add-money">
+      <div className="interface-block money-cont__main">
 
-      view = (<Form formTitle="Пополнение баланса" submitTitle="КУПИТЬ YT"
-          submitCallback={ this._onSubmit }>
+        <ViewSelect active={ this.state.view }>
+        <Form formTitle="Пополнение баланса" submitTitle="КУПИТЬ YT"
+            submitCallback={ this._onSubmit }>
+            <Switch titles={[ 'PAYPAL', 'ETHEREUM' ]} active={ this.state.payMethod }
+              onClick={ ind => this.setState({ payMethod: ind, sum: this._calcMoney( this.state.ytAmount ) }) }></Switch>
 
-          <Switch titles={[ 'PAYPAL', 'ETHEREUM' ]} active={ this.state.payMethod }
-            onClick={ ind => this.setState({ payMethod: ind, sum: this._calcMoney( this.state.ytAmount ) }) }></Switch>
-
-          <Input attr={{
+            <Input label="Количество YT" regexp={ /^[0-9]*$/ } attr={{
                 value: this.state.ytAmount,
                 onChange: e => this.setState({ ytAmount: e.target.value })
-              }}
-            label="Количество YT" regexp={ /^[0-9]*$/ }></Input>
+              }}></Input>
 
-          <Input className="label-top" attr={{ readOnly: true, value: money.sum }}label="Сумма">
-            <span className="add-money__sum-label">+ комиссия 2%</span>
-          </Input>
+            <Input className="label-top" attr={{ readOnly: true, value: money.sum }}label="Сумма">
+              <span className="add-money__sum-label">+ комиссия 2%</span>
+            </Input>
 
-          <Input className="label-top add-money__total" attr={{ readOnly: true, value: money.total }} label="Итоговая сумма"></Input>
+            <Input className="label-top add-money__total" attr={{ readOnly: true, value: money.total }} label="Итоговая сумма"></Input>
+          </Form>
 
-        </Form>);
+          <><div className="add-money__transaction show-message">
+            <div className="message">Статус транзакции: { TRANSACTION_STATUS_TITLES[ this.state.transactionStatus ] }</div>
+            <div className="add-money__cont">
+              <h3>Оплата</h3>
+              <h2>Отправьте</h2>
+              { this.state.serverTotal.toFixed(5) } { this.state.payMethod === 0 ? 'USD' : 'ETH' }
+              <Input className="add-money__wallet label-top" label="На адрес:" attr={{
+                  readOnly: true,
+                  value: this.state.payMethod === 0 ? this.state.wallets.paypal_wallet : this.state.wallets.eth_wallet
+                }}>
+              </Input>
+            </div>
+          </div></>
+        </ViewSelect>
 
-    } else if( this.state.view === 1 ){
-
-      view = (<><div className="add-money__transaction show-message">
-        <div className="message">Статус транзакции: { TRANSACTION_STATUS[ this.state.transactionStatus ].title }</div>
-        <div className="add-money__cont">
-          <h3>Оплата</h3>
-          <h2>Отправьте</h2>
-          { this.state.serverTotal.toFixed(5) } { this.state.payMethod === 0 ? 'USD' : 'ETH' }
-          <Input className="add-money__wallet label-top" label="На адрес:"
-            attr={{ readOnly: true,
-              value: this.state.payMethod === 0 ? this.state.wallets.paypal_wallet : this.state.wallets.eth_wallet
-            }}>
-          </Input>
+      </div>
+      <div className="money-cont__info">
+        <div className="interface-block">
+          <span className="label">Ваш текущий баланс YT</span>
+          <span className="value">{ this.state.balance.account_balance }</span>
         </div>
-      </div></>);
-
-    }
-
-    return (<MoneyFormContainer info={<>
-      <div className="interface-block">
-        <span className="label">Ваш текущий баланс YT</span>
-        <span className="value">{ this.state.balance.account_balance }</span>
+        <div className="interface-block">
+          <span className="label">Текущий курс YT к ETH</span>
+          <span className="value">{ this.state.moneyRate.eth_rate }</span>
+        </div>
       </div>
-      <div className="interface-block">
-        <span className="label">Текущий курс YT к ETH</span>
-        <span className="value">{ this.state.rate.eth_rate }</span>
-      </div>
-    </>}>
-      { view }
-    </MoneyFormContainer>);
+    </div>);
   }
 
   _onSubmit = d => {
@@ -101,7 +98,7 @@ export default class extends React.Component {
   }
 
   _calcMoney = () => {
-    var rate = this.state.payMethod === 0 ? this.state.rate.usd_rate : this.state.rate.eth_rate;
+    var rate = this.state.payMethod === 0 ? this.state.moneyRate.usd_rate : this.state.moneyRate.eth_rate;
     if( rate === undefined ) rate = 0;
     if( this.state.ytAmount === '' ) return { sum: '', total: '' };
     var sum =  this.state.ytAmount * rate;

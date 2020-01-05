@@ -85,6 +85,7 @@ class App extends React.Component {
       case '/refill':
       case '/transfer':
     	case '/instructions':
+      case '/blog':
       case '/settings':
         if( !isSignedIn ) return this._updateLocation('/signin');
         return <Main { ...props }></Main>;
@@ -108,7 +109,7 @@ class App extends React.Component {
 
   _updateLocation = location => {
     window.history.pushState(null, '', location);
-    setTimeout( () => this.setState({ location: location }), 0 );
+    setTimeout( () => this.setState({ location }), 0 );
   }
 
   _updateAuth = (authToken, admin) => {

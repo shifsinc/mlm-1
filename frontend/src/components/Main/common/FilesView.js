@@ -2,10 +2,9 @@ import React from 'react';
 import './FilesView.css'
 import Table from '../../common/Table.js'
 
-export default function(props){/*data*/
+export default function(props){/*data, admin*/
   var data = props.data ? props.data : [];
-  return (
-    <Table titles={ [ 'ФАЙЛ', 'ОПИСАНИЕ' ] } className="files-view" children=
+  return (<Table titles={ [ 'ФАЙЛ', 'ОПИСАНИЕ' ] } className="files-view" children=
       {
         data.map((d, i) => {
           return (<tr key={ i }>
@@ -14,6 +13,5 @@ export default function(props){/*data*/
           </tr>);
         })
       }>
-    </Table>
-  );
+    </Table>);
 }

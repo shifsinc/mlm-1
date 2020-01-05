@@ -1,16 +1,17 @@
-.account__news__cont > *:last-child {
-  border: none;
+.news > *:last-child {
+  border: none !important;
 }
-.account__news__item {
+.news__item {
   color: var(--color4);
   border-bottom: solid 1px var(--color5);
   padding: 10px 0;
 }
-.account__news__item__text {
+.news__item__text {
   font-size: 16px;
   height: 40px;
   overflow: hidden;
+  margin-bottom: 10px;
 }
-.account__news__item__date {
+.news__item__date {
   font-size: 14px;
 }

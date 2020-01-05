@@ -8,10 +8,10 @@ export default function(props){/*updateLocation*/
     <div className="terms interface-block">
       <TermsText></TermsText>
       <Link
-      className="button accept-terms__button"
-      path="/fillData"
-      updateLocation={ props.updateLocation }>
-      Я СОГЛАСЕН</Link>
+        className="button accept-terms__button"
+        path="/fillData"
+        updateLocation={ props.updateLocation }>
+        Я СОГЛАСЕН</Link>
     </div>
   );
 }

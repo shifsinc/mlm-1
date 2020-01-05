@@ -2,20 +2,19 @@ import React from 'react';
 import './UserCard.css'
 import './userStatus.css'
 import Popup from '../../common/Popup.js'
-import { RATES } from '../../../const.js'
+import { RATES_IMAGES, STATUS_TITLES, BINARY_CYCLE_AMOUNT } from '../../../const.js'
 import { formatDate } from '../../../utils.js'
-import { STATUS_TITLES } from '../../../const.js'
 import noPhoto from '../../../img/noPhoto.png'
 
-export default function(props) {/*data, display, onClose*/
+export default function(props) {/*data, onClose*/
   var data = props.data ? props.data : {};
   return (
-    <Popup className={ 'user-card status-' + data.user_status } display={ props.display } onClose={ props.onClose }>
+    <Popup className={ 'user-card status-' + data.user_status } onClose={ props.onClose }>
       <div className="user-card__cont">
         <div className={ 'user-card__status-img status-' + ( data.user_status + '-avatar' ) }></div>
         <div className="user-card__left">
           <img className="user-card__photo" alt="avatar" src={ data.user_photo_url ? data.user_photo_url : noPhoto }/>
-          <img className="user-card__rate" alt="user rate" src={ RATES[ data.user_rate ] }/>
+          <img className="user-card__rate" alt="user rate" src={ RATES_IMAGES[ data.user_rate ] }/>
         </div>
         <div className="user-card__right">
           <h2 className="user-card__name">{ data.user_name } { data.user_surname }</h2>
@@ -34,7 +33,7 @@ export default function(props) {/*data, display, onClose*/
             }
             <tr>
               <td>Бинарных циклов</td>
-              <td>{ data.stats_binary_cycles_left } (левая) / { data.stats_binary_cycles_right } (правая)</td>
+              <td>{ ( Math.floor( data.stats_yt_left / BINARY_CYCLE_AMOUNT ) ) } (левая) / { ( Math.floor( data.stats_yt_right / BINARY_CYCLE_AMOUNT )  ) } (правая)</td>
             </tr>
             <tr><td>Лидерский бонус</td><td>{ data.bonus_lead }</td></tr>
             <tr><td>Заработано YT</td><td>{ data.stats_yt_total }</td></tr>

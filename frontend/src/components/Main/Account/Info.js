@@ -1,7 +1,7 @@
 import React from 'react';
 import './Info.css'
 import noPhoto from '../../../img/noPhoto.png';
-import { STATUS_TITLES, BINARY_CYCLE_AMOUNT } from '../../../const.js'
+import { STATUS_TITLES, BINARY_CYCLE_AMOUNT, RATES_TITLES } from '../../../const.js'
 
 export default function(props){/*data*/
   var data = props.data ? props.data : {};
@@ -16,7 +16,7 @@ export default function(props){/*data*/
             <div className="account__info__bunus-level">
               { data.user_bonus_level ? 'Бонусный уровень: ' + data.user_bonus_level : '' }
             </div>
-            <div className="account__info__rate">{ data.user_rate ? 'Аккаунт: ' + data.user_rate.toUpperCase() : '' }</div>
+            <div className="account__info__rate">{ data.user_rate ? 'Аккаунт: ' + RATES_TITLES[ data.user_rate ] : '' }</div>
           </div>
           <h2>{ data.user_name } { data.user_surname }</h2>
           <div className="account__info__status">{ STATUS_TITLES[ data.user_status ] }</div>
@@ -53,8 +53,8 @@ export default function(props){/*data*/
             <div>{ data.stats_yt_right }</div><div>YT справа</div>
           </div>
           <div className="account__info__cont3__item">
-            <div>{ ( Math.floor( data.stats_binary_cycles_left / BINARY_CYCLE_AMOUNT ) ) + '/' +
-              ( Math.floor( data.stats_binary_cycles_right / BINARY_CYCLE_AMOUNT )  ) }</div>
+            <div>{ ( Math.floor( data.stats_yt_left / BINARY_CYCLE_AMOUNT ) ) + '/' +
+              ( Math.floor( data.stats_yt_right / BINARY_CYCLE_AMOUNT )  ) }</div>
             <div>Бинарные циклы</div>
           </div>
         </div>

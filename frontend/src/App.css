@@ -108,6 +108,15 @@ a, a:visited {
   margin-right: 8px;
 }
 
+.cover {
+  background-color: rgba(55,55,55,0.5);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 100;
+}
 
 @media screen and ( max-width: 900px ) {
   .App {

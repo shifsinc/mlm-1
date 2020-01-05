@@ -12,7 +12,7 @@ import TransferMoney from './common/TransferMoney.js'
 export default class extends React.Component {
   constructor(props){/*apiCall*/
     super(props);
-    this.state = { balance: {}, bonuses: {}, view: 0 };
+    this.state = { balance: {}, bonuses: {} };
 
     props.apiCall('getUserBalance').then( r => this.setState({ balance: r.result }) );
     props.apiCall('getUserBonuses').then( r => this.setState({ bonuses: r.result }) );
@@ -27,12 +27,17 @@ export default class extends React.Component {
           <Balance data={ this.state.balance }
             refillClick={ () => this.props.updateLocation('/refill') }
             transferClick={ () => this.props.updateLocation('/transfer') }></Balance>
-          <Bonuses data={{ ...this.state.bonuses, ...this.state.balance }}></Bonuses>
+
+          <Bonuses data={ this.state.bonuses }></Bonuses>
         </div>
+
         <WithdrawMoney apiCall={ this.props.apiCall } data={ this.state.balance }></WithdrawMoney>
+
         <TitleBlock title="История операций" className="finances__history">
+
           <PageView callback={ p => this.props.apiCall('getTransactions', p).then(r => r.result ? r.result : {}) }
             component={ History } onPageCount={ 5 }></PageView>
+
         </TitleBlock></>);
         break;
       case '/refill':

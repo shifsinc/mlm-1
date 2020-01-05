@@ -3,18 +3,19 @@ import './Account.css'
 
 import Info from './Account/Info.js'
 import Links from './Account/Links.js'
-import News from './Account/News.js';
+import News from './common/News.js';
 import Users from './Account/Users.js';
 import PageView from '../common/PageView.js'
 import TitleBlock from './common/TitleBlock.js'
 import UserCard from './common/UserCard.js'
+import ViewSelect from '../common/ViewSelect.js'
 
 import { getUserCardInfo } from '../../utils.js'
 
 export default class extends React.Component {
   constructor(props){/*apiCall*/
     super(props);
-    this.state = { info: {}, balance: {}, stats: {}, referals: [], sponsors: [], news: [], cardData: {}, cardDisplay: false }
+    this.state = { info: {}, balance: {}, stats: {}, referals: [], sponsors: [], news: [], cardData: {}, popup: null }
 
     props.apiCall('getUserInfo').then( r => this.setState({ info: r.result }) );
     props.apiCall('getUserBalance').then( r => this.setState({ balance: r.result }) );
@@ -42,20 +43,22 @@ export default class extends React.Component {
         userClick={ this._userClick }></Users>
 
       <TitleBlock title="Новости" className="account__news" >
-        <PageView callback={ p => this.props.apiCall('getNews', p).then(r => r.result ? r.result : {}) }
-          component={ News }  onPageCount={ 5 }></PageView>
+        <News apiCall={ this.props.apiCall }></News>
       </TitleBlock>
 
-      <UserCard data={ this.state.cardData }
-        display={ this.state.cardDisplay }
-        onClose={ () => this.setState({ cardDisplay: false }) }
-      ></UserCard>
+      <ViewSelect active={ this.state.popup }>
+
+        <UserCard data={ this.state.cardData }
+          onClose={ () => this.setState({ popup: null }) }>
+        </UserCard>
+
+      </ViewSelect >
 
       <div style={{ clear: 'both' }}></div>
     </div>)
   }
 
   _userClick = user => {
-    getUserCardInfo( this.props.apiCall, user.user_id, d => this.setState({ cardData: d, cardDisplay: true }) );
+    getUserCardInfo( this.props.apiCall, user.user_id, d => this.setState({ cardData: d, popup: 0 }) );
   }
 }

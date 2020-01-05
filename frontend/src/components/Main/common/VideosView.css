@@ -1,8 +1,8 @@
-.instructions__video video {
+.video-view video {
   width: calc(100% - 20px);
   margin: 10px;
 }
 
 @media screen and (max-width: 900px) {
-  
+
 }

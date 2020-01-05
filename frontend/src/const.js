@@ -7,17 +7,24 @@ exports.linkRegexp = /^https?:\/\/[a-zA-Z\-0-9.]+(\/.*)?$/;
 exports.telegramRegexp = /^\w+$/;
 exports.ethereumRegexp = /^0x[a-z0-9]{40}$/;
 
-exports.RATES = {
-  'client': require('./img/robot_client@2x.png'),
-  'light': require('./img/robot_light@2x.png'),
-  'advanced': require('./img/robot_advanced@2x.png'),
-  'master': require('./img/robot_master@2x.png')
+exports.RATES_IMAGES = {
+  '1': require('./img/robot_client@2x.png'),
+  '2': require('./img/robot_light@2x.png'),
+  '3': require('./img/robot_advanced@2x.png'),
+  '4': require('./img/robot_master@2x.png')
 }
-exports.RATES_PRICE = {
-  'client': 250,
-  'light': 500,
-  'advanced': 1000,
-  'master': 2000
+exports.RATES_TITLES = {
+  '1': 'CLIENT',
+  '2': 'LIGHT',
+  '3': 'ADVANCED',
+  '4': 'MASTER'
+};
+exports.RATES_PRICES = {
+  '0': 0,
+  '1': 250,
+  '2': 500,
+  '3': 1000,
+  '4': 2000
 }
 exports.STATUS_TITLES = {
   'investor': 'ИНВЕСТОР',
@@ -30,19 +37,10 @@ exports.STATUS_TITLES = {
   'diamond': 'БРИЛЛИАНТ',
   'diamond2': '2*БРИЛЛИАНТ'
 }
-exports.TRANSACTION_STATUS = {
-  'wait': {
-    title: 'Ожидается перевод',
-    icon: ''
-  },
-  'ok': {
-    title: 'Перевод совершен',
-    icon: ''
-  },
-  'rejected': {
-    title: 'Транзакция отклонена',
-    icon: ''
-  }
+exports.TRANSACTION_STATUS_TITLES = {
+  'wait': 'Ожидается перевод',
+  'ok': 'Перевод совершен',
+  'rejected': 'Транзакция отклонена'
 }
 exports.WITHDRAW_COMMISSION = 0.02;
 

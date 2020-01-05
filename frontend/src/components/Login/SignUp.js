@@ -3,7 +3,7 @@ import './SignUp.css'
 import './common.css'
 import Form from '../common/Form.js'
 import Input from '../common/Input.js'
-import Switch from '../common/Switch.js'
+import Switch from './Switch.js'
 import noPhoto from '../../img/noPhoto.png';
 import { loginRegexp, emailRegexp, phoneRegexp, passwordRegexp } from '../../const.js';
 
