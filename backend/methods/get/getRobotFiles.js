@@ -3,7 +3,7 @@ const { INCORRECT_QUERY } = require('../../const.js');
 const { FILES_PREFIX } = require('../../config.js');
 
 module.exports = function(callback, params, _user_id){/*count, offset*/
-  var count = params.count, offset = params.offset
+  var count = parseInt( params.count ), offset = parseInt( params.offset );
   if( isNaN(offset)  || isNaN(count) || count < 1 || count > 20 ) return callback( INCORRECT_QUERY );
 
   makeQuery(`SELECT user_rate FROM users WHERE user_id=?`, [ _user_id ],

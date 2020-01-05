@@ -2,14 +2,16 @@ const { makeQuery } = require('../../utils.js');
 const { INCORRECT_QUERY, FORBIDDEN,
     nameRegexp, phoneRegexp, linkRegexp, telegramRegexp } = require('../../const.js');
 
-module.exports = function(callback, params, _user_id){/*name, surname, phone, social_link, telegram*/
-  var name = params.name, surname = params.surname, phone = params.phone, social = params.social_link, telegram = params.telegram;
+module.exports = function(callback, params, _user_id){/*name, surname, phone, social_link, telegram, photo*/
+  var name = params.name, surname = params.surname,
+    phone = params.phone, social = params.social_link, telegram = params.telegram, photo = params.photo;
   if( name === undefined || !nameRegexp.test(name) ||
     surname === undefined || !nameRegexp.test(surname) ||
     phone === undefined || !phoneRegexp.test(phone) ||
     social === undefined || !linkRegexp.test(social) ||
     telegram === undefined || !telegramRegexp.test(telegram))
     return callback( INCORRECT_QUERY );
+  if( photo === undefined ) photo = 'noPhoto.png';
 
     makeQuery(`SELECT user_data_filled FROM users WHERE user_id=?`, [ _user_id ],
       res => {
@@ -21,9 +23,10 @@ module.exports = function(callback, params, _user_id){/*name, surname, phone, so
             user_phone=?,
             user_social=?,
             user_telegram=?,
+            user_photo=?,
             user_data_filled=true
             WHERE user_id=?`,
-          [ name, surname, phone, social, telegram, _user_id ],
+          [ name, surname, phone, social, telegram, _user_id, photo ],
           res => {
             callback({ status: 'ok', action: { path: '/account' } });
           }, callback);

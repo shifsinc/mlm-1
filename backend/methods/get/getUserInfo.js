@@ -3,8 +3,8 @@ const { INCORRECT_QUERY, USER_NOT_EXISTS } = require('../../const.js');
 const { PHOTOS_PREFIX } = require('../../config.js');
 
 module.exports = function(callback, params, _user_id){/*user_id*/
-  var user_id = params.user_id;
-  if( user_id === undefined || isNaN( user_id ) ) user_id = _user_id;
+  var user_id = parseInt( params.user_id );
+  if( isNaN( user_id ) ) user_id = _user_id;
 
   makeQuery(`SELECT
     u.user_id,
@@ -18,8 +18,7 @@ module.exports = function(callback, params, _user_id){/*user_id*/
     u.user_telegram,
     u.user_photo,
     u.user_status,
-    u.user_bonus_level,
-    u.user_rate,
+    u.user_rate + 0 AS user_rate,
     u.user_refer,
     u.user_refer_type,
     u.general_link_type,

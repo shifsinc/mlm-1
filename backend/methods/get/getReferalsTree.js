@@ -1,5 +1,5 @@
 const { makeQuery } = require('../../utils.js');
-const { INCORRECT_QUERY } = require('../../const.js');
+const { INCORRECT_QUERY, USER_NOT_EXISTS } = require('../../const.js');
 const { PHOTOS_PREFIX } = require('../../config.js');
 
 const query = `SELECT
@@ -7,21 +7,22 @@ const query = `SELECT
   u.user_name,
   u.user_surname,
   u.user_photo,
-  u.user_rate,
+  u.user_rate + 0 AS user_rate,
   u.user_status,
   s.stats_yt_left,
   s.stats_yt_right
   FROM users u
-  LEFT JOIN stats s ON u.user_id=s.user_id`;
+  LEFT JOIN users_stats s ON u.user_id=s.user_id`;
 
 module.exports = function(callback, params, _user_id){/*levels, user_id*/
-  var levels = params.levels, user_id = params.user_id;
-  if( user_id === undefined ) user_id = _user_id;
-  if( isNaN(levels) || levels < 1 || levels > 10 || isNaN(user_id) ) return callback( INCORRECT_QUERY );
+  var levels = parseInt( params.levels ), user_id = parseInt( params.user_id );
+  if( isNaN(levels) || levels < 1 || levels > 10 ) return callback( INCORRECT_QUERY );
+  if( isNaN( user_id ) ) user_id = _user_id;
 
   var nodesCount = Math.pow( 2, levels ) - 1, tree;
   makeQuery(query + ` WHERE u.user_id=?`, [ user_id ],
     res => {
+      if( !res.result.length ) return callback( USER_NOT_EXISTS );
       tree = res.result[0];
       tree.user_photo_url = PHOTOS_PREFIX + tree.user_photo;
       makeTree(tree, levels, [], [], count => {

@@ -3,7 +3,7 @@ const { INCORRECT_QUERY } = require('../../const.js');
 const { PHOTOS_PREFIX } = require('../../config.js');
 
 module.exports = function(callback, params, _user_id){/*count, offset*/
-  var count = params.count;/*, offset = params.offset;*/
+  var count = parseInt( params.count );/*, offset = parseInt( params.offset );*/
   if( isNaN(count) || count < 1 || count > 20 /*|| isNaN(offset)*/ ) return callback( INCORRECT_QUERY );
 
   var fields = ['u1.user_id AS user_id_1',

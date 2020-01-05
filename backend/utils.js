@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const { MYSQL_AUTH } = require('./config.js');
-const { INCORRECT_QUERY, AUTH_FAILED, tokenRegexp, ADMIN_ROLE, FORBIDDEN } = require('./const.js');
+const { INCORRECT_QUERY, AUTH_FAILED, USER_NOT_EXISTS, tokenRegexp, ADMIN_ROLE, FORBIDDEN } = require('./const.js');
 
 var _con;
 module.exports.initMysqlConnection = function(onSuccess, onError){
@@ -37,20 +37,25 @@ module.exports.checkAuth = (token, onSuccess, onFailed, onError) => {
 }
 
 module.exports.validateUser = function(user_id, onSuccess, onFailed, onError){
-  makeQuery(`SELECT email_confirm_token, user_data_filled FROM users WHERE user_id=?`, [ user_id ],
+  makeQuery(`SELECT email_confirm_token, user_data_filled, user_blocked FROM users WHERE user_id=?`, [ user_id ],
     res => {
-    if( !res.result.length ) return onError({ status: 'error', text: 'user doesn\'t exist' });
+    if( !res.result.length ) return onError( USER_NOT_EXISTS );
+    res = res.result[0];
 
-    if( res.result[0].email_confirm_token !== null )
+    if( res.user_blocked ){
+      onFailed({ status: 'error', text: 'user blocked', action: {
+        text: 'Пользователь заблокирован'
+      } });
+    } else if( res.email_confirm_token !== null ){
       onFailed({ status: 'error', text: 'email not confirmed', action: {
         text: 'Пожалуйста, подтвердите электронную почту'
       } });
-    else if( !res.result[0].user_data_filled )
-      onFailed({ status: 'error', text: 'user data doesn\'t filled', action: {
+    } else if( !res.user_data_filled ){
+      onFailed({ status: 'error', text: 'user data not filled', action: {
         path: '/acceptTerms',
         text: 'Пожалуйста, заполните данные'
       } });
-    else onSuccess();
+    } else onSuccess();
   }, onError);
 }
 
@@ -84,5 +89,37 @@ module.exports.checkUserPwd = function(user_id, pwd, onSuccess, onError){
         res.action.text = 'Пароль введен неверно';
         if(onError) onError( res );
       } else onSuccess()
+    }, onError);
+}
+
+///////////////////////
+
+module.exports.getUserAccount = function(user_id, onSuccess, onError){
+  makeQuery(`SELECT * FROM accounts WHERE account_owner=?`, [ user_id ],
+    res => {
+      if( !res.result.length ) onError( USER_NOT_EXISTS );
+      else onSuccess( res.result[0] );
+    }, onError);
+}
+
+//////////////
+
+module.exports.getUserByCode = function(code, onSuccess, onError){
+  makeQuery(`SELECT user_id FROM users WHERE user_email=? OR user_phone=?`, [ code, code ],
+    res => {
+      if( !res.result.length ) onError( USER_NOT_EXISTS );
+      else onSuccess( res.result[0] );
+    }, onError);
+}
+
+/////////////
+
+module.exports.getPersonalRev = function(user_id, callback, onError){
+  makeQuery(`SELECT
+    SUM(stats_purchase_sum) AS sum
+    FROM users_stats
+    WHERE user_id IN (SELECT user_id FROM users WHERE user_refer=?)`, [ user_id ],
+    res => {
+      callback( res.result[0].sum );
     }, onError);
 }

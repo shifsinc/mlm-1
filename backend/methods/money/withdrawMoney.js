@@ -1,29 +1,33 @@
-const { makeQuery,  } = require('../../utils.js');
-const { INCORRECT_QUERY, OK,WITHDRAW_COMMISSION } = require('../../const.js');
+const { makeQuery, checkUserPwd, getUserAccount } = require('../../utils.js');
+const { INCORRECT_QUERY, OK,WITHDRAW_COMMISSION, NOT_ENOUGH_MONEY } = require('../../const.js');
 const getMoneyRate = require('./getMoneyRate.js');
 
-module.exports = function(callback, params, _user_id){/*amount*/
-  var amount = parseInt( params.amount );
+module.exports = function(callback, params, _user_id){/*amount, current_password*/
+  var amount = parseInt( params.amount ), pwd = params.current_password;
   if( isNaN(amount) ) return callback( INCORRECT_QUERY );
 
-  makeQuery(`SELECT account_id, account_balance FROM accounts WHERE account_owner=?`, [ _user_id ], res => {
+  checkUserPwd(_user_id, pwd, () => {
 
-    var acc_id = res.result[0].account_id, balance = res.result[0].account_balance;
-    getMoneyRate(r => {
-      if( r.status === 'error' ) return callback(r);
-      if( balance < amount ) return callback({ status: 'error', action: { text: 'Недостаточно средств' } });
+    getUserAccount(_user_id, acc => {
 
-      var ethAmount = amount * r.result.eth_rate;
-      ethAmount -= ethAmount * WITHDRAW_COMMISSION;
-      makeQuery(`INSERT INTO transactions(tr_descr, tr_real_amount, tr_platform_amount, tr_pay_method, tr_receiver_id, tr_type)
-        VALUES(?,?,?,?,?,?)`, [ 'Вывод средств', ethAmount, amount, 'ethereum', acc_id, 'out' ], res => {
-          res = OK;
-          res.action = { text: 'Заявка на вывод средств добавлена' };
-          callback(res);
-        }, callback);
+      var acc_id = acc.account_id, balance = acc.account_balance;
+      if( balance < amount ) return callback(NOT_ENOUGH_MONEY);
+      getMoneyRate(r => {
+        if( r.status === 'error' ) return callback(r);
+
+        var ethAmount = amount * r.result.eth_rate;
+        ethAmount -= ethAmount * WITHDRAW_COMMISSION;
+        makeQuery(`INSERT INTO transactions(tr_descr, tr_real_amount, tr_platform_amount, tr_pay_method, tr_receiver_id, tr_type)
+          VALUES(?,?,?,?,?,?)`, [ 'Вывод средств', ethAmount, amount, 'ethereum', acc_id, 'out' ], res => {
+            res = OK;
+            res.action = { text: 'Заявка на вывод средств добавлена' };
+            callback(res);
+          }, callback);
+
+      }, callback);
 
     }, callback);
 
-    });
+  }, callback);
 
 }

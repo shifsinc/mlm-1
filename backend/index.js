@@ -21,13 +21,13 @@ function serverHnd(request, response){
 
   if(request.method === 'GET'){
     method( resp => response.end( JSON.stringify(resp) ), parseGetParams( _url.query ) );
-  } else if(request.method === 'POST'){
-		var body = '', params, getParams = parseGetParams( _url.query );
-    request.on('data', d => body += d);
+  } else if( request.method === 'POST' ){
+		var body = [], params, getParams = parseGetParams( _url.query );
+    request.on('data', d => body.push(d));
     request.on('end', () => {
 			if( getParams._file ){
 				params = getParams;
-				params._file = body;
+				params._file = Buffer.concat( body );
 			} else {
       	try{
         	params = JSON.parse( body );

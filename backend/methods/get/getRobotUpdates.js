@@ -2,7 +2,7 @@ const { makeQuery } = require('../../utils.js');
 const { INCORRECT_QUERY } = require('../../const.js');
 
 module.exports = function(callback, params, _user_id){/*count, offset*/
-  var count = params.count, offset = params.offset
+  var count = parseInt( params.count ), offset = parseInt( params.offset );
   if( isNaN(offset)  || isNaN(count) || count < 1 || count > 20 ) return callback( INCORRECT_QUERY );
 
   makeQuery(`SELECT

@@ -10,6 +10,7 @@
   "author": "YR",
   "license": "ISC",
   "dependencies": {
+    "file-type": "^12.4.2",
     "js-md5": "^0.7.3",
     "mysql": "^2.17.1",
     "sync-mysql": "^3.0.1"

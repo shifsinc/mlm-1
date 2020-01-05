@@ -3,7 +3,7 @@ const { INCORRECT_QUERY, OK, ethereumRegexp, paypalRegexp, passwordRegexp } = re
 
 module.exports = function(callback, params, _user_id){/*ethereum, paypal, current_password*/
   var pwd = params.current_password;
-  if( pwd === undefined || !passwordRegexp.test(pwd) ) return callback( INCORRECT_QUERY );
+  if( pwd === undefined ) return callback( INCORRECT_QUERY );
 
   checkUserPwd(_user_id, pwd, () => {
 

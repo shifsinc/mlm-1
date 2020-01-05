@@ -2,8 +2,8 @@ const { makeQuery } = require('../../utils.js');
 const { INCORRECT_QUERY } = require('../../const.js');
 
 module.exports = function(callback, params, _user_id){/*count, offset*/
-  var count = params.count, offset = params.offset;
-  if( isNaN(count) || count < 1 || count > 20 || isNaN(offset) ) return callback( INCORRECT_QUERY );
+  var count = parseInt( params.count ), offset = parseInt( params.offset );
+  if( isNaN(offset)  || isNaN(count) || count < 1 || count > 20 ) return callback( INCORRECT_QUERY );
 
   makeQuery(`SELECT account_id FROM accounts WHERE account_owner=?`, [ _user_id ],
     res => {
