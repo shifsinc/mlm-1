@@ -16,7 +16,6 @@ export default class extends React.Component {
 
     props.apiCall('getUserBalance').then( r => this.setState({ balance: r.result }) );
     props.apiCall('getUserBonuses').then( r => this.setState({ bonuses: r.result }) );
-    props.apiCall('getUserBalance').then( r => this.setState({ balance: r.result }) );
   }
 
   render(){
@@ -28,7 +27,7 @@ export default class extends React.Component {
             refillClick={ () => this.props.updateLocation('/refill') }
             transferClick={ () => this.props.updateLocation('/transfer') }></Balance>
 
-          <Bonuses data={ this.state.bonuses }></Bonuses>
+          <Bonuses data={{ ...this.state.bonuses, ...this.state.balance }}></Bonuses>
         </div>
 
         <WithdrawMoney apiCall={ this.props.apiCall } data={ this.state.balance }></WithdrawMoney>

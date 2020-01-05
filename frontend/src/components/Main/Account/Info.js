@@ -13,9 +13,6 @@ export default function(props){/*data*/
       <div className="account__info__cont">
         <div className="account__info__cont1">
           <div className="account__info__account-info">
-            <div className="account__info__bunus-level">
-              { data.user_bonus_level ? 'Бонусный уровень: ' + data.user_bonus_level : '' }
-            </div>
             <div className="account__info__rate">{ data.user_rate ? 'Аккаунт: ' + RATES_TITLES[ data.user_rate ] : '' }</div>
           </div>
           <h2>{ data.user_name } { data.user_surname }</h2>
