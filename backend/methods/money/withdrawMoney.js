@@ -17,8 +17,8 @@ module.exports = function(callback, params, _user_id){/*amount, current_password
 
         var ethAmount = amount * r.result.eth_rate;
         ethAmount -= ethAmount * WITHDRAW_COMMISSION;
-        makeQuery(`INSERT INTO transactions(tr_descr, tr_real_amount, tr_platform_amount, tr_pay_method, tr_receiver_id, tr_type)
-          VALUES(?,?,?,?,?,?)`, [ 'Вывод средств', ethAmount, amount, 'ethereum', acc_id, 'out' ], res => {
+        makeQuery(`INSERT INTO transactions(tr_real_amount, tr_platform_amount, tr_pay_method, tr_receiver_id, tr_type)
+          VALUES(?,?,?,?,?)`, [ ethAmount, amount, 'ethereum', acc_id, 'out' ], res => {
             res = OK;
             res.action = { text: 'Заявка на вывод средств добавлена' };
             callback(res);

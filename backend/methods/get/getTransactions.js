@@ -11,7 +11,6 @@ module.exports = function(callback, params, _user_id){/*count, offset*/
 
       makeQuery(`SELECT
         tr_dt,
-        tr_descr,
         tr_type,
         tr_real_amount,
         tr_platform_amount,

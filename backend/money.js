@@ -1,6 +1,6 @@
 const { makeQuery, beginTransaction, getUserAccount } = require('./utils.js');
 const calcBonuses = require('./bonuses.js');
-const { NOT_ENOUGH_MONEY } = require('./const.js');
+const { NOT_ENOUGH_MONEY, TRANSACTION_NOT_EXISTS, FORBIDDEN } = require('./const.js');
 
 module.exports.spendMoney = function(user_id, amount, onSuccess, onError){
   getUserAccount(user_id, acc => {
@@ -22,12 +22,26 @@ module.exports.spendMoney = function(user_id, amount, onSuccess, onError){
 }
 
 module.exports.confirmTransaction = function(tr_id, onSuccess, onError){
-  makeQuery(`UPDATE transactions SET tr_status='ok' WHERE tr_id=?`, [ tr_id ], res => {
-    onSuccess();
-  }, onError);
+  makeQuery(`SELECT tr_status FROM transactions WHERE tr_id=?`, [ tr_id ],
+    res => {
+      if( !res.result.length ) return onError( TRANSACTION_NOT_EXISTS );
+      if( res.result[0].tr_status !== 'wait' ) return onError( FORBIDDEN );
+
+      makeQuery(`UPDATE transactions SET tr_status='ok' WHERE tr_id=?`, [ tr_id ], res => {
+        onSuccess();
+      }, onError);
+
+    }, onError);
 }
 module.exports.rejectTransaction = function(tr_id, onSuccess, onError){
-  makeQuery(`UPDATE transactions SET tr_status='rejected' WHERE tr_id=?`, [ tr_id ], res => {
-    onSuccess();
-  }, onError);
+  makeQuery(`SELECT tr_status FROM transactions WHERE tr_id=?`, [ tr_id ],
+    res => {
+      if( !res.result.length ) return onError( TRANSACTION_NOT_EXISTS );
+      if( res.result[0].tr_status !== 'wait' ) return onError( FORBIDDEN );
+      
+      makeQuery(`UPDATE transactions SET tr_status='rejected' WHERE tr_id=?`, [ tr_id ], res => {
+        onSuccess();
+      }, onError);
+
+    }, onError);
 }

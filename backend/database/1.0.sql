@@ -225,7 +225,6 @@ DROP TABLE IF EXISTS `mlm_db`.`transactions` ;
 CREATE TABLE IF NOT EXISTS `mlm_db`.`transactions` (
   `tr_id` INT NOT NULL AUTO_INCREMENT,
   `tr_dt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `tr_descr` VARCHAR(128) NULL,
   `tr_real_amount` DOUBLE NULL,
   `tr_platform_amount` DOUBLE NOT NULL,
   `tr_pay_method` ENUM('paypal', 'ethereum') NULL,
@@ -285,10 +284,9 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`files` (
   `file_type` VARCHAR(16) NOT NULL DEFAULT 'file',
   `file_title` VARCHAR(64) NULL,
   `file_descr` VARCHAR(128) NULL,
-  `file_section` ENUM('marketing', 'instructions', 'videos', 'robot', 'news_image') NOT NULL,
+  `file_section` ENUM('marketing', 'instructions', 'videos', 'robot', 'news_image', 'news_video') NOT NULL,
   `file_fk` INT(11) NULL,
-  `file_name` VARCHAR(32) NOT NULL,
-  `file_rate` ENUM('client', 'light', 'advanced', 'master') NULL DEFAULT NULL,
+  `file_name` VARCHAR(32) NULL,
   PRIMARY KEY (`file_id`),
   UNIQUE INDEX `file_id_UNIQUE` (`file_id` ASC),
   INDEX `author_idx` (`file_author` ASC),
@@ -529,11 +527,12 @@ BEGIN
 END$$
 
 
-/*internal transaction, event payment, event withdraw*/
+/*internal transaction, out transaction*/
 DROP TRIGGER IF EXISTS `mlm_db`.`transactions_BEFORE_INSERT` $$
 CREATE DEFINER = CURRENT_USER TRIGGER `mlm_db`.`transactions_BEFORE_INSERT` BEFORE INSERT ON `transactions` FOR EACH ROW
 BEGIN
   IF(new.tr_type = 'internal') THEN
+
     SET @sender_balance = (SELECT account_balance FROM accounts WHERE account_id=new.tr_sender_id);
     IF( @sender_balance < new.tr_platform_amount  ) THEN
       SET new.tr_status = 'rejected';
@@ -542,19 +541,31 @@ BEGIN
       UPDATE accounts SET account_balance=account_balance+new.tr_platform_amount WHERE account_id=new.tr_receiver_id;
       SET new.tr_status = 'ok';
     END IF;
-  ELSEIF(new.tr_type = "in") THEN
-    INSERT INTO events(user_id, tr_id, event_type) VALUES(new.tr_receiver_id, new.tr_id, 'payment');
+
   ELSEIF(new.tr_type = "out") THEN
+
     SET @rec_balance = (SELECT account_balance FROM accounts WHERE account_id=new.tr_receiver_id);
     IF( @rec_balance < new.tr_platform_amount  ) THEN
       SET new.tr_status = 'rejected';
     ELSE
-      INSERT INTO events(user_id, tr_id, event_type) VALUES(new.tr_receiver_id, new.tr_id, 'withdraw');
       UPDATE accounts SET
         account_balance_reserved=account_balance_reserved+new.tr_platform_amount,
         account_balance=account_balance-new.tr_platform_amount
         WHERE account_id=new.tr_receiver_id;
     END IF;
+
+  END IF;
+END$$
+
+/*event payment, event withdraw*/
+DROP TRIGGER IF EXISTS `mlm_db`.`transactions_AFTER_INSERT` $$
+CREATE DEFINER = CURRENT_USER TRIGGER `mlm_db`.`transactions_AFTER_INSERT` AFTER INSERT ON `transactions` FOR EACH ROW
+BEGIN
+  SET @user_id = (SELECT account_owner FROM accounts WHERE account_id=new.tr_receiver_id);
+  IF(new.tr_type = "in") THEN
+    INSERT INTO events(user_id, tr_id, event_type) VALUES(@user_id, new.tr_id, 'payment');
+  ELSEIF(new.tr_type = "out") THEN
+      INSERT INTO events(user_id, tr_id, event_type) VALUES(@user_id, new.tr_id, 'withdraw');
   END IF;
 END$$
 

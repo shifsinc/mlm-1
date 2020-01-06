@@ -3,7 +3,9 @@ exports.AUTH_FAILED = { status: 'error', text: 'auth failed', action: {} }
 exports.OK = { status: 'ok', action: { text: 'OK' } }
 exports.FORBIDDEN = { status: 'error', text: 'forbidden', action: { text: 'Forbidden' }}
 exports.USER_NOT_EXISTS = { status: 'error', text: 'user not exists', action: { text: 'Пользователь не существует' }}
+exports.FILE_NOT_EXISTS = { status: 'error', text: 'file not exists', action: { text: 'Файл не существует' }}
 exports.NOT_ENOUGH_MONEY = { status: 'error', text: 'not enough money', action: { text: 'Не достаточно средств' }}
+exports.TRANSACTION_NOT_EXISTS = { status: 'error', text: 'transaction not exists', action: { text: 'Транзакция не существует' }}
 
 exports.loginRegexp = /^\w{5,30}$/;
 exports.emailRegexp = exports.paypalRegexp = /^.+@[a-zA-Z\-0-9\.]+$/;
