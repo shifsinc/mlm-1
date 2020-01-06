@@ -16,12 +16,16 @@ export default class extends React.Component {
   }
 
   render(){
-    return (
-      <div className="main__content robot">
+    return (<div className="main__content robot">
 
         <TitleBlock title="Ключи" className="robot__keys">
           <PageView callback={ p => this.props.apiCall('getUserRobotKeys', p).then(r => r.result ? r.result : {}) }
-            component={ Keys } onPageCount={ 5 }></PageView>
+            callbackArgs={{ rate: this.state.info.user_rate, rand: this.state.rand }} onPageCount={ 5 }
+            component={ Keys } componentProps={{
+              apiCall: this.props.apiCall,
+              onChange: () => this.setState({ rand: Math.random() })
+            }} >
+          </PageView>
         </TitleBlock>
 
         <div className="robot__cont">
@@ -40,10 +44,10 @@ export default class extends React.Component {
 
         <TitleBlock title="Покупка робота" className="robot__purchase">
           <PurchaseRobot updateLocation={ this.props.updateLocation } data={ this.state.info } apiCall={ this.props.apiCall }
-            noMoneyCallback={ () => this.props.updateLocation('/refill') }></PurchaseRobot>
+            noMoneyCallback={ () => this.props.updateLocation('/refill') }
+            okCallback={ rate => this.setState({ info: { ...this.state.info, user_rate: rate } }) }></PurchaseRobot>
         </TitleBlock>
 
-      </div>
-    )
+      </div>)
   }
 }

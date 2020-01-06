@@ -1,4 +1,5 @@
 import React from 'react';
+import './Users.css'
 
 import PageView from '../../common/PageView.js'
 import Table from '../../common/Table.js'
@@ -13,7 +14,6 @@ export default class extends React.Component {
     super(props);
     this.state = {
       pattern: '',
-      rerender: false,
       popup: null,
       cardData: {}
     }
@@ -51,7 +51,7 @@ export default class extends React.Component {
 function _view(props){/*userClick*/
   var data = props.data ? props.data : [];
   return (
-      <Table titles={[ 'ИМЯ ФАМИЛИЯ', 'ЗАРЕГЕСТРИРОВАН', 'ТАРИФ','РЕФЕРАЛОВ В ПРАВОЙ/ЛЕВОЙ НОГЕ' ]}>
+      <Table className="admin__users__list" titles={[ 'ИМЯ ФАМИЛИЯ', 'ЗАРЕГЕСТРИРОВАН', 'ТАРИФ','РЕФЕРАЛОВ В ПРАВОЙ/ЛЕВОЙ НОГЕ' ]}>
       {
         data.map((d, i) => {
           return (<tr key={ i }>

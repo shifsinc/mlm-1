@@ -32,25 +32,28 @@
   background-color: var(--master-color);
 }
 
-.purchase-robot__popup {
+.purchase-robot__popup-confirm,
+.purchase-robot__popup-save {
   width: 400px;
   text-align: center;
 }
-.purchase-robot__popup-confirm__button {
+.purchase-robot__popup-confirm__button,
+.purchase-robot__popup-confirm .form__button {
   width: 120px !important;
   height: 30px !important;
   line-height: 30px !important;
   margin: 0 0 20px 0 !important;
 }
-.purchase-robot__popup-confirm__button:first-child {
+.purchase-robot__popup-confirm__button:first-child,
+.purchase-robot__popup-confirm .form__button:first-child {
   float: left;
 }
-.purchase-robot__popup-confirm__button:nth-child(2) {
+.purchase-robot__popup-confirm__button:nth-child(2),
+.purchase-robot__popup-confirm .form__button:nth-child(2) {
   float: right;
 }
 
-.purchase-robot__save-accounts {
-  width: 100% !important;
+.purchase-robot__popup-save .form__button {
   margin-top: 24px;
 }
 
@@ -58,10 +61,8 @@
   .purchase-robot__robot {
     width: 50%;
   }
-  .purchase-robot__popup {
-    width: 300px;
-  }
-  .purchase-robot__save-accounts {
+  .purchase-robot__popup-confirm,
+  .purchase-robot__popup-save {
     width: 300px;
   }
 }

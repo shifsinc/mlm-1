@@ -28,7 +28,7 @@ export default class extends React.Component {
     if( page === this.state.currentPage ) return;
     var onPageCount = this.props.onPageCount;
 
-    this.props.callback({ offset: onPageCount * page, count: onPageCount })
+    this.props.callback({ offset: onPageCount * page, count: onPageCount, ...this.props.callbackArgs })
       .then(r => this.setState({
         pagesCount: Math.ceil( r.count / onPageCount ),
         data: r.data,
@@ -84,7 +84,9 @@ export default class extends React.Component {
     }
 
     return (<div className="page-view">
-      <div className="page-view__cont"><Component data={ this.state.data } { ...this.props.componentProps }></Component></div>
+      <div className="page-view__cont">
+        <Component data={ this.state.data } { ...this.props.componentProps }></Component>
+      </div>
       <div className="page-view__pages">
         { pages }
       </div>

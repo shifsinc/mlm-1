@@ -6,20 +6,3 @@
   margin: 0 0 10px 0;
   font-weight: 500;
 }
-.transaction-status-wait,
-.transaction-status-ok,
-.transaction-status-rejected {
-  background-repeat: no-repeat;
-  background-size: 100%;
-  width: 15px;
-  height: 15px;
-}
-.transaction-status-wait {
-  /*background-image: url('../../../img/icon/wait@2x.png');*/
-}
-.transaction-status-ok {
-  background-image: url('../../../img/icon/ok@2x.png');
-}
-.transaction-status-rejected {
-  background-image: url('../../../img/icon/rejected@2x.png');
-}

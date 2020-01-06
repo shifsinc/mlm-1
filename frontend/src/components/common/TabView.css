@@ -20,12 +20,6 @@
 .tab-view__header__item.active {
   background-color: #FFF;
 }
-.tab-view__content > * {
-  display: none;
-}
-.tab-view__content > .active {
-  display: block;
-}
 
 @media screen and (max-width: 900px){
   .tab-view__header.closed .tab-view__header_mobile {
@@ -37,7 +31,7 @@
     width: 200px;
     background-color: #FFF;
     box-shadow: 0 0 5px 0px #999;
-    z-index: 100;
+    z-index: 99;
   }
   .tab-view__header.closed {
     box-shadow: none;

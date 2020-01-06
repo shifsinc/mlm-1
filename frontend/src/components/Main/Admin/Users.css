@@ -1,0 +1,4 @@
+.admin__users__list > tbody tr *:first-child {
+  color: var(--color2);
+  cursor: pointer;
+}

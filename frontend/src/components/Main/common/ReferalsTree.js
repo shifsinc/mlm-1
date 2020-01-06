@@ -15,6 +15,12 @@ export default class extends React.Component {
     this.props.apiCall('getReferalsTree', { levels: 5, user_id }).then( r => this.setState({ tree: r.result }) );
   }
 
+  componentDidUpdate = prevProps => {
+    if( prevProps.userId !== this.props.userId ){
+      this._updateTree( this.props.userId );
+    }
+  }
+
   render(){
     var flatTree = this._decompose(this.state.tree);
     var row0 = flatTree[0] ? flatTree[0] : [],

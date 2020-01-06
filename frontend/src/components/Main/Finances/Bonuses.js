@@ -32,12 +32,3 @@ export default function(props){/*data*/
     </div>
   );
 }
-
-/*{
-  binary: '2035 YT',
-  match: '181 YT',
-  yoda: '150 YT',
-  linear1: '2802 YT',
-  linear2: '912 YT',
-  withdraw: '2453 YT'
-}*/

@@ -1,17 +1,17 @@
 import React from 'react';
 import './Form.css';
 
-export default class extends React.Component{/*formTitle, submitTitle, submitCallback, className, submitClassName*/
+export default class extends React.Component{/*formTitle, submitTitle, submitCallback, className, updateLocation*/
   render(){
     return (
-      <form className={ 'form' + (this.props.className ? ' ' + this.props.className : '') } ref={ r => this.form = r }
+      <form className={ 'form ' + (this.props.className ? this.props.className : '') } ref={ r => this.form = r }
         onSubmit={ this._onSubmit }>
 
         <div className="message" ref={ r => this.message = r }></div>
         { this.props.formTitle ? <h3 className="form__title">{ this.props.formTitle }</h3> : undefined }
         <div className="form__cont">
           { this.props.children }
-          <a className={ 'link button form__button ' + ( this.props.submitClassName ? this.props.submitClassName : '' ) } href="##"
+          <a className="link button form__button" href="##"
             onClick={ this._onSubmit }>{ this.props.submitTitle }</a>
           <input type="submit" onClick={ this._onSubmit } style={{ display: 'none' }}/>
         </div>

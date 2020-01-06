@@ -8,6 +8,7 @@ import PageView from '../common/PageView.js'
 import TitleBlock from './common/TitleBlock.js'
 import AddMoney from './common/AddMoney.js'
 import TransferMoney from './common/TransferMoney.js'
+import ViewSelect from '../common/ViewSelect.js'
 
 export default class extends React.Component {
   constructor(props){/*apiCall*/
@@ -19,10 +20,24 @@ export default class extends React.Component {
   }
 
   render(){
-    var view;
+    var active;
     switch( this.props.location ){
       case '/finances':
-        view = (<><div className="finances__cont">
+        active = 0;
+        break;
+      case '/refill':
+        active = 1;
+        break;
+      case '/transfer':
+        active = 2;
+        break;
+      default: active = null;
+    }
+
+    return (
+      <div className="main__content finances">
+        <ViewSelect active={ active }>
+        <><div className="finances__cont">
           <Balance data={ this.state.balance }
             refillClick={ () => this.props.updateLocation('/refill') }
             transferClick={ () => this.props.updateLocation('/transfer') }></Balance>
@@ -30,26 +45,22 @@ export default class extends React.Component {
           <Bonuses data={{ ...this.state.bonuses, ...this.state.balance }}></Bonuses>
         </div>
 
-        <WithdrawMoney apiCall={ this.props.apiCall } data={ this.state.balance }></WithdrawMoney>
+        <WithdrawMoney apiCall={ this.props.apiCall } data={ this.state.balance }
+          onWithdraw={ amount => this.setState({
+            balance: { ...this.state.balance, account_balance: this.state.balance.account_balance - amount },
+            rand: Math.random() })
+          }></WithdrawMoney>
 
         <TitleBlock title="История операций" className="finances__history">
-
           <PageView callback={ p => this.props.apiCall('getTransactions', p).then(r => r.result ? r.result : {}) }
+            callbackArgs={{ rand: this.state.rand }}
             component={ History } onPageCount={ 5 }></PageView>
+        </TitleBlock></>
 
-        </TitleBlock></>);
-        break;
-      case '/refill':
-        view = (<AddMoney { ...this.props }></AddMoney>);
-        break;
-      case '/transfer':
-        view = (<TransferMoney { ...this.props }></TransferMoney>);
-        break;
-    }
+        <AddMoney { ...this.props }></AddMoney>
 
-    return (
-      <div className="main__content finances">
-        { view }
+        <TransferMoney { ...this.props }></TransferMoney>
+        </ViewSelect>
       </div>
     );
   }

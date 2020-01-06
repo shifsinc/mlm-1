@@ -5,10 +5,11 @@ import Popup from '../../common/Popup.js'
 import Form from '../../common/Form.js'
 import Input from '../../common/Input.js'
 import ViewSelect from '../../common/ViewSelect.js'
+import AddRobotKeysPopup from './AddRobotKeysPopup.js'
 import { RATES_PRICES, RATES_IMAGES, RATES_TITLES, passwordRegexp } from '../../../const.js'
 
 export default class extends React.Component {
-  constructor(props){/*updateLocation, apiCall, noMoneyCallback, data*/
+  constructor(props){/*updateLocation, apiCall, noMoneyCallback, okCallback, data*/
     super(props);
     this.state = {
       popup: null,
@@ -19,15 +20,6 @@ export default class extends React.Component {
   render(){
     var currentRate = this.state.currentRate ? this.state.currentRate : (this.props.data ? this.props.data.user_rate : null);
     Object.assign(this.state, { currentRate });
-
-    var popupInputs, popupTitle;
-    if( this.state.selectedRate > this.state.currentRate ){
-      popupInputs = (<><Input label="Введите номер счета 1" attr={{ name: 'account1', autoFocus: true }}></Input>
-      { ( this.state.selectedRate >= 3 ) ? (<Input label="Введите номер счета 2" attr={{ name: 'account2' }}></Input>) : undefined }
-      </>);
-      popupTitle = 'ПОЗДРАВЛЯЕМ С ПОКУПКОЙ РОБОТА!';
-    } else if( this.state.selectedRate < this.state.currentRate ) popupTitle = 'ЗАМЕНА РОБОТА';
-    else popupTitle = 'ПРОДЛЕНИЕ РОБОТА';
 
     return (<div className="purchase-robot">
       <div className="purchase-robot__robot">
@@ -57,10 +49,9 @@ export default class extends React.Component {
 
       <ViewSelect active={ this.state.popup }>
 
-        <Popup className="purchase-robot__popup" onClose={ () => this.setState({ popup: null }) }>
+        <Popup className="purchase-robot__popup-confirm" onClose={ () => this.setState({ popup: null }) }>
           <h3>КУПИТЬ ПАКЕТ "{ RATES_TITLES[ this.state.selectedRate ] }"?</h3>
           <Form submitTitle="Да"
-            submitClassName="purchase-robot__popup-confirm__button"
             submitCallback={() => this.setState({ popup: 1 }) }>
 
             <Link className="button button-inactive purchase-robot__popup-confirm__button"
@@ -69,10 +60,18 @@ export default class extends React.Component {
           </Form>
         </Popup>
 
-        <Popup className="purchase-robot__popup" onClose={ () => this.setState({ popup: null }) }>
-          <Form formTitle={ popupTitle } submitTitle="Сохранить" submitClassName="purchase-robot__save-accounts"
-            submitCallback={ this._onSubmit }>
-            { popupInputs }
+        <AddRobotKeysPopup title="ПОЗДРАВЛЯЕМ С ПОКУПКОЙ РОБОТА!"
+          onClose={ () => this.setState({ popup: null }) } onSubmit={ this._onSubmit } extraInput={ this.state.selectedRate >= 3 }>
+        </AddRobotKeysPopup>
+
+        <Popup className="purchase-robot__popup-save" onClose={ () => this.setState({ popup: null }) }>
+          <Form formTitle="ЗАМЕНА РОБОТА" submitTitle="Сохранить" submitCallback={ this._onSubmit }>
+            <Input label="Введите пароль" regexp={ passwordRegexp } attr={{ name: 'current_password', type: 'password' }}></Input>
+          </Form>
+        </Popup>
+
+        <Popup className="purchase-robot__popup-save" onClose={ () => this.setState({ popup: null }) }>
+          <Form formTitle="ПРОДЛЕНИЕ РОБОТА" submitTitle="Сохранить" submitCallback={ this._onSubmit }>
             <Input label="Введите пароль" regexp={ passwordRegexp } attr={{ name: 'current_password', type: 'password' }}></Input>
           </Form>
         </Popup>
@@ -87,7 +86,7 @@ export default class extends React.Component {
     return this.props.apiCall('buyRobot', { rate, ...d }).then(r => {
       if( r.status === 'error' ) return r;
       this.setState({ popup: null, currentRate: rate });
-      this.props.updateLocation('/robot');
+      this.props.okCallback(rate);
       return r;
     });
   }
@@ -102,7 +101,10 @@ export default class extends React.Component {
 
       if( r.result.account_balance < price ) this.props.noMoneyCallback();
       else {
-        var popup = ( rate > this.state.currentRate ) ? 0 : 1;
+        var popup;
+        if( rate > this.state.currentRate ) popup = 0;
+        else if(rate < this.state.currentRate ) popup = 2;
+        else popup = 3;
         this.setState({ popup, selectedRate: rate });
       }
     });

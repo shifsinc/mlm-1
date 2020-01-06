@@ -1,6 +1,5 @@
-.finances__withdraw-money__message {
-  color: var(--color2);
-  font-size: 12px;
+.finances__withdraw-money__input input {
+  padding-right: 190px;
 }
 .finances__withdraw-money__button {
   color: var(--color2);
@@ -17,8 +16,15 @@
   text-align: center;
   font-weight: 600;
 }
+.finances__withdraw-money__message {
+  color: var(--color2);
+  font-size: 12px;
+}
 
 @media screen and (max-width: 900px) {
+  .finances__withdraw-money__input input {
+    padding-right: 150px;
+  }
   .finances__withdraw-money__button {
     width: 140px;
     font-size: 14px;

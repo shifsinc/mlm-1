@@ -15,7 +15,7 @@
   display: none;
 }
 .admin__add-content-popup .form__button {
-  float: right;
+  width: 200px;
 }
 
 @media screen and (max-width: 900px){

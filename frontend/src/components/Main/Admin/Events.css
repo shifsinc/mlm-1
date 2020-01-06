@@ -1,0 +1,29 @@
+.admin__events__list__more {
+  color: var(--color2);
+  cursor: pointer;
+}
+.admin__events__popup {
+  width: 400px;
+}
+.admin__events__popup__button {
+  width: 150px;
+  padding: 0;
+}
+.admin__events__popup__cont {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+@media screen and (max-width: 900px){
+  .admin__events__popup {
+    width: 300px;
+  }
+  .admin__events__popup__button {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .admin__events__popup__cont {
+    display: block;
+  }
+}

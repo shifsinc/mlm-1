@@ -38,6 +38,26 @@
   margin-top: 24px;
 }
 
+.transaction-status-wait:before,
+.transaction-status-ok:before,
+.transaction-status-rejected:before {
+  content: '';
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 16px;
+  height: 16px;
+  float: left;
+}
+.transaction-status-wait:before {
+  /*background-image: url('../../../img/icon/wait@2x.png');*/
+}
+.transaction-status-ok:before {
+  background-image: url('../../../img/icon/ok@2x.png');
+}
+.transaction-status-rejected:before {
+  background-image: url('../../../img/icon/rejected@2x.png');
+}
+
 @media screen and (max-width: 900px){
   .money-cont__main,
   .money-cont__info {

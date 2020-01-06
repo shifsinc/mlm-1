@@ -7,8 +7,7 @@ export default function(props){/*updateLocation*/
   return (
     <div className="terms interface-block">
       <TermsText></TermsText>
-      <Link
-        className="button accept-terms__button"
+      <Link className="button accept-terms__button"
         path="/fillData"
         updateLocation={ props.updateLocation }>
         Я СОГЛАСЕН</Link>

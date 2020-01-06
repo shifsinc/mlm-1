@@ -15,25 +15,31 @@ export default function(props){/*data, toggleLink*/
       input.blur();
     }
 
+    const _copyClick = e => _copyText( e.target.parentNode.querySelector('input') )
+
     return (
       <TitleBlock title="Мои ссылки" className="account__links">
         <div className="account__links__cont">
 
         <Input attr={{ readOnly: true, value: link + '?refer=' + data.user_phone + '&type=l' }}
-          label="Ссылка на левую ногу" className="label-top"
-          buttonClick={e => _copyText( e.target.parentNode.querySelector('input') )}></Input>
+          label="Ссылка на левую ногу" className="label-top">
+          <div className="account__links__copy-button" onClick={ _copyClick }></div>
+        </Input>
 
         <Input attr={{ readOnly: true, value: link + '?refer=' + data.user_phone + '&type=r'  }}
-          label="Ссылка на правую ногу" className="label-top"
-          buttonClick={e => _copyText( e.target.parentNode.querySelector('input') )}></Input>
+          label="Ссылка на правую ногу" className="label-top">
+          <div className="account__links__copy-button" onClick={ _copyClick }></div>
+        </Input>
 
         <Input attr={{ readOnly: true, value: link + '?refer=' + data.user_phone }}
-          label="Общая ссылка" className="label-top"
-          buttonClick={e => _copyText( e.target.parentNode.querySelector('input') )}></Input>
+          label="Общая ссылка" className="label-top">
+          <div className="account__links__copy-button" onClick={ _copyClick }></div>
+        </Input>
 
-        <Switch className="account__links__switch"
-          active={ linkTypes.indexOf( data.general_link_type ) } titles={[ 'Левая нога', 'Правая нога' ]}
+        <Switch titles={[ 'Левая нога', 'Правая нога' ]}
+          active={ linkTypes.indexOf( data.general_link_type ) }
           onClick={ ind => props.toggleLink( linkTypes[ind] ) }></Switch>
+
         </div>
       </TitleBlock>
     );

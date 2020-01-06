@@ -4,6 +4,7 @@ import './common.css'
 import Form from '../../common/Form.js'
 import Input from '../../common/Input.js'
 import Popup from '../../common/Popup.js'
+import Table from '../../common/Table.js'
 import ViewSelect from '../../common/ViewSelect.js'
 import { phoneRegexp, emailRegexp } from '../../../const.js'
 
@@ -46,10 +47,10 @@ export default class extends React.Component {
         <Popup onClose={ () => this.setState({ popup: null }) } className="transfer-money__popup">
           <Form formTitle="ПОДТВЕРЖДЕНИЕ ПЕРЕВОДА" submitTitle="ПОДТВЕРДИТЬ"
             submitCallback={ this._onConfirm }>
-            <table className="table"><tbody>
+            <Table>
               <tr><td>Сумма</td><td>{ this.state.data.amount }</td></tr>
               <tr><td>E-mail рефера</td><td>{ this.state.data.receiver }</td></tr>
-            </tbody></table>
+            </Table>
           </Form>
         </Popup>
 

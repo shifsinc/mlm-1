@@ -1,0 +1,13 @@
+.add-robot-keys-popup {
+  width: 400px;
+  text-align: center;
+}
+.add-robot-keys-popup .form__button {
+  margin-top: 24px;
+}
+
+@media screen and (max-width: 900px) {
+  .add-robot-keys-popup {
+    width: 300px;
+  }
+}

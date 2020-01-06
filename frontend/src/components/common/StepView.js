@@ -15,7 +15,7 @@ export default class extends React.Component {
     this.setState({ currentStep: next });
   }
   prev = () => {
-    var prev = this.state.currentStep + 1;
+    var prev = this.state.currentStep - 1;
     if( prev < 0 ) return;
     this.setState({ currentStep: prev });
   }

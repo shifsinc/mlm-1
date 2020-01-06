@@ -42,6 +42,18 @@ exports.TRANSACTION_STATUS_TITLES = {
   'ok': 'Перевод совершен',
   'rejected': 'Транзакция отклонена'
 }
+exports.TRANSACTION_TITLES = {
+  'internal': 'ВНУТРЕННИЙ ПЕРЕВОД',
+  'in': 'ПОПОЛНЕНИЕ БАЛАНСА',
+  'out': 'ВЫВОД СРЕДСТВ'
+}
 exports.WITHDRAW_COMMISSION = 0.02;
 
 exports.BINARY_CYCLE_AMOUNT = 250;
+
+exports.EVENTS_TITLES = {
+  'payment': 'Пополнение баланса',
+  'withdraw': 'Вывод средств',
+  'new_status': 'Новый статус',
+  'bonus_start': 'Условия стартового бонуса выполнены'
+}

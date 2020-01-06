@@ -7,7 +7,7 @@ import ViewSelect from '../../common/ViewSelect.js'
 import { WITHDRAW_COMMISSION, passwordRegexp } from '../../../const.js'
 
 export default class extends React.Component {
-  constructor(props) {/*data, apiCall*/
+  constructor(props) {/*data, onWithdraw apiCall*/
     super(props);
     this.state = {
       moneyRate: {},
@@ -29,7 +29,8 @@ export default class extends React.Component {
     return (
       <div className="interface-block finances__withdraw-money">
 
-        <Input regexp={ /^[0-9]*$/ } label="Вывод средств" attr={{ value: this.state.amount, onChange: this._onChange }}>
+        <Input regexp={ /^[0-9]*$/ } label="Вывод средств" className="finances__withdraw-money__input"
+          attr={{ value: this.state.amount, onChange: this._onChange }}>
           <div className="finances__withdraw-money__button" onClick={ this._onSubmit }>Вывести средства</div>
         </Input>
         <span className="finances__withdraw-money__message">{ msg }</span>
@@ -66,9 +67,11 @@ export default class extends React.Component {
   }
 
   _onConfirm = d => {
-    this.props.apiCall('withdrawMoney', { amount: this.state.amount, ...d }).then(r => {
+    var amount = this.state.amount;
+    this.props.apiCall('withdrawMoney', { amount: amount, ...d }).then(r => {
       if( r.status === 'error' ) return r;
       this.setState({ amount: '', msg: r.action.text, popup: null });
+      if( this.props.onWithdraw ) this.props.onWithdraw( amount );
       return r;
     });
   }

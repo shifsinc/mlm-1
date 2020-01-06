@@ -5,15 +5,24 @@
   height: 160px;
 }
 .account__links .input,
-.account__links__switch {
+.account__links .switch {
   width: 48%;
 }
-.account__links__switch {
-  
+.account__links .input input {
+  padding-right: 40px;
 }
-.account__links__cont .input__button {
+.account__links__copy-button {
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  top: 24px;
+  right: 0;
   background-image: url('../../../img/icon/copy@2x.png');
-  display: block;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  border-left: solid 1px var(--color3);
+  cursor: pointer;
+  z-index: 3;
 }
 @media screen and ( max-width: 900px ) {
   .account__links__cont {
@@ -22,7 +31,7 @@
   .account__links__cont *:nth-child(2) {
     margin-bottom: 30px;
   }
-  .account__links__switch {
+  .account__links .switch {
     width: 100%;
   }
   .account__links .input {

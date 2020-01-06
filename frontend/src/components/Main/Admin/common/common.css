@@ -5,10 +5,8 @@
   color: var(--color4);
 }
 .admin__button {
-  height: 35px;
+  margin-top: 20px;
   width: 200px;
-  line-height: 35px;
-  margin-top: 25px;
 }
 
 @media screen and (max-width: 900px){
