@@ -1,9 +1,11 @@
 import React from 'react';
 import './Info.css'
-import noPhoto from '../../../img/noPhoto.png';
-import { STATUS_TITLES, BINARY_CYCLE_AMOUNT, RATES_TITLES } from '../../../const.js'
 
-export default function(props){/*data*/
+import Link from '../../common/Link.js'
+import noPhoto from '../../../img/noPhoto.png';
+import { STATUS_TITLES, BINARY_CYCLE_AMOUNT, RATES_TITLES, RATES_IMAGES } from '../../../const.js'
+
+export default function(props){/*data, userClick*/
   var data = props.data ? props.data : {};
   return (
     <div className="account__info interface-block">
@@ -13,29 +15,41 @@ export default function(props){/*data*/
       <div className="account__info__cont">
         <div className="account__info__cont1">
           <div className="account__info__account-info">
-            <div className="account__info__rate">{ data.user_rate ? 'Аккаунт: ' + RATES_TITLES[ data.user_rate ] : '' }</div>
+            <div className="account__info__rate">Аккаунт: <span>{ RATES_TITLES[ data.user_rate ] }</span></div>
           </div>
           <h2>{ data.user_name } { data.user_surname }</h2>
           <div className="account__info__status">{ STATUS_TITLES[ data.user_status ] }</div>
         </div>
         <div className="account__info__cont2">
           <table><tbody>
-            <tr><td>ID:</td><td>{ data.user_id }</td></tr>
+            <tr><td>ID:</td><td>
+              <Link className="account__info__link" onClick={ () => props.userClick({ user_id: data.user_id }) }>
+                { data.user_id }
+              </Link>
+            </td></tr>
             <tr><td>E-mail:</td><td>{ data.user_email }</td></tr>
             <tr><td>Телефон:</td><td>{ data.user_phone }</td></tr>
             <tr>
               <td>Соцсеть:</td>
-              <td><a target="_blank noopener noreferrer" href={ data.user_social }>{ data.user_social }</a></td>
+              <td><a className="account__info__link" target="_blank noopener noreferrer" href={ data.user_social }>
+                { data.user_social }
+              </a></td>
             </tr>
             { data.user_refer_id ? (
-              <tr><td>Спонсор:</td><td>{ data.user_refer_name + ' ' + data.user_refer_surname }</td></tr>
+              <tr>
+                <td>Спонсор:</td>
+                <td><Link className="account__info__link" onClick={ () => props.userClick({ user_id: data.user_refer_id }) }>
+                  { data.user_refer_name } { data.user_refer_surname }
+                </Link></td>
+              </tr>
             ) : undefined }
           </tbody></table>
+          <img className="account__info__cont2__rate" alt="user rate" src={ RATES_IMAGES[ data.user_rate ] }/>
 
         </div>
         <div className="account__info__cont3">
           <div className="account__info__cont3__item">
-            <div>{ data.stats_first_line_referals + '' }</div><div>Мои рефералы</div>
+            <div>{ data.stats_first_line_referals }</div><div>Мои рефералы</div>
           </div>
           <div className="account__info__cont3__item">
             <div>{ data.stats_day_profit }</div><div>Дневной доход</div>

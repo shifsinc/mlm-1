@@ -28,7 +28,7 @@
   .account__links__cont {
     height: max-content;
   }
-  .account__links__cont *:nth-child(2) {
+  .account__links__cont > *:nth-child(2) {
     margin-bottom: 30px;
   }
   .account__links .switch {
