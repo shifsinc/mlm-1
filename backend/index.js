@@ -1,7 +1,15 @@
-const http = require('http');
-const url = require('url');
+const http = require('http'),
+	https = require('https'),
+  fs = require("fs"),
+	url = require('url');
 
-const { SERVER_HOST, SERVER_PORT } = require('./config.js');
+const {
+	SERVER_HOST,
+	SERVER_PORT,
+	SSL,
+	PRIVATE_KEY_PATH,
+	CERT_PATH
+} = require('./config.js');
 
 const api = require('./api.js');
 const { parseGetParams, initMysqlConnection, makeQuery } = require('./utils.js');
@@ -11,6 +19,7 @@ function serverHnd(request, response){
 		response.setHeader('Access-Control-Allow-Origin', '*');
 		response.setHeader('Access-Control-Allow-Headers', '*');
   response.setHeader('Content-Type', 'text/json');
+	request.on('error', console.log);
 
   var _url = url.parse( request.url ),
     methodPath =  _url.pathname,
@@ -39,7 +48,25 @@ function serverHnd(request, response){
     });
   }
 }
+
 initMysqlConnection(() => {
-	const server = http.createServer( serverHnd );
-	server.listen( SERVER_PORT, SERVER_HOST, () => console.log('server started on ' + SERVER_HOST + ':' + SERVER_PORT) );
-}, err => console.log(err));
+	var server;
+	const onError = (err, socket) => {
+		console.log(err);
+		socket.destroy();
+	}
+	if( SSL ){
+		const httpsOptions = {
+		  key: fs.readFileSync( PRIVATE_KEY_PATH ),
+		  cert: fs.readFileSync( CERT_PATH )
+		};
+		server = https.createServer( httpsOptions, serverHnd );
+		server.on('clientError', onError);
+	} else {
+		server = http.createServer( serverHnd );
+		server.on('tlsClientError', onError);
+	}
+	server.on('error', console.log);
+	server.listen( SERVER_PORT, SERVER_HOST,
+		() => console.log('server started on ' + SERVER_HOST + ':' + SERVER_PORT + '[HTTP' + ( SSL ? 'S' : '' ) + ']') );
+}, console.log);
