@@ -1,10 +1,12 @@
 .user-card {
   overflow: visible;
+  padding: 0;
 }
 .user-card__cont {
   width: 700px;
   height: 500px;
   overflow-y: scroll;
+  padding: 10px;
 }
 .user-card__status-img {
   width: 50px;
@@ -26,10 +28,19 @@
   align-items: center;
 }
 .user-card__photo {
-  max-height: 300px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.user-card__photo img {
+  margin: auto;
+  min-height: 150px;
+  max-height: 100%;
+  min-width: 105px;
+  max-width: 100%;
 }
 .user-card__rate {
-  max-height: 175px;
+  width: 100%;
 }
 .user-card__right {
   padding-left: 210px;
@@ -72,7 +83,15 @@
   .user-card__left {
     float: none;
     width: 100%;
+    height: 600px;
+  }
+  .user-card__photo {
     height: 400px;
+    margin-bottom: 20px;
+  }
+  .user-card__rate {
+    margin: auto;
+    width: 70%;
   }
   .user-card__right {
     padding: 0;

@@ -13,7 +13,9 @@ export default function(props) {/*data, onClose*/
       <div className="user-card__cont">
         <div className={ 'user-card__status-img status-' + ( data.user_status + '-avatar' ) }></div>
         <div className="user-card__left">
-          <img className="user-card__photo" alt="avatar" src={ data.user_photo_url ? data.user_photo_url : noPhoto }/>
+          <div className="user-card__photo">
+            <img alt="avatar" src={ data.user_photo_url ? data.user_photo_url : noPhoto }/>
+          </div>
           <img className="user-card__rate" alt="user rate" src={ RATES_IMAGES[ data.user_rate ] }/>
         </div>
         <div className="user-card__right">
