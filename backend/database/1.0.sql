@@ -6,23 +6,23 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
--- Schema mlm_db
+-- Schema yodafxpr_mlm_db
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `mlm_db` ;
+DROP SCHEMA IF EXISTS `yodafxpr_mlm_db` ;
 
 -- -----------------------------------------------------
--- Schema mlm_db
+-- Schema yodafxpr_mlm_db
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mlm_db` DEFAULT CHARACTER SET utf8 ;
-USE `mlm_db` ;
+CREATE SCHEMA IF NOT EXISTS `yodafxpr_mlm_db` DEFAULT CHARACTER SET utf8 ;
+USE `yodafxpr_mlm_db` ;
 
 
 -- -----------------------------------------------------
--- Table `mlm_db`.`roles`
+-- Table `yodafxpr_mlm_db`.`roles`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mlm_db`.`roles` ;
+DROP TABLE IF EXISTS `yodafxpr_mlm_db`.`roles` ;
 
-CREATE TABLE IF NOT EXISTS `mlm_db`.`roles` (
+CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`roles` (
   `role_id` INT(11) NOT NULL AUTO_INCREMENT,
   `role_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`role_id`),
@@ -34,29 +34,29 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `mlm_db`.`sessions`
+-- Table `yodafxpr_mlm_db`.`sessions`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mlm_db`.`sessions` ;
+DROP TABLE IF EXISTS `yodafxpr_mlm_db`.`sessions` ;
 
-CREATE TABLE IF NOT EXISTS `mlm_db`.`sessions` (
+CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`sessions` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
   `token` VARCHAR(32) NOT NULL,
   PRIMARY KEY (`token`),
   UNIQUE INDEX `token_UNIQUE` (`token` ASC),
   CONSTRAINT `user`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mlm_db`.`users` (`user_id`)
+    REFERENCES `yodafxpr_mlm_db`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mlm_db`.`users`
+-- Table `yodafxpr_mlm_db`.`users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mlm_db`.`users` ;
+DROP TABLE IF EXISTS `yodafxpr_mlm_db`.`users` ;
 
-CREATE TABLE IF NOT EXISTS `mlm_db`.`users` (
+CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`users` (
   `user_id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_login` VARCHAR(30) NOT NULL,
   `user_password_hash` VARCHAR(65) NOT NULL,
@@ -90,12 +90,12 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`users` (
   INDEX `refer_idx` (`user_refer` ASC),
   CONSTRAINT `refer`
     FOREIGN KEY (`user_refer`)
-    REFERENCES `mlm_db`.`users` (`user_id`)
+    REFERENCES `yodafxpr_mlm_db`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `role`
     FOREIGN KEY (`role_id`)
-    REFERENCES `mlm_db`.`roles` (`role_id`)
+    REFERENCES `yodafxpr_mlm_db`.`roles` (`role_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -104,11 +104,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `mlm_db`.`users_stats`
+-- Table `yodafxpr_mlm_db`.`users_stats`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mlm_db`.`users_stats` ;
+DROP TABLE IF EXISTS `yodafxpr_mlm_db`.`users_stats` ;
 
-CREATE TABLE IF NOT EXISTS `mlm_db`.`users_stats` (
+CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`users_stats` (
   `stats_id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
   `stats_first_line_referals` INT(11) NOT NULL DEFAULT '0',
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`users_stats` (
   UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC),
   CONSTRAINT `user_fk0`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mlm_db`.`users` (`user_id`)
+    REFERENCES `yodafxpr_mlm_db`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -139,11 +139,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `mlm_db`.`users_bonuses`
+-- Table `yodafxpr_mlm_db`.`users_bonuses`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mlm_db`.`users_bonuses` ;
+DROP TABLE IF EXISTS `yodafxpr_mlm_db`.`users_bonuses` ;
 
-CREATE TABLE IF NOT EXISTS `mlm_db`.`users_bonuses` (
+CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`users_bonuses` (
   `bonus_id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
   `bonus_linear` INT(11) NOT NULL DEFAULT '0',
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`users_bonuses` (
   UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC),
   CONSTRAINT `user_fk`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mlm_db`.`users` (`user_id`)
+    REFERENCES `yodafxpr_mlm_db`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -169,11 +169,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `mlm_db`.`users_tree_status_counter`
+-- Table `yodafxpr_mlm_db`.`users_tree_status_counter`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mlm_db`.`users_tree_status_counter` ;
+DROP TABLE IF EXISTS `yodafxpr_mlm_db`.`users_tree_status_counter` ;
 
-CREATE TABLE IF NOT EXISTS `mlm_db`.`users_tree_status_counter` (
+CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`users_tree_status_counter` (
   `counter_id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
   `counter_status` ENUM('investor', 'bronze', 'silver', 'gold', 'platinum', 'sapphire', 'emerald', 'diamond', 'diamond2') NOT NULL,
@@ -182,20 +182,22 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`users_tree_status_counter` (
   UNIQUE INDEX `counter_id_UNIQUE` (`counter_id` ASC),
   CONSTRAINT `user_fk3`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mlm_db`.`users` (`user_id`)
+    REFERENCES `yodafxpr_mlm_db`.`users` (`user_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION,
+  INDEX `user_idx` (`user_id`),
+  INDEX `counter_status_idx` (`counter_status`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `mlm_db`.`accounts`
+-- Table `yodafxpr_mlm_db`.`accounts`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mlm_db`.`accounts` ;
+DROP TABLE IF EXISTS `yodafxpr_mlm_db`.`accounts` ;
 
-CREATE TABLE IF NOT EXISTS `mlm_db`.`accounts` (
+CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`accounts` (
   `account_id` INT(11) NOT NULL AUTO_INCREMENT,
   `account_owner` INT(11) NOT NULL,
   `account_balance` DOUBLE NOT NULL DEFAULT '0',
@@ -209,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`accounts` (
   UNIQUE INDEX `owner_id_UNIQUE` (`account_owner` ASC),
   CONSTRAINT `owner_fk`
     FOREIGN KEY (`account_owner`)
-    REFERENCES `mlm_db`.`users` (`user_id`)
+    REFERENCES `yodafxpr_mlm_db`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -218,11 +220,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `mlm_db`.`transactions`
+-- Table `yodafxpr_mlm_db`.`transactions`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mlm_db`.`transactions` ;
+DROP TABLE IF EXISTS `yodafxpr_mlm_db`.`transactions` ;
 
-CREATE TABLE IF NOT EXISTS `mlm_db`.`transactions` (
+CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`transactions` (
   `tr_id` INT NOT NULL AUTO_INCREMENT,
   `tr_dt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `tr_real_amount` DOUBLE NULL,
@@ -236,12 +238,12 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`transactions` (
   UNIQUE INDEX `tr_id_UNIQUE` (`tr_id` ASC),
   CONSTRAINT `sender`
     FOREIGN KEY (`tr_sender_id`)
-    REFERENCES `mlm_db`.`accounts` (`account_id`)
+    REFERENCES `yodafxpr_mlm_db`.`accounts` (`account_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `receiver`
     FOREIGN KEY (`tr_receiver_id`)
-    REFERENCES `mlm_db`.`accounts` (`account_id`)
+    REFERENCES `yodafxpr_mlm_db`.`accounts` (`account_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   INDEX `sender_idx` (`tr_sender_id`),
@@ -250,11 +252,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mlm_db`.`news`
+-- Table `yodafxpr_mlm_db`.`news`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mlm_db`.`news` ;
+DROP TABLE IF EXISTS `yodafxpr_mlm_db`.`news` ;
 
-CREATE TABLE IF NOT EXISTS `mlm_db`.`news` (
+CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`news` (
   `news_id` INT NOT NULL AUTO_INCREMENT,
   `news_dt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `news_title` VARCHAR(64) NOT NULL,
@@ -266,18 +268,18 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`news` (
   INDEX `author_idx` (`news_author` ASC),
   CONSTRAINT `author`
     FOREIGN KEY (`news_author`)
-    REFERENCES `mlm_db`.`users` (`user_id`)
+    REFERENCES `yodafxpr_mlm_db`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mlm_db`.`files`
+-- Table `yodafxpr_mlm_db`.`files`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mlm_db`.`files` ;
+DROP TABLE IF EXISTS `yodafxpr_mlm_db`.`files` ;
 
-CREATE TABLE IF NOT EXISTS `mlm_db`.`files` (
+CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`files` (
   `file_id` INT NOT NULL AUTO_INCREMENT,
   `file_dt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `file_author` INT(11) NOT NULL,
@@ -293,18 +295,18 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`files` (
   INDEX `section` (`file_section`),
   CONSTRAINT `author_fk`
     FOREIGN KEY (`file_author`)
-    REFERENCES `mlm_db`.`users` (`user_id`)
+    REFERENCES `yodafxpr_mlm_db`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mlm_db`.`robot_keys`
+-- Table `yodafxpr_mlm_db`.`robot_keys`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mlm_db`.`robot_keys` ;
+DROP TABLE IF EXISTS `yodafxpr_mlm_db`.`robot_keys` ;
 
-CREATE TABLE IF NOT EXISTS `mlm_db`.`robot_keys` (
+CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`robot_keys` (
   `key_id` INT NOT NULL AUTO_INCREMENT,
   `key_dt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` INT(11) NOT NULL,
@@ -317,18 +319,18 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`robot_keys` (
   INDEX `user_idx` (`user_id` ASC),
   CONSTRAINT `user_fk1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mlm_db`.`users` (`user_id`)
+    REFERENCES `yodafxpr_mlm_db`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mlm_db`.`events`
+-- Table `yodafxpr_mlm_db`.`events`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mlm_db`.`events` ;
+DROP TABLE IF EXISTS `yodafxpr_mlm_db`.`events` ;
 
-CREATE TABLE IF NOT EXISTS `mlm_db`.`events` (
+CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`events` (
   `event_id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT(11) NOT NULL,
   `tr_id` INT(11) NULL DEFAULT NULL,
@@ -338,24 +340,24 @@ CREATE TABLE IF NOT EXISTS `mlm_db`.`events` (
   UNIQUE INDEX `event_id_UNIQUE` (`event_id` ASC),
   CONSTRAINT `user_id_fk2`
     FOREIGN KEY (`user_id`)
-    REFERENCES `mlm_db`.`users` (`user_id`)
+    REFERENCES `yodafxpr_mlm_db`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `tr_id_fk`
     FOREIGN KEY (`tr_id`)
-    REFERENCES `mlm_db`.`transactions` (`tr_id`)
+    REFERENCES `yodafxpr_mlm_db`.`transactions` (`tr_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 
-USE `mlm_db`;
+USE `yodafxpr_mlm_db`;
 DELIMITER $$
 
 /*stats_first_line_referals, stats_second_line_referals, stats_left_referals, stats_right_referals*/
-DROP TRIGGER IF EXISTS `mlm_db`.`users_AFTER_INSERT` $$
-CREATE DEFINER = CURRENT_USER TRIGGER `mlm_db`.`users_AFTER_INSERT` AFTER INSERT ON `users` FOR EACH ROW
+DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`users_AFTER_INSERT` $$
+CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`users_AFTER_INSERT` AFTER INSERT ON `users` FOR EACH ROW
 BEGIN
   INSERT INTO accounts(account_owner) VALUES(new.user_id);
   INSERT INTO users_bonuses(user_id) VALUES(new.user_id);
@@ -406,8 +408,8 @@ END$$
 
 
 /*stats_first_line_active_referals, stats_second_line_active_referals, bonus_lead_counter*/
-DROP TRIGGER IF EXISTS `mlm_db`.`users_AFTER_UPDATE` $$
-CREATE DEFINER = CURRENT_USER TRIGGER `mlm_db`.`users_AFTER_UPDATE` AFTER UPDATE ON `users` FOR EACH ROW
+DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`users_AFTER_UPDATE` $$
+CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`users_AFTER_UPDATE` AFTER UPDATE ON `users` FOR EACH ROW
 BEGIN
   IF(new.user_rate IS NOT NULL && old.user_rate IS NULL) THEN
     UPDATE users_stats SET stats_first_line_active_referals=stats_first_line_active_referals+1 WHERE user_id=new.user_refer;
@@ -475,8 +477,8 @@ END$$
 
 
 /*bonus_lead_counter*/
-DROP TRIGGER IF EXISTS `mlm_db`.`users_AFTER_INSERT_bonus_lead` $$
-CREATE DEFINER = CURRENT_USER TRIGGER `mlm_db`.`users_AFTER_INSERT_bonus_lead` AFTER INSERT ON `users` FOR EACH ROW
+DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`users_AFTER_INSERT_bonus_lead` $$
+CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`users_AFTER_INSERT_bonus_lead` AFTER INSERT ON `users` FOR EACH ROW
 BEGIN
   SET @new_status = new.user_status;
   SET @user_id = new.user_id;
@@ -528,8 +530,8 @@ END$$
 
 
 /*internal transaction, out transaction*/
-DROP TRIGGER IF EXISTS `mlm_db`.`transactions_BEFORE_INSERT` $$
-CREATE DEFINER = CURRENT_USER TRIGGER `mlm_db`.`transactions_BEFORE_INSERT` BEFORE INSERT ON `transactions` FOR EACH ROW
+DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`transactions_BEFORE_INSERT` $$
+CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`transactions_BEFORE_INSERT` BEFORE INSERT ON `transactions` FOR EACH ROW
 BEGIN
   IF(new.tr_type = 'internal') THEN
 
@@ -558,8 +560,8 @@ BEGIN
 END$$
 
 /*event payment, event withdraw*/
-DROP TRIGGER IF EXISTS `mlm_db`.`transactions_AFTER_INSERT` $$
-CREATE DEFINER = CURRENT_USER TRIGGER `mlm_db`.`transactions_AFTER_INSERT` AFTER INSERT ON `transactions` FOR EACH ROW
+DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`transactions_AFTER_INSERT` $$
+CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`transactions_AFTER_INSERT` AFTER INSERT ON `transactions` FOR EACH ROW
 BEGIN
   SET @user_id = (SELECT account_owner FROM accounts WHERE account_id=new.tr_receiver_id);
   IF(new.tr_type = "in") THEN
@@ -571,8 +573,8 @@ END$$
 
 
 /*transaction change status from 'wait' to 'ok'*/
-DROP TRIGGER IF EXISTS `mlm_db`.`transactions_BEFORE_UPDATE` $$
-CREATE DEFINER = CURRENT_USER TRIGGER `mlm_db`.`transactions_BEFORE_UPDATE` BEFORE UPDATE ON `transactions` FOR EACH ROW
+DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`transactions_BEFORE_UPDATE` $$
+CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`transactions_BEFORE_UPDATE` BEFORE UPDATE ON `transactions` FOR EACH ROW
 BEGIN
   IF(old.tr_status = "wait" && new.tr_status = "ok") THEN
     IF(new.tr_type = "in") THEN
@@ -604,8 +606,8 @@ END$$
 
 
 /*stats_day_profit*/
-DROP TRIGGER IF EXISTS `mlm_db`.`accounts_AFTER_UPDATE` $$
-CREATE DEFINER = CURRENT_USER TRIGGER `mlm_db`.`accounts_AFTER_UPDATE` AFTER UPDATE ON `accounts` FOR EACH ROW
+DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`accounts_AFTER_UPDATE` $$
+CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`accounts_AFTER_UPDATE` AFTER UPDATE ON `accounts` FOR EACH ROW
 BEGIN
   IF(new.account_balance > old.account_balance) THEN
 
@@ -624,7 +626,7 @@ END$$
 
 
 
-DROP FUNCTION IF EXISTS `mlm_db`.`calc_user_status` $$
+DROP FUNCTION IF EXISTS `yodafxpr_mlm_db`.`calc_user_status` $$
 CREATE FUNCTION `calc_user_status`( rate INT(11), cycles INT(11) )
 RETURNS INT
 BEGIN
@@ -650,8 +652,8 @@ END$$
 
 
 /*user_status, event new_status*/
-DROP TRIGGER IF EXISTS `mlm_db`.`users_stats_BEFORE_UPDATE` $$
-CREATE DEFINER = CURRENT_USER TRIGGER `mlm_db`.`users_stats_BEFORE_UPDATE` BEFORE UPDATE ON `users_stats` FOR EACH ROW
+DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`users_stats_BEFORE_UPDATE` $$
+CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`users_stats_BEFORE_UPDATE` BEFORE UPDATE ON `users_stats` FOR EACH ROW
 BEGIN
   IF(new.stats_binary_cycles <> old.stats_binary_cycles) THEN
     SET @rate = (SELECT user_rate+0 FROM users WHERE user_id=new.user_id);
@@ -664,8 +666,8 @@ END$$
 
 
 /*user_rate_ts, user_status, event new_status, bonus_start_reached*/
-DROP TRIGGER IF EXISTS `mlm_db`.`users_BEFORE_UPDATE` $$
-CREATE DEFINER = CURRENT_USER TRIGGER `mlm_db`.`users_BEFORE_UPDATE` BEFORE UPDATE ON `users` FOR EACH ROW
+DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`users_BEFORE_UPDATE` $$
+CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`users_BEFORE_UPDATE` BEFORE UPDATE ON `users` FOR EACH ROW
 BEGIN
   IF(new.user_rate <> old.user_rate || ( old.user_rate IS NULL && new.user_rate IS NOT NULL )) THEN
     UPDATE users_bonuses SET bonus_start_reached=0 WHERE user_id=new.user_id;
@@ -687,22 +689,22 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `mlm_db`.`roles`
+-- Data for table `yodafxpr_mlm_db`.`roles`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `mlm_db`;
-INSERT INTO `mlm_db`.`roles` (`role_id`, `role_name`) VALUES (1, 'admin');
-INSERT INTO `mlm_db`.`roles` (`role_id`, `role_name`) VALUES (2, 'user');
-INSERT INTO `mlm_db`.`roles` (`role_id`, `role_name`) VALUES (3, 'guest');
+USE `yodafxpr_mlm_db`;
+INSERT INTO `yodafxpr_mlm_db`.`roles` (`role_id`, `role_name`) VALUES (1, 'admin');
+INSERT INTO `yodafxpr_mlm_db`.`roles` (`role_id`, `role_name`) VALUES (2, 'user');
+INSERT INTO `yodafxpr_mlm_db`.`roles` (`role_id`, `role_name`) VALUES (3, 'guest');
 
 COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `mlm_db`.`users`
+-- Data for table `yodafxpr_mlm_db`.`users`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `mlm_db`;
-INSERT INTO `mlm_db`.`users` (`user_id`, `user_login`, `user_password_hash`, `user_name`, `user_email`, `user_data_filled`) VALUES (1, 'root', md5('rootPass12345aA!'), 'root', 'root@email', 1);
+USE `yodafxpr_mlm_db`;
+INSERT INTO `yodafxpr_mlm_db`.`users` (`user_id`, `user_login`, `user_password_hash`, `user_name`, `user_email`, `user_data_filled`) VALUES (1, 'root', md5('rootPass12345aA!'), 'root', 'root@email', 1);
 
 COMMIT;
