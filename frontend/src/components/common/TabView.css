@@ -16,6 +16,7 @@
   line-height: 60px;
   padding: 0 20px;
   color: var(--color4);
+  outline: none;
 }
 .tab-view__header__item.active {
   background-color: #FFF;
