@@ -17,6 +17,7 @@ module.exports = function(callback, params, _user_id){/*offset, count*/
     LEFT JOIN transactions t ON e.tr_id=t.tr_id
     LEFT JOIN users u ON e.user_id=u.user_id
     LEFT JOIN accounts a ON e.user_id=a.account_owner
+    ORDER BY e.event_dt DESC
     LIMIT ?,?`, [ offset, count ],
     res => {
 
