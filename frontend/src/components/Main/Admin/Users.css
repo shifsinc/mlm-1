@@ -2,3 +2,62 @@
   color: var(--color2);
   cursor: pointer;
 }
+.admin__users__user-info {
+
+}
+.admin__users__user-info__top {
+  height: 50px;
+}
+.admin__users__user-info__top > .button {
+  padding: 0;
+  border-radius: 50px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 14px;
+}
+.admin__users__user-info__top > .button:first-child {
+  width: 100px;
+  border-color: var(--color2);
+  color: var(--color2);
+  position: relative;
+  padding-left: 12px;
+}
+.admin__users__user-info__top > .button:first-child:hover {
+  background-color: #FFF;
+}
+.admin__users__user-info__top > .button:first-child:before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: 50%;
+  background-image: url('../../../img/icon/back@2x.png');
+  width: 25px;
+  height: 25px;
+}
+.admin__users__user-info__top > .button:last-child {
+  float: right;
+  width: 160px;
+  background-color: var(--color1);
+  color: #FFF;
+}
+.admin__users__user-info__bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+.admin__users__user-info__bottom > .button {
+  width: 250px;
+  margin-bottom: 15px;
+}
+
+@media screen and (max-width: 900px){
+  .admin__users__user-info__bottom {
+    display: block;
+  }
+  .admin__users__user-info__bottom > .button {
+    width: 100%;
+  }
+}

@@ -1,12 +1,14 @@
 import React from 'react';
 import './Users.css'
 
+import Input from '../../common/Input.js'
 import PageView from '../../common/PageView.js'
 import Table from '../../common/Table.js'
-import UserCard from '../common/UserCard.js'
-import Input from '../../common/Input.js'
+import Link from '../../common/Link.js'
 import ViewSelect from '../../common/ViewSelect.js'
-import { formatDate } from '../../../utils.js'
+import Popup from '../../common/Popup.js'
+import UserInfo from '../common/UserInfo.js'
+import { formatDate, getUserCardInfo } from '../../../utils.js'
 import { RATES_TITLES } from '../../../const.js'
 
 export default class extends React.Component {
@@ -14,38 +16,59 @@ export default class extends React.Component {
     super(props);
     this.state = {
       pattern: '',
-      popup: null,
-      cardData: {}
+      view: 0,
+      userData: {},
+      popup: null
     }
   }
 
   render(){
     return (<div className="admin__users">
-      <Input label="Поиск пользователей" attr={{ value: this.state.pattern, onChange: e => {
-        this.setState({ pattern: e.target.value });
-      } }}></Input>
 
-      <PageView component={ _view }  componentProps={{ userClick: this._userClick }} onPageCount={ 15 }
-        callback={ p => this.props.apiCall('admin/searchUsers', p).then(r => r.result ? r.result : []) }
-        callbackArgs={{ pattern: this.state.pattern }}></PageView>
+        <ViewSelect active={ this.state.view }>
 
+          <><Input label="Поиск пользователей" attr={{ value: this.state.pattern, onChange: e => {
+            this.setState({ pattern: e.target.value });
+          } }}></Input>
+
+          <PageView component={ _view }  componentProps={{ userClick: this._userClick }} onPageCount={ 15 }
+            callback={ p => this.props.apiCall('admin/searchUsers', p).then(r => r.result ? r.result : []) }
+            callbackArgs={{ pattern: this.state.pattern }}></PageView></>
+
+          <div className="admin__users__user-info">
+            <div className="admin__users__user-info__top">
+              <Link className="button" onClick={ () => this.setState({ view: 0 }) }>Назад</Link>
+              <Link className="button">ЗАБЛОКИРОВАТЬ</Link>
+            </div>
+            <UserInfo data={ this.state.userData }></UserInfo>
+            <div className="admin__users__user-info__bottom">
+              <Link className="button" onClick={ () => this.setState({ popup: 0 }) }>НАЧИСЛИТЬ YT</Link>
+              <Link className="button" onClick={ () => this.setState({ popup: 1 }) }>ИЗМЕНИТЬ СТАТУС</Link>
+              <Link className="button" onClick={ () => this.setState({ popup: 2 }) }>ИЗМЕНИТЬ ТАРИФ</Link>
+            </div>
+          </div>
+
+        </ViewSelect>
         <ViewSelect active={ this.state.popup }>
-
-          <UserCard data={ this.state.cardData }
-            onClose={ () => this.setState({ popup: null }) }>
-          </UserCard>
-
+          <Popup onClose={ () => this.setState({ popup: null }) }>
+            1
+          </Popup>
+          <Popup onClose={ () => this.setState({ popup: null }) }>
+            2
+          </Popup>
+          <Popup onClose={ () => this.setState({ popup: null }) }>
+            3
+          </Popup>
         </ViewSelect>
     </div>);
   }
 
   _userClick = d => {
-    this.props.apiCall('getUserInfo', { user_id: d.user_id }).then(r => {
+    getUserCardInfo(this.props.apiCall, d.user_id, r => {
       if( r.status === 'error' ) return;
-      this.setState({ cardData: r.result, popup: 0 });
+      this.setState({ userData: r, view: 1 });
     });
   }
-
 }
 
 function _view(props){/*userClick*/
