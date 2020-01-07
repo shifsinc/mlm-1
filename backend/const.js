@@ -6,6 +6,7 @@ exports.USER_NOT_EXISTS = { status: 'error', text: 'user not exists', action: { 
 exports.FILE_NOT_EXISTS = { status: 'error', text: 'file not exists', action: { text: 'Файл не существует' }}
 exports.NOT_ENOUGH_MONEY = { status: 'error', text: 'not enough money', action: { text: 'Не достаточно средств' }}
 exports.TRANSACTION_NOT_EXISTS = { status: 'error', text: 'transaction not exists', action: { text: 'Транзакция не существует' }}
+exports.INCORRECT_FILE = { status: 'error', text: 'incorrect file', action: { text: 'Неверный тип файла' } }
 
 exports.loginRegexp = /^\w{5,30}$/;
 exports.emailRegexp = exports.paypalRegexp = /^.+@[a-zA-Z\-0-9\.]+$/;
