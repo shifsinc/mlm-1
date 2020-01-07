@@ -85,6 +85,7 @@
     display: block !important;
   }
 }
+
 .account-icon:before {
   background-image: url('../../../img/icon/account@2x.png');
 }
@@ -98,7 +99,7 @@
   background-image: url('../../../img/icon/marketing@2x.png');
 }
 .finances-icon:before {
-  background-image: url('../../../img/icon/finance@2x.png');
+  background-image: url('../../../img/icon/finances@2x.png');
 }
 .instructions-icon:before {
   background-image: url('../../../img/icon/instructions@2x.png');
@@ -111,4 +112,32 @@
 }
 .admin-icon:before {
   background-image: url('../../../img/icon/admin@2x.png');
+}
+
+.account-icon.active:before {
+  background-image: url('../../../img/icon/account_active@2x.png');
+}
+.robot-icon.active:before {
+  background-image: url('../../../img/icon/robot_active@2x.png');
+}
+.team-icon.active:before {
+  background-image: url('../../../img/icon/team_active@2x.png');
+}
+.marketing-icon.active:before {
+  background-image: url('../../../img/icon/marketing_active@2x.png');
+}
+.finances-icon.active:before {
+  background-image: url('../../../img/icon/finances_active@2x.png');
+}
+.instructions-icon.active:before {
+  background-image: url('../../../img/icon/instructions_active@2x.png');
+}
+.blog-icon.active:before {
+  background-image: url('../../../img/icon/blog_active@2x.png');
+}
+.settings-icon.active:before {
+  background-image: url('../../../img/icon/settings_active@2x.png');
+}
+.admin-icon.active:before {
+  background-image: url('../../../img/icon/admin_active@2x.png');
 }
