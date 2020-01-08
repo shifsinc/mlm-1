@@ -1,6 +1,13 @@
 const mysql = require('mysql');
 const { MYSQL_AUTH } = require('./config.js');
-const { INCORRECT_QUERY, AUTH_FAILED, USER_NOT_EXISTS, tokenRegexp, ADMIN_ROLE, FORBIDDEN } = require('./const.js');
+const {
+  INCORRECT_QUERY,
+  AUTH_FAILED,
+  USER_NOT_EXISTS,
+  ADMIN_ROLE,
+  FORBIDDEN,
+  tokenRegexp
+} = require('./const.js');
 
 var _con;
 module.exports.initMysqlConnection = function(onSuccess, onError){

@@ -75,6 +75,7 @@ CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`users` (
   `user_status` ENUM('investor', 'bronze', 'silver', 'gold', 'platinum', 'sapphire', 'emerald', 'diamond', 'diamond2') NOT NULL DEFAULT 'investor',
   `user_rate` ENUM('client', 'light', 'advanced', 'master') NULL DEFAULT NULL,
   `user_rate_ts` TIMESTAMP NULL DEFAULT NULL,
+  `user_rate_first` BOOL NULL DEFAULT NULL,
   `password_reset_token` VARCHAR(32) NULL DEFAULT NULL,
   `password_reset_token_ts` TIMESTAMP(6) NULL DEFAULT NULL,
   `user_data_filled` TINYINT(4) NOT NULL DEFAULT '0',
@@ -651,7 +652,7 @@ BEGIN
 END$$
 
 
-/*user_status, event new_status*/
+/*user_status*/
 DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`users_stats_BEFORE_UPDATE` $$
 CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`users_stats_BEFORE_UPDATE` BEFORE UPDATE ON `users_stats` FOR EACH ROW
 BEGIN
@@ -659,24 +660,27 @@ BEGIN
     SET @rate = (SELECT user_rate+0 FROM users WHERE user_id=new.user_id);
     SET @status = calc_user_status( @rate, new.stats_binary_cycles );
     UPDATE users SET user_status=@status WHERE user_id=new.user_id;
-
-    INSERT INTO events(user_id, event_type) VALUES(new.user_id, 'new_status');
   END IF;
 END$$
 
 
-/*user_rate_ts, user_status, event new_status, bonus_start_reached*/
+/*user_rate_ts, user_status, bonus_start_reached, event new_status*/
 DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`users_BEFORE_UPDATE` $$
 CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`users_BEFORE_UPDATE` BEFORE UPDATE ON `users` FOR EACH ROW
 BEGIN
+  IF( old.user_status <> new.user_status ) THEN
+    INSERT INTO events(user_id, event_type) VALUES(new.user_id, 'new_status');
+  END IF;
+  IF( old.user_rate IS NULL && new.user_rate IS NOT NULL ) THEN
+    SET new.user_rate_first=1;
+  ELSE SET new.user_rate_first=0;
+  END IF;
   IF(new.user_rate <> old.user_rate || ( old.user_rate IS NULL && new.user_rate IS NOT NULL )) THEN
     UPDATE users_bonuses SET bonus_start_reached=0 WHERE user_id=new.user_id;
     SET new.user_rate_ts=CURRENT_TIMESTAMP;
 
     SET @cycles = (SELECT stats_binary_cycles FROM users_stats WHERE user_id=new.user_id);
     SET new.user_status = calc_user_status(new.user_rate, @cycles);
-
-    INSERT INTO events(user_id, event_type) VALUES(new.user_id, 'new_status');
   END IF;
 END$$
 
