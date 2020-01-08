@@ -66,6 +66,7 @@ module.exports = {
     [ API_PREFIX + '/withdrawMoney' ]: authWrapper( validateWrapper( require('./methods/money/withdrawMoney.js') ) ),
 
     [ API_PREFIX + '/admin/searchUsers' ]: authWrapper( adminWrapper( require('./methods/admin/searchUsers.js') ) ),
+    [ API_PREFIX + '/admin/sortUsers' ]: authWrapper( adminWrapper( require('./methods/admin/sortUsers.js') ) ),
     [ API_PREFIX + '/admin/setUserRate' ]: authWrapper( adminWrapper( require('./methods/admin/setUserRate.js') ) ),
     [ API_PREFIX + '/admin/setUserStatus' ]: authWrapper( adminWrapper( require('./methods/admin/setUserStatus.js') ) ),
     [ API_PREFIX + '/admin/blockUser' ]: authWrapper( adminWrapper( require('./methods/admin/blockUser.js') ) ),
