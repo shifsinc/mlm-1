@@ -24,16 +24,22 @@ module.exports = function(callback, params, _user_id){/*count, offset, pattern*/
         ORDER BY user_dt
         LIMIT ?,?`, [ result_ids, pattern, offset, count ],
         res => {
-          res.result.forEach(r => {
-            r._user_direction = left_ids.includes( r.user_id ) ? 'l' : 'r';
-            r._is_team = r.user_refer === _user_id ? true : false;
-            r.user_photo_url = PHOTOS_PREFIX + r.user_photo
-          });
-          res.result = {
-            count: result_ids.length,
-            data: res.result
-          }
-          callback(res);
+
+          makeQuery(`SELECT COUNT(*) AS count FROM users WHERE user_id IN(?) AND user_login LIKE ?`, [ result_ids, pattern ],
+            count => {
+
+              res.result.forEach(r => {
+                r._user_direction = left_ids.includes( r.user_id ) ? 'l' : 'r';
+                r._is_team = r.user_refer === _user_id ? true : false;
+                r.user_photo_url = PHOTOS_PREFIX + r.user_photo
+              });
+              res.result = {
+                count: count.result[0].count,
+                data: res.result
+              }
+              callback(res);
+
+            });
 
         }, callback);
 
