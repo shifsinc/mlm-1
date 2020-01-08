@@ -286,7 +286,7 @@ CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`files` (
   `file_author` INT(11) NOT NULL,
   `file_type` VARCHAR(16) NOT NULL DEFAULT 'file',
   `file_title` VARCHAR(64) NULL,
-  `file_descr` VARCHAR(128) NULL,
+  `file_descr` VARCHAR(16384) NULL,
   `file_section` ENUM('marketing', 'instructions', 'videos', 'robot', 'news_image', 'news_video') NOT NULL,
   `file_fk` INT(11) NULL,
   `file_name` VARCHAR(32) NULL,
