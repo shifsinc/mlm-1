@@ -1,6 +1,6 @@
 const { makeQuery } = require('../../utils.js');
 const { INCORRECT_QUERY } = require('../../const.js');
-const { FILES_PATH } = require('../../config.js');
+const { FILES_PREFIX } = require('../../config.js');
 
 module.exports = function(callback, params, _user_id){/*count, offset, section*/
   var count = parseInt( params.count ), offset = parseInt( params.offset ), section = params.section;
@@ -24,7 +24,7 @@ module.exports = function(callback, params, _user_id){/*count, offset, section*/
           res.result.forEach(r => {
             var img = [], vid = [];
             files.forEach(f => {
-              if( f.file_fk === r.news_id && f.file_section === 'news_image' ) img.push( FILES_PATH + f.file_name );
+              if( f.file_fk === r.news_id && f.file_section === 'news_image' ) img.push( FILES_PREFIX + f.file_name );
               if( f.file_fk === r.news_id && f.file_section === 'news_video' ) vid.push( f.file_descr );
             });
             r.images = img;
