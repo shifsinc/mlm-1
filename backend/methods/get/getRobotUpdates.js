@@ -9,7 +9,9 @@ module.exports = function(callback, params, _user_id){/*count, offset*/
     news_dt,
     news_title,
     news_text
-    FROM news WHERE news_type="robot_update" ORDER BY news_dt DESC LIMIT ?,?`, [ offset, count ],
+    FROM news
+    WHERE news_type="robot_update" AND news_rate=(SELECT user_rate FROM users WHERE user_id=?)
+    ORDER BY news_dt DESC LIMIT ?,?`, [ _user_id, offset, count ],
     res => {
 
       makeQuery(`SELECT COUNT(*) AS count FROM news WHERE news_type="robot_update"`, [],

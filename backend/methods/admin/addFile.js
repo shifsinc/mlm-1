@@ -6,11 +6,13 @@ const { existsSync } = require('fs');
 const readChunk = require('read-chunk');
 const fileType = require('file-type');
 
-module.exports = function(callback, params, _user_id){/*section, title, descr, filename*/
+module.exports = function(callback, params, _user_id){/*section, title, descr, filename, rate*/
   var section = params.section,
     title = params.title ? params.title : '', descr = params.descr ? params.descr : '',
-    filename = params.filename;
-  if( !( /^(marketing|instructions|videos|robot)$/.test(section) ) ) return callback( INCORRECT_QUERY );
+    filename = params.filename, rate = parseInt( params.rate );
+  if( isNaN(rate) ) rate = null;
+  if( !( /^(marketing|instructions|videos|robot)$/.test(section) ) ||
+    ( rate !== null && ( rate < 1 || rate > 4 ) ) ) return callback( INCORRECT_QUERY );
 
   var file_type, filepath = FILES_PATH + filename;
   if( section !== 'videos' ){
@@ -21,8 +23,8 @@ module.exports = function(callback, params, _user_id){/*section, title, descr, f
 
   } else file_type = 'youtube';
 
-  makeQuery(`INSERT INTO files(file_author, file_section, file_type, file_title, file_descr, file_name) VALUES ?`,
-    [ _user_id, section, file_type, title, descr, filename ],
+  makeQuery(`INSERT INTO files(file_author, file_rate, file_section, file_type, file_title, file_descr, file_name) VALUES ?`,
+    [ _user_id, rate, section, file_type, title, descr, filename ],
     res => {
       callback( OK );
     } , callback);

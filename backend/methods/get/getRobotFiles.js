@@ -11,7 +11,8 @@ module.exports = function(callback, params, _user_id){/*count, offset*/
     file_title,
     file_descr,
     file_name
-    FROM files WHERE file_section="robot"
+    FROM files
+    WHERE file_section="robot" AND file_rate=(SELECT user_rate FROM users WHERE user_id=?)
     ORDER BY file_dt DESC LIMIT ?,?`,
     [ offset, count ],
     res => {
