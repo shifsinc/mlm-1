@@ -9,6 +9,7 @@ module.exports = function(callback, params, _user_id){/*user_id*/
   makeQuery(`SELECT
     u.user_id,
     u.user_dt,
+    u.user_blocked,
     u.user_login,
     u.user_name,
     u.user_surname,
