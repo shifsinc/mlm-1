@@ -45,7 +45,7 @@ export default class extends React.Component {
               <tr><td>Тариф</td><td>{ popupData.user_rate }</td></tr>
             ) : undefined }
 
-            <tr><td>Дата и время</td><td>{ formatDate(popupData.tr_dt) }</td></tr>
+            <tr><td>Дата и время</td><td>{ formatDate(popupData.event_dt) }</td></tr>
 
             { popupData.event_type === 'withdraw' ? (<>
               <tr><td>Сумма вывода</td><td>{ popupData.tr_real_amount } ETH</td></tr>
