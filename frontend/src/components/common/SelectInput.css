@@ -1,0 +1,41 @@
+.select-input {
+  position: relative;
+}
+.select-input .input {
+  margin-bottom: 3px;
+}
+.select-input .input input {
+  cursor: pointer;
+  user-select: none;
+}
+.select-input__options {
+  display: none;
+  position: absolute;
+  width: 100%;
+  color: var(--color4);
+}
+.select-input__options__item {
+  cursor: pointer;
+  user-select: none;
+}
+.select-input.opened .select-input__options {
+  display: block;
+}
+.select-input__button {
+  position: absolute;
+  right: 0;
+  top: 24px;
+  border-left: solid 1px var(--color3);
+}
+.select-input__button > div {
+  width: 35px;
+  height: 35px;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: 50%;
+  background-image: url('../../img/icon/arrow@2x.png');
+  transition: transform 0.1s;
+}
+.select-input.opened .select-input__button > div {
+  transform: rotate(180deg);
+}
