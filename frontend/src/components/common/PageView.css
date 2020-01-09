@@ -12,6 +12,9 @@
   line-height: 30px;
   user-select: none;
 }
+.page-view__pages__select:hover {
+  font-weight: 600;
+}
 .page-view__pages__select.active {
   color: #FFF !important;
   font-weight: 600;

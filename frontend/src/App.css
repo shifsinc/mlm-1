@@ -97,7 +97,9 @@ a, a:visited {
   box-shadow: 0 0 5px 0px #999;
   padding: 10px;
   margin-bottom: 20px;
-  overflow: hidden;
+}
+.icon-before-text {
+  padding-left: 8px;
 }
 .icon-before-text:before {
   content: '';
@@ -107,7 +109,6 @@ a, a:visited {
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: 80%;
-  margin-right: 8px;
 }
 
 .cover {

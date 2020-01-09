@@ -1,3 +1,9 @@
 .files-view a.icon-before-text:before {
   background-image: url('../../../img/icon/download@2x.png');
 }
+.files-view a:hover {
+  color: var(--color1);
+}
+.files-view a.icon-before-text:hover:before {
+  background-image: url('../../../img/icon/download_hover@2x.png');
+}
