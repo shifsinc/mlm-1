@@ -1,12 +1,12 @@
-.status-investor:before,
-.status-bronze:before,
-.status-silver:before,
-.status-gold:before,
-.status-platinum:before,
-.status-sapphire:before,
-.status-emerald:before,
-.status-diamond:before,
-.status-diamond2:before {
+.status-1:before,
+.status-2:before,
+.status-3:before,
+.status-4:before,
+.status-5:before,
+.status-6:before,
+.status-7:before,
+.status-8:before,
+.status-9:before {
   content: '';
   position: absolute;
   top: -5px;
@@ -16,61 +16,61 @@
   border-radius: 5px;
   z-index: -1;
 }
-.status-investor:before,
-.status-bronze:before,
-.status-silver:before {
+.status-1:before,
+.status-2:before,
+.status-3:before {
   background-image: linear-gradient(to bottom, #1A9122, #0E4911);
 }
-.status-gold:before,
-.status-platinum:before {
+.status-4:before,
+.status-5:before {
   background-image: linear-gradient(to bottom, #EECA1B, #D86806);
 }
-.status-sapphire:before,
-.status-emerald:before {
+.status-6:before,
+.status-7:before {
   background-image: linear-gradient(to bottom, #BE0000, #600000);
 }
-.status-diamond:before,
-.status-diamond2:before {
+.status-8:before,
+.status-9:before {
   background-image: linear-gradient(to bottom, #7984C5, #222743);
 }
 
-.status-investor-avatar,
-.status-bronze-avatar,
-.status-silver-avatar,
-.status-gold-avatar,
-.status-platinum-avatar,
-.status-sapphire-avatar,
-.status-emerald-avatar,
-.status-diamond-avatar,
-.status-diamond2-avatar {
+.status-1-avatar,
+.status-2-avatar,
+.status-3-avatar,
+.status-4-avatar,
+.status-5-avatar,
+.status-6-avatar,
+.status-7-avatar,
+.status-8-avatar,
+.status-9-avatar {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: 50%;
 }
-.status-investor-avatar {
+.status-1-avatar {
   background-image: url('../../../img/icons_status/investor.png');
 }
-.status-bronze-avatar {
+.status-2-avatar {
   background-image: url('../../../img/icons_status/bronze.png')
 }
-.status-silver-avatar {
+.status-3-avatar {
   background-image: url('../../../img/icons_status/silver.png')
 }
-.status-gold-avatar {
+.status-4-avatar {
   background-image: url('../../../img/icons_status/gold.png')
 }
-.status-platinum-avatar {
+.status-5-avatar {
   background-image: url('../../../img/icons_status/platinum.png')
 }
-.status-sapphire-avatar {
+.status-6-avatar {
   background-image: url('../../../img/icons_status/sapphire.png')
 }
-.status-emerald-avatar {
+.status-7-avatar {
   background-image: url('../../../img/icons_status/emerald.png')
 }
-.status-diamond-avatar {
+.status-8-avatar {
   background-image: url('../../../img/icons_status/diamond.png')
 }
-.status-diamond2-avatar {
+.status-9-avatar {
   background-image: url('../../../img/icons_status/diamond2.png')
 }

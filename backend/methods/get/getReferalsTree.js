@@ -8,7 +8,7 @@ const query = `SELECT
   u.user_surname,
   u.user_photo,
   u.user_rate + 0 AS user_rate,
-  u.user_status,
+  u.user_status + 0 AS user_status,
   s.stats_yt_left,
   s.stats_yt_right
   FROM users u

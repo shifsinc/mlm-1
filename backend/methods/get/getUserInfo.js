@@ -18,7 +18,7 @@ module.exports = function(callback, params, _user_id){/*user_id*/
     u.user_social,
     u.user_telegram,
     u.user_photo,
-    u.user_status,
+    u.user_status + 0 AS user_status,
     u.user_rate + 0 AS user_rate,
     u.user_refer,
     u.user_refer_type,

@@ -7,36 +7,39 @@ exports.linkRegexp = /^https?:\/\/[a-zA-Z\-0-9.]+(\/.*)?$/;
 exports.telegramRegexp = /^\w+$/;
 exports.ethereumRegexp = /^0x[a-z0-9]{40}$/;
 
-exports.RATES_IMAGES = {
-  '1': require('./img/robot_client@2x.png'),
-  '2': require('./img/robot_light@2x.png'),
-  '3': require('./img/robot_advanced@2x.png'),
-  '4': require('./img/robot_master@2x.png')
-}
-exports.RATES_TITLES = {
-  '1': 'CLIENT',
-  '2': 'LIGHT',
-  '3': 'ADVANCED',
-  '4': 'MASTER'
-};
-exports.RATES_PRICES = {
-  '0': 0,
-  '1': 250,
-  '2': 500,
-  '3': 1000,
-  '4': 2000
-}
-exports.STATUS_TITLES = {
-  'investor': 'ИНВЕСТОР',
-  'bronze': 'БРОНЗА',
-  'silver': 'СЕРЕБРО',
-  'gold': 'ЗОЛОТО',
-  'platinum': 'ПЛАТИНА',
-  'sapphire': 'САПФИР',
-  'emerald': 'ИЗУМРУД',
-  'diamond': 'БРИЛЛИАНТ',
-  'diamond2': '2*БРИЛЛИАНТ'
-}
+exports.RATES_IMAGES = [
+  './img/noPhoto@2x.png',
+  require('./img/robot_client@2x.png'),
+  require('./img/robot_light@2x.png'),
+  require('./img/robot_advanced@2x.png'),
+  require('./img/robot_master@2x.png')
+]
+exports.RATES_TITLES = [
+  '',
+  'CLIENT',
+  'LIGHT',
+  'ADVANCED',
+  'MASTER'
+];
+exports.RATES_PRICES = [
+  0,
+  250,
+  500,
+  1000,
+  2000
+]
+exports.STATUS_TITLES = [
+  '',
+  'ИНВЕСТОР',
+  'БРОНЗА',
+  'СЕРЕБРО',
+  'ЗОЛОТО',
+  'ПЛАТИНА',
+  'САПФИР',
+  'ИЗУМРУД',
+  'БРИЛЛИАНТ',
+  '2*БРИЛЛИАНТ'
+]
 exports.TRANSACTION_STATUS_TITLES = {
   'wait': 'Ожидается перевод',
   'ok': 'Перевод совершен',

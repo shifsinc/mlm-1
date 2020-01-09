@@ -9,7 +9,7 @@ module.exports = function(callback, params, _user_id){/*pattern, offset, count*/
     u.user_id,
     u.user_name,
     u.user_surname,
-    u.user_rate,
+    u.user_rate+0 AS user_rate,
     u.user_dt,
     s.stats_left_referals,
     s.stats_right_referals
