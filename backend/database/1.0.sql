@@ -260,7 +260,7 @@ DROP TABLE IF EXISTS `yodafxpr_mlm_db`.`news` ;
 CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`news` (
   `news_id` INT NOT NULL AUTO_INCREMENT,
   `news_dt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `news_title` VARCHAR(64) NOT NULL,
+  `news_title` VARCHAR(64) NULL,
   `news_text` TEXT(4000) NULL,
   `news_author` INT(11) NOT NULL,
   `news_rate` ENUM('client', 'light', 'advanced', 'master') NULL DEFAULT NULL,

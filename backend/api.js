@@ -47,8 +47,6 @@ module.exports = {
     [ API_PREFIX + '/getUserStats' ]: authWrapper( validateWrapper( require('./methods/get/getUserStats.js') ) ),
     [ API_PREFIX + '/getReferalsTree' ]: authWrapper( validateWrapper( require('./methods/get/getReferalsTree.js') ) ),
     [ API_PREFIX + '/getUserBonuses' ]: authWrapper( validateWrapper( require('./methods/get/getUserBonuses.js') ) ),
-    [ API_PREFIX + '/getRobotFiles' ]: authWrapper( validateWrapper( require('./methods/get/getRobotFiles.js') ) ),
-    [ API_PREFIX + '/getRobotUpdates' ]: authWrapper( validateWrapper( require('./methods/get/getRobotUpdates.js') ) ),
     [ API_PREFIX + '/getUserRobotKeys' ]: authWrapper( validateWrapper( require('./methods/get/getUserRobotKeys.js') ) ),
     [ API_PREFIX + '/checkUserStartWork' ]: authWrapper( validateWrapper( require('./methods/get/checkUserStartWork.js') ) ),
 
@@ -81,5 +79,7 @@ module.exports = {
     [ API_PREFIX + '/admin/getAnalytics' ]: authWrapper( adminWrapper( require('./methods/admin/getAnalytics.js') ) ),
     [ API_PREFIX + '/admin/getEvents' ]: authWrapper( adminWrapper( require('./methods/admin/getEvents.js') ) ),
     [ API_PREFIX + '/admin/getAnalytics' ]: authWrapper( adminWrapper( require('./methods/admin/getAnalytics.js') ) ),
+    [ API_PREFIX + '/admin/getNews' ]: authWrapper( adminWrapper( require('./methods/admin/getNews.js') ) ),
+    [ API_PREFIX + '/admin/getFiles' ]: authWrapper( adminWrapper( require('./methods/admin/getFiles.js') ) ),
   }
 }

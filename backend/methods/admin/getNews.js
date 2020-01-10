@@ -13,8 +13,8 @@ module.exports = function(callback, params, _user_id){/*count, offset, section*/
     news_title,
     news_text
     FROM news
-    WHERE news_type=? AND (news_rate=(SELECT user_rate FROM users WHERE user_id=?) OR news_rate IS NULL)
-    ORDER BY news_dt DESC LIMIT ?,?`, [ section, _user_id, offset, count ],
+    WHERE news_type=?
+    ORDER BY news_dt DESC LIMIT ?,?`, [ section, offset, count ],
     res => {
       var news_ids = res.result.map(r => r.news_id);
       makeQuery(`SELECT file_name, file_descr, file_fk, file_section FROM files
@@ -32,9 +32,8 @@ module.exports = function(callback, params, _user_id){/*count, offset, section*/
             r.videos = vid;
           });
 
-          makeQuery(`SELECT COUNT(*) AS count FROM news
-            WHERE news_type=? AND (news_rate=(SELECT user_rate FROM users WHERE user_id=?) OR news_rate IS NULL)`,
-            [ section, _user_id ],
+          makeQuery(`SELECT COUNT(*) AS count FROM news WHERE news_type=?`,
+            [ section ],
             count => {
               res.result = {
                 count: count.result[0].count,

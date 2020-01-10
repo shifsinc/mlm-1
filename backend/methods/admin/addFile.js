@@ -8,8 +8,8 @@ const fileType = require('file-type');
 
 module.exports = function(callback, params, _user_id){/*section, title, descr, filename, rate*/
   var section = params.section,
-    title = params.title ? params.title : '', descr = params.descr ? params.descr : '',
-    filename = params.filename, rate = parseInt( params.rate );
+    title = params.title ? params.title : null, descr = params.descr ? params.descr : null,
+    filename = params.filename ? params.filename : null, rate = parseInt( params.rate );
   if( isNaN(rate) ) rate = null;
   if( !( /^(marketing|instructions|videos|robot)$/.test(section) ) ||
     ( rate !== null && ( rate < 1 || rate > 4 ) ) ) return callback( INCORRECT_QUERY );
@@ -23,7 +23,8 @@ module.exports = function(callback, params, _user_id){/*section, title, descr, f
 
   } else file_type = 'youtube';
 
-  makeQuery(`INSERT INTO files(file_author, file_rate, file_section, file_type, file_title, file_descr, file_name) VALUES ?`,
+  makeQuery(`INSERT INTO files(file_author, file_rate, file_section, file_type, file_title, file_descr, file_name)
+    VALUES (?,?,?,?,?,?,?)`,
     [ _user_id, rate, section, file_type, title, descr, filename ],
     res => {
       callback( OK );

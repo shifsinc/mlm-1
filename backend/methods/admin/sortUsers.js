@@ -7,7 +7,7 @@ module.exports = function(callback, params, _user_id){/*sort, offset, count*/
 
   var order;
   switch(sort){
-    case 'withdraw': order = 'a.account_withdraws DESC'; break;
+    case 'withdraws': order = 'a.account_withdraws DESC'; break;
     default: return callback( INCORRECT_QUERY );
   }
 

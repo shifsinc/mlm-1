@@ -2,7 +2,8 @@ const { makeQuery } = require('../../utils.js');
 const { INCORRECT_QUERY, OK } = require('../../const.js');
 
 module.exports = function(callback, params, _user_id){/*title, text, section, rate, images, videos*/
-  var title = params.title, text = params.text, section = params.section, rate = parseInt(params.rate),
+  var title = params.title ? params.title : null, text = params.text ? params.text : null,
+    section = params.section, rate = parseInt(params.rate),
     images = Array.isArray( params.images ) ? params.images : null;
     videos = Array.isArray( params.videos ) ? params.videos : null;
   if( isNaN(rate) ) rate = null;
@@ -27,5 +28,5 @@ module.exports = function(callback, params, _user_id){/*title, text, section, ra
       res => {
           callback( OK );
         } , callback);
-    });
+    }, callback);
 }

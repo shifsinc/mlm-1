@@ -13,12 +13,11 @@ module.exports = function(callback, params, _user_id){/*count, offset, section*/
     file_descr,
     file_name
     FROM files
-    WHERE file_section=? AND (file_rate=(SELECT user_rate FROM users WHERE user_id=?) OR file_rate IS NULL)
-    ORDER BY file_dt DESC LIMIT ?,?`, [ section, _user_id, offset, count ],
+    WHERE file_section=?
+    ORDER BY file_dt DESC LIMIT ?,?`, [ section, offset, count ],
     res => {
 
-      makeQuery(`SELECT COUNT(*) AS count FROM files
-      WHERE file_section=? AND (file_rate=(SELECT user_rate FROM users WHERE user_id=?) OR file_rate IS NULL)`, [ section, _user_id ],
+      makeQuery(`SELECT COUNT(*) AS count FROM files WHERE file_section=?`, [ section ],
         count => {
           res.result.forEach(r => r.file_type !== 'youtube' && (r.file_url = FILES_PREFIX + r.file_name));
           res.result = {
