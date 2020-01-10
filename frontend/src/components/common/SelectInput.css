@@ -14,11 +14,16 @@
   width: 100%;
   color: var(--color4);
   padding: 0;
+  z-index: 10;
+  max-height: 300px;
+  overflow-y: scroll;
 }
 .select-input__options__item {
   cursor: pointer;
   user-select: none;
   padding: 10px;
+  height: 40px;
+  line-height: 20px;
 }
 .select-input__options__item:hover {
   background-color: var(--color6);

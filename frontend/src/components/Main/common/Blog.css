@@ -1,3 +1,6 @@
+.blog__item {
+  position: relative;
+}
 .blog__item__title {
   font-weight: 800;
   font-size: 20px;

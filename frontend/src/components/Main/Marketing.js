@@ -9,8 +9,7 @@ export default class extends React.Component {/*apiCall*/
     return (
       <div className="main__content">
         <TitleBlock title="Маркетинг">
-          <PageView
-            callback={ p => this.props.apiCall('getFiles', { section: 'marketing', ...p }).then(r => r.result ? r.result : []) }
+          <PageView callback={ p => this.props.apiCall('getFiles', { section: 'marketing', ...p }) }
             component={ FilesView }  onPageCount={ 5 }></PageView>
         </TitleBlock>
       </div>

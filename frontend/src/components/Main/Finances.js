@@ -52,7 +52,7 @@ export default class extends React.Component {
           }></WithdrawMoney>
 
         <TitleBlock title="История операций" className="finances__history">
-          <PageView callback={ p => this.props.apiCall('getTransactions', p).then(r => r.result ? r.result : {}) }
+          <PageView callback={ p => this.props.apiCall('getTransactions', p) }
             callbackArgs={{ rand: this.state.rand }}
             component={ History } onPageCount={ 5 }></PageView>
         </TitleBlock></>

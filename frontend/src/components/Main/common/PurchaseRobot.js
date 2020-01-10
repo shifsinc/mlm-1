@@ -25,25 +25,25 @@ export default class extends React.Component {
       <div className="purchase-robot__robot">
         <img src={ RATES_IMAGES[ 1 ] } alt="client"/>
         <Link className="button button-client" onClick={() => this._onBuyClick(1)}>
-          { currentRate === 1 ? 'Продлить' : 'Купить' }
+          { currentRate === 1 ? 'ПРОДЛИТЬ' : 'КУПИТЬ' }
         </Link>
       </div>
       <div className="purchase-robot__robot">
         <img src={ RATES_IMAGES[ 2 ] } alt="light"/>
         <Link className="button button-light" onClick={() => this._onBuyClick(2)}>
-          { currentRate === 2 ? 'Продлить' : 'Купить' }
+          { currentRate === 2 ? 'ПРОДЛИТЬ' : 'КУПИТЬ' }
         </Link>
       </div>
       <div className="purchase-robot__robot">
         <img src={ RATES_IMAGES[ 3 ] } alt="advanced"/>
         <Link className="button button-advanced" onClick={() => this._onBuyClick(3)}>
-          { currentRate === 3 ? 'Продлить' : 'Купить' }
+          { currentRate === 3 ? 'ПРОДЛИТЬ' : 'КУПИТЬ' }
         </Link>
       </div>
       <div className="purchase-robot__robot">
         <img src={ RATES_IMAGES[ 4 ] } alt="master"/>
         <Link className="button button-master" onClick={() => this._onBuyClick(4)}>
-          { currentRate === 4 ? 'Продлить' : 'Купить' }
+          { currentRate === 4 ? 'ПРОДЛИТЬ' : 'КУПИТЬ' }
         </Link>
       </div>
 

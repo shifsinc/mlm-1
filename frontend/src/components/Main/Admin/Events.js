@@ -21,10 +21,10 @@ export default class extends React.Component {
 
   render(){
     var popupData = this.state.popupData;
-    return (<div className="admin__events">
+    return (<div className="admin__events interface-block admin__first-block">
     <PageView onPageCount={ 15 }
       component={ _view }  componentProps={{ infoClick: this._infoClick }}
-      callback={ p => this.props.apiCall('admin/getEvents', p).then(r => r.result ? r.result : []) }>
+      callback={ p => this.props.apiCall('admin/getEvents', p) }>
     </PageView>
 
       <ViewSelect active={ this.state.popup }>

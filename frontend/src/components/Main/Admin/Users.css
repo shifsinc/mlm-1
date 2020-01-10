@@ -53,11 +53,18 @@
   margin-bottom: 15px;
 }
 
+.admin__users__popup {
+  width: 500px;
+}
+
 @media screen and (max-width: 900px){
   .admin__users__user-info__bottom {
     display: block;
   }
   .admin__users__user-info__bottom > .button {
     width: 100%;
+  }
+  .admin__users__popup {
+    width: 300px;
   }
 }

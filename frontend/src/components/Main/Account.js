@@ -5,7 +5,6 @@ import Info from './Account/Info.js'
 import Links from './Account/Links.js'
 import News from './common/News.js';
 import Users from './Account/Users.js';
-import PageView from '../common/PageView.js'
 import TitleBlock from './common/TitleBlock.js'
 import UserCard from './common/UserCard.js'
 import ViewSelect from '../common/ViewSelect.js'

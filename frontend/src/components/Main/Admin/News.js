@@ -1,10 +1,77 @@
 import React from 'react';
+import './News.css'
 
 import News from '../common/News.js'
 import Blog from '../common/Blog.js'
 
-export default function(props){/*apiCall*/
-  return (<div className="admin__news">
-    <News apiCall={ props.apiCall }></News>
-  </div>);
+import Link from '../../common/Link.js'
+import Input from '../../common/Input.js'
+import SelectInput from '../../common/SelectInput.js'
+import ViewSelect from '../../common/ViewSelect.js'
+import AddContentPopup from './common/AddContentPopup.js'
+import AttachFiles from './common/AttachFiles.js'
+import AddNewsPopup from './News/AddNewsPopup.js'
+
+export default class extends React.Component {
+  constructor(props){/*apiCall*/
+    super(props);
+    this.state = {
+      popup: null,
+      listOpened: true,
+      section: 0,
+      videos: []
+    }
+  }
+
+  render(){
+    return (<div className="admin__news">
+      <div className="admin__news__cont interface-block admin__first-block">
+        <SelectInput className="admin__news__select" label="Отобразить" options={[ 'Записи блога', 'Новости' ]}
+          onSelect={ ind => this.setState({ section: ind }) }>
+        </SelectInput>
+
+        <Link className="button admin__news__button" onClick={ () => this.setState({ listOpened: !this.state.listOpened }) }>
+          { this.state.listOpened ? 'СКРЫТЬ' : 'ПОКАЗАТЬ' }
+        </Link>
+
+        <Link className="button admin__news__button" onClick={ () => this.setState({ popup: this.state.section }) }>
+          ДОБАВИТЬ ЗАПИСЬ
+        </Link>
+      </div>
+
+      <ViewSelect active={ this.state.listOpened ? this.state.section : null }>
+        <Blog apiCall={ this.props.apiCall } _admin _editClick={ this._editClickBlog } _editClick={ this._deleteClickBlog }></Blog>
+        <News apiCall={ this.props.apiCall } _admin _editClick={ this._editClickNews } _deleteClick={ this._deleteClickNews }></News>
+      </ViewSelect>
+
+      <ViewSelect active={ this.state.popup }>
+
+        <AddNewsPopup { ...this.props } formTitle="НОВАЯ ЗАПИСЬ БЛОГА" onClose={ this._closePopup } section="blog"></AddNewsPopup>
+
+        <AddNewsPopup { ...this.props } formTitle="НОВОСТЬ" onClose={ this._closePopup } section="news"></AddNewsPopup>
+
+      </ViewSelect>
+    </div>);
+  }
+
+  _closePopup = () => {
+    this.setState({ popup: null });
+  }
+
+  _editClickBlog = d => {
+
+  }
+
+  _deleteClickBlog = d => {
+
+  }
+
+  _editClickNews = d => {
+
+  }
+
+  _deleteClickNews = d => {
+
+  }
+
 }

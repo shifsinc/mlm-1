@@ -2,7 +2,7 @@ import React from 'react';
 import './PageView.css'
 import Link from './Link.js'
 
-const sidePages = 2;
+const SIDE_PAGES = 2;
 
 export default class extends React.Component {
   constructor(props){/*callback, callbackArgs, component, componentProps, onPageCount*/
@@ -13,52 +13,47 @@ export default class extends React.Component {
       data: []
     }
 
-    this._fetchData();
+    this._fetchData(0);
   }
 
-  _fetchData = () => {
-    this.props.callback({ offset: 0, count: this.props.onPageCount, ...this.props.callbackArgs })
-      .then(r => this.setState({
+  _fetchData = page => {
+    var offset = this.props.onPageCount * page;
+    this.props.callback({ offset, count: this.props.onPageCount, ...this.props.callbackArgs })
+      .then(res => {
+        if( !res.result ) return;
+        var r = res.result;
+        this.setState({
         pagesCount: Math.ceil( r.count / this.props.onPageCount ),
         data: r.data,
-        currentPage: 0
-      }) );
+        currentPage: page
+      });
+    });
   }
 
   updatePage = page => {
-    if( page === this.state.currentPage ) return;
-    var onPageCount = this.props.onPageCount;
-
-    this.props.callback({ offset: onPageCount * page, count: onPageCount, ...this.props.callbackArgs })
-      .then(r => this.setState({
-        pagesCount: Math.ceil( r.count / onPageCount ),
-        data: r.data,
-        currentPage: page
-      }) );
+    if( page !== this.state.currentPage ) this._fetchData( page );
   }
 
   componentDidUpdate = prevProps => {
-    if( prevProps.callbackArgs !== this.props.callbackArgs ){
-      this._fetchData();
-    }
+    if( prevProps.callbackArgs !== this.props.callbackArgs ) this._fetchData(0);
   }
 
   render(){
     var Component = this.props.component;
 
     if( this.state.pagesCount > 1 ){
-      var pages = [], start = this.state.currentPage - sidePages, fin = this.state.currentPage + sidePages;
+      var pages = [], start = this.state.currentPage - SIDE_PAGES, fin = this.state.currentPage + SIDE_PAGES;
       if( start < 0 ){
         start = 0;
-        fin = sidePages * 2;
+        fin = SIDE_PAGES * 2;
       }
       if( fin >= this.state.pagesCount ){
         fin = this.state.pagesCount - 1;
-        start = fin - sidePages * 2;
+        start = fin - SIDE_PAGES * 2;
         if( start < 0 ) start = 0;
       }
 
-      if( start >= sidePages ){
+      if( start >= SIDE_PAGES ){
         pages.push(<Link key={ -1 }
           className="page-view__pages__select"
           onClick={ () => this.updatePage(0) }>
@@ -74,7 +69,7 @@ export default class extends React.Component {
           { i + 1 }
         </Link>)
 
-        if( fin <= this.state.pagesCount - 1 - sidePages ){
+        if( fin <= this.state.pagesCount - 1 - SIDE_PAGES ){
           pages.push(<div className="page-view__pages__select">...</div>);
           pages.push(<Link key={ -2 }
             className="page-view__pages__select"

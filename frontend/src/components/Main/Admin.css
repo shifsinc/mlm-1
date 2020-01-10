@@ -1,9 +1,17 @@
 .admin {
   padding: 0;
 }
-.admin .tab-view__content {
-  padding: 10px;
-}
 .admin > .tab-view__header {
   font-size: 14px;
+  border: solid 1px var(--color6);
+  border-bottom: none;
+}
+
+.admin__add-button {
+  margin-top: 15px;
+}
+
+.admin__first-block {
+  border-radius: 0 0 3px 3px;
+  border-top: none;
 }

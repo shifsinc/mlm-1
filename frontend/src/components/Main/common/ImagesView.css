@@ -1,0 +1,7 @@
+.images-view__image {
+  max-width: 200px;
+  max-height: 200px;
+}
+.images-view__image.multiple {
+  
+}

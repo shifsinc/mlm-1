@@ -21,11 +21,18 @@ body {
   --advanced-color: #0E0E0E;
   --master-color: #960007;
 }
+
+@font-face {
+  font-family: calibri;
+  src: url('./font/calibri.ttf');
+}
+
 html, body, #root  {
   height: 100%;
 }
 .App{
   min-height: 100%;
+  font-family: calibri;
 }
 
 a, a:visited {
@@ -94,7 +101,7 @@ a, a:visited {
 .interface-block {
   background-color: #FFF;
   border-radius: 5px;
-  box-shadow: 0 0 5px 0px #999;
+  border: solid 1px var(--color6);
   padding: 10px;
   margin-bottom: 20px;
 }

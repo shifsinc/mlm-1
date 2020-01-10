@@ -1,0 +1,12 @@
+.robot-updates__item {
+  border-bottom: solid 1px var(--color5);
+  padding: 10px 0;
+  position: relative;
+}
+.robot-updates__item__text {
+  border: none;
+}
+.robot-updates__item__date {
+  font-size: 12px;
+  margin-bottom: 10px;
+}

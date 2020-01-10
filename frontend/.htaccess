@@ -16,5 +16,6 @@ RewriteRule "^refill$" /
 RewriteRule "^transfer$" /
 RewriteRule "^instructions$" /
 RewriteRule "^settings$" /
+RewriteRule "^admin$" /
 RewriteRule "^signout$" /
 RewriteRule "^confirmEmail$" / [L]

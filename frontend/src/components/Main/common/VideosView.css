@@ -1,6 +1,25 @@
-.video-view video {
+.videos-view__video {
+  position: relative;
+}
+.videos-view__video__cont {
   width: calc(100% - 20px);
   margin: 10px;
+  padding-top: 60%;
+  position: relative;
+  display: inline-block;
+}
+.videos-view__video.multiple {
+  width: calc(50% - 20px);
+  padding-top: 30%;
+}
+.videos-view__video > iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
 }
 
 @media screen and (max-width: 900px) {

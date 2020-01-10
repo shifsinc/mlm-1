@@ -18,7 +18,7 @@ export default class extends React.Component {
     }
   }
   render(){
-    return (<div className="admin__structure">
+    return (<div className="admin__structure interface-block admin__first-block">
       <Input label="Поиск пользователей" attr={{ value: this.state.search, onChange: e => {
         this.setState({ search: e.target.value });
       } }}>

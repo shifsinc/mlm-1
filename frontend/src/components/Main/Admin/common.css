@@ -1,0 +1,22 @@
+.admin__controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.admin__delete-button,
+.admin__edit-button {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: 50%;
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.admin__delete-button {
+  background-image: url('../../../img/icon/delete@2x.png');
+}
+.admin__edit-button {
+  background-image: url('../../../img/icon/edit@2x.png');
+}

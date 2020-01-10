@@ -17,14 +17,15 @@ export default class extends React.Component {
     return (
       <div className="main__content">
         <TitleBlock title="Инструкции">
-          <PageView
-            callback={ p => this.props.apiCall('getFiles', { section: 'instructions', ...p }).then(r => r.result ? r.result : {}) }
+          <PageView callback={ p => this.props.apiCall('getFiles', { section: 'instructions', ...p }) }
             component={ FilesView }  onPageCount={ 5 }></PageView>
         </TitleBlock>
         <div className="interface-block">
-          <PageView
-            callback={ p => this.props.apiCall('getFiles', { section: 'videos', ...p }).then(r => r.result ? r.result : {}) }
-            component={ VideosView }  onPageCount={ 4 }></PageView>
+          <PageView callback={ p => this.props.apiCall('getFiles', { section: 'videos', ...p })
+            .then(r => {
+              if( r.result ) r.result.data = r.result.data.map(f => f.file_descr);
+              return r;
+            }) } component={ VideosView }  onPageCount={ 4 }></PageView>
         </div>
       </div>
     );

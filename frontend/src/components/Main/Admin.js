@@ -19,7 +19,7 @@ export default class extends React.Component {
   render(){
     return (
       <div className="main__content">
-        <TabView className="admin interface-block" contClassName="admin__cont"
+        <TabView className="admin"
           titles={[ 'Пользователи', 'Структура', 'События', 'Аналитика', 'Новости и блог', 'Робот', 'Инструкции', 'Маркетинг' ]}>
           <Users { ...this.props }></Users>
           <Structure { ...this.props }></Structure>

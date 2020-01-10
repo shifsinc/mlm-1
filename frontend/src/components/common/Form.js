@@ -44,9 +44,9 @@ export default class extends React.Component{/*formTitle, submitTitle, submitCal
 
     var data = {};
     Array.prototype.forEach.call( inputs, inp => {
-      if( inp.type === 'submit' ) return;
+      if( inp.type === 'submit' || !inp.name ) return;
       if( inp.type === 'file' && inp.files.length ){
-        data[ inp.name ] = inp.files[0].slice();
+        data[ inp.name ] = Array.prototype.map.call( inp.files, f => f.slice());
       } else data[ inp.name ] = inp.value;
     });
 

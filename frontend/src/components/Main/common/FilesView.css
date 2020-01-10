@@ -1,3 +1,6 @@
+.files-view td {
+  position: relative;
+}
 .files-view a.icon-before-text:before {
   background-image: url('../../../img/icon/download@2x.png');
 }
