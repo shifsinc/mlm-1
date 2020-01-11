@@ -1,6 +1,6 @@
 .input {
   position: relative;
-  padding-top: 24px;
+  padding-top: 20px;
   margin-bottom: 8px;
 }
 .input input {
@@ -11,7 +11,6 @@
   box-shadow: none;
   border: solid 1px var(--color3);
   border-radius: 3px;
-  color: var(--color4);
   position: relative;
   z-index: 2;
   background: transparent;
@@ -31,7 +30,17 @@
   position: absolute;
   top: 0;
   left: 0;
-  transform: translate(16px, 32px);
-  color: var(--color4);
+  transform: translate(16px, 30px);
+  color: var(--color3);
   white-space: nowrap;
+  font-size: 14px;
+}
+
+.input__button {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  cursor: pointer;
+  height: 35px;
+  line-height: 35px;
 }

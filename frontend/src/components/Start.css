@@ -19,7 +19,8 @@
   color: #FFF !important;
   width: 270px;
   height: 40px;
-  line-height: 36px;
+  line-height: 40px;
+  font-family: calibri-bold;
 }
 @media screen and ( max-width: 900px ) {
 

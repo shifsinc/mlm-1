@@ -16,8 +16,9 @@
 .page-header__sign-in-button {
   float: right;
   height: 30px;
-  line-height: 28px;
+  line-height: 30px;
   margin: 15px 0;
+  font-family: calibri-bold;
 }
 
 @media screen and ( max-width: 900px ) {

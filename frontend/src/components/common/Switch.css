@@ -14,15 +14,16 @@
   font-weight: 200;
   white-space: nowrap;
   overflow: hidden;
+  border: solid 1px transparent;
+  border-radius: 3px;
 }
-.switch *:first-child {
+.switch > *:first-child {
   transform: translate(-1px,-1px);
 }
-.switch *:last-child {
+.switch > *:last-child {
   transform: translate(1px,-1px);
 }
 .switch > .active {
-  border: solid 1px var(--color2);
+  border-color: var(--color2);
   color: var(--color2);
-  border-radius: 3px;
 }

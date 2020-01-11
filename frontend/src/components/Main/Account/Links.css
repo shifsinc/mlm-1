@@ -13,15 +13,10 @@
 }
 .account__links__copy-button {
   width: 35px;
-  height: 35px;
-  position: absolute;
-  top: 24px;
-  right: 0;
   background-image: url('../../../img/icon/copy@2x.png');
   background-repeat: no-repeat;
   background-position: 50%;
   border-left: solid 1px var(--color3);
-  cursor: pointer;
   z-index: 3;
 }
 @media screen and ( max-width: 900px ) {

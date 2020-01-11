@@ -1,5 +1,6 @@
 .videos-view__video {
   position: relative;
+  display: inline;
 }
 .videos-view__video__cont {
   width: calc(100% - 20px);
@@ -8,11 +9,11 @@
   position: relative;
   display: inline-block;
 }
-.videos-view__video.multiple {
+.videos-view__video__cont.multiple {
   width: calc(50% - 20px);
   padding-top: 30%;
 }
-.videos-view__video > iframe {
+.videos-view__video__cont > iframe {
   position: absolute;
   top: 0;
   left: 0;

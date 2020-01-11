@@ -10,11 +10,18 @@
   width: calc((100% - 40px) / 3);
   height: 65px;
   margin: 0;
-  color: var(--color4);
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.finances__bonuses__item__label {
+  font-size: 12px;
+  color: var(--color4);
+}
+.finances__bonuses__item__value {
+  font-family: calibri-bold;
+  font-size: 20px;
 }
 
 @media screen and (max-width: 900px) {

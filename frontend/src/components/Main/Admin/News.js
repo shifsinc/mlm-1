@@ -40,8 +40,12 @@ export default class extends React.Component {
       </div>
 
       <ViewSelect active={ this.state.listOpened ? this.state.section : null }>
-        <Blog apiCall={ this.props.apiCall } _admin _editClick={ this._editClickBlog } _editClick={ this._deleteClickBlog }></Blog>
-        <News apiCall={ this.props.apiCall } _admin _editClick={ this._editClickNews } _deleteClick={ this._deleteClickNews }></News>
+        <Blog apiCall={ this.props.apiCall } _rand={ this.state.rand } _admin
+          _editClick={ d => this._editClick('blog', d) } _deleteClick={ d => this._deleteClick('blog', d) }></Blog>
+        <div className="interface-block">
+          <News apiCall={ this.props.apiCall } _rand={ this.state.rand } _admin
+            _editClick={ d => this._editClick('news', d) } _deleteClick={ d => this._deleteClick('news', d) }></News>
+        </div>
       </ViewSelect>
 
       <ViewSelect active={ this.state.popup }>
@@ -55,22 +59,16 @@ export default class extends React.Component {
   }
 
   _closePopup = () => {
-    this.setState({ popup: null });
+    this.setState({ popup: null, rand: Math.random() });
   }
 
-  _editClickBlog = d => {
-
+  _deleteClick = (section, d) => {
+    this.props.apiCall('admin/deleteNews', { news_id: d.news_id, section }).then(r => {
+      if( r.status !== 'error' ) this.setState({ rand: Math.random() });
+    });
   }
 
-  _deleteClickBlog = d => {
-
-  }
-
-  _editClickNews = d => {
-
-  }
-
-  _deleteClickNews = d => {
+  _editClick = (section, d) => {
 
   }
 

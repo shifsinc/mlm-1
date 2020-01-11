@@ -26,7 +26,8 @@ export default class extends React.Component {
   render(){
     return (<div className="main__content account">
 
-      <Info data={{ ...this.state.info,...this.state.balance, ...this.state.stats }} userClick={ this._userClick }></Info>
+      <Info updateLocation={ this.props.updateLocation } data={{ ...this.state.info,...this.state.balance, ...this.state.stats }}
+        userClick={ this._userClick }></Info>
 
       <Users title="Мои рефералы" data={ this.state.referals } updateLocation={ this.props.updateLocation }
         userClick={ this._userClick }></Users>

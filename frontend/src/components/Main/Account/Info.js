@@ -5,12 +5,15 @@ import Link from '../../common/Link.js'
 import noPhoto from '../../../img/noPhoto.png';
 import { STATUS_TITLES, BINARY_CYCLE_AMOUNT, RATES_TITLES, RATES_IMAGES } from '../../../const.js'
 
-export default function(props){/*data, userClick*/
+export default function(props){/*data, userClick, updateLocation*/
   var data = props.data ? props.data : {};
   return (
     <div className="account__info interface-block">
       <div className="account__info__photo">
         <img className="account__photo" src={ data.user_photo_url ? data.user_photo_url : noPhoto } alt="User avatar"/>
+        <div className="account__info__edit">
+          <Link path="/settings" updateLocation={ props.updateLocation }>Редактировать</Link>
+        </div>
       </div>
       <div className="account__info__cont">
         <div className="account__info__cont1">
@@ -23,7 +26,7 @@ export default function(props){/*data, userClick*/
         <div className="account__info__cont2">
           <table><tbody>
             <tr><td>ID:</td><td>
-              <Link className="account__info__link" onClick={ () => props.userClick({ user_id: data.user_id }) }>
+              <Link active onClick={ () => props.userClick({ user_id: data.user_id }) }>
                 { data.user_id }
               </Link>
             </td></tr>
@@ -31,14 +34,14 @@ export default function(props){/*data, userClick*/
             <tr><td>Телефон:</td><td>{ data.user_phone }</td></tr>
             <tr>
               <td>Соцсеть:</td>
-              <td><a className="account__info__link" target="_blank noopener noreferrer" href={ data.user_social }>
+              <td><a className="link_active" active target="_blank noopener noreferrer" href={ data.user_social }>
                 { data.user_social }
               </a></td>
             </tr>
             { data.user_refer_id ? (
               <tr>
                 <td>Спонсор:</td>
-                <td><Link className="account__info__link" onClick={ () => props.userClick({ user_id: data.user_refer_id }) }>
+                <td><Link active onClick={ () => props.userClick({ user_id: data.user_refer_id }) }>
                   { data.user_refer_name } { data.user_refer_surname }
                 </Link></td>
               </tr>

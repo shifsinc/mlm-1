@@ -3,18 +3,12 @@
 }
 .finances__withdraw-money__button {
   color: var(--color2);
-  border: solid 1px var(--color2);
+  border: solid 2px var(--color2);
   border-radius: 0 3px 3px 0;
   width: 180px;
-  height: 35px;
-  line-height: 35px;
-  position: absolute;
-  right: 0;
-  top: 24px;
   z-index: 2;
-  cursor: pointer;
   text-align: center;
-  font-weight: 600;
+  font-family: calibri-bold;
 }
 .finances__withdraw-money__message {
   color: var(--color2);

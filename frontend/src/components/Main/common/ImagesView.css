@@ -1,7 +1,10 @@
 .images-view__image {
   max-width: 200px;
   max-height: 200px;
+  display: inline-block;
+  text-align: center;
+  margin: 0 10px !important;
 }
 .images-view__image.multiple {
-  
+
 }

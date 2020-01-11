@@ -31,7 +31,7 @@ export default class extends React.Component {
 
         <Input regexp={ /^[0-9]*$/ } label="Вывод средств" className="finances__withdraw-money__input"
           attr={{ value: this.state.amount, onChange: this._onChange }}>
-          <div className="finances__withdraw-money__button" onClick={ this._onSubmit }>Вывести средства</div>
+          <div className="finances__withdraw-money__button input__button" onClick={ this._onSubmit }>Вывести средства</div>
         </Input>
         <span className="finances__withdraw-money__message">{ msg }</span>
 

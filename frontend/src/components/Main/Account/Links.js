@@ -23,17 +23,17 @@ export default function(props){/*data, toggleLink*/
 
         <Input attr={{ readOnly: true, value: link + '?refer=' + data.user_phone + '&type=l' }}
           label="Ссылка на левую ногу" className="label-top">
-          <div className="account__links__copy-button" onClick={ _copyClick }></div>
+          <div className="account__links__copy-button input__button" onClick={ _copyClick }></div>
         </Input>
 
         <Input attr={{ readOnly: true, value: link + '?refer=' + data.user_phone + '&type=r'  }}
           label="Ссылка на правую ногу" className="label-top">
-          <div className="account__links__copy-button" onClick={ _copyClick }></div>
+          <div className="account__links__copy-button input__button" onClick={ _copyClick }></div>
         </Input>
 
         <Input attr={{ readOnly: true, value: link + '?refer=' + data.user_phone }}
           label="Общая ссылка" className="label-top">
-          <div className="account__links__copy-button" onClick={ _copyClick }></div>
+          <div className="account__links__copy-button input__button" onClick={ _copyClick }></div>
         </Input>
 
         <Switch titles={[ 'Левая нога', 'Правая нога' ]}

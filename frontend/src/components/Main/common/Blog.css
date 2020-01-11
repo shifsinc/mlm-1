@@ -2,13 +2,15 @@
   position: relative;
 }
 .blog__item__title {
-  font-weight: 800;
+  font-family: calibri-bold;
   font-size: 20px;
-  margin-bottom: 15px;
+  margin: 15px 5px;
 }
 .blog__item__date {
   color: var(--color3);
+  margin: 10px 5px;
 }
-.blog__text {
-  color: var(--color4);
+.blog__item__text {
+  margin: 10px 5px;
+  font-family: montserrat;
 }

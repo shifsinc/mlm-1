@@ -18,6 +18,7 @@
   color: #FFF !important;
   height: 25px;
   line-height: 25px;
+  font-family: calibri-bold;
 }
 .button-client {
   background-color: var(--client-color);

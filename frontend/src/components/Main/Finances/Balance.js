@@ -9,8 +9,8 @@ export default function(props){/*data, refillClick, transferClick*/
       <div className="finances__balance__label">Текущий баланс YT</div>
       <div className="finances__balance__value">{ data.account_balance }</div>
       <div className="finances__balance__cont">
-        <Link className="button finances__balance__button" onClick={ props.refillClick }>Пополнить кошелек</Link>
-        <Link className="button finances__balance__button" onClick={ props.transferClick }>Перевести YT</Link>
+        <Link className="button button_inactive finances__balance__button" onClick={ props.refillClick }>Пополнить кошелек</Link>
+        <Link className="button button_inactive finances__balance__button" onClick={ props.transferClick }>Перевести YT</Link>
       </div>
     </div>
   );

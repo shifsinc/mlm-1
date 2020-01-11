@@ -17,7 +17,7 @@
   border: none;
 }
 .menu__item.active {
-  font-weight: 800;
+  font-family: calibri-bold;
 }
 .menu__item.inactive {
   background-color: var(--color6);

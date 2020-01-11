@@ -5,11 +5,7 @@
 }
 .table th,
 .table td {
-  border-bottom: solid 1px var(--color5);
   padding: 8px 10px;
-}
-.table tr:last-child td {
-  border-bottom: none;
 }
 .table thead tr {
   color: var(--color1);

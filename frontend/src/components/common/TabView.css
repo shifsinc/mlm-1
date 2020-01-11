@@ -1,5 +1,5 @@
 .tab-view__header {
-  background-color: var(--color6);
+  background-image: linear-gradient(to top, #ECECEC, #FFF);
   border-radius: 3px 3px 0 0;
   overflow: hidden;
 }
@@ -14,14 +14,23 @@
 }
 .tab-view__header__item {
   display: inline-block;
-  height: 60px;
-  line-height: 60px;
+  height: 45px;
+  line-height: 45px;
   padding: 0 20px;
   color: var(--color4);
   outline: none;
+  font-family: calibri-bold;
+  color: var(--color3) !important;
 }
 .tab-view__header__item.active {
   background-color: #FFF;
+  color: #000 !important;
+}
+.tab-view__header__item.active-left {
+  border-radius: 0 0 3px 0;
+}
+.tab-view__header__item.active-right {
+  border-radius: 0 0 0 3px;
 }
 
 .tab-view__cover-mobile {

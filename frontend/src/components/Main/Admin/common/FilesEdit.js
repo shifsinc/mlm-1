@@ -42,10 +42,13 @@ export default class extends React.Component {
     </>);
   }
 
-  _editClick = d => {
-
-  }
   _deleteClick = d => {
+    this.props.apiCall('admin/deleteFile', { file_id: d.file_id }).then(r => {
+      if( r.status !== 'error' ) this.setState({ rand: Math.random() });
+    });
+  }
+
+  _editClick = d => {
 
   }
 

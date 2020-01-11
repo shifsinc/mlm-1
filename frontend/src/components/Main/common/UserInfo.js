@@ -35,7 +35,7 @@ export default function(props) {/*data*/
             <td>{ ( Math.floor( data.stats_yt_left / BINARY_CYCLE_AMOUNT ) ) } (левая) / { ( Math.floor( data.stats_yt_right / BINARY_CYCLE_AMOUNT )  ) } (правая)</td>
           </tr>
           <tr><td>Лидерский бонус</td><td>{ data.bonus_lead }</td></tr>
-          <tr><td>Заработано YT</td><td>{ data.stats_yt_total }</td></tr>
+          <tr><td>Заработано YT</td><td>{ data.stats_total_profit }</td></tr>
           <tr><td>Пользователей</td><td>{ data.stats_left_referals } (левая) / { data.stats_right_referals } (правая)</td></tr>
           <tr><td>Баланс / Списания</td><td>{ data.account_balance } / { data.account_withdraws }</td></tr>
 

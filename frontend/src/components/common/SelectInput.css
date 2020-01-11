@@ -32,9 +32,6 @@
   display: block;
 }
 .select-input__button {
-  position: absolute;
-  right: 0;
-  top: 24px;
   border-left: solid 1px var(--color3);
 }
 .select-input__button > div {

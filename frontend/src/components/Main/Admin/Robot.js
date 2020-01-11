@@ -56,7 +56,9 @@ export default class extends React.Component {
   }
 
   _deleteClick = d => {
-
+    this.props.apiCall('admin/deleteNews', { news_id: d.news_id }).then(r => {
+      if( r.status !== 'error' ) this.setState({ rand: Math.random() });
+    });
   }
 
   _onUpdateSubmit = data => {console.log(data)

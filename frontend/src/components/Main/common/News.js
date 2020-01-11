@@ -7,16 +7,17 @@ import { formatDate } from '../../../utils.js'
 import Link from '../../common/Link.js'
 import '../Admin/common.css'
 
-export default function(props){/*apiCall, _admin, _editClick, _deleteClick*/
+export default function(props){/*apiCall, _admin, _editClick, _deleteClick, _rand*/
   var data = props.data ? props.data : [];
+  var method = props._admin ? 'admin/getNews' : 'getNews';
   return (<PageView component={ _view } componentProps={{ ...props }} onPageCount={ 5 }
-    callback={ p => props.apiCall('getNews', { section: 'news', ...p }) }>
+    callback={ p => props.apiCall(method, { section: 'news', ...p }) } callbackArgs={ props._rand }>>
     </PageView>);
 }
 
 function _view(props){
   var data = props.data ? props.data : [];
-  return (<div className="news">
+  return (<div className="news items-border">
       {
         data.map((d, i) => {
           return (<div key={ i } className="news__item">
@@ -27,11 +28,11 @@ function _view(props){
                 </div> : undefined
             }
             <div className="news__item__text">{ d.news_text }</div>
+            <div><ImagesView data={ d.images }></ImagesView></div>
+            <div><VideosView data={ d.videos }></VideosView></div>
             <div className="news__item__date">
               { formatDate(new Date( d.news_dt ), false) }
             </div>
-            <ImagesView data={ d.images }></ImagesView>
-            <VideosView data={ d.videos }></VideosView>
           </div>);
         })
       }

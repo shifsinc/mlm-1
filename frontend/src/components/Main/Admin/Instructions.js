@@ -30,11 +30,7 @@ export default class extends React.Component {
         <h4>Видео</h4>
         <PageView component={ VideosView } onPageCount={ 8 }
           componentProps={{ _admin: true, _editClick: this._editClick, _deleteClick: this._deleteClick }}
-          callback={ p => this.props.apiCall('getFiles', { section: 'videos', ...p })
-            .then(r => {
-              if( r.result ) r.result.data = r.result.data.map(f => f.file_descr);
-              return r;
-            }) } callbackArgs={ this.state.rand }>
+          callback={ p => this.props.apiCall('admin/getFiles', { section: 'videos', ...p }) } callbackArgs={ this.state.rand }>
         </PageView>
         <Link className="button" onClick={ () => this.setState({ popup: 0 }) }>Добавить новый</Link>
       </div>
@@ -58,7 +54,9 @@ export default class extends React.Component {
   }
 
   _deleteClick = d => {
-
+    this.props.apiCall('admin/deleteFile', { file_id: d.file_id }).then(r => {
+      if( r.status !== 'error' ) this.setState({ rand: Math.random() });
+    });
   }
 
   _onVideoSubmit = data => {

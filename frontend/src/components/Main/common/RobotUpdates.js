@@ -7,7 +7,7 @@ import '../Admin/common.css'
 export default function(props){/*data, _admin, _editClick, _deleteClick*/
   var data = props.data ? props.data : [];
   return (
-    <div className="robot-updates__cont">
+    <div className="robot-updates__cont items-border">
       {
         data.map((d, i) => {
           return (<div key={ i } className="robot-updates__item">

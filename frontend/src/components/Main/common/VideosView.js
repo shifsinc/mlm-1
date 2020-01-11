@@ -14,7 +14,7 @@ export default function(props){/*data, _admin, _editClick, _deleteClick*/
           <Link className="admin__delete-button" onClick={ () => props._deleteClick(d)}></Link>
         </div> : undefined
     }
-    <div className={ 'videos-view__video__cont ' + className } dangerouslySetInnerHTML={{ __html: d }}></div>
+    <div className={ 'videos-view__video__cont ' + className } dangerouslySetInnerHTML={{ __html: d.file_descr }}></div>
     </div>);
   });
 }

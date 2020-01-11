@@ -20,11 +20,20 @@ body {
   --light-color: #0929B2;
   --advanced-color: #0E0E0E;
   --master-color: #960007;
+  --link-color: #49518F;
 }
 
 @font-face {
   font-family: calibri;
   src: url('./font/calibri.ttf');
+}
+@font-face {
+  font-family: calibri-bold;
+  src: url('./font/calibrib.ttf');
+}
+@font-face {
+  font-family: montserrat;
+  src: url('./font/montserratlight.ttf');
 }
 
 html, body, #root  {
@@ -111,11 +120,12 @@ a, a:visited {
 .icon-before-text:before {
   content: '';
   float: left;
-  width: 19px;
-  height: 19px;
+  width: 16px;
+  height: 16px;
   background-repeat: no-repeat;
   background-position: 50%;
-  background-size: 80%;
+  background-size: 70%;
+  margin-right: 5px;
 }
 
 .cover {
@@ -127,6 +137,17 @@ a, a:visited {
   position: fixed;
   z-index: 100;
 }
+
+.items-border > *,
+.items-border > thead > *,
+.items-border > tbody > * {
+  border-bottom: solid 1px var(--color5);
+}
+.items-border > *:last-child,
+.items-border > tbody > *:last-child {
+  border: none !important;
+}
+
 
 @media screen and ( max-width: 900px ) {
   .App {

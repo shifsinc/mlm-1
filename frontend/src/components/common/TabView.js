@@ -17,10 +17,8 @@ export default class extends React.Component {
         <div className="tab-view__header closed" ref={ r => this.header = r } onClick={ () => this.header.classList.add('closed') }>
           <div className="tab-view__header__cont">
             { this.props.titles.map((text, ind) =>
-
-                <Link key={ ind } className={ 'tab-view__header__item ' + ( this.state.activeTab === ind ? 'active' : '' ) }
+                <Link key={ ind } className={ 'tab-view__header__item' + ( this.state.activeTab === ind ? ' active' : '' ) }
                   onClick={ () => this.setState({ activeTab: ind }) }>{ text }</Link>
-
               ) }
               <div className="tab-view__header_mobile"
                 onClick={ e => {this.header.classList.remove('closed');e.stopPropagation()} }></div>

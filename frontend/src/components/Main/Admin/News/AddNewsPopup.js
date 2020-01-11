@@ -44,11 +44,18 @@ export default class extends React.Component {
 
     _onSubmit = d => {
       d.rate = this.rate;
-      Promise.all( d.images.map(img => this.props.uploadFile('admin/uploadFile', img)) ).then(r => {
-        d.images = r.map(f => f.result.filename);
-        this.props.apiCall('admin/addNews', { section: this.props.section, ...d, videos: this.state.videos }).then(r => {
-          if( r.status !== 'error' ) this.props.onClose();
+      if( d.images ){
+        Promise.all( d.images.map(img => this.props.uploadFile('admin/uploadFile', img)) ).then(r => {
+          d.images = r.map(f => f.result.filename);
+          this._sendRequest(d);
         });
+      } else this._sendRequest(d);
+
+    }
+
+    _sendRequest = d => {
+      this.props.apiCall('admin/addNews', { section: this.props.section, ...d, videos: this.state.videos }).then(r => {
+        if( r.status !== 'error' ) this.props.onClose();
       });
     }
 
