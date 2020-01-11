@@ -8,6 +8,7 @@ module.exports = function(callback, params, _user_id){/*count, offset, section*/
     return callback( INCORRECT_QUERY );
 
   makeQuery(`SELECT
+    file_id,
     file_type,
     file_title,
     file_descr,

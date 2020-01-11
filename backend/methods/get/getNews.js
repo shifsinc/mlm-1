@@ -25,8 +25,10 @@ module.exports = function(callback, params, _user_id){/*count, offset, section*/
           res.result.forEach(r => {
             var img = [], vid = [];
             files.forEach(f => {
-              if( f.file_fk === r.news_id && f.file_section === 'news_image' ) img.push( FILES_PREFIX + f.file_name );
-              if( f.file_fk === r.news_id && f.file_section === 'news_video' ) vid.push( f.file_descr );
+              if( f.file_fk === r.news_id && f.file_section === 'news_image' )
+                img.push( Object.assign( {}, f, { file_name: FILES_PREFIX + f.file_name }) );
+              if( f.file_fk === r.news_id && f.file_section === 'news_video' )
+                vid.push( f );
             });
             r.images = img;
             r.videos = vid;

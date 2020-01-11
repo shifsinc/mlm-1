@@ -28,7 +28,8 @@ function _(callback, user_id){
     stats_yt_left,
     stats_yt_right,
     stats_binary_cycles,
-    stats_day_profit
+    stats_day_profit,
+    stats_total_profit
     FROM users_stats
     WHERE user_id=?`, [ user_id ],
     res => {

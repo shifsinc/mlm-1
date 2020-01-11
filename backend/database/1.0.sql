@@ -126,6 +126,7 @@ CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`users_stats` (
   `stats_purchase_sum` INT(11) NOT NULL DEFAULT '0',
   `stats_day_profit` DOUBLE NOT NULL DEFAULT '0',
   `stats_day_profit_ts` TIMESTAMP NULL DEFAULT NULL,
+  `stats_total_profit` DOUBLE NOT NULL DEFAULT '0',
   PRIMARY KEY (`stats_id`),
   UNIQUE INDEX `stats_id_UNIQUE` (`stats_id` ASC),
   UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC),
@@ -617,10 +618,14 @@ BEGIN
     SET @profit = new.account_balance - old.account_balance;
     SET @today = (SELECT user_id FROM users_stats WHERE DATE(stats_day_profit_ts)=CURDATE() AND user_id=new.account_owner);
     IF(@today IS NULL) THEN
-      UPDATE users_stats SET stats_day_profit=@profit, stats_day_profit_ts=CURRENT_TIMESTAMP
+      UPDATE users_stats SET
+        stats_day_profit=@profit, stats_day_profit_ts=CURRENT_TIMESTAMP,
+        stats_total_profit=stats_total_profit+@profit
         WHERE user_id=new.account_owner;
     ELSE
-      UPDATE users_stats SET stats_day_profit=stats_day_profit+@profit, stats_day_profit_ts=CURRENT_TIMESTAMP
+      UPDATE users_stats SET
+        stats_day_profit=stats_day_profit+@profit, stats_day_profit_ts=CURRENT_TIMESTAMP,
+        stats_total_profit=stats_total_profit+@profit
         WHERE user_id=new.account_owner;
     END IF;
 

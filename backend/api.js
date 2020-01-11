@@ -78,7 +78,6 @@ module.exports = {
     [ API_PREFIX + '/admin/rejectTransaction' ]: authWrapper( adminWrapper( require('./methods/admin/rejectTransaction.js') ) ),
     [ API_PREFIX + '/admin/getAnalytics' ]: authWrapper( adminWrapper( require('./methods/admin/getAnalytics.js') ) ),
     [ API_PREFIX + '/admin/getEvents' ]: authWrapper( adminWrapper( require('./methods/admin/getEvents.js') ) ),
-    [ API_PREFIX + '/admin/getAnalytics' ]: authWrapper( adminWrapper( require('./methods/admin/getAnalytics.js') ) ),
     [ API_PREFIX + '/admin/getNews' ]: authWrapper( adminWrapper( require('./methods/admin/getNews.js') ) ),
     [ API_PREFIX + '/admin/getFiles' ]: authWrapper( adminWrapper( require('./methods/admin/getFiles.js') ) ),
   }
