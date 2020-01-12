@@ -11,9 +11,9 @@ export default function(props){/*title, extraInput, onSubmit, onClose, data*/
 
   return (<Popup className="add-robot-keys-popup" onClose={ props.onClose }>
         <Form formTitle={ props.title } submitTitle="Сохранить" submitCallback={ props.onSubmit }>
-          <Input label="Введите номер счета 1" attr={{ name: 'account1', autoFocus: true, defaultValue: data[0] }}></Input>
+          <Input label="Введите номер торгового счета 1" attr={{ name: 'account1', autoFocus: true, defaultValue: data[0] }}></Input>
           { props.extraInput ? (
-            <Input label="Введите номер счета 2" attr={{ name: 'account2', defaultValue: data[1] }}></Input>
+            <Input label="Введите номер торгового счета 2" attr={{ name: 'account2', defaultValue: data[1] }}></Input>
           ) : undefined }
           <Input label="Введите пароль" regexp={ passwordRegexp } attr={{ name: 'current_password', type: 'password' }}></Input>
         </Form>

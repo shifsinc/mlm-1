@@ -23,7 +23,7 @@ export default class extends React.Component {
     props.apiCall('getUserInfo').then(r => {
       if( !r.result ) return;
       var res = r.result;
-      if( res.user_photo_url.endsWith('noPhoto.png') ) res.user_photo_url = addPhoto;
+      if( res.user_photo_url && res.user_photo_url.endsWith('noPhoto.png') ) res.user_photo_url = addPhoto;
       this.setState(res);
     });
   }
@@ -48,10 +48,10 @@ export default class extends React.Component {
           <div className="data-form__fields">
 
             <Input attr={{ name: '_login', readOnly: true, value: this.state.user_login }}
-              label="Ваш логин" className="label-top"></Input>
+              label="Ваш логин" className="input_inactive label-top"></Input>
 
             <Input attr={{ name: '_email', readOnly: true, value: this.state.user_email }}
-              label="Ваш E-mail" className="label-top"></Input>
+              label="Ваш E-mail" className="input_inactive label-top"></Input>
 
             <div className="data-form__cont">
               <Input attr={{ name: 'name', value: this.state.user_name,

@@ -22,7 +22,7 @@ export default class extends React.Component {
       <Input label="Поиск пользователей" attr={{ value: this.state.search, onChange: e => {
         this.setState({ search: e.target.value });
       } }}>
-        <div className="admin__structure__search" onClick={ () => {
+        <div className="admin__structure__search input__button" onClick={ () => {
           var user_id = parseInt( this.state.search );
           if( !isNaN(user_id) ) this.setState({ user_id: this.state.search });
         }}></div>

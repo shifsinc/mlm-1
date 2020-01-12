@@ -15,7 +15,7 @@ export default function(props){/*updateLocation*/
         path="/terms"
         updateLocation={ props.updateLocation }>
         Пользовательское соглашение</Link>
-        <div className="page-footer__label">YODAFX.PRO © 2019</div>
+        <div className="page-footer__label">YODAFX.PRO © 2020</div>
         <div className="page-footer__socials">
           <a href="##" target="_blank" rel="noopener noreferrer"><img src={ facebookLogo } alt="facebook"/></a>
           <a href="https://instagram.com/yodafxpro_offical" target="_blank" rel="noopener noreferrer">

@@ -1,3 +1,6 @@
+.start-work__second-step .start-work__button {
+  display: none;
+}
 .start-work__save-button {
   float: right;
 }

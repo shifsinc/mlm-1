@@ -8,6 +8,14 @@
   overflow-y: scroll;
   padding: 10px;
 }
+.user-card__status-img {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: -35px;
+  left: -35px;
+  z-index: 1;
+}
 @media screen and (max-width: 900px){
   .user-card {
     margin: 50px auto !important;

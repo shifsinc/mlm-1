@@ -2,22 +2,26 @@ import React from 'react';
 import './Form.css';
 
 export default class extends React.Component{/*formTitle, submitTitle, submitCallback, className, updateLocation*/
+  constructor(props){
+    super(props);
+    this.state = {
+      submitted: false
+    }
+  }
   render(){
-    return (
-      <form className={ 'form ' + (this.props.className ? this.props.className : '') } ref={ r => this.form = r }
+    return (<form className={ 'form ' + (this.props.className ? this.props.className : '') } ref={ r => this.form = r }
         onSubmit={ this._onSubmit }>
 
         <div className="message" ref={ r => this.message = r }></div>
         { this.props.formTitle ? <h3 className="form__title">{ this.props.formTitle }</h3> : undefined }
         <div className="form__cont">
           { this.props.children }
-          <a className="link button form__button" href="##"
+          <a className={ 'link button form__button ' + ( this.state.submitted ? 'button_inactive' : '' ) } href="##"
             onClick={ this._onSubmit }>{ this.props.submitTitle }</a>
           <input type="submit" onClick={ this._onSubmit } style={{ display: 'none' }}/>
         </div>
 
-      </form>
-    );
+      </form>);
   }
 
   _checkRepeat = inputs => {
@@ -37,6 +41,7 @@ export default class extends React.Component{/*formTitle, submitTitle, submitCal
 
   _onSubmit = e => {
     e.preventDefault();
+    if( this.state.submitted ) return;
     if( this.form.querySelector('input.incorrect') ) return;
 
     var inputs = this.form.querySelectorAll('input, textarea');
@@ -51,8 +56,10 @@ export default class extends React.Component{/*formTitle, submitTitle, submitCal
     });
 
     var prom = this.props.submitCallback( data );
+    this.setState({ submitted: true });
     if( !prom ) return;
     prom.then( ({ action }) => {/*text, fields, path*/
+      this.setState({ submitted: false });
       if( !action || !this.form ) return;
       if( action.text ){
         this.message.innerHTML = action.text;

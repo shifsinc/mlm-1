@@ -10,7 +10,7 @@ export default function(props) {/*data, onClose*/
   return (
     <Popup className={ 'user-card status-' + data.user_status } onClose={ props.onClose }>
       <div className="user-card__cont">
-        <div className={ 'user-info__status-img status-' + ( data.user_status + '-avatar' ) }></div>
+        <div className={ 'user-card__status-img status-' + ( data.user_status + '-avatar' ) }></div>
         <UserInfo data={ props.data }></UserInfo>
       </div>
     </Popup>

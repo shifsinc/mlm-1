@@ -4,7 +4,6 @@
 .add-money__cont {
   padding: 10px;
   font-weight: 400;
-  color: var(--color4);
 }
 .add-money__cont > h2,
 .add-money__cont > h3 {
@@ -17,7 +16,7 @@
 .add-money__sum-label {
   position: absolute;
   right: 10px;
-  top: 34px;
+  top: 30px;
   font-size: 12px;
   color: var(--color4);
 }
@@ -30,4 +29,21 @@
 }
 .add-money__total > .input__label {
   color: var(--color2);
+}
+.add-money__transaction > .message {
+  text-align: left;
+}
+.add-money__transaction > .message > span {
+  font-family: calibri-bold;
+}
+.add-money__transaction__cont > h2 {
+
+}
+.add-money__transaction__cont > h5 {
+  color: var(--color2);
+}
+.add-money__transaction__cont > span {
+  color: var(--color2);
+  font-family: calibri-bold;
+  font-size: 20px;
 }
