@@ -1,13 +1,8 @@
 .admin__structure__search {
-  position: absolute;
-  right: 0;
-  top: 24px;
-  height: 35px;
   width: 35px;
   background-repeat: no-repeat;
   background-size: 50%;
   background-position: 50%;
   background-image: url('../../../img/icon/search@2x.png');
-  cursor: pointer;
-  z-index: 50;
+  z-index: 10;
 }

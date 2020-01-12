@@ -20,7 +20,7 @@
   bottom: 0;
   width: 100%;
   height: 70px;
-  background-image: linear-gradient(to top, #000, #999 40%, #FFF);
+  background-image: linear-gradient(to top, #000, #999 40%, rgba(255, 255, 255, 0));
 }
 .account__info__edit > .link {
   display: block;
@@ -68,7 +68,7 @@
 }
 
 .account__info__cont2 {
-  min-height: 180px;
+  height: 180px;
   display: flex;
   justify-content: space-between;
 }

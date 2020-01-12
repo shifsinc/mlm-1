@@ -4,3 +4,6 @@
   max-width: 380px;
   margin: 0 auto !important;
 }
+.login-form .message {
+  border-radius: 3px 3px 0 0;
+}

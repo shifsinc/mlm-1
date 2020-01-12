@@ -17,21 +17,21 @@ export default function(props){/*data, toggleLink*/
 
     const _copyClick = e => _copyText( e.target.parentNode.querySelector('input') )
 
-    return (
-      <TitleBlock title="Мои ссылки" className="account__links">
+    var refLink = [ link, '?refer=', data.user_phone ].join('');
+    return (<TitleBlock title="Мои ссылки" className="account__links">
         <div className="account__links__cont">
 
-        <Input attr={{ readOnly: true, value: link + '?refer=' + data.user_phone + '&type=l' }}
+        <Input attr={{ readOnly: true, value: refLink + '&type=l' }}
           label="Ссылка на левую ногу" className="label-top">
           <div className="account__links__copy-button input__button" onClick={ _copyClick }></div>
         </Input>
 
-        <Input attr={{ readOnly: true, value: link + '?refer=' + data.user_phone + '&type=r'  }}
+        <Input attr={{ readOnly: true, value: refLink + '&type=r'  }}
           label="Ссылка на правую ногу" className="label-top">
           <div className="account__links__copy-button input__button" onClick={ _copyClick }></div>
         </Input>
 
-        <Input attr={{ readOnly: true, value: link + '?refer=' + data.user_phone }}
+        <Input attr={{ readOnly: true, value: refLink }}
           label="Общая ссылка" className="label-top">
           <div className="account__links__copy-button input__button" onClick={ _copyClick }></div>
         </Input>
@@ -41,6 +41,5 @@ export default function(props){/*data, toggleLink*/
           onClick={ ind => props.toggleLink( linkTypes[ind] ) }></Switch>
 
         </div>
-      </TitleBlock>
-    );
+      </TitleBlock>);
   }

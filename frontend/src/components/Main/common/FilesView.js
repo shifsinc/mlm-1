@@ -12,7 +12,9 @@ export default function(props){/*data, _admin, _deleteClick, _editClick*/
       {
         data.map((d, i) => {
           return (<tr key={ i }>
-            <td><a className="icon-before-text" target="_blank noopener noreferrer" href={ d.file_url }>{ d.file_type }</a></td>
+            <td>
+              <a className="icon-before-text" target="_blank noopener noreferrer" href={ d.file_url } download>{ d.file_type }</a>
+            </td>
             <td>{ d.file_descr }</td>
             {
               props._admin ? (<td>

@@ -48,10 +48,10 @@ export default class extends React.Component {
           <div className="data-form__fields">
 
             <Input attr={{ name: '_login', readOnly: true, value: this.state.user_login }}
-              label="Ваш логин" className="label-top"></Input>
+              label="Ваш логин" className="input_inactive label-top"></Input>
 
             <Input attr={{ name: '_email', readOnly: true, value: this.state.user_email }}
-              label="Ваш E-mail" className="label-top"></Input>
+              label="Ваш E-mail" className="input_inactive label-top"></Input>
 
             <div className="data-form__cont">
               <Input attr={{ name: 'name', value: this.state.user_name,

@@ -33,7 +33,7 @@ export default class extends React.Component {
         <div className="step-view__header__progress"><div style={{ width: progress * 100 + '%' }}></div></div>
       </div>
       <div className={ 'interface-block step-view__cont step-view_step' + currentStep }>
-        { stepTitle ? (<div className="step-view__step-title">{ 'Шаг ' + (currentStep + 1) + ' - ' + stepTitle }</div>) : undefined }
+        { stepTitle ? (<h3 className="step-view__step-title">{ 'Шаг ' + (currentStep + 1) + ' - ' + stepTitle }</h3>) : undefined }
         <Component _next={ this.next } _prev={ this.prev } { ...props }></Component>
       </div>
     </div>);

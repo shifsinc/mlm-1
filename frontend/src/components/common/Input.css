@@ -44,3 +44,7 @@
   height: 35px;
   line-height: 35px;
 }
+
+.input_inactive input {
+  background-color: var(--color6);
+}

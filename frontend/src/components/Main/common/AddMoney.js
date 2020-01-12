@@ -56,11 +56,13 @@ export default class extends React.Component {
           </Form>
 
           <><div className="add-money__transaction show-message">
-            <div className="message">Статус транзакции: { TRANSACTION_STATUS_TITLES[ this.state.transactionStatus ] }</div>
-            <div className="add-money__cont">
-              <h3>Оплата</h3>
-              <h2>Отправьте</h2>
-              { this.state.serverTotal.toFixed(5) } { this.state.payMethod === 0 ? 'USD' : 'ETH' }
+            <div className="message">
+              Статус транзакции: <span>{ TRANSACTION_STATUS_TITLES[ this.state.transactionStatus ] }</span>
+            </div>
+            <div className="add-money__transaction__cont">
+              <h2>ОПЛАТА</h2>
+              <h5>ОТПРАВЬТЕ</h5>
+              <span>{ this.state.serverTotal.toFixed(5) } { this.state.payMethod === 0 ? 'USD' : 'ETH' }</span>
               <Input className="add-money__wallet label-top" label="На адрес:" attr={{
                   readOnly: true,
                   value: this.state.payMethod === 0 ? this.state.wallets.paypal_wallet : this.state.wallets.eth_wallet
