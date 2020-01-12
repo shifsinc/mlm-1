@@ -38,7 +38,7 @@ module.exports.rejectTransaction = function(tr_id, onSuccess, onError){
     res => {
       if( !res.result.length ) return onError( TRANSACTION_NOT_EXISTS );
       if( res.result[0].tr_status !== 'wait' ) return onError( FORBIDDEN );
-      
+
       makeQuery(`UPDATE transactions SET tr_status='rejected' WHERE tr_id=?`, [ tr_id ], res => {
         onSuccess();
       }, onError);

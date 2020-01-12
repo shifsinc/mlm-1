@@ -24,7 +24,7 @@ module.exports = function(callback, params, _user_id){/*levels, user_id*/
     res => {
       if( !res.result.length ) return callback( USER_NOT_EXISTS );
       tree = res.result[0];
-      tree.user_photo_url = PHOTOS_PREFIX + tree.user_photo;
+      if( tree.user_photo ) tree.user_photo_url = PHOTOS_PREFIX + tree.user_photo;
       makeTree(tree, levels, [], [], count => {
 
         nodesCount -= count;
@@ -47,7 +47,7 @@ function makeTree(node, level, reserveLeft, reserveRight, callback, onError){
       node._left = left ? left : ( reserveLeft.length ? reserveLeft.shift() : null );
       var res = Array.of( ...res.result ).concat( reserveLeft );
 
-      if(node._left) node._left.user_photo_url = PHOTOS_PREFIX + node._left.user_photo;
+      if( node._left && node._left.user_photo ) node._left.user_photo_url = PHOTOS_PREFIX + node._left.user_photo;
 
       makeTree( node._left, level - 1, res, [], callback, onError );
     }, onError);
@@ -59,7 +59,7 @@ function makeTree(node, level, reserveLeft, reserveRight, callback, onError){
       node._right = right ? right : ( reserveRight.length ? reserveRight.shift() : null );
       var res = Array.of( ...res.result ).concat( reserveRight );
 
-      if(node._right) node._right.user_photo_url = PHOTOS_PREFIX + node._right.user_photo;
+      if( node._right && node._right.user_photo ) node._right.user_photo_url = PHOTOS_PREFIX + node._right.user_photo;
 
       makeTree( node._right, level - 1, [], res, callback, onError );
     }, onError);

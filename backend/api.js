@@ -36,7 +36,7 @@ module.exports = {
     [ API_PREFIX + '/getReferInfo' ]: require('./methods/login/getReferInfo.js'),
     [ API_PREFIX + '/fillUserInfo' ]: authWrapper( require('./methods/login/fillUserInfo.js') ),
 
-    [ API_PREFIX + '/getUserInfo' ]: authWrapper( validateWrapper( require('./methods/get/getUserInfo.js') ) ),
+    [ API_PREFIX + '/getUserInfo' ]: authWrapper( require('./methods/get/getUserInfo.js') ),
     [ API_PREFIX + '/getSponsors' ]: authWrapper( validateWrapper( require('./methods/get/getSponsors.js') ) ),
     [ API_PREFIX + '/getReferals' ]: authWrapper( validateWrapper( require('./methods/get/getReferals.js') ) ),
     [ API_PREFIX + '/getNews' ]: authWrapper( validateWrapper( require('./methods/get/getNews.js') ) ),

@@ -11,6 +11,10 @@ module.exports = function(callback, params, _user_id){/*count, offset, pattern*/
     if( sync ){
 
       var result_ids = left_ids.concat( right_ids );
+      if( !result_ids.length ) return {
+        count: 0,
+        data: []
+      }
       makeQuery(`SELECT
         user_id,
         user_refer,
@@ -31,7 +35,7 @@ module.exports = function(callback, params, _user_id){/*count, offset, pattern*/
               res.result.forEach(r => {
                 r._user_direction = left_ids.includes( r.user_id ) ? 'l' : 'r';
                 r._is_team = r.user_refer === _user_id ? true : false;
-                r.user_photo_url = PHOTOS_PREFIX + r.user_photo
+                if( r.user_photo ) r.user_photo_url = PHOTOS_PREFIX + r.user_photo;
               });
               res.result = {
                 count: count.result[0].count,

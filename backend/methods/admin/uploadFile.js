@@ -4,9 +4,13 @@ const { FILES_PATH } = require('../../config.js');
 const md5 = require('js-md5');
 const { writeFile } = require('fs');
 
+const fileType = require('file-type');
+
 module.exports = function(callback, params, _user_id){/*_file*/
-  var filename = md5(params._file);
-  writeFile( FILES_PATH + filename, params._file, e => {
+  var  file = params._file;
+  var filename = md5( file ), filetype = fileType( file );
+  if( filetype ) filename += '.' + filetype.ext;
+  writeFile( FILES_PATH + filename, file, e => {
     callback({ status: 'ok', result: { filename } });
   });
 }

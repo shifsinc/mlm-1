@@ -30,7 +30,7 @@ module.exports = function(callback, params, _user_id){/*count, offset*/
           user_name: res.result[0]['user_name_' + i],
           user_surname: res.result[0]['user_surname_' + i],
           user_photo: res.result[0]['user_photo_' + i],
-          user_photo_url: PHOTOS_PREFIX + res.result[0]['user_photo_' + i]
+          user_photo_url: res.result[0]['user_photo_' + i] ? ( PHOTOS_PREFIX + res.result[0]['user_photo_' + i] ) : undefined
         });
       }
       res.result = {
