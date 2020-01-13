@@ -1,13 +1,16 @@
 .table {
+  overflow-x: scroll;
+}
+.table > table {
   text-align: left;
   border-collapse: collapse;
   width: 100%;
 }
-.table th,
-.table td {
+.table > table th,
+.table > table td {
   padding: 8px 10px;
 }
-.table thead tr {
+.table > table thead tr {
   color: var(--color1);
   font-size: 12px;
 }

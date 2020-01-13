@@ -2,10 +2,8 @@ import React from 'react';
 
 import PageView from '../../common/PageView.js'
 import Link from '../../common/Link.js'
-import Input from '../../common/Input.js'
 import SelectInput from '../../common/SelectInput.js'
 import ViewSelect from '../../common/ViewSelect.js'
-import FilesView from '../common/FilesView.js'
 import AddContentPopup from './common/AddContentPopup.js'
 import VideosView from '../common/VideosView.js'
 import FilesEdit from './common/FilesEdit.js'

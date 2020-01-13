@@ -56,7 +56,7 @@ export default class extends React.Component {
   _onChange = e => {
     if( !this.state.moneyRate  ) return;
     var _v = e.target.value;
-    var v = e.target.value * this.state.moneyRate.eth_rate * WITHDRAW_COMMISSION;
+    var v = e.target.value * this.state.moneyRate.rate_eth * WITHDRAW_COMMISSION;
     if( !isNaN(v) ) this.setState({ amount: _v, commission: v.toFixed(5), msg: null })
   }
 

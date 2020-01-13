@@ -80,7 +80,7 @@ export default class extends React.Component {
         </div>
         <div className="interface-block">
           <span className="label">Текущий курс YT к ETH</span>
-          <span className="value">{ this.state.moneyRate.eth_rate }</span>
+          <span className="value">{ this.state.moneyRate.rate_eth }</span>
         </div>
       </div>
     </div>);
@@ -100,7 +100,7 @@ export default class extends React.Component {
   }
 
   _calcMoney = () => {
-    var rate = this.state.payMethod === 0 ? this.state.moneyRate.usd_rate : this.state.moneyRate.eth_rate;
+    var rate = this.state.payMethod === 0 ? this.state.moneyRate.rate_usd : this.state.moneyRate.rate_eth;
     if( rate === undefined ) rate = 0;
     if( this.state.ytAmount === '' ) return { sum: '', total: '' };
     var sum =  this.state.ytAmount * rate;

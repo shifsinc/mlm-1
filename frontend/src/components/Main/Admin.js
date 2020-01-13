@@ -12,11 +12,7 @@ import Instructions from './Admin/Instructions.js'
 import Marketing from './Admin/Marketing.js'
 
 export default class extends React.Component {
-  constructor(props){/*apiCall*/
-    super(props);
-  }
-
-  render(){
+  render(){/*apiCall*/
     return (
       <div className="main__content">
         <TabView className="admin"

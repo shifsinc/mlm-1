@@ -1,7 +1,6 @@
 import React from 'react';
 import './AttachFiles.css'
 
-import Link from '../../../common/Link.js'
 import Input from '../../../common/Input.js'
 
 export default class extends React.Component {

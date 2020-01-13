@@ -69,7 +69,7 @@
   }
   #menu.close {
     background-color: transparent;
-    box-shadow: none;
+    border: none;
   }
   #menu.close + .menu-mobile-cover {
     display: none;

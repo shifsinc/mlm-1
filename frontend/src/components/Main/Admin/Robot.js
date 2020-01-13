@@ -1,15 +1,12 @@
 import React from 'react';
 
 import PageView from '../../common/PageView.js'
-import FilesView from '../common/FilesView.js'
 import Link from '../../common/Link.js'
-import Input from '../../common/Input.js'
 import SelectInput from '../../common/SelectInput.js'
 import ViewSelect from '../../common/ViewSelect.js'
 import AddContentPopup from './common/AddContentPopup.js'
 import RobotUpdates from '../common/RobotUpdates.js'
 import FilesEdit from './common/FilesEdit.js'
-import { formatDate } from '../../../utils.js'
 import { RATES_TITLES } from '../../../const.js'
 
 export default class extends React.Component {

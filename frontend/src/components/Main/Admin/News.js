@@ -5,11 +5,8 @@ import News from '../common/News.js'
 import Blog from '../common/Blog.js'
 
 import Link from '../../common/Link.js'
-import Input from '../../common/Input.js'
 import SelectInput from '../../common/SelectInput.js'
 import ViewSelect from '../../common/ViewSelect.js'
-import AddContentPopup from './common/AddContentPopup.js'
-import AttachFiles from './common/AttachFiles.js'
 import AddNewsPopup from './News/AddNewsPopup.js'
 
 export default class extends React.Component {

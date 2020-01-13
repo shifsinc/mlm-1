@@ -8,7 +8,6 @@ import Link from '../../common/Link.js'
 import '../Admin/common.css'
 
 export default function(props){/*apiCall, _admin, _editClick, _deleteClick, _rand*/
-  var data = props.data ? props.data : [];
   var method = props._admin ? 'admin/getNews' : 'getNews';
   return (<PageView component={ _view } componentProps={{ ...props }} onPageCount={ 5 }
     callback={ p => props.apiCall(method, { section: 'blog', ...p }) } callbackArgs={ props._rand }>

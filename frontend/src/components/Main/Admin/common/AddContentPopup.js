@@ -1,7 +1,6 @@
 import React from 'react';
 import './AddContentPopup.css'
 
-import Link from '../../../common/Link.js'
 import Form from '../../../common/Form.js'
 import Popup from '../../../common/Popup.js'
 
