@@ -11,7 +11,7 @@ module.exports = function(callback, params){/*refer*/
     res => {
       if( !res.result.length ) return callback( USER_NOT_EXISTS );
       res.result = res.result[0];
-      res.result.user_photo_url = PHOTOS_PREFIX + res.result.user_photo;
+      if( res.result.user_photo ) res.result.user_photo_url = PHOTOS_PREFIX + res.result.user_photo;
       callback(res);
   }, callback);
 }

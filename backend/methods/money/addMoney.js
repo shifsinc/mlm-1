@@ -11,9 +11,9 @@ module.exports = function(callback, params, _user_id){/*payMethod, amount*/
     var rate = r.result, realTotal;
 
     if( payMethod === PAY_METHOD_PAYPAL ){
-      realTotal = amount * rate.usd_rate * PAY_COMMISSION;
+      realTotal = amount * rate.rate_usd * PAY_COMMISSION;
     } else if( payMethod === PAY_METHOD_ETH ){
-      realTotal = amount * rate.eth_rate * PAY_COMMISSION;
+      realTotal = amount * rate.rate_eth * PAY_COMMISSION;
     } else return callback( INCORRECT_QUERY );
 
     getUserAccount(_user_id, acc => {

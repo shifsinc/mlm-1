@@ -15,7 +15,7 @@ const MYSQL_USER = 'root';
 //const MYSQL_USER = 'yodafxpr_mlm';
 const MYSQL_PASSWORD = '';
 //const MYSQL_PASSWORD = 'Jyv3sod';
-//const MYSQL_PASSWORD = '';
+//const MYSQL_PASSWORD = 'N&$-lkdG8,n5';
 const MYSQL_DATABASE = 'yodafxpr_mlm_db';
 
 exports.MYSQL_AUTH = {
@@ -34,3 +34,6 @@ exports.FILES_PATH = '/Library/WebServer/Documents/files/';
 //exports.FILES_PATH = '/var/www/mlm.dig-studio.ru/www/files/';
 //exports.FILES_PATH = '/home/yodafxpr/public_html/files/';
 exports.FILES_PREFIX = '/files/';
+
+exports.MAIL_USER = 'info@yodafx.pro';
+exports.MAIL_PASS = '5.mF;!XkO{[?';

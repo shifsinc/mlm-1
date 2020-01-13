@@ -72,7 +72,7 @@ export default class extends React.Component {
     this.props.apiCall('getReferInfo', { refer: value }).then(res=> {
       if( res.status === 'error' ) return;
       this.setState({
-        refer_photo_url: res.result.user_photo_url,
+        refer_photo_url: res.result.user_photo_url ? res.result.user_photo_url : noPhoto,
         refer_email: res.result.user_email,
         refer_phone: res.result.user_phone,
         _refer_phone: res.result.user_phone

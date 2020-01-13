@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "update_money_rate": "node cron/updateMoneyRate.js",
+    "check_payments": "node cron/checkPayments.js"
   },
   "author": "YR",
   "license": "ISC",
@@ -13,6 +15,7 @@
     "file-type": "^12.4.2",
     "js-md5": "^0.7.3",
     "mysql": "^2.17.1",
+    "nodemailer": "^6.4.2",
     "read-chunk": "^3.2.0",
     "sync-mysql": "^3.0.1"
   }

@@ -15,7 +15,7 @@ module.exports = function(callback, params, _user_id){/*amount, current_password
       getMoneyRate(r => {
         if( r.status === 'error' ) return callback(r);
 
-        var ethAmount = amount * r.result.eth_rate;
+        var ethAmount = amount * r.result.rate_eth;
         ethAmount -= ethAmount * WITHDRAW_COMMISSION;
         makeQuery(`INSERT INTO transactions(tr_real_amount, tr_platform_amount, tr_pay_method, tr_receiver_id, tr_type)
           VALUES(?,?,?,?,?)`, [ ethAmount, amount, 'ethereum', acc_id, 'out' ], res => {

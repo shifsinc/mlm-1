@@ -11,6 +11,8 @@ exports.DATA_NOT_UNIQUE = { status: 'error', text: 'data not unique', action: { 
 
 exports.NO_PHOTO = 'noPhoto.png';
 
+exports.DOMAIN = 'yodafx.pro';
+
 exports.loginRegexp = /^\w{5,30}$/;
 exports.emailRegexp = exports.paypalRegexp = /^.+@[a-zA-Z\-0-9\.]+$/;
 exports.passwordRegexp = /(?=^.{8,30}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
