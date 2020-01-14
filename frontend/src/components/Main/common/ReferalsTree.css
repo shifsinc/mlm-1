@@ -63,6 +63,7 @@
   flex-direction: column;
   z-index: 2;
   background-color: #FFF;
+  border-radius: 5px;
 }
 .referals-tree__user__info {
   height: 25%;
