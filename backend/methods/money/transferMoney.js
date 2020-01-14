@@ -12,6 +12,9 @@ module.exports = function(callback, params, _user_id){/*amount, receiver, curren
         var sender_acc = _acc.account_id;
 
         getUserByCode(receiver, rec => {
+          if( rec.user_id === _user_id )
+            return callback({ status: 'error', text: 'transfer not possible', action: { text: 'Перевод не возможен' } });
+
           getUserAccount(rec.user_id, acc => {
 
             var receiver_acc = acc.account_id;
