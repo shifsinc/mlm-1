@@ -48,7 +48,12 @@ exports.TRANSACTION_STATUS_TITLES = {
 exports.TRANSACTION_TITLES = {
   'internal': 'ВНУТРЕННИЙ ПЕРЕВОД',
   'in': 'ПОПОЛНЕНИЕ БАЛАНСА',
-  'out': 'ВЫВОД СРЕДСТВ'
+  'out': 'ВЫВОД СРЕДСТВ',
+  'bonus_linear': 'ЛИНЕЙНЫЙ БОНУС',
+  'bonus_binary': 'БИНАРНЫЙ БОНУС',
+  'bonus_match': 'MATCH-БОНУС',
+  'bonus_lead': 'ЛИДЕРСКИЙ БОНУС',
+  'bonus_extra': 'ЭКСТРА БОНУС'
 }
 exports.WITHDRAW_COMMISSION = 0.02;
 exports.MIN_WITHDRAW_AMOUNT = 10;

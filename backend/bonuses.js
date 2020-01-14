@@ -45,7 +45,6 @@ function linear(user, amount, level){
   if( level > 2 || user.user_rate === null ) return;
   var bonus = amount * LINEAR_BONUS_VALUES[ user.user_rate ][ level ];
 
-  makeQuery(`UPDATE accounts SET account_balance=account_balance+? WHERE account_owner=?`, [ bonus, user.user_id ]);
   makeQuery(`UPDATE users_bonuses SET bonus_linear=bonus_linear+? WHERE user_id=?`, [ bonus, user.user_id ]);
 }
 
@@ -69,7 +68,6 @@ function binary(user, amount, level, binary_cycles){
   var cycle_amount = binary_cycles * BINARY_CYCLE_AMOUNT;
   var bonus = cycle_amount * BINARY_BONUS_VALUES[ user.user_rate ];
 
-  makeQuery(`UPDATE accounts SET account_balance=account_balance+? WHERE account_owner=?`, [ bonus, user.user_id ]);
   makeQuery(`UPDATE users_bonuses SET bonus_binary=bonus_binary+? WHERE user_id=?`, [ bonus, user.user_id ]);
 }
 
@@ -77,7 +75,6 @@ function match(user, amount, level){
   if( level > MATCH_BONUS_LEVELS[ user.user_status ] || user.user_rate === null ) return 0;
   var bonus = amount * MATCH_BONUS_VALUES[ user.user_rate ];
 
-  makeQuery(`UPDATE accounts SET account_balance=account_balance+? WHERE account_owner=?`, [ bonus, user.user_id ]);
   makeQuery(`UPDATE users_bonuses SET bonus_match=bonus_match+? WHERE user_id=?`, [ bonus, user.user_id ]);
 }
 
@@ -87,7 +84,6 @@ function lead(user, amount, level, binary_cycles){
   var cycle_amount = cycles * BINARY_CYCLE_AMOUNT;
   var bonus = cycle_amount * LEAD_BONUS_VALUE;
 
-  makeQuery(`UPDATE accounts SET account_balance=account_balance+? WHERE account_owner=?`, [ bonus, user.user_id ]);
   makeQuery(`UPDATE users_bonuses SET bonus_lead=bonus_lead+?, bonus_lead_counter=bonus_lead_counter-?
       WHERE user_id=?`, [ bonus, cycles, user.user_id ]);
 }
@@ -118,7 +114,6 @@ function extra(user, amount, level){
     } else return;
 
 
-    makeQuery(`UPDATE accounts SET account_balance=account_balance+? WHERE account_owner=?`, [ bonus, user.user_id ]);
     makeQuery(`UPDATE users_bonuses SET bonus_extra=bonus_extra+?, bonus_extra_counter=? WHERE user_id=?`,
       [ bonus, counter, user.user_id ]);
 

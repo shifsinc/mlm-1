@@ -247,7 +247,7 @@ CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`transactions` (
   `tr_status` ENUM('wait', 'ok', 'rejected') NOT NULL DEFAULT 'wait',
   `tr_sender_id` INT NULL,
   `tr_receiver_id` INT NOT NULL,
-  `tr_type` ENUM('in', 'out', 'internal') NOT NULL,
+  `tr_type` ENUM('in', 'out', 'internal', 'bonus_linear', 'bonus_binary', 'bonus_match', 'bonus_lead', 'bonus_extra') NOT NULL,
   PRIMARY KEY (`tr_id`),
   UNIQUE INDEX `tr_id_UNIQUE` (`tr_id` ASC),
   CONSTRAINT `sender`
@@ -701,6 +701,53 @@ BEGIN
     SET @cycles = (SELECT stats_binary_cycles FROM users_stats WHERE user_id=new.user_id);
     SET new.user_status = calc_user_status(new.user_rate, @cycles);
   END IF;
+END$$
+
+
+/*bonuses*/
+DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`users_bonuses_AFTER_UPDATE` $$
+CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`users_bonuses_AFTER_UPDATE` AFTER UPDATE ON `users_bonuses` FOR EACH ROW
+BEGIN
+  SET @profit = 0;
+  IF( new.bonus_linear > old.bonus_linear ) THEN
+
+    SET @bonus = new.bonus_linear - old.bonus_linear;
+    SET @profit = @profit + @bonus;
+    INSERT INTO transactions(tr_platform_amount, tr_status, tr_receiver_id, tr_type)
+      VALUES(@bonus, 'ok', ( SELECT account_id FROM accounts WHERE account_owner=new.user_id ), 'bonus_linear');
+
+  ELSEIF( new.bonus_binary > old.bonus_binary ) THEN
+
+    SET @bonus = new.bonus_binary - old.bonus_binary;
+    SET @profit = @profit + @bonus;
+    INSERT INTO transactions(tr_platform_amount, tr_status, tr_receiver_id, tr_type)
+      VALUES(@bonus, 'ok', ( SELECT account_id FROM accounts WHERE account_owner=new.user_id ), 'bonus_binary');
+
+  ELSEIF( new.bonus_match > old.bonus_match ) THEN
+
+    SET @bonus = new.bonus_match - old.bonus_match;
+    SET @profit = @profit + @bonus;
+    INSERT INTO transactions(tr_platform_amount, tr_status, tr_receiver_id, tr_type)
+      VALUES(@bonus, 'ok', ( SELECT account_id FROM accounts WHERE account_owner=new.user_id ), 'bonus_match');
+
+  ELSEIF( new.bonus_lead > old.bonus_lead ) THEN
+
+    SET @bonus = new.bonus_lead - old.bonus_lead;
+    SET @profit = @profit + @bonus;
+    INSERT INTO transactions(tr_platform_amount, tr_status, tr_receiver_id, tr_type)
+      VALUES(@bonus, 'ok', ( SELECT account_id FROM accounts WHERE account_owner=new.user_id ), 'bonus_lead');
+
+  ELSEIF( new.bonus_extra > old.bonus_extra ) THEN
+
+    SET @bonus = new.bonus_extra - old.bonus_extra;
+    SET @profit = @profit + @bonus;
+    INSERT INTO transactions(tr_platform_amount, tr_status, tr_receiver_id, tr_type)
+      VALUES(@bonus, 'ok', ( SELECT account_id FROM accounts WHERE account_owner=new.user_id ), 'bonus_extra');
+
+  END IF;
+
+  UPDATE accounts SET account_balance=account_balance+@profit WHERE account_owner=new.user_id;
+
 END$$
 
 
