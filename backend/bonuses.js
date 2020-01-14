@@ -50,16 +50,21 @@ function linear(user, amount, level){
 }
 
 function binary(user, amount, level, binary_cycles){
-  if( user.user_rate === null ) return;
-  var sponsor_sum, personal_sumt;
-  if( user.user_referal_type === 'l' ){
-    sponsor_sum = user.stats_yt_sum_left;
-    personal_sum = user.stats_yt_sum_right;
-  } else {
-    sponsor_sum = user.stats_yt_sum_right;
-    personal_sum = user.stats_yt_sum_left;
+  if( user.user_rate === null || binary_cycles === 0 ) return;
+
+  if( user.user_refer_type !== null ){/*bonus conditions*/
+
+    var sponsor_sum, personal_sum;
+    if( user.user_refer_type === 'l' ){
+      sponsor_sum = user.stats_yt_sum_left;
+      personal_sum = user.stats_yt_sum_right;
+    } else if( user.user_refer_type === 'r' ) {
+      sponsor_sum = user.stats_yt_sum_right;
+      personal_sum = user.stats_yt_sum_left;
+    }
+    if( personal_sum < 250 || sponsor_sum < 750 ) return;
+
   }
-  if( personal_sum < 250 || sponsor_sum < 750 || binary_cycles === 0 ) return 0;
 
   var cycle_amount = binary_cycles * BINARY_CYCLE_AMOUNT;
   var bonus = cycle_amount * BINARY_BONUS_VALUES[ user.user_rate ];
