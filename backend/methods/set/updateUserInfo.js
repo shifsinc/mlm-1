@@ -1,5 +1,5 @@
 const { makeQuery, checkUserPwd, getUserByCode } = require('../../utils.js');
-const { INCORRECT_QUERY, AUTH_FAILED, INCORRECT_FILE, DATA_NOT_UNIQUE,
+const { INCORRECT_QUERY, OK, AUTH_FAILED, INCORRECT_FILE, DATA_NOT_UNIQUE,
   nameRegexp, phoneRegexp, linkRegexp, telegramRegexp, passwordRegexp, filenameRegexp } = require('../../const.js');
 const { PHOTOS_PATH } = require('../../config.js');
 
@@ -13,7 +13,7 @@ module.exports = function(callback, params, _user_id){
   if( pwd === undefined ) return callback( INCORRECT_QUERY );
 
   checkUserPwd(_user_id, pwd, () => {
-    
+
     var upd = {};
     if( params.name !== undefined && nameRegexp.test(params.name) ) upd.user_name = params.name;
     if( params.surname !== undefined && nameRegexp.test(params.surname) ) upd.user_surname = params.surname;

@@ -2,7 +2,7 @@ const { makeQuery, sendMail  } = require('../../utils.js');
 const { INCORRECT_QUERY, OK, emailRegexp, USER_NOT_EXISTS } = require('../../const.js');
 const { DOMAIN } = require('../../config.js');
 const md5 = require('js-md5');
-const { sendConfirmMail } = require('../../email.js');
+const { sendResetMail } = require('../../email.js');
 
 module.exports = function(callback, params){/*email*/
   var email = params.email;

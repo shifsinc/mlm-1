@@ -1,6 +1,6 @@
 const { makeQuery } = require('../../utils.js');
 const { INCORRECT_QUERY, FORBIDDEN, DATA_NOT_UNIQUE, NO_PHOTO,
-    nameRegexp, phoneRegexp, linkRegexp, telegramRegexp } = require('../../const.js');
+    nameRegexp, phoneRegexp, linkRegexp, telegramRegexp, filenameRegexp } = require('../../const.js');
 const { PHOTOS_PATH } = require('../../config.js');
 
 const { existsSync } = require('fs');

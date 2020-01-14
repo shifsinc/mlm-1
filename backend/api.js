@@ -51,7 +51,7 @@ module.exports = {
     [ API_PREFIX + '/checkUserStartWork' ]: authWrapper( validateWrapper( require('./methods/get/checkUserStartWork.js') ) ),
 
     [ API_PREFIX + '/updateUserInfo' ]: authWrapper( validateWrapper( require('./methods/set/updateUserInfo.js') ) ),
-    [ API_PREFIX + '/uploadPhoto' ]: authWrapper( validateWrapper( require('./methods/set/uploadPhoto.js') ) ),
+    [ API_PREFIX + '/uploadPhoto' ]: authWrapper( require('./methods/set/uploadPhoto.js') ),
     [ API_PREFIX + '/setGeneralLinkType' ]: authWrapper( validateWrapper( require('./methods/set/setGeneralLinkType.js') ) ),
     [ API_PREFIX + '/addRobotKeys' ]: authWrapper( validateWrapper( require('./methods/set/addRobotKeys.js') ) ),
 
