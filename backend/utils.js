@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const { MYSQL_AUTH } = require('./config.js');
+const { MYSQL_AUTH, MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS } = require('./config.js');
 const {
   INCORRECT_QUERY,
   AUTH_FAILED,
@@ -8,6 +8,7 @@ const {
   FORBIDDEN,
   tokenRegexp
 } = require('./const.js');
+const nodemailer = require('nodemailer');
 
 var _con;
 module.exports.initMysqlConnection = function(onSuccess, onError){
@@ -129,4 +130,24 @@ module.exports.getPersonalRev = function(user_id, callback, onError){
     res => {
       callback( res.result[0].sum );
     }, onError);
+}
+
+/////////////
+
+module.exports.sendMail = function(to, text, callback){
+  var tr = nodemailer.createTransport({
+    host: MAIL_HOST,
+    port: MAIL_PORT,
+    secure: true,
+    auth: {
+      user: MAIL_USER,
+      pass: MAIL_PASS
+    }
+  });
+  tr.sendMail({
+    from: MAIL_USER,
+    to,
+    subject: 'YodaFX.PRO',
+    html: text
+  }, callback);
 }

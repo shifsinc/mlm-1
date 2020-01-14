@@ -1,6 +1,11 @@
 const { makeQuery } = require('../../utils.js');
-const { INCORRECT_QUERY } = require('../../const.js');
+const { OK } = require('../../const.js');
 
 module.exports = function(callback, params, _user_id){/**/
-  callback({ status: 'ok', result: { eth_rate: 0.005882, usd_rate: 321 } });
+  makeQuery(`SELECT * FROM money_rate`, [], res => {
+    var rate = res.result[0];
+    res = OK;
+    res.result = rate;
+    callback( res );
+  }, callback);
 }

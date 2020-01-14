@@ -222,6 +222,18 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
+-- Table `yodafxpr_mlm_db`.`money_rate`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `yodafxpr_mlm_db`.`money_rate` ;
+
+CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`money_rate` (
+  `rate_eth` DOUBLE NOT NULL,
+  `rate_usd` DOUBLE NOT NULL)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
 -- Table `yodafxpr_mlm_db`.`transactions`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `yodafxpr_mlm_db`.`transactions` ;
@@ -717,5 +729,15 @@ COMMIT;
 START TRANSACTION;
 USE `yodafxpr_mlm_db`;
 INSERT INTO `yodafxpr_mlm_db`.`users` (`user_id`, `user_login`, `user_password_hash`, `user_name`, `user_email`, `user_data_filled`) VALUES (1, 'root', md5('rootPass12345aA!'), 'root', 'root@email', 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `yodafxpr_mlm_db`.`money_rate`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `yodafxpr_mlm_db`;
+INSERT INTO `yodafxpr_mlm_db`.`money_rate` (`rate_eth`, `rate_usd`) VALUES (1, 1);
 
 COMMIT;
