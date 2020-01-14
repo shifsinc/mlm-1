@@ -1,5 +1,5 @@
 const { makeQuery } = require('../../utils.js');
-const { INCORRECT_QUERY } = require('../../const.js');
+const { INCORRECT_QUERY, OK } = require('../../const.js');
 const { PHOTOS_PREFIX } = require('../../config.js');
 
 module.exports = function(callback, params, _user_id){/*count, offset, pattern*/
@@ -11,10 +11,15 @@ module.exports = function(callback, params, _user_id){/*count, offset, pattern*/
     if( sync ){
 
       var result_ids = left_ids.concat( right_ids );
-      if( !result_ids.length ) return {
+      if( !result_ids.length ){
+        var res = OK;
+        res.result = {
         count: 0,
         data: []
       }
+      return callback( res );
+    }
+
       makeQuery(`SELECT
         user_id,
         user_refer,
