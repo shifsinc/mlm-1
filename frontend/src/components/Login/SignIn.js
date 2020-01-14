@@ -4,7 +4,6 @@ import Form from '../common/Form.js'
 import Input from '../common/Input.js'
 import Switch from './Switch.js'
 import Link from '../common/Link.js'
-import { loginRegexp } from '../../const.js';
 
 export default function(props) {/*updateLocation, updateAuth*/
   return (
@@ -19,7 +18,7 @@ export default function(props) {/*updateLocation, updateAuth*/
       }}
       updateLocation = { props.updateLocation }>
       <Switch location="/signin" updateLocation={ props.updateLocation }></Switch>
-      <Input attr={{ name: 'login', autoFocus: true }} regexp={ loginRegexp } label="E-mail или логин"></Input>
+      <Input attr={{ name: 'login', autoFocus: true }} label="E-mail или логин"></Input>
       <Input attr={{ name: 'password', type: 'password' }} label="Пароль"></Input>
       <div className="sign-in__reset-pass">
         Забыли пароль?

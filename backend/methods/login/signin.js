@@ -1,12 +1,12 @@
 const { makeQuery, validateUser } = require('../../utils.js');
-const { INCORRECT_QUERY, AUTH_FAILED, ADMIN_ROLE, loginRegexp } = require('../../const.js');
+const { INCORRECT_QUERY, AUTH_FAILED, ADMIN_ROLE } = require('../../const.js');
 
 module.exports = function(callback, params){/*login, password*/
   var login = params.login, password = params.password;
-  if( login === undefined || !loginRegexp.test(login) || password === undefined ) return callback( INCORRECT_QUERY );
+  if( login === undefined || password === undefined ) return callback( INCORRECT_QUERY );
 
   makeQuery(`SELECT user_id, role_id, md5(rand()) as token FROM users
-    WHERE user_login=? AND user_password_hash=md5(?)`, [ login, password ],
+    WHERE (user_login=? OR user_email=?) AND user_password_hash=md5(?)`, [ login, login, password ],
   res => {
     if( res.result.length === 1 ){
       res.result = res.result[0];
