@@ -4,7 +4,7 @@ import Input from '../../common/Input.js'
 import Form from '../../common/Form.js'
 import Popup from '../../common/Popup.js'
 import ViewSelect from '../../common/ViewSelect.js'
-import { WITHDRAW_COMMISSION, passwordRegexp } from '../../../const.js'
+import { WITHDRAW_COMMISSION, MIN_WITHDRAW_AMOUNT, passwordRegexp } from '../../../const.js'
 
 export default class extends React.Component {
   constructor(props) {/*data, onWithdraw apiCall*/
@@ -40,8 +40,7 @@ export default class extends React.Component {
           <Popup className="withdraw-money__popup"
           onClose={ () => this.setState({ popup: null }) }>
 
-            <h3>Вы уверены, что хотите списать { this.state.amount } YT?</h3>
-            <Form submitTitle="ВЫВЕСТИ"
+            <Form submitTitle="ВЫВЕСТИ" formTitle={ 'Вы уверены, что хотите списать ' + this.state.amount + ' YT?' }
               submitCallback={ this._onConfirm }>
               <Input label="Введите пароль" regexp={ passwordRegexp } attr={{ name: 'current_password', type: 'password' }}></Input>
             </Form>
@@ -63,12 +62,14 @@ export default class extends React.Component {
   _onSubmit = () => {
     if( this.state.amount <= 0 || this.state.amount > this.props.data.account_balance )
       return this.setState({ msg: 'Недостаточно средств' });
+    if( this.state.amount < MIN_WITHDRAW_AMOUNT )
+      return this.setState({ msg: 'Минимальная сумма для вывода: ' + MIN_WITHDRAW_AMOUNT + ' YT' });
     this.setState({ popup: 0 });
   }
 
   _onConfirm = d => {
     var amount = this.state.amount;
-    this.props.apiCall('withdrawMoney', { amount: amount, ...d }).then(r => {
+    return this.props.apiCall('withdrawMoney', { amount: amount, ...d }).then(r => {
       if( r.status === 'error' ) return r;
       this.setState({ amount: '', msg: r.action.text, popup: null });
       if( this.props.onWithdraw ) this.props.onWithdraw( amount );

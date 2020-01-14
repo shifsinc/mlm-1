@@ -1,10 +1,14 @@
 const { makeQuery, checkUserPwd, getUserAccount } = require('../../utils.js');
-const { INCORRECT_QUERY, OK,WITHDRAW_COMMISSION, NOT_ENOUGH_MONEY } = require('../../const.js');
+const { INCORRECT_QUERY, OK,WITHDRAW_COMMISSION, MIN_WITHDRAW_AMOUNT, NOT_ENOUGH_MONEY } = require('../../const.js');
 const getMoneyRate = require('./getMoneyRate.js');
 
 module.exports = function(callback, params, _user_id){/*amount, current_password*/
   var amount = parseInt( params.amount ), pwd = params.current_password;
   if( isNaN(amount) ) return callback( INCORRECT_QUERY );
+  if( amount < MIN_WITHDRAW_AMOUNT )
+    return callback({ status: 'error', text: 'amount less than minimum required', action: {
+      text: 'Минимальная сумма для вывода: ' + MIN_WITHDRAW_AMOUNT
+    } });
 
   checkUserPwd(_user_id, pwd, () => {
 

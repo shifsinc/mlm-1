@@ -29,7 +29,7 @@ exports.RATES_PRICES = [
   2000
 ]
 exports.STATUS_TITLES = [
-  '', 
+  '',
   'ШТУРМОВИК',
   'R2D2',
   'С3РО',
@@ -51,6 +51,7 @@ exports.TRANSACTION_TITLES = {
   'out': 'ВЫВОД СРЕДСТВ'
 }
 exports.WITHDRAW_COMMISSION = 0.02;
+exports.MIN_WITHDRAW_AMOUNT = 10;
 
 exports.BINARY_CYCLE_AMOUNT = 250;
 
