@@ -18,7 +18,10 @@ export default function(props){/*data, userClick, updateLocation*/
       <div className="account__info__cont">
         <div className="account__info__cont1">
           <div className="account__info__account-info">
-            <div className="account__info__rate">Аккаунт: <span>{ RATES_TITLES[ data.user_rate ] }</span></div>
+            { data.user_rate ?
+              <div className="account__info__rate">Аккаунт: <span>{ RATES_TITLES[ data.user_rate ] }</span></div>
+            : undefined
+            }
           </div>
           <h2>{ data.user_name } { data.user_surname }</h2>
           <div className="account__info__status">{ STATUS_TITLES[ data.user_status ] }</div>
@@ -47,8 +50,10 @@ export default function(props){/*data, userClick, updateLocation*/
               </tr>
             ) : undefined }
           </tbody></table>
-          <img className="account__info__cont2__rate" alt="user rate" src={ RATES_IMAGES[ data.user_rate ] }/>
-
+          { data.user_rate ?
+            <img className="account__info__cont2__rate" alt="user rate" src={ RATES_IMAGES[ data.user_rate ] }/>
+            : undefined
+          }
         </div>
         <div className="account__info__cont3">
           <div className="account__info__cont3__item">
