@@ -147,7 +147,7 @@ export default class extends React.Component {
 function _view(props){/*userClick*/
   var data = props.data ? props.data : [];
   return (
-      <Table className="admin__users__list" titles={[ 'ИМЯ ФАМИЛИЯ', 'ЗАРЕГЕСТРИРОВАН', 'ТАРИФ','РЕФЕРАЛОВ В ПРАВОЙ/ЛЕВОЙ НОГЕ' ]}>
+      <Table className="admin__users__list" titles={[ 'ИМЯ ФАМИЛИЯ', 'ЗАРЕГИСТРИРОВАН', 'ТАРИФ','РЕФЕРАЛОВ В ПРАВОЙ/ЛЕВОЙ НОГЕ' ]}>
       {
         data.map((d, i) => {
           return (<tr key={ i }>

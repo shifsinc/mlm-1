@@ -20,7 +20,7 @@ export default function(props) {/*data*/
         <div className="user-info__status">{ STATUS_TITLES[ data.user_status ] }</div>
         <table className="user-info__info"><tbody>
           <tr><td>Код рефера</td><td>{ data.user_phone }</td></tr>
-          <tr><td>Зарегестрирован</td><td>{ formatDate( data.user_dt ) }</td></tr>
+          <tr><td>Зарегистрирован</td><td>{ formatDate( data.user_dt ) }</td></tr>
           { data.account_last_payment_ts ? (
             <tr><td>Последний платеж</td><td>{ formatDate( data.account_last_payment_ts ) }</td></tr>
           ) : undefined
