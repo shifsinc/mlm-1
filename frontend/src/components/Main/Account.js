@@ -19,8 +19,8 @@ export default class extends React.Component {
     props.apiCall('getUserInfo').then( r => this.setState({ info: r.result }) );
     props.apiCall('getUserBalance').then( r => this.setState({ balance: r.result }) );
     props.apiCall('getUserStats').then( r => this.setState({ stats: r.result }) );
-    props.apiCall('getReferals', { offset: 0, count: 7 }).then( r => this.setState({ referals: r.result.data }) );
-    props.apiCall('getSponsors', { offset: 0, count: 7 }).then( r => this.setState({ sponsors: r.result.data }) );
+    props.apiCall('getReferals', { offset: 0, count: 7 }).then( r => this.setState({ referals:  r.result ? r.result.data : [] }) );
+    props.apiCall('getSponsors', { offset: 0, count: 7 }).then( r => this.setState({ sponsors: r.result ? r.result.data : [] }) );
   }
 
   render(){
