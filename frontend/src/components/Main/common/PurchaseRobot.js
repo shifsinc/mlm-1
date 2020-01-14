@@ -6,7 +6,7 @@ import Form from '../../common/Form.js'
 import Input from '../../common/Input.js'
 import ViewSelect from '../../common/ViewSelect.js'
 import AddRobotKeysPopup from './AddRobotKeysPopup.js'
-import { RATES_PRICES, RATES_IMAGES, RATES_TITLES, passwordRegexp } from '../../../const.js'
+import { RATES_PRICES, RATES_IMAGES, RATES_TITLES, RATES_COUNT, passwordRegexp } from '../../../const.js'
 
 export default class extends React.Component {
   constructor(props){/*updateLocation, apiCall, noMoneyCallback, okCallback, data*/
@@ -21,31 +21,23 @@ export default class extends React.Component {
     var currentRate = this.state.currentRate ? this.state.currentRate : (this.props.data ? this.props.data.user_rate : null);
     Object.assign(this.state, { currentRate });
 
+    var rates = [];
+    for( var ind = 1 ; ind <= RATES_COUNT ; ind++ ){
+      var title;
+      if( ind === currentRate ) title = 'ПРОДЛИТЬ';
+      else if( ind < currentRate ) title = 'КУПИТЬ';
+      else title = 'ПОВЫСИТЬ';
+
+      rates.push(<div key={ ind } className="purchase-robot__robot">
+        <img src={ RATES_IMAGES[ ind ] } alt={ RATES_TITLES[ ind ] }/>
+        <Link className="button button-client" onClick={ this._onBuyClick.bind(this, ind) }>
+          { title }
+        </Link>
+      </div>);
+    }
+
     return (<div className="purchase-robot">
-      <div className="purchase-robot__robot">
-        <img src={ RATES_IMAGES[ 1 ] } alt="client"/>
-        <Link className="button button-client" onClick={() => this._onBuyClick(1)}>
-          { currentRate === 1 ? 'ПРОДЛИТЬ' : 'КУПИТЬ' }
-        </Link>
-      </div>
-      <div className="purchase-robot__robot">
-        <img src={ RATES_IMAGES[ 2 ] } alt="light"/>
-        <Link className="button button-light" onClick={() => this._onBuyClick(2)}>
-          { currentRate === 2 ? 'ПРОДЛИТЬ' : 'КУПИТЬ' }
-        </Link>
-      </div>
-      <div className="purchase-robot__robot">
-        <img src={ RATES_IMAGES[ 3 ] } alt="advanced"/>
-        <Link className="button button-advanced" onClick={() => this._onBuyClick(3)}>
-          { currentRate === 3 ? 'ПРОДЛИТЬ' : 'КУПИТЬ' }
-        </Link>
-      </div>
-      <div className="purchase-robot__robot">
-        <img src={ RATES_IMAGES[ 4 ] } alt="master"/>
-        <Link className="button button-master" onClick={() => this._onBuyClick(4)}>
-          { currentRate === 4 ? 'ПРОДЛИТЬ' : 'КУПИТЬ' }
-        </Link>
-      </div>
+      { rates }
 
       <ViewSelect active={ this.state.popup }>
 
@@ -91,7 +83,7 @@ export default class extends React.Component {
     });
   }
 
-  _onBuyClick = rate => {
+  _onBuyClick = rate => {console.log(rate)
     this.props.apiCall('getUserBalance').then(r => {
       if( r.status === 'error' ) return;
 

@@ -7,6 +7,7 @@ exports.linkRegexp = /^https?:\/\/[a-zA-Z\-0-9.]+(\/.*)?$/;
 exports.telegramRegexp = /^\w+$/;
 exports.ethereumRegexp = /^0x[a-z0-9]{40}$/;
 
+exports.RATES_COUNT = 4;
 exports.RATES_IMAGES = [
   './img/noPhoto@2x.png',
   require('./img/robot_client@2x.png'),
