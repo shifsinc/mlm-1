@@ -18,7 +18,8 @@ module.exports = function(callback, params, _user_id){/*title, text, section, ra
         img_val = images.map(f => [ _user_id, 'news_image', res.result.insertId, null, f ]);
       }
       if( videos !== null ){
-          vid_val = videos.map(f => [ _user_id, 'news_video', res.result.insertId, f, null ]);
+        videos = videos.filter(f => !!f);
+        vid_val = videos.map(f => [ _user_id, 'news_video', res.result.insertId, f, null ]);
       }
       var values = img_val.concat(vid_val);
       if( !values.length ) return callback( OK );
