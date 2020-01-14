@@ -2,11 +2,12 @@ import React from 'react';
 import './UserInfo.css'
 import './userStatus.css'
 
+import Link from '../../common/Link.js'
 import { RATES_IMAGES, STATUS_TITLES, BINARY_CYCLE_AMOUNT } from '../../../const.js'
 import { formatDate } from '../../../utils.js'
 import noPhoto from '../../../img/noPhoto.png'
 
-export default function(props) {/*data*/
+export default function(props) {/*data, userClick*/
   var data = props.data ? props.data : {};
   return (<div className="user-info">
       <div className="user-info__left">
@@ -26,8 +27,12 @@ export default function(props) {/*data*/
           ) : undefined
           }
           { data.user_refer_id ? (<>
-            <tr><td>Спонсор</td><td>{ data.user_refer_name } { data.user_refer_surname }</td></tr>
-            <tr><td>Код спонсора</td><td>{ data.user_refer_phone }</td></tr>
+            <tr><td>Спонсор</td><td>
+              <Link active onClick={ () => props.userClick( data.user_refer ) }>{ data.user_refer_name } { data.user_refer_surname }</Link>
+            </td></tr>
+            <tr><td>Код спонсора</td><td>
+              <Link active onClick={ () => props.userClick( data.user_refer ) }>{ data.user_refer_phone }</Link>
+            </td></tr>
           </>) : undefined
           }
           <tr>

@@ -48,7 +48,7 @@ export default class extends React.Component {
 
       <ViewSelect active={ this.state.popup }>
 
-        <UserCard data={ this.state.cardData }
+        <UserCard data={ this.state.cardData } apiCall={ this.props.apiCall }
           onClose={ () => this.setState({ popup: null }) }>
         </UserCard>
 

@@ -47,7 +47,7 @@ export default class extends React.Component {
                 { this.state.userData.user_blocked ? 'РАЗБЛОКИРОВАТЬ' : 'ЗАБЛОКИРОВАТЬ' }
               </Link>
             </div>
-            <UserInfo data={ this.state.userData }></UserInfo>
+            <UserInfo data={ this.state.userData } userClick={ user_id => this._userClick({ user_id }) }></UserInfo>
             <div className="admin__users__user-info__bottom">
               <Link className="button" onClick={ this._addMoneyClick }>НАЧИСЛИТЬ YT</Link>
               <Link className="button" onClick={ this._changeStatusClick }>ИЗМЕНИТЬ СТАТУС</Link>

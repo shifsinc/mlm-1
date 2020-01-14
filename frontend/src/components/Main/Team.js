@@ -14,7 +14,7 @@ import ViewSelect from '../common/ViewSelect.js'
 import { getUserCardInfo } from '../../utils.js'
 
 export default class extends React.Component {
-  constructor(props){
+  constructor(props){/*apiCall*/
     super(props);
     this.state = {
       stats: {},
@@ -58,7 +58,7 @@ export default class extends React.Component {
 
         <ViewSelect active={ this.state.popup }>
 
-          <UserCard data={ this.state.cardData }
+          <UserCard data={ this.state.cardData } apiCall={ this.props.apiCall }
             onClose={ () => this.setState({ popup: null }) }>
           </UserCard>
 

@@ -30,7 +30,7 @@ export default class extends React.Component {
       <ReferalsTree apiCall={ this.props.apiCall } userClick={ this._userClick } userId={ this.state.user_id }></ReferalsTree>
       <ViewSelect active={ this.state.popup }>
 
-        <UserCard data={ this.state.cardData }
+        <UserCard data={ this.state.cardData } apiCall={ this.props.apiCall }
           onClose={ () => this.setState({ popup: null }) }>
         </UserCard>
 
