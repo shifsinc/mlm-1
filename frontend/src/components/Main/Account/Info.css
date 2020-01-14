@@ -9,11 +9,14 @@
   display: flex;
 }
 .account__info__photo img {
-  margin: auto;
   min-height: 160px;
   max-height: 320px;
   min-width: 115px;
   max-width: 230px;
+}
+.account__info__photo__cont {
+  margin: auto;
+  position: relative;
 }
 .account__info__edit {
   position: absolute;

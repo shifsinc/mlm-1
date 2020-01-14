@@ -10,9 +10,11 @@ export default function(props){/*data, userClick, updateLocation*/
   return (
     <div className="account__info interface-block">
       <div className="account__info__photo">
+        <div className="account__info__photo__cont">
         <img className="account__photo" src={ data.user_photo_url ? data.user_photo_url : noPhoto } alt="User avatar"/>
         <div className="account__info__edit">
           <Link path="/settings" updateLocation={ props.updateLocation }>Редактировать</Link>
+        </div>
         </div>
       </div>
       <div className="account__info__cont">
@@ -57,23 +59,27 @@ export default function(props){/*data, userClick, updateLocation*/
         </div>
         <div className="account__info__cont3">
           <div className="account__info__cont3__item">
-            <div>{ data.stats_first_line_referals }</div><div>Мои рефералы</div>
+            <div onClick={ () => props.updateLocation('/finances') }>{ data.stats_first_line_referals }</div><div>Мои рефералы</div>
           </div>
           <div className="account__info__cont3__item">
-            <div>{ data.stats_day_profit }</div><div>Дневной доход</div>
+            <div onClick={ () => props.updateLocation('/finances') }>{ data.stats_day_profit }</div><div>Дневной доход</div>
           </div>
           <div className="account__info__cont3__item">
-            <div>{ data.account_balance }</div><div>Баланс YT</div>
+            <div onClick={ () => props.updateLocation('/finances') }>{ data.account_balance }</div><div>Баланс YT</div>
           </div>
           <div className="account__info__cont3__item">
-            <div>{ data.stats_yt_left }</div><div>YT слева</div>
+            <div onClick={ () => props.updateLocation('/finances') }>{ data.stats_yt_left }</div><div>YT слева</div>
           </div>
           <div className="account__info__cont3__item">
-            <div>{ data.stats_yt_right }</div><div>YT справа</div>
+            <div onClick={ () => props.updateLocation('/finances') }>{ data.stats_yt_right }</div><div>YT справа</div>
           </div>
           <div className="account__info__cont3__item">
-            <div>{ ( Math.floor( data.stats_yt_left / BINARY_CYCLE_AMOUNT ) ) + '/' +
-              ( Math.floor( data.stats_yt_right / BINARY_CYCLE_AMOUNT )  ) }</div>
+            <div onClick={ () => props.updateLocation('/finances') }>
+              {
+                ( Math.floor( data.stats_yt_left / BINARY_CYCLE_AMOUNT ) ) + '/' +
+                ( Math.floor( data.stats_yt_right / BINARY_CYCLE_AMOUNT )  )
+              }
+            </div>
             <div>Бинарные циклы</div>
           </div>
         </div>
