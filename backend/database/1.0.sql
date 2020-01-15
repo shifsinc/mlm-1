@@ -40,7 +40,7 @@ DROP TABLE IF EXISTS `yodafxpr_mlm_db`.`sessions` ;
 
 CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`sessions` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
-  `token` VARCHAR(32) NOT NULL,
+  `token` VARCHAR(64) NOT NULL,
   PRIMARY KEY (`token`),
   UNIQUE INDEX `token_UNIQUE` (`token` ASC),
   CONSTRAINT `user`
@@ -76,11 +76,11 @@ CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`users` (
   `user_rate` ENUM('client', 'light', 'advanced', 'master') NULL DEFAULT NULL,
   `user_rate_ts` TIMESTAMP NULL DEFAULT NULL,
   `user_rate_first` BOOL NULL DEFAULT NULL,
-  `password_reset_token` VARCHAR(32) NULL DEFAULT NULL,
+  `password_reset_token` VARCHAR(64) NULL DEFAULT NULL,
   `password_reset_token_ts` TIMESTAMP(6) NULL DEFAULT NULL,
   `user_data_filled` TINYINT(4) NOT NULL DEFAULT '0',
   `user_start_work` TINYINT(4) NOT NULL DEFAULT '0',
-  `email_confirm_token` VARCHAR(32) NULL DEFAULT NULL,
+  `email_confirm_token` VARCHAR(64) NULL DEFAULT NULL,
   `general_link_type` ENUM('l', 'r') NOT NULL DEFAULT 'l',
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC),
@@ -775,7 +775,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `yodafxpr_mlm_db`;
-INSERT INTO `yodafxpr_mlm_db`.`users` (`user_id`, `user_login`, `user_password_hash`, `user_name`, `user_email`, `user_data_filled`) VALUES (1, 'root', md5('rootPass12345aA!'), 'root', 'root@email', 1);
+INSERT INTO `yodafxpr_mlm_db`.`users` (`user_id`, `user_login`, `user_password_hash`, `user_name`, `user_email`, `user_data_filled`) VALUES (1, 'root', SHA('rootPass12345aA!'), 'root', 'root@email', 1);
 
 COMMIT;
 

@@ -21,7 +21,7 @@ module.exports = function(callback, params){/*resetToken, password*/
     }
 
     makeQuery(`UPDATE users SET
-      user_password_hash=md5(?),
+      user_password_hash=SHA(?),
       password_reset_token=null,
       password_reset_token_ts=null
     WHERE password_reset_token=?`, [ password, resetToken ],

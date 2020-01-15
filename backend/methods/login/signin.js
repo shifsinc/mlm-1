@@ -5,8 +5,8 @@ module.exports = function(callback, params){/*login, password*/
   var login = params.login, password = params.password;
   if( login === undefined || password === undefined ) return callback( INCORRECT_QUERY );
 
-  makeQuery(`SELECT user_id, role_id, md5(rand()) as token FROM users
-    WHERE (user_login=? OR user_email=?) AND user_password_hash=md5(?)`, [ login, login, password ],
+  makeQuery(`SELECT user_id, role_id, SHA(rand()) as token FROM users
+    WHERE (user_login=? OR user_email=?) AND user_password_hash=SHA(?)`, [ login, login, password ],
   res => {
     if( res.result.length === 1 ){
       res.result = res.result[0];

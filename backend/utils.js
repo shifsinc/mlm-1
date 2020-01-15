@@ -90,7 +90,7 @@ module.exports.parseGetParams = parseGetParams;
 //////////////////////
 
 module.exports.checkUserPwd = function(user_id, pwd, onSuccess, onError){
-  makeQuery(`SELECT user_id FROM users WHERE user_id=? AND user_password_hash=md5(?)`, [ user_id, pwd ],
+  makeQuery(`SELECT user_id FROM users WHERE user_id=? AND user_password_hash=SHA(?)`, [ user_id, pwd ],
     res => {
       if( !res.result.length ){
         res = AUTH_FAILED;

@@ -30,7 +30,7 @@ module.exports = function(callback, params, _user_id){
       }
     }
 
-    var queryStr = Object.keys(upd).map(k => k + ( k === 'user_password_hash' ? '=md5(?)' : '=?' )).join(',');
+    var queryStr = Object.keys(upd).map(k => k + ( k === 'user_password_hash' ? '=SHA(?)' : '=?' )).join(',');
     if( !queryStr.length ) return callback( INCORRECT_QUERY );
 
     makeQuery(`UPDATE users SET ` + queryStr + ` WHERE user_id=?`,
