@@ -12,7 +12,7 @@ export default class extends React.Component {
     super(props);
     this.state = { info: {} };
 
-    props.apiCall('getUserInfo').then( r => this.setState({ info: r.result }) );
+    props.apiCall('getUserInfo').then( r => this.setState({ info: r.result ? r.result : {} }) );
   }
 
   render(){

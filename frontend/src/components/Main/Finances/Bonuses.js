@@ -17,7 +17,7 @@ export default function(props){/*data*/
       {
         ITEMS.map((item, i) => {
           var val = data[ item.field ] ? data[ item.field ] : 0;
-          return (<div className="interface-block finances__bonuses__item">
+          return (<div key={ i } className="interface-block finances__bonuses__item">
             <div className="finances__bonuses__item__label">{ item.label }</div>
             <div className="finances__bonuses__item__value">{ val.toFixed(1) } YT</div>
           </div>);

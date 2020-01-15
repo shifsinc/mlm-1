@@ -6,14 +6,7 @@ import PageView from '../common/PageView.js'
 import VideosView from './common/VideosView.js'
 
 export default class extends React.Component {
-  constructor(props){/*apiCall*/
-    super(props);
-    this.state = { files: [] };
-
-    props.apiCall('getFiles', { section: 'instructions', offset: 0, count: 5 }).then( r => this.setState({ files: r.result.data }) );
-  }
-
-  render(){
+  render(){/*apiCall*/
     return (
       <div className="main__content">
         <TitleBlock title="Инструкции">
