@@ -32,7 +32,9 @@
 .button-master {
   background-color: var(--master-color);
 }
-
+.purchase-robot__popup-confirm > div {
+  margin-bottom: 10px;
+}
 .purchase-robot__popup-confirm,
 .purchase-robot__popup-save {
   width: 400px;

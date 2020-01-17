@@ -43,6 +43,7 @@ export default class extends React.Component {
 
         <Popup className="purchase-robot__popup-confirm" onClose={ () => this.setState({ popup: null }) }>
           <h3>КУПИТЬ ПАКЕТ "{ RATES_TITLES[ this.state.selectedRate ] }"?</h3>
+          <div>С Вашего счета будет списано { RATES_PRICES[ this.state.selectedRate ] } YT</div>
           <Form submitTitle="Да"
             submitCallback={() => this.setState({ popup: 1 }) }>
 
