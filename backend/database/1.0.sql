@@ -621,31 +621,6 @@ BEGIN
 END$$
 
 
-/*stats_day_profit*/
-DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`accounts_AFTER_UPDATE` $$
-CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`accounts_AFTER_UPDATE` AFTER UPDATE ON `accounts` FOR EACH ROW
-BEGIN
-  IF(new.account_balance > old.account_balance) THEN
-
-    SET @profit = new.account_balance - old.account_balance;
-    SET @today = (SELECT user_id FROM users_stats WHERE DATE(stats_day_profit_ts)=CURDATE() AND user_id=new.account_owner);
-    IF(@today IS NULL) THEN
-      UPDATE users_stats SET
-        stats_day_profit=@profit, stats_day_profit_ts=CURRENT_TIMESTAMP,
-        stats_total_profit=stats_total_profit+@profit
-        WHERE user_id=new.account_owner;
-    ELSE
-      UPDATE users_stats SET
-        stats_day_profit=stats_day_profit+@profit, stats_day_profit_ts=CURRENT_TIMESTAMP,
-        stats_total_profit=stats_total_profit+@profit
-        WHERE user_id=new.account_owner;
-    END IF;
-
-  END IF;
-END$$
-
-
-
 DROP FUNCTION IF EXISTS `yodafxpr_mlm_db`.`calc_user_status` $$
 CREATE FUNCTION `calc_user_status`( rate INT(11), cycles INT(11) )
 RETURNS INT
@@ -704,7 +679,7 @@ BEGIN
 END$$
 
 
-/*bonuses*/
+/*bonuses(transaction+balance update), stats_day_profi, stats_total_profit*/
 DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`users_bonuses_AFTER_UPDATE` $$
 CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`users_bonuses_AFTER_UPDATE` AFTER UPDATE ON `users_bonuses` FOR EACH ROW
 BEGIN
@@ -747,6 +722,19 @@ BEGIN
   END IF;
 
   UPDATE accounts SET account_balance=account_balance+@profit WHERE account_owner=new.user_id;
+
+  SET @today = (SELECT user_id FROM users_stats WHERE DATE(stats_day_profit_ts)=CURDATE() AND user_id=new.user_id);
+  IF(@today IS NULL) THEN
+    UPDATE users_stats SET
+      stats_day_profit=@profit, stats_day_profit_ts=CURRENT_TIMESTAMP,
+      stats_total_profit=stats_total_profit+@profit
+      WHERE user_id=new.user_id;
+  ELSE
+    UPDATE users_stats SET
+      stats_day_profit=stats_day_profit+@profit, stats_day_profit_ts=CURRENT_TIMESTAMP,
+      stats_total_profit=stats_total_profit+@profit
+      WHERE user_id=new.user_id;
+  END IF;
 
 END$$
 
