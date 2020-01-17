@@ -22,7 +22,8 @@ export default class extends React.Component {
           if( !isNaN(user_id) ) this.setState({ user_id: this.state.search });
         }}></div>
       </Input>
-      <ReferalsTree apiCall={ this.props.apiCall } userClick={ this._userClick } userId={ this.state.user_id }></ReferalsTree>
+      <ReferalsTree apiCall={ this.props.apiCall } updateLocation={ this.props.updateLocation }
+        userClick={ this._userClick } userId={ this.state.user_id }></ReferalsTree>
     </div>);
   }
 

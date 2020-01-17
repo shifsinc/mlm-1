@@ -4,7 +4,7 @@ import './userStatus.css'
 import { RATES_IMAGES, RATES_TITLES } from '../../../const.js'
 
 export default class extends React.Component {
-  constructor(props) {/*apiCall, userClick, userId*/
+  constructor(props) {/*apiCall, userClick, userId, updateLocation*/
     super(props);
     this.state = { tree: null };
 
@@ -81,8 +81,13 @@ export default class extends React.Component {
           <div className="referals-tree__user__yt"><span>{ node.stats_yt_left }</span><span>{ node.stats_yt_right }</span></div>
         </div>
       </div>
-      <div className="referals-tree__user__more" onClick={ () => this._updateTree(node.user_id) }></div>
+      <div className="referals-tree__user__more" onClick={ () => this._moreClick(node.user_id) }></div>
     </div>);
+  }
+
+  _moreClick = user_id => {
+    this._updateTree(user_id);
+    this.props.updateLocation('?user_id=' + user_id);
   }
 
 }

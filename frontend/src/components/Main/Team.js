@@ -51,7 +51,8 @@ export default class extends React.Component {
 
         </div>
 
-        <ReferalsTree apiCall={ this.props.apiCall } userClick={ this._userClick } userId={ this.props.params.user_id }></ReferalsTree>
+        <ReferalsTree apiCall={ this.props.apiCall } updateLocation={ this.props.updateLocation }
+          userClick={ this._userClick } userId={ this.props.params.user_id }></ReferalsTree>
 
       </div>
     )
