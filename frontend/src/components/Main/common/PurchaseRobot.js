@@ -24,9 +24,10 @@ export default class extends React.Component {
     var rates = [];
     for( var ind = 1 ; ind <= RATES_COUNT ; ind++ ){
       var title;
-      if( ind === currentRate ) title = 'ПРОДЛИТЬ';
-      else if( ind < currentRate ) title = 'КУПИТЬ';
-      else title = 'ПОВЫСИТЬ';
+      if( currentRate === null || ind < currentRate ) title = 'КУПИТЬ';
+      else if( ind > currentRate ) title = 'ПОВЫСИТЬ';
+      else title = 'ПРОДЛИТЬ';
+
 
       rates.push(<div key={ ind } className="purchase-robot__robot">
         <img src={ RATES_IMAGES[ ind ] } alt={ RATES_TITLES[ ind ] }/>
