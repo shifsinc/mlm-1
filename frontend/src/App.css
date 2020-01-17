@@ -87,9 +87,7 @@ a, a:visited {
   border: solid 1px;
   border-color: var(--color1);
   border-radius: 5px;
-  font-weight: 600;
   text-align: center;
-  font-weight: 800;
   cursor: pointer;
   font-family: calibri-bold;
 }
@@ -152,6 +150,13 @@ a, a:visited {
 .items-border > *:last-child,
 .items-border > tbody > *:last-child {
   border: none !important;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 

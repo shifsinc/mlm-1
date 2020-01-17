@@ -16,7 +16,7 @@ export default class extends React.Component {
   render(){
     var data = this.state.data;
     return (<Popup className={ 'user-card status-' + data.user_status } onClose={ this.props.onClose }>
-        <div className="user-card__cont">
+        <div className="user-card__cont no-scrollbar">
           <div className={ 'user-card__status-img status-' + ( data.user_status + '-avatar' ) }></div>
           <UserInfo data={ this.state.data } userClick={ this._userClick }></UserInfo>
         </div>
