@@ -109,7 +109,7 @@ class App extends React.Component {
 
   _updateLocation = location => {
     window.history.pushState(null, '', location);
-    setTimeout( () => this.setState({ location }), 0 );
+    setTimeout( () => this.setState({ location: window.location.pathname }), 0 );
   }
 
   _updateAuth = (authToken, admin) => {
