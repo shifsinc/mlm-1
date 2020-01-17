@@ -8,6 +8,7 @@ exports.NOT_ENOUGH_MONEY = { status: 'error', text: 'not enough money', action: 
 exports.TRANSACTION_NOT_EXISTS = { status: 'error', text: 'transaction not exists', action: { text: 'Транзакция не существует' }}
 exports.INCORRECT_FILE = { status: 'error', text: 'incorrect file', action: { text: 'Неверный тип файла' } }
 exports.DATA_NOT_UNIQUE = { status: 'error', text: 'data not unique', action: { text: 'Данные не уникальны' } }
+exports.NO_DATA_PAGES = { status: 'ok', result: { count: 0, data: [] } }
 
 exports.NO_PHOTO = 'noPhoto.png';
 
