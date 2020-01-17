@@ -27,6 +27,8 @@ module.exports = function(callback, params, _user_id){/*count, offset, pattern, 
         user_refer,
         user_name,
         user_surname,
+        user_phone,
+        user_email,
         user_photo,
         user_dt,
         user_rate + 0 AS user_rate
