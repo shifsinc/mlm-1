@@ -6,7 +6,7 @@ import Form from '../../common/Form.js'
 import Input from '../../common/Input.js'
 import ViewSelect from '../../common/ViewSelect.js'
 import AddRobotKeysPopup from './AddRobotKeysPopup.js'
-import { RATES_PRICES, RATES_IMAGES, RATES_TITLES, RATES_COUNT, passwordRegexp } from '../../../const.js'
+import { RATES_PRICES, RATES_IMAGES, RATES_TITLES, RATES_COUNT, passwordRegexp, ROBOT_SALE_TIME } from '../../../const.js'
 
 export default class extends React.Component {
   constructor(props){/*updateLocation, apiCall, noMoneyCallback, okCallback, data*/
@@ -14,24 +14,24 @@ export default class extends React.Component {
     this.state = {
       popup: null,
       selectedRate: null,
-      currentRate: props.data ? props.data.user_rate : null
+      currentRate: props.data ? props.data.user_rate : null,
+      currentPrice: null
     };
   }
   render(){
     var currentRate = this.state.currentRate ? this.state.currentRate : (this.props.data ? this.props.data.user_rate : null);
-    Object.assign(this.state, { currentRate });
+    var isSale = ( ( new Date() - new Date( this.props.data.user_rate_ts ) ) <= ROBOT_SALE_TIME );
+    Object.assign(this.state, { currentRate, isSale });
 
     var rates = [];
     for( var ind = 1 ; ind <= RATES_COUNT ; ind++ ){
       var title;
-      if( currentRate === null || ind < currentRate ) title = 'КУПИТЬ';
-      else if( ind > currentRate ) title = 'ПОВЫСИТЬ';
-      else title = 'ПРОДЛИТЬ';
-
-
+      if( ind === currentRate ) title = 'ПРОДЛИТЬ';
+      else if( currentRate !== null && ind > currentRate && this.state.isSale ) title = 'ПОВЫСИТЬ';
+      else title = 'КУПИТЬ';
       rates.push(<div key={ ind } className="purchase-robot__robot">
         <img src={ RATES_IMAGES[ ind ] } alt={ RATES_TITLES[ ind ] }/>
-        <Link className="button button-client" onClick={ this._onBuyClick.bind(this, ind) }>
+        <Link className={ 'button button-' + RATES_TITLES[ ind ].toLowerCase() } onClick={ this._onBuyClick.bind(this, ind) }>
           { title }
         </Link>
       </div>);
@@ -44,7 +44,7 @@ export default class extends React.Component {
 
         <Popup className="purchase-robot__popup-confirm" onClose={ () => this.setState({ popup: null }) }>
           <h3>КУПИТЬ ПАКЕТ "{ RATES_TITLES[ this.state.selectedRate ] }"?</h3>
-          <div>С Вашего счета будет списано { RATES_PRICES[ this.state.selectedRate ] } YT</div>
+          <div>С Вашего счета будет списано { this.state.currentPrice } YT</div>
           <Form submitTitle="Да"
             submitCallback={() => this.setState({ popup: 1 }) }>
 
@@ -85,13 +85,16 @@ export default class extends React.Component {
     });
   }
 
-  _onBuyClick = rate => {console.log(rate)
+  _onBuyClick = rate => {
     this.props.apiCall('getUserBalance').then(r => {
       if( r.status === 'error' ) return;
 
       var price, curRate = this.state.currentRate ? this.state.currentRate : 0;
       if( rate <= curRate ) price = 0;
-      else price = RATES_PRICES[ rate ] - RATES_PRICES[ curRate ];
+      else {
+        if( this.state.isSale && curRate ) price = RATES_PRICES[ rate ] - RATES_PRICES[ curRate ];
+        else price = RATES_PRICES[ rate ];
+      }
 
       if( r.result.account_balance < price ) this.props.noMoneyCallback();
       else {
@@ -99,7 +102,7 @@ export default class extends React.Component {
         if( rate > this.state.currentRate ) popup = 0;
         else if(rate < this.state.currentRate ) popup = 2;
         else popup = 3;
-        this.setState({ popup, selectedRate: rate });
+        this.setState({ popup, selectedRate: rate, currentPrice: price });
       }
     });
   }

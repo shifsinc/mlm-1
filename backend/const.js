@@ -49,6 +49,7 @@ exports.WITHDRAW_COMMISSION = 0.02;
 exports.MIN_WITHDRAW_AMOUNT = 10;
 
 exports.ROBOT_LICENSE_VALID = 6;//months
+exports.ROBOT_SALE_TIME = 15778476000;//6 months
 
 exports.BINARY_CYCLE_AMOUNT = 250;
 

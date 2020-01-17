@@ -67,3 +67,5 @@ exports.EVENTS_TITLES = {
   'new_status': 'Новый статус',
   'bonus_start': 'Условия стартового бонуса выполнены'
 }
+
+exports.ROBOT_SALE_TIME = 15778476000;//6 months

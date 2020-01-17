@@ -1,6 +1,6 @@
 const { makeQuery, beginTransaction, checkUserPwd } = require('../../utils.js');
 const { spendMoney } = require('../../money.js');
-const { INCORRECT_QUERY, OK, ROBOT_LICENSE_VALID, RATES_PRICES } = require('../../const.js');
+const { INCORRECT_QUERY, OK, ROBOT_LICENSE_VALID, ROBOT_SALE_TIME, RATES_PRICES } = require('../../const.js');
 const addRobotKeys = require('../set/addRobotKeys.js');
 
 module.exports = function(callback, params, _user_id){/*rate, account1, account2, current_password*/
@@ -28,11 +28,11 @@ module.exports = function(callback, params, _user_id){/*rate, account1, account2
 
       } else {
 
-        makeQuery(`SELECT DATE_ADD(user_rate_ts, INTERVAL ? MONTH) > CURRENT_TIMESTAMP AS is_sale FROM users WHERE user_id=?`,
-          [ ROBOT_LICENSE_VALID, _user_id ],
+        makeQuery(`SELECT user_rate_ts FROM users WHERE user_id=?`,
+          [ _user_id ],
           res => {
 
-          var price, isSale = res.result[0].is_sale;
+          var price, isSale = ( ( new Date() - new Date( res.result[0].user_rate_ts ) ) <= ROBOT_SALE_TIME );
           if( isSale && cur_rate ) price = RATES_PRICES[ rate ] - RATES_PRICES[ cur_rate ];
           else price = RATES_PRICES[ rate ];
 
