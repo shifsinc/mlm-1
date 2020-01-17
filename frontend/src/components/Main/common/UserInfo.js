@@ -35,6 +35,8 @@ export default function(props) {/*data, userClick*/
             </td></tr>
           </>) : undefined
           }
+          <tr><td>Номер телефона</td><td>{ data.user_phone }</td></tr>
+          <tr><td>Email</td><td>{ data.user_email }</td></tr>
           <tr>
             <td>Бинарных циклов</td>
             <td>{ ( Math.floor( data.stats_yt_left / BINARY_CYCLE_AMOUNT ) ) } (левая) / { ( Math.floor( data.stats_yt_right / BINARY_CYCLE_AMOUNT )  ) } (правая)</td>
