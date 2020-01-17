@@ -65,10 +65,10 @@
   .user-info__left {
     position: static;
     width: 100%;
-    height: 400px;
+    height: auto;
   }
   .user-info__photo {
-    height: 400px;
+    height: auto;
     margin-bottom: 20px;
   }
   .user-info__rate {
