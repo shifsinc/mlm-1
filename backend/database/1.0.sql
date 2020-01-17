@@ -595,8 +595,7 @@ BEGIN
   IF(old.tr_status = "wait" && new.tr_status = "ok") THEN
     IF(new.tr_type = "in") THEN
       UPDATE accounts SET
-        account_balance=account_balance+new.tr_platform_amount,
-        account_last_payment_ts=CURRENT_TIMESTAMP
+        account_balance=account_balance+new.tr_platform_amount
       WHERE account_id=new.tr_receiver_id;
     ELSEIF(new.tr_type = "out") THEN
       SET @reserved_balance = (SELECT account_balance_reserved FROM accounts WHERE account_id=new.tr_receiver_id);
@@ -662,13 +661,16 @@ END$$
 DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`users_BEFORE_UPDATE` $$
 CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`users_BEFORE_UPDATE` BEFORE UPDATE ON `users` FOR EACH ROW
 BEGIN
+
   IF( old.user_status <> new.user_status ) THEN
     INSERT INTO events(user_id, event_type) VALUES(new.user_id, 'new_status');
   END IF;
+
   IF( old.user_rate IS NULL && new.user_rate IS NOT NULL ) THEN
     SET new.user_rate_first=1;
   ELSE SET new.user_rate_first=0;
   END IF;
+
   IF(new.user_rate <> old.user_rate || ( old.user_rate IS NULL && new.user_rate IS NOT NULL )) THEN
     UPDATE users_bonuses SET bonus_start_reached=0 WHERE user_id=new.user_id;
     SET new.user_rate_ts=CURRENT_TIMESTAMP;
