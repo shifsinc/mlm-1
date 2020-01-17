@@ -44,13 +44,14 @@ export default class extends React.Component {
         </div>
         <div className="interface-block team__list">
 
-          <PageView component={ List } componentProps={{ userClick: this._userClick }} onPageCount={ 5 }
+          <PageView component={ List } componentProps={{ userClick: this._userClick, updateLocation: this.props.updateLocation }}
+            onPageCount={ 5 }
             callback={ p => this.props.apiCall('getReferals', p) }
             callbackArgs={{ pattern: this.state.pattern, line: this.state.selectedLine }}></PageView>
 
         </div>
 
-        <ReferalsTree apiCall={ this.props.apiCall } userClick={ this._userClick }></ReferalsTree>
+        <ReferalsTree apiCall={ this.props.apiCall } userClick={ this._userClick } userId={ this.props.params.user_id }></ReferalsTree>
 
       </div>
     )
