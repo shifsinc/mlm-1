@@ -35,8 +35,12 @@ export default class extends React.Component {
       <TitleBlock title="История операций" className="finances__history">
         <PageView callback={ p => this.props.apiCall('getTransactions', p) }
           callbackArgs={{ rand: this.state.rand }}
-          component={ History } onPageCount={ 5 }></PageView>
+          component={ History } componentProps={{ userClick: this._userClick }} onPageCount={ 5 }></PageView>
       </TitleBlock>
     </div>);
+  }
+
+  _userClick = user_id => {
+    this.props.showUserCard(user_id);
   }
 }
