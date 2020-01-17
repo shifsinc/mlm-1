@@ -9,18 +9,14 @@ import Stats from './Team/Stats.js'
 import List from './Team/List.js'
 
 import ReferalsTree from './common/ReferalsTree.js'
-import UserCard from './common/UserCard.js'
-import ViewSelect from '../common/ViewSelect.js'
-import { getUserCardInfo } from '../../utils.js'
 
 export default class extends React.Component {
   constructor(props){/*apiCall*/
     super(props);
     this.state = {
       stats: {},
-      cardData: {},
-      popup: null,
-      pattern: ''
+      pattern: '',
+      selectedLine: null
      };
 
     props.apiCall('getUserStats').then( r => this.setState({ stats: r.result }) );
@@ -39,7 +35,7 @@ export default class extends React.Component {
                 }}></Input>
             </div>
 
-            <Lines data={ this.state.stats }></Lines>
+            <Lines data={ this.state.stats } lineClick={ this._lineClick } active={ this.state.selectedLine }></Lines>
 
           </div>
 
@@ -50,25 +46,23 @@ export default class extends React.Component {
 
           <PageView component={ List } componentProps={{ userClick: this._userClick }} onPageCount={ 5 }
             callback={ p => this.props.apiCall('getReferals', p) }
-            callbackArgs={{ pattern: this.state.pattern }}></PageView>
+            callbackArgs={{ pattern: this.state.pattern, line: this.state.selectedLine }}></PageView>
 
         </div>
 
         <ReferalsTree apiCall={ this.props.apiCall } userClick={ this._userClick }></ReferalsTree>
-
-        <ViewSelect active={ this.state.popup }>
-
-          <UserCard data={ this.state.cardData } apiCall={ this.props.apiCall }
-            onClose={ () => this.setState({ popup: null }) }>
-          </UserCard>
-
-        </ViewSelect>
 
       </div>
     )
   }
 
   _userClick = user => {
-    getUserCardInfo( this.props.apiCall, user.user_id, d => this.setState({ cardData: d, popup: 0 }) );
+    this.props.showUserCard(user.user_id);
+  }
+
+  _lineClick = n => {
+    var selectedLine = n;
+    if( this.state.selectedLine === n ) selectedLine = null;
+    this.setState({ selectedLine });
   }
 }

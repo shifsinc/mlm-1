@@ -5,9 +5,6 @@ import SelectInput from '../../common/SelectInput.js'
 import Link from '../../common/Link.js'
 import PageView from '../../common/PageView.js'
 import Table from '../../common/Table.js'
-import ViewSelect from '../../common/ViewSelect.js'
-import UserCard from '../common/UserCard.js'
-import { getUserCardInfo } from '../../../utils.js'
 
 const USER_SORTS = [ 'withdraws' ];
 
@@ -17,9 +14,7 @@ export default class extends React.Component {
     this.state = {
       analytics: { rate_stats: [] },
       listOpened: false,
-      userSort: USER_SORTS[0],
-      popup: null,
-      cardData: {}
+      userSort: USER_SORTS[0]
     }
 
     props.apiCall('admin/getAnalytics').then( r => {
@@ -72,18 +67,11 @@ export default class extends React.Component {
           <div>Купили тариф MASTER</div><div>{ analytics.rate_stats[4] }</div>
         </div>
       </div>
-      <ViewSelect active={ this.state.popup }>
-        <UserCard data={ this.state.cardData } apiCall={ this.props.apiCall }
-          onClose={ () => this.setState({ popup: null }) }>
-        </UserCard>
-      </ViewSelect>
     </div>);
   }
 
   _userClick = u => {
-    getUserCardInfo(this.props.apiCall, u.user_id, d => {
-      this.setState({ popup: 0, cardData: d });
-    });
+    this.props.showUserCard(u.user_id);
   }
 
 }

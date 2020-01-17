@@ -2,17 +2,12 @@ import React from 'react';
 import './Structure.css'
 
 import ReferalsTree from '../common/ReferalsTree.js'
-import UserCard from '../common/UserCard.js'
-import ViewSelect from '../../common/ViewSelect.js'
 import Input from '../../common/Input.js'
-import { getUserCardInfo } from '../../../utils.js'
 
 export default class extends React.Component {
   constructor(props){/*apiCall*/
     super(props);
     this.state = {
-      popup: null,
-      cardData: {},
       user_id: null,
       search: ''
     }
@@ -28,18 +23,11 @@ export default class extends React.Component {
         }}></div>
       </Input>
       <ReferalsTree apiCall={ this.props.apiCall } userClick={ this._userClick } userId={ this.state.user_id }></ReferalsTree>
-      <ViewSelect active={ this.state.popup }>
-
-        <UserCard data={ this.state.cardData } apiCall={ this.props.apiCall }
-          onClose={ () => this.setState({ popup: null }) }>
-        </UserCard>
-
-      </ViewSelect>
     </div>);
   }
 
   _userClick = user => {
-    getUserCardInfo( this.props.apiCall, user.user_id, d => this.setState({ cardData: d, popup: 0 }) );
+    this.props.showUserCard(user.user_id);
   }
 
 }

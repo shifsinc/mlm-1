@@ -6,15 +6,11 @@ import Links from './Account/Links.js'
 import News from './common/News.js';
 import Users from './Account/Users.js';
 import TitleBlock from './common/TitleBlock.js'
-import UserCard from './common/UserCard.js'
-import ViewSelect from '../common/ViewSelect.js'
-
-import { getUserCardInfo } from '../../utils.js'
 
 export default class extends React.Component {
   constructor(props){/*apiCall*/
     super(props);
-    this.state = { info: {}, balance: {}, stats: {}, referals: [], sponsors: [], news: [], cardData: {}, popup: null }
+    this.state = { info: {}, balance: {}, stats: {}, referals: [], sponsors: [], news: [] }
 
     props.apiCall('getUserInfo').then( r => this.setState({ info: r.result }) );
     props.apiCall('getUserBalance').then( r => this.setState({ balance: r.result }) );
@@ -46,19 +42,11 @@ export default class extends React.Component {
         <News apiCall={ this.props.apiCall }></News>
       </TitleBlock>
 
-      <ViewSelect active={ this.state.popup }>
-
-        <UserCard data={ this.state.cardData } apiCall={ this.props.apiCall }
-          onClose={ () => this.setState({ popup: null }) }>
-        </UserCard>
-
-      </ViewSelect >
-
       <div style={{ clear: 'both' }}></div>
     </div>)
   }
 
   _userClick = user => {
-    getUserCardInfo( this.props.apiCall, user.user_id, d => this.setState({ cardData: d, popup: 0 }) );
+    this.props.showUserCard(user.user_id);
   }
 }

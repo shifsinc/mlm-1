@@ -2,6 +2,9 @@ import React from 'react';
 import './Main.css'
 import Menu from './Menu.js'
 import StartWork from './StartWork.js'
+import UserCard from './UserCard.js'
+import ViewSelect from '../../common/ViewSelect.js'
+import { getUserCardInfo } from '../../../utils.js'
 
 const VIEWS = {
 	'/account': require('../Account.js').default,
@@ -21,7 +24,9 @@ export default class extends React.Component {
 	constructor(props) {/*apiCall, location*/
 		super(props);
 		this.state = {
-			startWork: null
+			startWork: null,
+			popup: null,
+			cardData: {}
 		}
 
 		props.apiCall('checkUserStartWork').then(r => {
@@ -43,7 +48,7 @@ export default class extends React.Component {
 					{
 						( !this.state.startWork && this.props.location === '/robot' ) ?
 						(<StartWork apiCall={ this.props.apiCall } updateLocation={ this.props.updateLocation }></StartWork>) :
-						(<View { ...this.props }></View>)
+						(<View { ...this.props } showUserCard={ this._showUserCard }></View>)
 					}
 				</>)
 		}
@@ -51,7 +56,18 @@ export default class extends React.Component {
 	  return (
 	    <div className="main">
 				{ content }
+				<ViewSelect active={ this.state.popup }>
+
+	        <UserCard data={ this.state.cardData } apiCall={ this.props.apiCall }
+	          onClose={ () => this.setState({ popup: null }) }>
+	        </UserCard>
+
+	      </ViewSelect >
 	    </div>
 	  );
+	}
+
+	_showUserCard = user_id => {
+		getUserCardInfo( this.props.apiCall, user_id, d => this.setState({ cardData: d, popup: 0 }) );
 	}
 }

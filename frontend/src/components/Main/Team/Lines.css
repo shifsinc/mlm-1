@@ -1,3 +1,24 @@
 .team__lines .table {
   width: 100%;
+  overflow: hidden;
+}
+.team__lines__line {
+  height: 36px;
+  cursor: pointer;
+}
+.team__lines__line.active {
+  background-color: var(--color6);
+}
+.team__lines__line:after {
+  content: '';
+  width: 36px;
+  height: 36px;
+  float: right;
+  background: url('../../../img/icon/arrow_alt@2x.png') no-repeat;
+  background-size: 35%;
+  background-position: 50%;
+  transition: transform 0.1s;
+}
+.team__lines__line.active:after {
+  transform: rotate(180deg);
 }
