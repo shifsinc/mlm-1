@@ -10,7 +10,12 @@ export default function(props){/*title, extraInput, onSubmit, onClose, data*/
   var data = props.data ? props.data : [];
 
   return (<Popup className="add-robot-keys-popup" onClose={ props.onClose }>
-        <Form formTitle={ props.title } submitTitle="Сохранить" submitCallback={ props.onSubmit }>
+        <Form formTitle={ props.title } submitTitle="Сохранить" submitCallback={ d => {
+          var acc = [];
+          acc.push( d.account1 );
+          if( d.account2 ) acc.push( d.account2 );
+          return props.onSubmit({ accounts: acc, current_password: d.current_password });
+        } }>
           <Input label="Введите номер торгового счета 1" attr={{ name: 'account1', autoFocus: true, defaultValue: data[0] }}></Input>
           { props.extraInput ? (
             <Input label="Введите номер торгового счета 2" attr={{ name: 'account2', defaultValue: data[1] }}></Input>

@@ -6,3 +6,6 @@ a.link {
 a.link_active {
   color: var(--link-color) !important;
 }
+a.link_disabled {
+  cursor: not-allowed;
+}

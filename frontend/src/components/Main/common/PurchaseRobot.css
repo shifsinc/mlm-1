@@ -32,8 +32,8 @@
 .button-master {
   background-color: var(--master-color);
 }
-.purchase-robot__popup-confirm > div {
-  margin-bottom: 10px;
+.purchase-robot__popup-confirm .input {
+  margin-bottom: 20px;
 }
 .purchase-robot__popup-confirm,
 .purchase-robot__popup-save {
@@ -47,17 +47,19 @@
   line-height: 30px !important;
   margin: 0 0 20px 0 !important;
 }
-.purchase-robot__popup-confirm__button:first-child,
-.purchase-robot__popup-confirm .form__button:first-child {
+.purchase-robot__popup-confirm__button {
   float: left;
 }
-.purchase-robot__popup-confirm__button:nth-child(2),
-.purchase-robot__popup-confirm .form__button:nth-child(2) {
+.purchase-robot__popup-confirm .form__button {
   float: right;
 }
 
 .purchase-robot__popup-save .form__button {
   margin-top: 24px;
+}
+
+.purchase-robot__popup__prompt {
+  margin: 15px 0;
 }
 
 @media screen and (max-width: 900px) {

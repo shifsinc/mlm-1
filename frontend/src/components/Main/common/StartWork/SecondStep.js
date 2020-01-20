@@ -8,7 +8,7 @@ export default function(props){/*data, updateLocation, apiCall, _next*/
   return (
     <div className="start-work__second-step">
       <PurchaseRobot updateLocation={ props.updateLocation } apiCall={ props.apiCall }
-        noMoneyCallback={ () => props._next() } okCallback={ () => window.location.reload() }></PurchaseRobot>
+        noMoneyCallback={ () => props._next() } okCallback={ (rate, act) => act === 2 && window.location.reload() }></PurchaseRobot>
       <Link className="button button_inactive start-work__button"
         onClick={ () => {} }>Пропустить</Link>
       <Link className="button start-work__button start-work__save-button"

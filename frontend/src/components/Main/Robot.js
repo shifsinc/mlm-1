@@ -23,7 +23,8 @@ export default class extends React.Component {
             callbackArgs={{ rate: this.state.info.user_rate, rand: this.state.rand }} onPageCount={ 5 }
             component={ Keys } componentProps={{
               apiCall: this.props.apiCall,
-              onChange: () => this.setState({ rand: Math.random() })
+              onChange: () => this.setState({ rand: Math.random() }),
+              info: this.state.info
             }} >
           </PageView>
         </TitleBlock>

@@ -20,7 +20,7 @@ export default class extends React.Component {
   }
   render(){
     var currentRate = this.state.currentRate ? this.state.currentRate : (this.props.data ? this.props.data.user_rate : null);
-    var isSale = ( ( new Date() - new Date( this.props.data.user_rate_ts ) ) <= ROBOT_SALE_TIME );
+    var isSale = this.props.data && ( ( new Date() - new Date( this.props.data.user_rate_ts ) ) <= ROBOT_SALE_TIME );
     Object.assign(this.state, { currentRate, isSale });
 
     var rates = [];
@@ -29,9 +29,12 @@ export default class extends React.Component {
       if( ind === currentRate ) title = 'ПРОДЛИТЬ';
       else if( currentRate !== null && ind > currentRate && this.state.isSale ) title = 'ПОВЫСИТЬ';
       else title = 'КУПИТЬ';
+
+      var disabled = ind < currentRate;
       rates.push(<div key={ ind } className="purchase-robot__robot">
         <img src={ RATES_IMAGES[ ind ] } alt={ RATES_TITLES[ ind ] }/>
-        <Link className={ 'button button-' + RATES_TITLES[ ind ].toLowerCase() } onClick={ this._onBuyClick.bind(this, ind) }>
+        <Link className={ 'button button-' + RATES_TITLES[ ind ].toLowerCase() } disabled={ disabled }
+          onClick={ this._onBuyClick.bind(this, ind) }>
           { title }
         </Link>
       </div>);
@@ -42,30 +45,33 @@ export default class extends React.Component {
 
       <ViewSelect active={ this.state.popup }>
 
-        <Popup className="purchase-robot__popup-confirm" onClose={ () => this.setState({ popup: null }) }>
-          <h3>КУПИТЬ ПАКЕТ "{ RATES_TITLES[ this.state.selectedRate ] }"?</h3>
-          <div>С Вашего счета будет списано { this.state.currentPrice } YT</div>
-          <Form submitTitle="Да"
-            submitCallback={() => this.setState({ popup: 1 }) }>
+        <Popup className="purchase-robot__popup-confirm" onClose={ this._closePopup }>
+          <Form formTitle={ 'КУПИТЬ ПАКЕТ "' + RATES_TITLES[ this.state.selectedRate ] + '"?' }
+            submitTitle="Да" submitCallback={ this._onBuySubmit }>
 
+            <div className="purchase-robot__popup__prompt">С Вашего счета будет списано { this.state.currentPrice } YT</div>
+            <Input label="Введите пароль" regexp={ passwordRegexp } attr={{ name: 'current_password', type: 'password' }}></Input>
             <Link className="button button-inactive purchase-robot__popup-confirm__button"
-              onClick={ () => this.setState({ popup: null }) }>Нет</Link>
+              onClick={ this._closePopup }>Нет</Link>
 
           </Form>
         </Popup>
 
         <AddRobotKeysPopup title="ПОЗДРАВЛЯЕМ С ПОКУПКОЙ РОБОТА!"
-          onClose={ () => this.setState({ popup: null }) } onSubmit={ this._onSubmit } extraInput={ this.state.selectedRate >= 3 }>
+          onClose={ this._closePopup } onSubmit={ this._onAddKeysSubmit } extraInput={ this.state.selectedRate >= 3 }>
         </AddRobotKeysPopup>
 
-        <Popup className="purchase-robot__popup-save" onClose={ () => this.setState({ popup: null }) }>
-          <Form formTitle="ЗАМЕНА РОБОТА" submitTitle="Сохранить" submitCallback={ this._onSubmit }>
+        <Popup className="purchase-robot__popup-save" onClose={ this._closePopup }>
+          <Form formTitle="ЗАМЕНА РОБОТА" submitTitle="Сохранить" submitCallback={ () => {} }>
             <Input label="Введите пароль" regexp={ passwordRegexp } attr={{ name: 'current_password', type: 'password' }}></Input>
           </Form>
         </Popup>
 
-        <Popup className="purchase-robot__popup-save" onClose={ () => this.setState({ popup: null }) }>
-          <Form formTitle="ПРОДЛЕНИЕ РОБОТА" submitTitle="Сохранить" submitCallback={ this._onSubmit }>
+        <Popup className="purchase-robot__popup-save" onClose={ this._closePopup }>
+          <Form formTitle="ПРОДЛЕНИЕ РОБОТА" submitTitle="Сохранить" submitCallback={ this._onExtendSubmit }>
+            <div className="purchase-robot__popup__prompt">
+              С Вашего счета будет списано { RATES_PRICES[ this.state.selectedRate ] } YT
+            </div>
             <Input label="Введите пароль" regexp={ passwordRegexp } attr={{ name: 'current_password', type: 'password' }}></Input>
           </Form>
         </Popup>
@@ -75,15 +81,7 @@ export default class extends React.Component {
     </div>);
   }
 
-  _onSubmit = d => {
-    var rate = this.state.selectedRate;
-    return this.props.apiCall('buyRobot', { rate, ...d }).then(r => {
-      if( r.status === 'error' ) return r;
-      this.setState({ popup: null, currentRate: rate });
-      this.props.okCallback(rate);
-      return r;
-    });
-  }
+  _closePopup = () => this.setState({ popup: null });
 
   _onBuyClick = rate => {
     this.props.apiCall('getUserBalance').then(r => {
@@ -106,4 +104,35 @@ export default class extends React.Component {
       }
     });
   }
+
+  _onBuySubmit = d => {
+    var rate = this.state.selectedRate;
+    return this.props.apiCall('buyRobot', { rate, ...d }).then(r => {
+      if( r.status === 'error' ) return r;
+      this.setState({ popup: 1, currentRate: rate });
+      this.props.okCallback(rate, 1);
+      return r;
+    });
+  }
+
+  _onAddKeysSubmit = d => {
+    var rate = this.state.selectedRate;
+    return this.props.apiCall('addRobotKeys', d).then(r => {
+      if( r.status === 'error' ) return r;
+      this._closePopup();
+      this.props.okCallback(rate, 2);
+      return r;
+    });
+  }
+
+  _onExtendSubmit = d => {
+    var rate = this.state.selectedRate;
+    return this.props.apiCall('extendRobot', d).then(r => {
+      if( r.status === 'error' ) return r;
+      this._closePopup();
+      this.props.okCallback(rate, 3);
+      return r;
+    });
+  }
+
 }
