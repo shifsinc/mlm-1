@@ -54,6 +54,7 @@ module.exports = {
     [ API_PREFIX + '/uploadPhoto' ]: authWrapper( require('./methods/set/uploadPhoto.js') ),
     [ API_PREFIX + '/setGeneralLinkType' ]: authWrapper( validateWrapper( require('./methods/set/setGeneralLinkType.js') ) ),
     [ API_PREFIX + '/addRobotKeys' ]: authWrapper( validateWrapper( require('./methods/set/addRobotKeys.js') ) ),
+    [ API_PREFIX + '/extendRobot' ]: authWrapper( validateWrapper( require('./methods/set/extendRobot.js') ) ),
 
     [ API_PREFIX + '/buyRobot' ]: authWrapper( validateWrapper( require('./methods/money/buyRobot.js') ) ),
     [ API_PREFIX + '/updateBilling' ]: authWrapper( validateWrapper( require('./methods/money/updateBilling.js') ) ),
@@ -80,5 +81,7 @@ module.exports = {
     [ API_PREFIX + '/admin/getEvents' ]: authWrapper( adminWrapper( require('./methods/admin/getEvents.js') ) ),
     [ API_PREFIX + '/admin/getNews' ]: authWrapper( adminWrapper( require('./methods/admin/getNews.js') ) ),
     [ API_PREFIX + '/admin/getFiles' ]: authWrapper( adminWrapper( require('./methods/admin/getFiles.js') ) ),
+
+    [ API_PREFIX + '/admin/acceptPaymentPP' ]: require('./methods/money/acceptPaymentPP.js'),
   }
 }

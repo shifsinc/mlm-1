@@ -22,6 +22,7 @@ exports.telegramRegexp = /^\w+$/;
 exports.tokenRegexp = /^[a-z0-9]{40}$/;
 exports.ethereumRegexp = /^0x[a-z0-9]{40}$/;
 exports.filenameRegexp = /^[a-z0-9]{40}$/;
+exports.robotKeyRegexp = /^[0-9]+$/;
 
 exports.PASSWORD_RESET_TOKEN_VALID_TIME = 24*60*60*1000//ms
 exports.INCORRECT_TOKEN = { status: 'error', text: 'token invalid', action: { text: 'Ссылка недействительна' } };

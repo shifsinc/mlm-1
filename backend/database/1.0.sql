@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`users` (
   `user_photo` VARCHAR(45) NULL DEFAULT 'noPhoto.png',
   `user_status` ENUM('investor', 'bronze', 'silver', 'gold', 'platinum', 'sapphire', 'emerald', 'diamond', 'diamond2') NOT NULL DEFAULT 'investor',
   `user_rate` ENUM('client', 'light', 'advanced', 'master') NULL DEFAULT NULL,
+  `user_license_valid_dt` TIMESTAMP NULL DEFAULT NULL,
   `user_rate_ts` TIMESTAMP NULL DEFAULT NULL,
   `user_rate_first` BOOL NULL DEFAULT NULL,
   `password_reset_token` VARCHAR(64) NULL DEFAULT NULL,
@@ -327,7 +328,7 @@ CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`robot_keys` (
   `key_dt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` INT(11) NOT NULL,
   `key_rate` ENUM('client', 'light', 'advanced', 'master') NOT NULL,
-  `key_account` INT(11) NOT NULL,
+  `key_account` VARCHAR(32) NOT NULL,
   `key_max_deposit` INT(11) NOT NULL,
   `key_valid_dt` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`key_id`),
@@ -423,10 +424,15 @@ BEGIN
 END$$
 
 
-/*stats_first_line_active_referals, stats_second_line_active_referals, bonus_lead_counter*/
+/*stats_first_line_active_referals, stats_second_line_active_referals, bonus_lead_counter, key_valid_dt*/
 DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`users_AFTER_UPDATE` $$
 CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`users_AFTER_UPDATE` AFTER UPDATE ON `users` FOR EACH ROW
 BEGIN
+  IF(new.user_license_valid_dt <> old.user_license_valid_dt ||
+    ( old.user_license_valid_dt IS NULL && new.user_license_valid_dt IS NOT NULL )) THEN
+    UPDATE robot_keys SET key_valid_dt=new.user_license_valid_dt WHERE user_id=new.user_id AND key_rate=new.user_rate;
+  END IF;
+
   IF(new.user_rate IS NOT NULL && old.user_rate IS NULL) THEN
     UPDATE users_stats SET stats_first_line_active_referals=stats_first_line_active_referals+1 WHERE user_id=new.user_refer;
     SET @user_id = (SELECT user_refer FROM users WHERE user_id=new.user_refer);
