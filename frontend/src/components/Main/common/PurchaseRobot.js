@@ -19,8 +19,9 @@ export default class extends React.Component {
     };
   }
   render(){
-    var currentRate = this.state.currentRate ? this.state.currentRate : (this.props.data ? this.props.data.user_rate : null);
-    var isSale = this.props.data && ( ( new Date() - new Date( this.props.data.user_rate_ts ) ) <= ROBOT_SALE_TIME );
+    var data = this.props.data ? this.props.data : {};
+    var currentRate = this.state.currentRate ? this.state.currentRate : data.user_rate;
+    var isSale = data.user_rate_ts && ( ( new Date() - new Date( data.user_rate_ts ) ) <= ROBOT_SALE_TIME );
     Object.assign(this.state, { currentRate, isSale });
 
     var rates = [];
