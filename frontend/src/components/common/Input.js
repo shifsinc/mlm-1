@@ -4,8 +4,11 @@ import './Input.css';
 export default function(props){/*regexp, className, attr, label*/
   var _onBlur = e => {
     var targ = e.target, regexp = props.regexp;
+    if( !props.regexp ) return;
     if( !Array.isArray( regexp ) ) regexp = [ regexp ];
-    if( regexp[0] && !regexp.reduce((s,r) => r.test(targ.value) + s, 0) ) targ.classList.add('incorrect');
+    
+    var testResult = regexp.reduce((s,r) => r.test(targ.value) + s, 0);
+    if( regexp.length && !testResult && targ.value ) targ.classList.add('incorrect');
     else targ.classList.remove('incorrect');
   }
   return (
