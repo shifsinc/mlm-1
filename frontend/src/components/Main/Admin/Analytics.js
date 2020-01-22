@@ -23,7 +23,7 @@ export default class extends React.Component {
     });
   }
   render(){
-    var analytics = this.state.analytics;
+    var analytics = this.state.analytics, rate_stats = analytics.rate_stats;
     return (<div className="admin__analytics">
       <div className="admin__analytics__list interface-block admin__first-block">
         <div className="admin__analytics__cont">
@@ -55,16 +55,16 @@ export default class extends React.Component {
           <div>Выведенных из системы YT</div><div>{ analytics.withdraws_sum }</div>
         </div>
         <div className="admin__analytics__stats__item interface-block">
-          <div>Купили тариф CLIENT</div><div>{ analytics.rate_stats[1] }</div>
+          <div>Купили тариф CLIENT</div><div>{ rate_stats[1] ? rate_stats[1] : 0 }</div>
         </div>
         <div className="admin__analytics__stats__item interface-block">
-          <div>Купили тариф LIGHT</div><div>{ analytics.rate_stats[2] }</div>
+          <div>Купили тариф LIGHT</div><div>{ rate_stats[2] ? rate_stats[2] : 0 }</div>
         </div>
         <div className="admin__analytics__stats__item interface-block">
-          <div>Купили тариф ADVANCED</div><div>{ analytics.rate_stats[3] }</div>
+          <div>Купили тариф ADVANCED</div><div>{ rate_stats[3] ? rate_stats[3] : 0 }</div>
         </div>
         <div className="admin__analytics__stats__item interface-block">
-          <div>Купили тариф MASTER</div><div>{ analytics.rate_stats[4] }</div>
+          <div>Купили тариф MASTER</div><div>{ rate_stats[4] ? rate_stats[4] : 0 }</div>
         </div>
       </div>
     </div>);
