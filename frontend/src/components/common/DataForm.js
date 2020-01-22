@@ -56,25 +56,25 @@ export default class extends React.Component {
             <div className="data-form__cont">
               <Input attr={{ name: 'name', value: this.state.user_name,
                 onChange: e => this.setState({ user_name: e.target.value }) }}
-                regexp={ nameRegexp } label="Имя"></Input>
+                regexp={ nameRegexp } required label="Имя"></Input>
 
               <Input attr={{ name: 'surname', value: this.state.user_surname,
                 onChange: e => this.setState({ user_surname: e.target.value }) }}
-                regexp={ nameRegexp } label="Фамилия"></Input>
+                regexp={ nameRegexp } required label="Фамилия"></Input>
             </div>
 
             <Input attr={{ name: 'phone', value: this.state.user_phone,
               onChange: e => this.setState({ user_phone: e.target.value }) }}
-              regexp={ phoneRegexp } label="Телефон"></Input>
+              regexp={ phoneRegexp } required label="Телефон"></Input>
 
             <div className="data-form__cont">
               <Input attr={{ name: 'social_link', value: this.state.user_social,
                 onChange: e => this.setState({ user_social: e.target.value }) }}
-                regexp={ linkRegexp } label="Страница в социальной сети"></Input>
+                regexp={ linkRegexp } required label="Страница в социальной сети"></Input>
 
               <Input attr={{ name: 'telegram', value: this.state.user_telegram,
                 onChange: e => this.setState({ user_telegram: e.target.value }) }}
-                regexp={ telegramRegexp }  label="Telegram"></Input>
+                regexp={ telegramRegexp } required  label="Telegram"></Input>
             </div>
             {
               this.props.passwordFields ? (

@@ -39,13 +39,21 @@ export default class extends React.Component{/*formTitle, submitTitle, submitCal
     return ret;
   }
 
+  _checkRequired = inputs => {
+    return Array.prototype.reduce.call(inputs, (s, inp) => {
+      if( !inp.value && inp.classList.contains('required') ){
+        inp.classList.add('incorrect');
+        return s++;
+      } else return s;
+    }, 0);
+  }
+
   _onSubmit = e => {
     e.preventDefault();
     if( this.state.submitted ) return;
-    if( this.form.querySelector('input.incorrect') ) return;
 
-    var inputs = this.form.querySelectorAll('input, textarea');
-    if( !this._checkRepeat(inputs) ) return;
+    var inputs = this.form.querySelectorAll('input, textarea');console.log(this._checkRequired(inputs));
+    if( !this._checkRepeat(inputs) || this._checkRequired(inputs) || this.form.querySelector('input.incorrect') ) return;
 
     var data = {};
     Array.prototype.forEach.call( inputs, inp => {
