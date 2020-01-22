@@ -57,6 +57,10 @@ exports.TRANSACTION_TITLES = {
   'bonus_lead': 'ЛИДЕРСКИЙ БОНУС',
   'bonus_extra': 'ЭКСТРА БОНУС'
 }
+exports.PAY_METHOD_TITLES = {
+  'ethereum': 'ETH',
+  'paypal': 'USD'
+}
 exports.WITHDRAW_COMMISSION = 0.02;
 exports.MIN_WITHDRAW_AMOUNT = 10;
 

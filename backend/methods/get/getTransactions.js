@@ -14,6 +14,7 @@ module.exports = function(callback, params, _user_id){/*count, offset*/
         t.tr_type,
         t.tr_real_amount,
         t.tr_platform_amount,
+        t.tr_pay_method,
         t.tr_status,
         u1.user_id AS sender_id,
         u1.user_phone AS sender_code,

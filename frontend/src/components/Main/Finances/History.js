@@ -5,7 +5,7 @@ import '../common/common.css'
 import Table from '../../common/Table.js'
 import Link from '../../common/Link.js'
 import { formatDate } from '../../../utils.js'
-import { TRANSACTION_TITLES } from '../../../const.js'
+import { TRANSACTION_TITLES, PAY_METHOD_TITLES } from '../../../const.js'
 
 export default function(props){/*data, userClick*/
   var data = props.data ? props.data : [];
@@ -22,6 +22,9 @@ export default function(props){/*data, userClick*/
               descr = <>{ descr + ' ОТ ПОЛЬЗОВАТЕЛЯ ' }
                 <Link active onClick={ () => props.userClick(d.sender_id) }>{ d.sender_code }</Link></>
             }
+          }
+          if( d.tr_type === 'in' ){
+            descr += ' (' + (d.tr_real_amount.toFixed(5) + ' ' + PAY_METHOD_TITLES[ d.tr_pay_method ] ) + ')';
           }
           return (<tr key={ i }>
             <td>{ d.tr_platform_amount + ' YT' }</td>
