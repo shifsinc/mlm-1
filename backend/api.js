@@ -58,6 +58,7 @@ module.exports = {
 
     [ API_PREFIX + '/buyRobot' ]: authWrapper( validateWrapper( require('./methods/money/buyRobot.js') ) ),
     [ API_PREFIX + '/updateBilling' ]: authWrapper( validateWrapper( require('./methods/money/updateBilling.js') ) ),
+    [ API_PREFIX + '/fillBilling' ]: authWrapper( validateWrapper( require('./methods/money/fillBilling.js') ) ),
     [ API_PREFIX + '/getMoneyRate' ]: authWrapper( validateWrapper( require('./methods/money/getMoneyRate.js') ) ),
     [ API_PREFIX + '/addMoney' ]: authWrapper( validateWrapper( require('./methods/money/addMoney.js') ) ),
     [ API_PREFIX + '/transferMoney' ]: authWrapper( validateWrapper( require('./methods/money/transferMoney.js') ) ),

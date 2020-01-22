@@ -1,5 +1,5 @@
 const { makeQuery, checkUserPwd } = require('../../utils.js');
-const { INCORRECT_QUERY, OK, ethereumRegexp, paypalRegexp, passwordRegexp } = require('../../const.js');
+const { INCORRECT_QUERY, OK, ethereumRegexp, paypalRegexp } = require('../../const.js');
 
 module.exports = function(callback, params, _user_id){/*ethereum, paypal, current_password*/
   var pwd = params.current_password;
