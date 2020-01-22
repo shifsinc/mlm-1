@@ -14,7 +14,10 @@ export default function(props) {/*data, userClick*/
         <div className="user-info__photo">
           <img alt="avatar" src={ data.user_photo_url ? data.user_photo_url : noPhoto }/>
         </div>
-        <img className="user-info__rate" alt="user rate" src={ RATES_IMAGES[ data.user_rate ] }/>
+        { data.user_rate ?
+          <img className="user-info__rate" alt="user rate" src={ RATES_IMAGES[ data.user_rate ] }/>
+          : undefined
+        }
       </div>
       <div className="user-info__right">
         <h2 className="user-info__name">{ data.user_name } { data.user_surname }</h2>
