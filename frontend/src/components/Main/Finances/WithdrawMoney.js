@@ -4,7 +4,7 @@ import Input from '../../common/Input.js'
 import Form from '../../common/Form.js'
 import Popup from '../../common/Popup.js'
 import ViewSelect from '../../common/ViewSelect.js'
-import { WITHDRAW_COMMISSION, MIN_WITHDRAW_AMOUNT, passwordRegexp } from '../../../const.js'
+import { WITHDRAW_COMMISSION, MIN_WITHDRAW_AMOUNT } from '../../../const.js'
 
 export default class extends React.Component {
   constructor(props) {/*data, onWithdraw apiCall*/
@@ -42,7 +42,7 @@ export default class extends React.Component {
 
             <Form submitTitle="ВЫВЕСТИ" formTitle={ 'Вы уверены, что хотите списать ' + this.state.amount + ' YT?' }
               submitCallback={ this._onConfirm }>
-              <Input label="Введите пароль" regexp={ passwordRegexp } attr={{ name: 'current_password', type: 'password' }}></Input>
+              <Input label="Введите пароль" attr={{ name: 'current_password', type: 'password' }}></Input>
             </Form>
           </Popup>
 

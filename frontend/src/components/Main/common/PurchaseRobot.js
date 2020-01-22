@@ -6,7 +6,7 @@ import Form from '../../common/Form.js'
 import Input from '../../common/Input.js'
 import ViewSelect from '../../common/ViewSelect.js'
 import AddRobotKeysPopup from './AddRobotKeysPopup.js'
-import { RATES_PRICES, RATES_IMAGES, RATES_TITLES, RATES_COUNT, passwordRegexp, ROBOT_SALE_TIME } from '../../../const.js'
+import { RATES_PRICES, RATES_IMAGES, RATES_TITLES, RATES_COUNT, ROBOT_SALE_TIME } from '../../../const.js'
 
 export default class extends React.Component {
   constructor(props){/*updateLocation, apiCall, noMoneyCallback, okCallback, data*/
@@ -51,7 +51,7 @@ export default class extends React.Component {
             submitTitle="Да" submitCallback={ this._onBuySubmit }>
 
             <div className="purchase-robot__popup__prompt">С Вашего счета будет списано { this.state.currentPrice } YT</div>
-            <Input label="Введите пароль" regexp={ passwordRegexp } attr={{ name: 'current_password', type: 'password' }}></Input>
+            <Input label="Введите пароль" attr={{ name: 'current_password', type: 'password' }}></Input>
             <Link className="button button-inactive purchase-robot__popup-confirm__button"
               onClick={ this._closePopup }>Нет</Link>
 
@@ -64,7 +64,7 @@ export default class extends React.Component {
 
         <Popup className="purchase-robot__popup-save" onClose={ this._closePopup }>
           <Form formTitle="ЗАМЕНА РОБОТА" submitTitle="Сохранить" submitCallback={ () => {} }>
-            <Input label="Введите пароль" regexp={ passwordRegexp } attr={{ name: 'current_password', type: 'password' }}></Input>
+            <Input label="Введите пароль" attr={{ name: 'current_password', type: 'password' }}></Input>
           </Form>
         </Popup>
 
@@ -73,7 +73,7 @@ export default class extends React.Component {
             <div className="purchase-robot__popup__prompt">
               С Вашего счета будет списано { RATES_PRICES[ this.state.selectedRate ] } YT
             </div>
-            <Input label="Введите пароль" regexp={ passwordRegexp } attr={{ name: 'current_password', type: 'password' }}></Input>
+            <Input label="Введите пароль" attr={{ name: 'current_password', type: 'password' }}></Input>
           </Form>
         </Popup>
 

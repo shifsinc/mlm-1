@@ -7,7 +7,7 @@ import TabView from '../common/TabView.js'
 import Popup from '../common/Popup.js'
 import ViewSelect from '../common/ViewSelect.js'
 
-import { passwordRegexp, ethereumRegexp, paypalRegexp } from '../../const.js'
+import { ethereumRegexp, paypalRegexp } from '../../const.js'
 
 export default class extends React.Component {
   constructor(props){/*apiCall, uploadFile*/
@@ -65,8 +65,7 @@ export default class extends React.Component {
                 this.setState({ popup: null });
               }}>
 
-              <Input attr={{ name: 'current_password', type: 'password', autoFocus: true }}
-                regexp={ passwordRegexp } label="Введите текущий пароль"></Input>
+              <Input attr={{ name: 'current_password', type: 'password', autoFocus: true }} label="Введите текущий пароль"></Input>
 
             </Form>
           </Popup>

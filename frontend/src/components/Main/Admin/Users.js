@@ -11,7 +11,7 @@ import ViewSelect from '../../common/ViewSelect.js'
 import Popup from '../../common/Popup.js'
 import UserInfo from '../common/UserInfo.js'
 import { formatDate, getUserCardInfo } from '../../../utils.js'
-import { RATES_TITLES, STATUS_TITLES, passwordRegexp } from '../../../const.js'
+import { RATES_TITLES, STATUS_TITLES } from '../../../const.js'
 
 export default class extends React.Component {
   constructor(props){/*apiCall*/
@@ -63,7 +63,7 @@ export default class extends React.Component {
               submitTitle="НАЧИСЛИТЬ" submitCallback={ this._addMoneySubmit }>
 
               <Input label="Сумма YT" regexp={ /^[0-9]+$/ } attr={{ name: 'amount' }}></Input>
-              <Input label="Введите пароль" regexp={ passwordRegexp } attr={{ name: 'current_password', type: 'password' }}></Input>
+              <Input label="Введите пароль" attr={{ name: 'current_password', type: 'password' }}></Input>
 
             </Form>
           </Popup>
@@ -74,7 +74,7 @@ export default class extends React.Component {
 
               <SelectInput label="Статус" name="status" startValue={ this.state.userData.user_status - 1 }
                 options={ STATUS_TITLES.slice(1) }></SelectInput>
-              <Input label="Введите пароль" regexp={ passwordRegexp } attr={{ name: 'current_password', type: 'password' }}></Input>
+              <Input label="Введите пароль" attr={{ name: 'current_password', type: 'password' }}></Input>
 
             </Form>
           </Popup>
@@ -85,7 +85,7 @@ export default class extends React.Component {
 
               <SelectInput label="Тариф" name="rate" startValue={ this.state.userData.user_rate - 1 }
                 options={ RATES_TITLES.slice(1) }></SelectInput>
-              <Input label="Введите пароль" regexp={ passwordRegexp } attr={{ name: 'current_password', type: 'password' }}></Input>
+              <Input label="Введите пароль" attr={{ name: 'current_password', type: 'password' }}></Input>
 
             </Form>
           </Popup>
