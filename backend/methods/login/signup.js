@@ -39,7 +39,7 @@ module.exports = function(callback, params){/*login, password, email, refer_phon
             res => {
 
               sendConfirmMail(email, confirmToken, (err, info) => {
-                var resp = Obejct.assign({}, OK, { action: { path: '/signin' } });
+                var resp = Object.assign({}, OK, { action: { path: '/signin' } });
                 callback(resp);
               });
 

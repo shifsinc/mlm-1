@@ -22,7 +22,7 @@ module.exports = function(callback, params, _user_id){/*ethereum, paypal, curren
 
     makeQuery(`UPDATE accounts SET ` + fields.join(',') + ` WHERE account_owner=?`, [ ...values, _user_id ],
       res => {
-        var resp = Obejct.assign({}, OK, { action: { text: 'Платежные данные успешно обновлены!' } });
+        var resp = Object.assign({}, OK, { action: { text: 'Платежные данные успешно обновлены!' } });
         callback(resp);
       }, callback);
 

@@ -29,7 +29,7 @@ module.exports = function(callback, params, _user_id){/*levels, user_id*/
 
         nodesCount -= count;
         if( nodesCount > 0 ) return;
-        var resp = Obejct.assign({}, OK, { result: tree });
+        var resp = Object.assign({}, OK, { result: tree });
         callback(resp);
 
       }, callback);
