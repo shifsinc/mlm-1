@@ -59,7 +59,7 @@ export default class extends React.Component{/*formTitle, submitTitle, submitCal
     if( !prom ) return;
 
     this.setState({ submitted: true });
-    setTimeout(() => this.setState({ submitted: false }), 3000);
+    setTimeout(() => this.setState({ submitted: false }), 5000);
 
     prom.then( ({ action }) => {/*text, fields, path*/
       this.setState({ submitted: false });
