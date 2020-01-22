@@ -8,7 +8,7 @@ import { ethereumRegexp } from '../../../../const.js'
 export default function(props) {/*apiCall, _next*/
   return (
     <Form className="start-work__first-step" submitTitle="Сохранить" submitCallback={ data => {
-      return props.apiCall('updateBilling', { ethereum: data.ethereum }).then(r => {
+      return props.apiCall('fillBilling', data).then(r => {
         if( r.status === 'ok' ) props._next();
         return r;
       })
