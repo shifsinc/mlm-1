@@ -41,7 +41,8 @@ module.exports = function(callback, params, _user_id){/*name, surname, phone, so
             WHERE user_id=?`,
           [ name, surname, phone, social, telegram, photo,  _user_id ],
           res => {
-            callback({ status: 'ok', action: { path: '/account' } });
+            var resp = Object.assign({}, OK, { action: { path: '/account' } });
+            callback(resp);
           }, () => {
             callback( DATA_NOT_UNIQUE );
           });

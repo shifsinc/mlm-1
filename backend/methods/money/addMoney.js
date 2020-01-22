@@ -21,9 +21,8 @@ module.exports = function(callback, params, _user_id){/*payMethod, amount*/
       var acc_id = acc.account_id;
       makeQuery(`INSERT INTO transactions(tr_real_amount, tr_platform_amount, tr_pay_method, tr_receiver_id, tr_type)
         VALUES(?,?,?,?,?)`, [ realTotal, amount, payMethod + 1, acc_id, 'in' ], res => {
-          res = OK;
-          res.result = { total: realTotal, payMethod, transactionStatus: 'wait' }
-          callback(res);
+          var resp = Object.assign({}, OK , { result: { total: realTotal, payMethod, transactionStatus: 'wait' } });
+          callback(resp);
         }, callback);
 
     }, callback);

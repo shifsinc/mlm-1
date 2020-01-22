@@ -38,11 +38,11 @@ module.exports = function(callback, params, _user_id){/*count, offset, section*/
           makeQuery(`SELECT COUNT(*) AS count FROM news WHERE news_type=?`,
             [ section ],
             count => {
-              res.result = {
+              var resp = Object.assign({}, res, { result: {
                 count: count.result[0].count,
                 data: res.result
-              }
-              callback(res);
+              } });
+              callback(resp);
             }, callback);
 
         }, callback);

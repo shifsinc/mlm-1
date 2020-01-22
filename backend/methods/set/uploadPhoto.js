@@ -1,5 +1,5 @@
 const { makeQuery } = require('../../utils.js');
-const { INCORRECT_QUERY, INCORRECT_FILE } = require('../../const.js');
+const { OK, INCORRECT_FILE } = require('../../const.js');
 const { PHOTOS_PATH } = require('../../config.js');
 const hash = require('js-sha1');
 const { writeFile } = require('fs');
@@ -12,6 +12,7 @@ module.exports = function(callback, params, _user_id){/*_file*/
 
   var filename = hash( file )
   writeFile( PHOTOS_PATH + filename, file, e => {
-    callback({ status: 'ok', result: { filename } });
+    var resp = Object.assign({}, OK, { result: { filename } });
+    callback(resp);
   });
 }

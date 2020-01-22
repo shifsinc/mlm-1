@@ -27,14 +27,15 @@ module.exports = function(callback, params, _user_id){/*count, offset*/
 
           makeQuery(`SELECT COUNT(*) AS count FROM transactions WHERE tr_sender_id=? OR tr_receiver_id=?`, [ acc_id, acc_id ],
             count => {
-              res.result = {
+              var data = res.result.map(r => {
+                if( r.tr_type === 'internal' ) r._is_sender =  ( r.sender_id === _user_id ) ? true : false;
+                return r;
+              });
+              var resp = Object.assign({}, res, { result: {
                 count: count.result[0].count,
-                data: res.result.map(r => {
-                  if( r.tr_type === 'internal' ) r._is_sender =  ( r.sender_id === _user_id ) ? true : false;
-                  return r;
-                })
-              }
-              callback(res);
+                data
+              } });
+              callback(resp);
             }, callback);
 
       }, callback);

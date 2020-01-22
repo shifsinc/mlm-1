@@ -22,11 +22,11 @@ module.exports = function(callback, params, _user_id){/*offset, count*/
     res => {
 
       makeQuery(`SELECT COUNT(*) AS count FROM events`, [], count => {
-        res.result = {
+        var resp = Object.assign({}, res, { result: {
           count: count.result[0].count,
           data: res.result
-        }
-        callback(res);
+        } });
+        callback(resp);
       }, callback);
 
   }, callback);

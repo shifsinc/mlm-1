@@ -39,11 +39,11 @@ module.exports = function(callback, params, _user_id){/*count, offset, section*/
             WHERE news_type=? AND (news_rate=(SELECT user_rate FROM users WHERE user_id=?) OR news_rate IS NULL)`,
             [ section, _user_id ],
             count => {
-              res.result = {
+              var resp = Object.assign({}, res, { result: {
                 count: count.result[0].count,
                 data: res.result
-              }
-              callback(res);
+              } });
+              callback(resp);
             }, callback);
 
         }, callback);

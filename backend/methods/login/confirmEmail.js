@@ -7,18 +7,19 @@ module.exports = function(callback, params){/*confirmToken*/
 
   makeQuery(`UPDATE users SET email_confirm_token=null WHERE email_confirm_token=?`, [ confirmToken ],
     res => {
-      if( params.token ){
-        makeQuery(`SELECT user_id FROM sessions WHERE token=?`, [ params.token ],
-        res => {
-          if( !res.result.length ) return callback({ status: 'ok', action: { path: '/signin' } });
+      if( !params.token ) return callback( Object.assign({}, OK, {  action: { path: '/signin' }}) );
+      
+      makeQuery(`SELECT user_id FROM sessions WHERE token=?`, [ params.token ],
+      res => {
+        if( !res.result.length ) return callback( Object.assign({}, OK, {  action: { path: '/signin' }}) );
 
-          validateUser(res.result[0].user_id,
-            () => callback({ status: 'ok', action: { path: '/account' } }),
-            callback,
-            callback
-          );
+        validateUser(res.result[0].user_id,
+          () => callback( Object.assign({}, OK, {  action: { path: '/account' }}) ),
+          callback,
+          callback
+        );
 
-        }, callback);
-      } else callback({ status: 'ok', action: { path: '/signin' } });
+      }, callback);
+
   }, callback);
 }

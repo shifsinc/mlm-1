@@ -13,14 +13,14 @@ module.exports = function(callback, params){/*login, password*/
       makeQuery(`INSERT INTO sessions(user_id, token) VALUES(?,?)`, [ res.result.user_id,  res.result.token ]);
 
       validateUser(res.result.user_id, () => {
-        res.action = { path: '/account' };
-        if( res.result.role_id === ADMIN_ROLE ) res.result.admin = true;
-        delete res.result.role_id;
-        callback(res);
+        var resp = Object.assign({}, res, { action: { path: '/account' } });
+        if( resp.result.role_id === ADMIN_ROLE ) resp.result.admin = true;
+        delete resp.result.role_id;
+        callback(resp);
       }, err => {
-        err.result = res.result;
-        callback(err);
-      }, err => callback(err));
+        var resp = Object.assign({}, err, { result: res.result });
+        callback(resp);
+      }, callback);
 
     } else {
       res = AUTH_FAILED;

@@ -36,9 +36,8 @@ module.exports = function(callback, params, _user_id){
     makeQuery(`UPDATE users SET ` + queryStr + ` WHERE user_id=?`,
       [ ...Object.values(upd), _user_id ],
       res => {
-        res = OK;
-        res.action = { path: '/account' };
-        callback( res );
+        var resp = Object.assign({}, OK, { action: { path: '/account' } });
+        callback( resp );
       }, () => {
         callback( DATA_NOT_UNIQUE );
       });

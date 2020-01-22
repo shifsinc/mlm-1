@@ -22,11 +22,11 @@ module.exports = function(callback, params, _user_id){/*pattern, offset, count*/
 
       makeQuery(`SELECT COUNT(*) AS count FROM users WHERE user_login LIKE ?`, [ pattern ], count => {
         res.result.forEach(r => r.user_photo_url = PHOTOS_PREFIX + r.user_photo);
-        res.result = {
+        var resp = Object.assign({}, res, { result: {
           count: count.result[0].count,
           data: res.result
-        }
-        callback(res);
+        } });
+        callback(resp);
       }, callback);
 
   }, callback);

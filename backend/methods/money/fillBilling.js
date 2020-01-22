@@ -11,9 +11,8 @@ module.exports = function(callback, params, _user_id){/*ethereum*/
 
         makeQuery(`UPDATE accounts SET account_ethereum=? WHERE account_owner=?`, [ ethereum, _user_id ],
           res => {
-            res = OK;
-            res.action.text = 'Платежные данные успешно обновлены!';
-            callback( res );
+            var resp = Object.assign({}, OK, { action: { text: 'Платежные данные успешно обновлены!' } });
+            callback(resp);
           }, callback);
 
       }, callback);

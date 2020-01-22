@@ -39,9 +39,8 @@ module.exports = function(callback, params){/*login, password, email, refer_phon
             res => {
 
               sendConfirmMail(email, confirmToken, (err, info) => {
-                res = OK;
-                res.action = { path: '/signin' };
-                callback(res);
+                var resp = Obejct.assign({}, OK, { action: { path: '/signin' } });
+                callback(resp);
               });
 
             }, callback);

@@ -49,11 +49,11 @@ module.exports = function(callback, params, _user_id){/*count, offset, pattern, 
                 if( r.user_photo ) r.user_photo_url = PHOTOS_PREFIX + r.user_photo;
                 if( line === null || ( line === 1 && r._is_team ) || ( line === 2 && !r._is_team ) ) response.push(r);
               });
-              res.result = {
+              var resp = Object.assign({}, res, { result: {
                 count: count.result[0].count,
                 data: response
-              }
-              callback(res);
+              } });
+              callback(resp);
 
             });
 

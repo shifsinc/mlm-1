@@ -8,8 +8,7 @@ module.exports = function(callback, params, _user_id){/*user_id, block*/
   makeQuery(`UPDATE users SET user_blocked=? WHERE user_id=?`, [ block ? 1 : 0, user_id ],
     res => {
       makeQuery(`DELETE FROM sessions WHERE user_id=?`, [ user_id ]);
-      res = OK;
-      res.result = { user_blocked: block };
-      callback( res );
+      var resp = Object.assign({}, OK, { result: { user_blocked: block } });
+      callback(resp);
     }, callback);
 }

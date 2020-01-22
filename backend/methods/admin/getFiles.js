@@ -21,11 +21,11 @@ module.exports = function(callback, params, _user_id){/*count, offset, section*/
       makeQuery(`SELECT COUNT(*) AS count FROM files WHERE file_section=?`, [ section ],
         count => {
           res.result.forEach(r => r.file_type !== 'youtube' && (r.file_url = FILES_PREFIX + r.file_name));
-          res.result = {
+          var resp = Object.assign({}, res, { result: {
             count: count.result[0].count,
             data: res.result
-          }
-          callback(res);
+          } });
+          callback(resp);
         }, callback);
 
   }, callback);

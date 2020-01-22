@@ -17,9 +17,8 @@ module.exports = function(callback, params){/*email*/
     res => {
 
       sendResetMail(email, resetToken, (err, info) => {
-        var res = OK;
-        res.action.text = 'Письмо отправлено';
-        callback( res );
+        var resp = Object.assign({}, OK, { action: { text: 'Письмо отправлено' } });
+        callback(resp);
       });
 
     }, callback);

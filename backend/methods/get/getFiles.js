@@ -20,12 +20,12 @@ module.exports = function(callback, params, _user_id){/*count, offset, section*/
       makeQuery(`SELECT COUNT(*) AS count FROM files
       WHERE file_section=? AND (file_rate=(SELECT user_rate FROM users WHERE user_id=?) OR file_rate IS NULL)`, [ section, _user_id ],
         count => {
-          res.result.forEach(r => r.file_type !== 'youtube' && (r.file_url = FILES_PREFIX + r.file_name));
-          res.result = {
+          var resp = Object.assign({}, res, { result: {
             count: count.result[0].count,
             data: res.result
-          }
-          callback(res);
+          } });
+          resp.result.data.forEach(r => r.file_type !== 'youtube' && (r.file_url = FILES_PREFIX + r.file_name));
+          callback(resp);
         }, callback);
 
   }, callback);

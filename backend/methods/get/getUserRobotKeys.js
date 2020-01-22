@@ -19,11 +19,11 @@ module.exports = function(callback, params, _user_id){/*count, offset, rate*/
       makeQuery(`SELECT COUNT(*) AS count FROM robot_keys
         WHERE user_id=? AND key_rate=(SELECT user_rate FROM users WHERE user_id=?)`, [ _user_id, _user_id ],
         count => {
-          res.result = {
+          var resp = Object.assign({}, res, { result: {
             count: count.result[0].count,
             data: res.result
-          }
-          callback(res);
+          } });
+          callback(resp);
         }, callback);
 
   }, callback);

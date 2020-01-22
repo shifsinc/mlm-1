@@ -33,10 +33,10 @@ module.exports = function(callback, params, _user_id){/*count, offset*/
           user_photo_url: res.result[0]['user_photo_' + i] ? ( PHOTOS_PREFIX + res.result[0]['user_photo_' + i] ) : undefined
         });
       }
-      res.result = {
+      var resp = Object.assign({}, res, { result: {
         count: null,
         data: arr
-      }
-      callback(res);
+      } });
+      callback(resp);
   }, callback);
 }

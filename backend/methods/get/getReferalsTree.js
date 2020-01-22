@@ -1,5 +1,5 @@
 const { makeQuery } = require('../../utils.js');
-const { INCORRECT_QUERY, USER_NOT_EXISTS } = require('../../const.js');
+const { INCORRECT_QUERY, OK, USER_NOT_EXISTS } = require('../../const.js');
 const { PHOTOS_PREFIX } = require('../../config.js');
 
 const query = `SELECT
@@ -29,7 +29,8 @@ module.exports = function(callback, params, _user_id){/*levels, user_id*/
 
         nodesCount -= count;
         if( nodesCount > 0 ) return;
-        callback({ status: 'ok', result: tree });
+        var resp = Obejct.assign({}, OK, { result: tree });
+        callback(resp);
 
       }, callback);
   }, callback);

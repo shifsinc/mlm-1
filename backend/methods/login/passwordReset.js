@@ -26,9 +26,8 @@ module.exports = function(callback, params){/*resetToken, password*/
       password_reset_token_ts=null
     WHERE password_reset_token=?`, [ password, resetToken ],
     res => {
-      var res = OK;
-      res.action.path = '/signin';
-      callback( res );
+      var resp = Object.assign({}, OK, { action: { path: '/signin' } });
+      callback(resp);
     }, callback);
 
   }, callback);
