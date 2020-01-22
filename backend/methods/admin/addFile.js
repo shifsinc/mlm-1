@@ -10,7 +10,7 @@ module.exports = function(callback, params, _user_id){/*section, title, descr, f
   var section = params.section,
     title = params.title ? params.title : null, descr = params.descr ? params.descr : null,
     filename = params.filename ? params.filename : null, rate = parseInt( params.rate );
-  if( isNaN(rate) ) rate = null;
+  if( isNaN(rate) || rate === 0 ) rate = null;
   if( !( /^(marketing|instructions|videos|robot)$/.test(section) ) ||
     ( rate !== null && ( rate < 1 || rate > 4 ) ) ) return callback( INCORRECT_QUERY );
 
