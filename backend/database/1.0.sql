@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`users` (
   `user_phone` VARCHAR(16) NULL DEFAULT NULL,
   `user_social` VARCHAR(45) NULL DEFAULT NULL,
   `user_telegram` VARCHAR(64) NULL DEFAULT NULL,
-  `user_photo` VARCHAR(45) NULL DEFAULT 'noPhoto.png',
+  `user_photo` VARCHAR(45) NULL DEFAULT NULL,
   `user_status` ENUM('investor', 'bronze', 'silver', 'gold', 'platinum', 'sapphire', 'emerald', 'diamond', 'diamond2') NOT NULL DEFAULT 'investor',
   `user_rate` ENUM('client', 'light', 'advanced', 'master') NULL DEFAULT NULL,
   `user_license_valid_dt` TIMESTAMP NULL DEFAULT NULL,
@@ -674,7 +674,8 @@ BEGIN
 
   IF( old.user_rate IS NULL && new.user_rate IS NOT NULL ) THEN
     SET new.user_rate_first=1;
-  ELSE SET new.user_rate_first=0;
+  ELSEIF( old.user_rate <> new.user_rate ) THEN
+    SET new.user_rate_first=0;
   END IF;
 
   IF(new.user_rate <> old.user_rate || ( old.user_rate IS NULL && new.user_rate IS NOT NULL )) THEN
