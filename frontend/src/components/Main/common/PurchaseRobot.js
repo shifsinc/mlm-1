@@ -98,7 +98,7 @@ export default class extends React.Component {
       if( r.result.account_balance < price ) this.props.noMoneyCallback();
       else {
         var popup;
-        if( rate > this.state.currentRate ) popup = 0;
+        if( rate > this.state.currentRate || !this.state.currentRate ) popup = 0;
         else if(rate < this.state.currentRate ) popup = 2;
         else popup = 3;
         this.setState({ popup, selectedRate: rate, currentPrice: price });
