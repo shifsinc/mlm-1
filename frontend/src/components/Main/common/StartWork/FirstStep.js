@@ -14,7 +14,7 @@ export default function(props) {/*apiCall, _next*/
       })
     } }>
 
-    <Input label="Ваш Ethereum-адрес" regexp={ ethereumRegexp } attr={{ name: 'ethereum', autoFocus: true }}></Input>
+    <Input required label="Ваш Ethereum-адрес" regexp={ ethereumRegexp } attr={{ name: 'ethereum', autoFocus: true }}></Input>
 
     <Link className="button button_inactive start-work__button"
       onClick={ () => props._next() }>Пропустить</Link>

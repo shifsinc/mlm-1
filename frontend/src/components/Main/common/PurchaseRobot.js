@@ -59,7 +59,7 @@ export default class extends React.Component {
         </Popup>
 
         <AddRobotKeysPopup title="ПОЗДРАВЛЯЕМ С ПОКУПКОЙ РОБОТА!"
-          onClose={ this._closePopup } onSubmit={ this._onAddKeysSubmit } extraInput={ this.state.selectedRate >= 3 }>
+          onClose={ () => { this.props.okCallback(rate, 2); this._closePopup() } } onSubmit={ this._onAddKeysSubmit } extraInput={ this.state.selectedRate >= 3 }>
         </AddRobotKeysPopup>
 
         <Popup className="purchase-robot__popup-save" onClose={ this._closePopup }>

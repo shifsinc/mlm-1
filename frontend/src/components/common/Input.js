@@ -8,7 +8,7 @@ export default function(props){/*regexp, className, attr, label, required*/
     if( !Array.isArray( regexp ) ) regexp = [ regexp ];
 
     var testResult = regexp.reduce((s,r) => r.test(targ.value) + s, 0);
-    if( regexp.length && !testResult ) targ.classList.add('incorrect');
+    if( regexp.length && !testResult && targ.value ) targ.classList.add('incorrect');
     else targ.classList.remove('incorrect');
   }
 
