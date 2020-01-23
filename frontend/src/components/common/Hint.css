@@ -1,0 +1,36 @@
+.hint {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+.hint__button {
+  width: 25px;
+  height: 25px;
+  background-image: url('../../img/icon/info@2x.png');
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: 60%;
+}
+.hint__text {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background-color: var(--color2);
+  color: #FFF;
+  border-radius: 3px;
+  padding: 5px 10px;
+  z-index: 10;
+}
+.hint__text:after {
+  content: '';
+  position: absolute;
+  top: -13px;
+  right: 7.5px;
+  border: solid 5px transparent;
+  border-bottom: solid 8px var(--color2);
+}
+.hint__button:hover + .hint__text,
+.hint__text:hover {
+  display: block;
+}
