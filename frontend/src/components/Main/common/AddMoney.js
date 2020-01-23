@@ -40,7 +40,7 @@ export default class extends React.Component {
         <ViewSelect active={ this.state.view }>
         <Form formTitle="Пополнение баланса" submitTitle="КУПИТЬ YT"
             submitCallback={ this._onSubmit }>
-            <Switch titles={[ 'PAYPAL', 'ETHEREUM' ]} active={ this.state.payMethod }
+            <Switch titles={[ /*'PAYPAL',*/ 'ETHEREUM' ]} active={ this.state.payMethod }
               onClick={ ind => this.setState({ payMethod: ind, sum: this._calcMoney( this.state.ytAmount ) }) }></Switch>
 
             <Input label="Количество YT" regexp={ /^[0-9]*$/ } attr={{

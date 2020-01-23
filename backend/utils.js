@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const { MYSQL_AUTH, MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS } = require('./config.js');
+const { MYSQL_AUTH, MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS,  RECAPTCHA_PRIVATE_KEY } = require('./config.js');
 const {
   INCORRECT_QUERY,
   AUTH_FAILED,
@@ -9,6 +9,8 @@ const {
   tokenRegexp
 } = require('./const.js');
 const nodemailer = require('nodemailer');
+const https = require('https');
+const querystring = require('querystring');
 
 var _con;
 module.exports.initMysqlConnection = function(onSuccess, onError){
@@ -150,4 +152,33 @@ module.exports.sendMail = function(to, text, callback){
     subject: 'YodaFX.PRO',
     html: text
   }, callback);
+}
+
+///////////////////
+
+module.exports.checkCaptcha = function(token, onSuccess, onFailed){
+  var query = querystring.stringify({
+    secret: RECAPTCHA_PRIVATE_KEY,
+    response: token
+  });
+  const req = https.request({
+    hostname: 'www.google.com',
+    path: '/recaptcha/api/siteverify',
+    method: 'POST',
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Length': Buffer.byteLength(query)
+      }
+  }, res => {
+    var data = '';
+    res.on('data', d => data += d);
+    res.on('end', () => {
+      try{
+        var json = JSON.parse(query);
+      } catch(e){console.log(e); return}
+      if( json.success ) onSuccess();
+      else onFailed();
+    });
+  });
+  req.end( query );
 }

@@ -18,6 +18,8 @@ import Main from './components/Main/common/Main.js';
 import apiCall from './apiCall.js';
 import uploadFile from './uploadFile.js';
 
+import { IDLE_TIMEOUT } from './config.js'
+
 class App extends React.Component {
   constructor(props){
     super(props);
@@ -26,6 +28,7 @@ class App extends React.Component {
       authToken: window.localStorage['authToken'],
       admin: parseInt( window.localStorage['admin'] )
     };
+    this._setIdleTimeout();
   }
 
   componentDidMount(){
@@ -133,6 +136,15 @@ class App extends React.Component {
     	get[ decodeURIComponent( t[0] ) ] = decodeURIComponent( t[1] );
     });
     return get;
+  }
+
+  _setIdleTimeout = () => {
+    const signout = () => this.state.authToken && this._updateLocation('/signout');
+    var timer = setTimeout(signout, IDLE_TIMEOUT);
+    window.addEventListener('mousedown', () => {
+      clearTimeout(timer);
+      timer = setTimeout(signout, IDLE_TIMEOUT);
+    }, true);
   }
 
 }

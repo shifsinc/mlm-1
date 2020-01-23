@@ -10,9 +10,9 @@ module.exports = function(callback, params, _user_id){/*payMethod, amount*/
     if( r.status === 'error' ) return callback(r);
     var rate = r.result, realTotal;
 
-    if( payMethod === PAY_METHOD_PAYPAL ){
+    /*if( payMethod === PAY_METHOD_PAYPAL ){
       realTotal = amount * rate.rate_usd * PAY_COMMISSION;
-    } else if( payMethod === PAY_METHOD_ETH ){
+    } else */if( payMethod === PAY_METHOD_ETH ){
       realTotal = amount * rate.rate_eth * PAY_COMMISSION;
     } else return callback( INCORRECT_QUERY );
 

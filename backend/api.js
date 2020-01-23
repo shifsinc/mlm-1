@@ -83,6 +83,6 @@ module.exports = {
     [ API_PREFIX + '/admin/getNews' ]: authWrapper( adminWrapper( require('./methods/admin/getNews.js') ) ),
     [ API_PREFIX + '/admin/getFiles' ]: authWrapper( adminWrapper( require('./methods/admin/getFiles.js') ) ),
 
-    [ API_PREFIX + '/admin/acceptPaymentPP' ]: require('./methods/money/acceptPaymentPP.js'),
+    /*[ API_PREFIX + '/admin/acceptPaymentPP' ]: require('./methods/money/acceptPaymentPP.js'),*/
   }
 }

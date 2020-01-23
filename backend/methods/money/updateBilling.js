@@ -13,10 +13,10 @@ module.exports = function(callback, params, _user_id){/*ethereum, paypal, curren
       fields.push('account_ethereum=?');
       values.push(ethereum);
     }
-    if( paypal !== undefined && paypalRegexp.test(paypal) ){
+    /*if( paypal !== undefined && paypalRegexp.test(paypal) ){
       fields.push('account_paypal=?');
       values.push(paypal);
-    }
+    }*/
     if( !fields.length ) return callback( INCORRECT_QUERY );
     //check acc exist
 

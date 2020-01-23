@@ -47,10 +47,10 @@ export default class extends React.Component {
               onChange: e => this.setState({ account_ethereum: e.target.value }) }}
               regexp={ ethereumRegexp } label="Ваш Ethereum-адрес"/>
 
-            <Input attr={{ name: "paypal",
+            {/*<Input attr={{ name: "paypal",
               value: this.state.account_paypal,
               onChange: e => this.setState({ account_paypal: e.target.value }) }}
-              regexp={ paypalRegexp } label="Ваш PayPal"/>
+              regexp={ paypalRegexp } label="Ваш PayPal"/>*/}
           </Form>
 
         </TabView>
