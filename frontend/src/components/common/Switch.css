@@ -1,12 +1,13 @@
 .switch {
   height: 35px;
-  border: solid 1px var(--color3);
+  border: solid var(--color3);
+  border-width: 1px 0 1px 0;
   border-radius: 3px;
   margin-top: 24px;
+  display: flex;
+  justify-content: stretch;
 }
 .switch > * {
-  display: inline-block;
-  width: 50%;
   text-align: center;
   height: 35px;
   line-height: 35px;
@@ -16,14 +17,22 @@
   overflow: hidden;
   border: solid 1px transparent;
   border-radius: 3px;
+  flex-grow: 1;
+  transform: translate(0,-1px);
 }
 .switch > *:first-child {
-  transform: translate(-1px,-1px);
+  border: solid 1px var(--color3);
+  border-width: 1px 0 1px 1px;
+  border-radius: 3px 0 0 3px;
 }
 .switch > *:last-child {
-  transform: translate(1px,-1px);
+  border: solid 1px var(--color3);
+  border-width: 1px 1px 1px 0;
+  border-radius: 0 3px 3px 0;
 }
 .switch > .active {
   border-color: var(--color2);
+  border-width: 1px !important;
+  border-radius: 3px !important;
   color: var(--color2);
 }
