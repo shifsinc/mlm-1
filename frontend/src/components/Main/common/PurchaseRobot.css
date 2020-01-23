@@ -10,15 +10,25 @@
   margin: auto;
 }
 
-.button-client,
-.button-light,
-.button-advanced,
-.button-master {
+.purchase-robot__robot__cont {
+  display: flex;
+  justify-content: center;
+}
+.purchase-robot__robot__cont > * {
+  position: relative;
+  left: 10px;
+}
+.purchase-robot__robot__cont > .button {
   border: none;
   color: #FFF !important;
   height: 25px;
   line-height: 25px;
+  width: 120px;
+  padding: 0;
   font-family: calibri-bold;
+}
+.purchase-robot__robot__cont > .hint {
+  margin: 1px 0;
 }
 .button-client {
   background-color: var(--client-color);
@@ -31,6 +41,18 @@
 }
 .button-master {
   background-color: var(--master-color);
+}
+.hint-client > .hint__button {
+  background-image: url('../../../img/icon/info-client@2x.png');
+}
+.hint-light > .hint__button {
+  background-image: url('../../../img/icon/info-light@2x.png');
+}
+.hint-advanced > .hint__button {
+  background-image: url('../../../img/icon/info-advanced@2x.png');
+}
+.hint-master > .hint__button {
+  background-image: url('../../../img/icon/info-master@2x.png');
 }
 .purchase-robot__popup-confirm .input {
   margin-bottom: 20px;

@@ -4,9 +4,10 @@ import Link from '../../common/Link.js'
 import Popup from '../../common/Popup.js'
 import Form from '../../common/Form.js'
 import Input from '../../common/Input.js'
+import Hint from '../../common/Hint.js'
 import ViewSelect from '../../common/ViewSelect.js'
 import AddRobotKeysPopup from './AddRobotKeysPopup.js'
-import { RATES_PRICES, RATES_IMAGES, RATES_TITLES, RATES_COUNT, ROBOT_SALE_TIME } from '../../../const.js'
+import { RATES_PRICES, RATES_IMAGES, RATES_TITLES, RATES_COUNT, ROBOT_SALE_TIME, RATES_HINTS } from '../../../const.js'
 
 export default class extends React.Component {
   constructor(props){/*updateLocation, apiCall, noMoneyCallback, okCallback, data*/
@@ -32,12 +33,16 @@ export default class extends React.Component {
       else title = 'КУПИТЬ';
 
       var disabled = ind < currentRate;
+      var rateClass = RATES_TITLES[ ind ].toLowerCase();
       rates.push(<div key={ ind } className="purchase-robot__robot">
         <img src={ RATES_IMAGES[ ind ] } alt={ RATES_TITLES[ ind ] }/>
-        <Link className={ 'button button-' + RATES_TITLES[ ind ].toLowerCase() } disabled={ disabled }
-          onClick={ this._onBuyClick.bind(this, ind) }>
-          { title }
-        </Link>
+        <div className="purchase-robot__robot__cont">
+          <Link className={ 'button button-' + rateClass } disabled={ disabled }
+            onClick={ this._onBuyClick.bind(this, ind) }>
+            { title }
+          </Link>
+          <Hint className={ 'hint-' + rateClass }>{ RATES_HINTS[ ind ] }</Hint>
+        </div>
       </div>);
     }
 

@@ -5,6 +5,8 @@ import StartWork from './StartWork.js'
 import UserCard from './UserCard.js'
 import ViewSelect from '../../common/ViewSelect.js'
 import { getUserCardInfo } from '../../../utils.js'
+import Hint from '../../common/Hint.js'
+import { PAGES_HINTS } from '../../../const.js'
 
 const VIEWS = {
 	'/account': require('../Account.js').default,
@@ -56,6 +58,7 @@ export default class extends React.Component {
 	  return (
 	    <div className="main">
 				{ content }
+				<Hint>{ PAGES_HINTS[ loc ] }</Hint>
 				<ViewSelect active={ this.state.popup }>
 
 	        <UserCard data={ this.state.cardData } apiCall={ this.props.apiCall }

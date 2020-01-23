@@ -11,6 +11,11 @@
 .main__content {
   margin-left: 220px;
 }
+.main > .hint {
+  position: absolute;
+  top: 0;
+  right: -25px;
+}
 
 @media screen and (max-width: 900px){
   .main__menu,
@@ -21,5 +26,8 @@
   .main__content {
     margin-left: 0;
     padding-top: 70px !important;
+  }
+  .main > .hint {
+    display: none;
   }
 }

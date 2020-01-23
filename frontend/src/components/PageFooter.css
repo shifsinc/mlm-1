@@ -1,6 +1,6 @@
 #page-footer {
   background-color: #FFF;
-  padding: 0 10px;
+  padding: 0 35px;
   box-shadow: 0 0 5px 0px #999;
   position: absolute;
   bottom: 0;
@@ -35,6 +35,9 @@
 }
 
 @media screen and ( max-width: 900px ) {
+  #page-footer {
+    padding: 0 10px;
+  }
   .page-footer__cont {
     flex-direction: column;
     height: 100px;

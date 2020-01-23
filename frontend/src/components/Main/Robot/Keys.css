@@ -1,3 +1,6 @@
+.robot__keys {
+  position: relative;
+}
 .robot__keys .table {
   width: 100%;
 }
