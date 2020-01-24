@@ -5,7 +5,6 @@
 .data-form__photo {
   cursor: pointer;
   display: inline-block;
-  text-align: center;
 }
 .data-form__photo input {
   display: none;
@@ -20,7 +19,6 @@
   .data-form__flex-cont {
     display: flex;
     justify-content: space-between;
-    align-items: center;
   }
   .data-form a.button {
     width: 250px;
@@ -39,10 +37,6 @@
 }
 
 @media screen and ( max-width: 900px ) {
-  .data-form__photo img {
-    max-height: 200px;
-  }
-  .data-form__photo,
   .data-form__fields,
   .data-form a.button,
   .data-form__cont {
