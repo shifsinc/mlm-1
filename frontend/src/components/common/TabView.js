@@ -4,10 +4,10 @@ import Link from './Link.js'
 import ViewSelect from './ViewSelect.js'
 
 export default class extends React.Component {
-  constructor(props){/*titles, className*/
+  constructor(props){/*tabs, className*/
     super(props);
     this.state = {
-      activeTab: 0
+      activeTab: props.tabs.reduce((n, { name }, ind) => props.params.tab === name ? ind : n, 0)
     }
   }
 
@@ -16,9 +16,9 @@ export default class extends React.Component {
       <div className={ 'tab-view ' + ( this.props.className ? this.props.className : '') }>
         <div className="tab-view__header closed" ref={ r => this.header = r } onClick={ () => this.header.classList.add('closed') }>
           <div className="tab-view__header__cont">
-            { this.props.titles.map((text, ind) =>
+            { this.props.tabs.map(({ title, name }, ind) =>
                 <Link key={ ind } className={ 'tab-view__header__item' + ( this.state.activeTab === ind ? ' active' : '' ) }
-                  onClick={ () => this.setState({ activeTab: ind }) }>{ text }</Link>
+                  onClick={ () => this._tabClick(ind, name) }>{ title }</Link>
               ) }
               <div className="tab-view__header_mobile"
                 onClick={ e => {this.header.classList.remove('closed');e.stopPropagation()} }></div>
@@ -32,6 +32,11 @@ export default class extends React.Component {
         </div>
       </div>
     );
+  }
+
+  _tabClick = (ind, name) => {
+    this.setState({ activeTab: ind });
+    this.props.updateLocation('?tab=' + name);
   }
 
 }

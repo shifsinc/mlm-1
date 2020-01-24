@@ -16,7 +16,16 @@ export default class extends React.Component {
     return (
       <div className="main__content">
         <TabView className="admin"
-          titles={[ 'Пользователи', 'Структура', 'События', 'Аналитика', 'Новости и блог', 'Робот', 'Инструкции', 'Маркетинг' ]}>
+          tabs={[
+            { title: 'Пользователи', name: 'users' },
+            { title: 'Структура', name: 'structure' },
+            { title: 'События', name: 'events' },
+            { title: 'Аналитика', name: 'analytics' },
+            { title: 'Новости и блог', name: 'news' },
+            { title: 'Робот', name: 'robot' },
+            { title: 'Инструкции', name: 'instructions' },
+            { title: 'Маркетинг', name: 'marketing' },
+          ]} { ...this.props }>
           <Users { ...this.props }></Users>
           <Structure { ...this.props }></Structure>
           <Events { ...this.props }></Events>

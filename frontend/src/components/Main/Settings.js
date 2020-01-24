@@ -32,8 +32,10 @@ export default class extends React.Component {
   render(){
     return (
       <div className="main__content">
-        <TabView titles={[ 'Личные данные', 'Платежные данные' ]}
-          className="interface-block settings" contClassName="settings__cont" { ...this.props }>
+        <TabView tabs={[
+          { title: 'Личные данные', name: 'personal' },
+          { title: 'Платежные данные', name: 'payment' }
+        ]} className="interface-block settings" contClassName="settings__cont" { ...this.props }>
 
           <DataForm
             { ...this.props }
