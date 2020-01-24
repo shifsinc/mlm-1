@@ -15,7 +15,7 @@
   display: none;
   position: absolute;
   right: 0;
-  top: 30px;
+
   background-color: var(--color2);
   color: #FFF;
   border-radius: 3px;
@@ -25,11 +25,25 @@
 .hint__text:after {
   content: '';
   position: absolute;
-  top: -13px;
   right: 7.5px;
   border: solid 5px transparent;
+}
+
+.hint.bottom .hint__text {
+  top: 30px;
+}
+.hint.bottom .hint__text:after {
+  top: -13px;
   border-bottom: solid 8px var(--color2);
 }
+.hint.top .hint__text {
+  bottom: 30px;
+}
+.hint.top .hint__text:after {
+  bottom: -13px;
+  border-top: solid 8px var(--color2);
+}
+
 .hint__button:hover + .hint__text,
 .hint__text:hover {
   display: block;

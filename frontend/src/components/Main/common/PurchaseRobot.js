@@ -41,7 +41,7 @@ export default class extends React.Component {
             onClick={ this._onBuyClick.bind(this, ind) }>
             { title }
           </Link>
-          <Hint className={ 'hint-' + rateClass }>{ RATES_HINTS[ ind ] }</Hint>
+          <Hint position="top" className={ 'hint-' + rateClass }>{ RATES_HINTS[ ind ] }</Hint>
         </div>
       </div>);
     }
