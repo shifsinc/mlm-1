@@ -94,6 +94,10 @@ a, a:visited {
 .button:hover {
   color: #FFF;
   background-color: var(--color1);
+  box-shadow: 0 0 6px 0 rgba(0,0,0,0.25);
+}
+.button:active {
+  box-shadow: none;
 }
 .button.button_inactive {
   border-color: #000;
