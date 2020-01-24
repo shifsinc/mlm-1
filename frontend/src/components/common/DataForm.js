@@ -71,7 +71,7 @@ export default class extends React.Component {
 
               <Input attr={{ name: 'telegram', value: this.state.user_telegram,
                 onChange: e => this.setState({ user_telegram: e.target.value }) }}
-                regexp={ telegramRegexp } required  label="Telegram"></Input>
+                regexp={ telegramRegexp }  label="Telegram"></Input>
             </div>
             {
               this.props.passwordFields ? (
