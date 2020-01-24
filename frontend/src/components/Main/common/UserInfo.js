@@ -4,15 +4,15 @@ import './userStatus.css'
 
 import Link from '../../common/Link.js'
 import { RATES_IMAGES, STATUS_TITLES, BINARY_CYCLE_AMOUNT } from '../../../const.js'
-import { formatDate } from '../../../utils.js'
+import { formatDate, alignPhoto } from '../../../utils.js'
 import noPhoto from '../../../img/noPhoto.png'
 
 export default function(props) {/*data, userClick*/
   var data = props.data ? props.data : {};
   return (<div className="user-info">
       <div className="user-info__left">
-        <div className="user-info__photo">
-          <img alt="avatar" src={ data.user_photo_url ? data.user_photo_url : noPhoto }/>
+        <div className="user-info__photo main-avatar">
+          <img alt="avatar" src={ data.user_photo_url ? data.user_photo_url : noPhoto } onLoad={ alignPhoto }/>
         </div>
         { data.user_rate ?
           <img className="user-info__rate" alt="user rate" src={ RATES_IMAGES[ data.user_rate ] }/>
