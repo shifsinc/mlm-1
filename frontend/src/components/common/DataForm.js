@@ -4,6 +4,7 @@ import Form from './Form.js'
 import Input from './Input.js'
 import addPhoto from '../../img/addPhoto.png';
 import { nameRegexp, phoneRegexp, linkRegexp, telegramRegexp, passwordRegexp } from '../../const.js';
+import { alignPhoto } from '../../utils.js'
 
 export default class extends React.Component {
   constructor(props){/*updateLocation, title, passwordField, className, submitCallback*/
@@ -37,9 +38,9 @@ export default class extends React.Component {
         submitCallback={ this.props.submitCallback }
         updateLocation = { this.props.updateLocation }>
         <div className="data-form__flex-cont">
-          <label className="data-form__photo">
+          <label className="data-form__photo main-avatar">
             <input name="photo" type="file" onInput={ this._onPhotoInput }/>
-            <img alt="avatar" src={ this.state.user_photo_url } ref={ r => this.imgElem = r }/>
+            <img alt="avatar" src={ this.state.user_photo_url } ref={ r => this.imgElem = r } onLoad={ alignPhoto }/>
           </label>
           <div className="data-form__fields">
 

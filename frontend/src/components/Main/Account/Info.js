@@ -11,7 +11,7 @@ export default function(props){/*data, userClick, updateLocation*/
 
   return (
     <div className="account__info interface-block">
-      <div className="account__info__photo">
+      <div className="account__info__photo main-avatar">
 
         <img className="account__photo" onLoad={ alignPhoto }
           src={ data.user_photo_url ? data.user_photo_url : noPhoto } alt="User avatar"/>

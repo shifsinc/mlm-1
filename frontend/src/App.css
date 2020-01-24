@@ -163,6 +163,20 @@ a, a:visited {
   display: none;
 }
 
+.main-avatar {
+  width: 230px;
+  height: 350px;
+  overflow: hidden;
+}
+.main-avatar img {
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+.main-avatar img.aligned {
+  opacity: 1;
+}
+
+
 
 @media screen and ( max-width: 900px ) {
   .App {
