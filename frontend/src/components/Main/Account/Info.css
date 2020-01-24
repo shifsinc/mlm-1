@@ -6,24 +6,23 @@
   position: absolute;
   width: 230px;
   height: calc(100% - 20px);
+  overflow: hidden;
   display: flex;
 }
 .account__info__photo img {
-  min-height: 160px;
+  /*min-height: 160px;
   max-height: 320px;
   min-width: 115px;
-  max-width: 230px;
-}
-.account__info__photo__cont {
+  max-width: 230px;*/
+  height: 100%;
   margin: auto;
-  position: relative;
 }
 .account__info__edit {
   position: absolute;
   bottom: 0;
   width: 100%;
   height: 70px;
-  background-image: linear-gradient(to top, #000, #999 40%, rgba(255, 255, 255, 0));
+  background-image: linear-gradient(to top, #000, rgba(255, 255, 255, 0));
 }
 .account__info__edit > .link {
   display: block;
