@@ -63,6 +63,10 @@
   margin: 0;
   text-align: left;
 }
+.purchase-robot__robot__hint > .hint__text > ul > li:before {
+  content: '✅';
+  margin-right: 5px;
+}
 .purchase-robot__popup-confirm .input {
   margin-bottom: 20px;
 }

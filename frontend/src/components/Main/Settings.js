@@ -7,7 +7,7 @@ import TabView from '../common/TabView.js'
 import Popup from '../common/Popup.js'
 import ViewSelect from '../common/ViewSelect.js'
 
-import { ethereumRegexp, paypalRegexp } from '../../const.js'
+import { ethereumRegexp/*, paypalRegexp*/ } from '../../const.js'
 
 export default class extends React.Component {
   constructor(props){/*apiCall, uploadFile*/

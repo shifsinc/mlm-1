@@ -4,7 +4,7 @@ import Form from '../../common/Form.js'
 import Input from '../../common/Input.js'
 import Switch from '../../common/Switch.js'
 import ViewSelect from '../../common/ViewSelect.js'
-import { TRANSACTION_STATUS_TITLES, PAY_METHOD_ETH, PAY_METHOD_PAYPAL } from '../../../const.js'
+import { TRANSACTION_STATUS_TITLES, PAY_METHOD_ETH/*, PAY_METHOD_PAYPAL*/ } from '../../../const.js'
 
 export default class extends React.Component {
   constructor(props) {/*apiCall*/

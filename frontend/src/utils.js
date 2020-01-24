@@ -34,13 +34,14 @@ module.exports.alignPhoto = e => {
   var width = e.target.clientWidth, height = e.target.clientHeight,
   contWidth = e.target.parentElement.clientWidth, contHeight = e.target.parentElement.clientHeight;
 
+  var t;
   if( contWidth / contHeight < width / height ){
     e.target.style.height = '100%';
-    var t = ( contHeight / height ) * width;
+    t = ( contHeight / height ) * width;
     e.target.style.marginLeft = ( -( t - contWidth ) / 2 ) + 'px';
   } else {
     e.target.style.width = '100%';
-    var t = ( contWidth / width ) * height;
+    t = ( contWidth / width ) * height;
     e.target.style.marginTop = ( -( t - contHeight ) / 2 ) + 'px';
   }
 }
