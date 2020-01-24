@@ -29,7 +29,6 @@ export default class extends React.Component {
   }
 
   render(){
-    var photo;
     return (
       <Form
         className={ 'data-form' + ( this.props.className ? ' ' + this.props.className : '' ) }
@@ -39,11 +38,8 @@ export default class extends React.Component {
         updateLocation = { this.props.updateLocation }>
         <div className="data-form__flex-cont">
           <label className="data-form__photo">
-            <input name="photo" type="file" onInput={e => {
-                if( !e.target.files[0].type.startsWith('image') ) return;
-                photo.src = URL.createObjectURL( e.target.files[0].slice() );
-              }}/>
-            <img alt="avatar" src={ this.state.user_photo_url } ref={ r => photo = r }/>
+            <input name="photo" type="file" onInput={ this._onPhotoInput }/>
+            <img alt="avatar" src={ this.state.user_photo_url } ref={ r => this.imgElem = r }/>
           </label>
           <div className="data-form__fields">
 
@@ -92,4 +88,10 @@ export default class extends React.Component {
       </Form>
     );
   }
+
+  _onPhotoInput = e => {
+    if( !e.target.files[0].type.startsWith('image') ) return;
+    this.imgElem.src = URL.createObjectURL( e.target.files[0].slice() );
+  }
+
 }

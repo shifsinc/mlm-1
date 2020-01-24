@@ -2,6 +2,7 @@ import React from 'react';
 import './Users.css'
 import noPhoto from '../../../img/noPhoto.png'
 import TitleBlock from '../common/TitleBlock.js'
+import { alignPhoto } from '../../../utils.js'
 
 export default function(props){/*updateLocation, title, data, userClick*/
   var data = props.data ? props.data : [];
@@ -12,7 +13,9 @@ export default function(props){/*updateLocation, title, data, userClick*/
         data.map( (d, i) => {
           return (<div key={ i } className="account__users__item">
             <div className="account__users__item__cont" onClick={ () => props.userClick(d) }>
-              <img alt={ d.user_id } src={ d.user_photo_url ? d.user_photo_url : noPhoto }/>
+              <div className="account__users__item__photo">
+                <img alt={ d.user_id } src={ d.user_photo_url ? d.user_photo_url : noPhoto } onLoad={ alignPhoto }/>
+              </div>
               <div>{ d.user_name }</div>
             </div>
           </div>);

@@ -4,22 +4,16 @@ import './Info.css'
 import Link from '../../common/Link.js'
 import noPhoto from '../../../img/noPhoto.png';
 import { STATUS_TITLES, BINARY_CYCLE_AMOUNT, RATES_TITLES, RATES_IMAGES } from '../../../const.js'
+import { alignPhoto } from '../../../utils.js'
 
 export default function(props){/*data, userClick, updateLocation*/
   var data = props.data ? props.data : {};
 
-  const onPhotoLoad = e => {
-    var width = e.target.clientWidth, contWidth = e.target.parentElement.clientWidth;
-    if( width > contWidth ){
-      e.target.style.height = '100%';
-      e.target.style.marginLeft = ( -( width - contWidth ) / 2 ) + 'px';
-    }
-  }
   return (
     <div className="account__info interface-block">
       <div className="account__info__photo">
 
-        <img className="account__photo" onLoad={ onPhotoLoad }
+        <img className="account__photo" onLoad={ alignPhoto }
           src={ data.user_photo_url ? data.user_photo_url : noPhoto } alt="User avatar"/>
         <div className="account__info__edit">
           <Link path="/settings" updateLocation={ props.updateLocation }>Редактировать</Link>

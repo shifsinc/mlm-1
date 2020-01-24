@@ -11,13 +11,14 @@
 }
 .account__users__item__cont {
   cursor: pointer;
-  width: 70px;
   height: 70px;
   display: inline-block;
 }
-.account__users__item img {
-  max-width: 45px;
-  max-height: 45px;
+.account__users__item__photo {
+  width: 45px;
+  height: 45px;
+  overflow: hidden;
+  margin-bottom: 5px;
 }
 .account__users__more > div {
   display: inline-block;

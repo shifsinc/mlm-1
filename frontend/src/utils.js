@@ -29,3 +29,18 @@ module.exports.getUserCardInfo = (apiCall, user_id, callback) => {
       callback( Object.assign({}, r[0].result, r[1].result, r[2].result, r[3].result) );
   });
 }
+
+module.exports.alignPhoto = e => {
+  var width = e.target.clientWidth, height = e.target.clientHeight,
+  contWidth = e.target.parentElement.clientWidth, contHeight = e.target.parentElement.clientHeight;
+
+  if( contWidth / contHeight < width / height ){
+    e.target.style.height = '100%';
+    var t = ( contHeight / height ) * width;
+    e.target.style.marginLeft = ( -( t - contWidth ) / 2 ) + 'px';
+  } else {
+    e.target.style.width = '100%';
+    var t = ( contWidth / width ) * height;
+    e.target.style.marginTop = ( -( t - contHeight ) / 2 ) + 'px';
+  }
+}
