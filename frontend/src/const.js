@@ -75,21 +75,5 @@ exports.EVENTS_TITLES = {
 
 exports.ROBOT_SALE_TIME = 15778476000;//6 months
 
-exports.RATES_HINTS = [
-  '',
-  'client',
-  'light',
-  'advanced',
-  'master'
-]
-exports.PAGES_HINTS = {
-  '/account': 'account',
-  '/robot': 'long long long long long long long long long long long long long long long long long long long long long long long long long long long text',
-  '/team': 'Сайт будет представлять собой функциональную копию https://da-vinci.pro/. Все приведенные скриншоты будут скриншотами с вышеуказанного сайта. При создании копии сайта необходимо опираться на пример, но при этом использовать иной дизайн. Сайт должен иметь адаптивную верстку и работать максимально быстро для повышения комфорта работы с сайтом. Сайт будет иметь личный кабинет, в котором и будет происходить основная работа с сайтом.',
-  '/marketing': '',
-  '/finances': '',
-  '/instructions': '',
-  '/blog': '',
-  '/settings': '',
-  '/admin': '',
-}
+exports.PAY_METHOD_ETH = 0;
+exports.PAY_METHOD_PAYPAL = 1;

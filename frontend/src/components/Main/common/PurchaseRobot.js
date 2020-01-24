@@ -7,7 +7,37 @@ import Input from '../../common/Input.js'
 import Hint from '../../common/Hint.js'
 import ViewSelect from '../../common/ViewSelect.js'
 import AddRobotKeysPopup from './AddRobotKeysPopup.js'
-import { RATES_PRICES, RATES_IMAGES, RATES_TITLES, RATES_COUNT, ROBOT_SALE_TIME, RATES_HINTS } from '../../../const.js'
+import { RATES_PRICES, RATES_IMAGES, RATES_TITLES, RATES_COUNT, ROBOT_SALE_TIME } from '../../../const.js'
+
+const RATES_HINTS = [
+  '',
+  <ul>
+  <li>✅Client (250$) 1 лицензия</li>
+  <li>✅ Лимит депозита: 2000$</li>
+  <li>✅ Линейный бонус 1-й ур: 10%</li>
+</ul>,
+  <ul>
+  <li>✅ Light (500$) 1 лицензия</li>
+  <li>✅ Лимит депозита: 5000$</li>
+  <li>✅ Линейный бонус 1-й ур: 10%</li>
+  <li>✅ Линейный бонус 2-й ур: 3%</li>
+  <li>✅ Средние бонусы по программе</li>
+</ul>,
+  <ul>
+  <li>✅ Advanced (1000$) 2 лицензии</li>
+  <li>✅ Лимит депозита: 15000$ - 1 лиц</li>
+  <li>✅ Линейный бонус 1-й ур: 13%</li>
+  <li>✅ Линейный бонус 2-й ур: 4%</li>
+  <li>✅ Высокие бонусы по программе</li>
+  </ul>,
+  <ul>
+  <li>✅ Master (2000$) 2 лицензии</li>
+  <li>✅ Лимит депозита: 50000$ - 1 лиц</li>
+  <li>✅ Линейный бонус 1-й ур: 16%</li>
+  <li>✅ Линейный бонус 2-й ур: 5%</li>
+  <li>✅ VIP бонусы по программе</li>
+  </ul>
+]
 
 export default class extends React.Component {
   constructor(props){/*updateLocation, apiCall, noMoneyCallback, okCallback, data*/
@@ -41,7 +71,7 @@ export default class extends React.Component {
             onClick={ this._onBuyClick.bind(this, ind) }>
             { title }
           </Link>
-          <Hint position="top" className={ 'hint-' + rateClass }>{ RATES_HINTS[ ind ] }</Hint>
+          <Hint position="top" className={ 'purchase-robot__robot__hint hint-' + rateClass }>{ RATES_HINTS[ ind ] }</Hint>
         </div>
       </div>);
     }

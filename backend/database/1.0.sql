@@ -244,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`transactions` (
   `tr_dt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `tr_real_amount` DOUBLE NULL,
   `tr_platform_amount` DOUBLE NOT NULL,
-  `tr_pay_method` ENUM('paypal', 'ethereum') NULL,
+  `tr_pay_method` ENUM('ethereum', 'paypal') NULL,
   `tr_status` ENUM('wait', 'ok', 'rejected') NOT NULL DEFAULT 'wait',
   `tr_sender_id` INT NULL,
   `tr_receiver_id` INT NOT NULL,

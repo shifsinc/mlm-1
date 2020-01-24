@@ -52,7 +52,7 @@ export default class extends React.Component{/*formTitle, submitTitle, submitCal
     e.preventDefault();
     if( this.state.submitted ) return;
 
-    var inputs = this.form.querySelectorAll('input, textarea');console.log(this._checkRequired(inputs));
+    var inputs = this.form.querySelectorAll('input, textarea');
     if( !this._checkRepeat(inputs) || this._checkRequired(inputs) || this.form.querySelector('input.incorrect') ) return;
 
     var data = {};

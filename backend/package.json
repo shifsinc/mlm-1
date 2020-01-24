@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "update_money_rate": "node cron/updateMoneyRate.js",
-    "check_payments": "node cron/checkPayments.js"
+    "check_payments_eth": "node cron/checkPaymentsEth.js"
   },
   "author": "YR",
   "license": "ISC",
