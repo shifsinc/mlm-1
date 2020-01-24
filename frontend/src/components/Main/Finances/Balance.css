@@ -11,6 +11,7 @@
   margin: 20px 0;
   font-family: calibri-bold;
   font-size: 22px;
+  height: 22px;
 }
 .finances__balance__cont {
   display: flex;

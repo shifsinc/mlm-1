@@ -64,13 +64,13 @@ export default class extends React.Component {
 						(<StartWork apiCall={ this.props.apiCall } updateLocation={ this.props.updateLocation }></StartWork>) :
 						(<View { ...this.props } showUserCard={ this._showUserCard }></View>)
 					}
+          <Hint>{ PAGES_HINTS[ loc ] }</Hint>
 				</>)
 		}
 
 	  return (
 	    <div className="main">
 				{ content }
-				<Hint>{ PAGES_HINTS[ loc ] }</Hint>
 				<ViewSelect active={ this.state.popup }>
 
 	        <UserCard data={ this.state.cardData } apiCall={ this.props.apiCall }
