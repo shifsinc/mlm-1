@@ -35,11 +35,11 @@
 .admin__analytics__stats__item > *:first-child {
   color: var(--color4);
   font-size: 12px;
-  margin-bottom: 5px;
+  margin-bottom: 12px;
 }
 .admin__analytics__stats__item > *:last-child {
-  font-weight: 800;
-  font-size: 20px;
+  font-family: calibri-bold;
+  font-size: 24px;
   color: #000;
 }
 .admin__analytics__stats__item:nth-child(1),
