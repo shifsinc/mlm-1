@@ -30,18 +30,19 @@ module.exports.getUserCardInfo = (apiCall, user_id, callback) => {
   });
 }
 
-module.exports.alignPhoto = e => {
-  var width = e.target.clientWidth, height = e.target.clientHeight,
-  contWidth = e.target.parentElement.clientWidth, contHeight = e.target.parentElement.clientHeight;
+module.exports.alignPhoto = ({ target }) => {
+  var width = target.clientWidth, height = target.clientHeight,
+  contWidth = target.parentElement.clientWidth, contHeight = target.parentElement.clientHeight;
 
   var t;
   if( contWidth / contHeight < width / height ){
-    e.target.style.height = '100%';
+    target.style.height = '100%';
     t = ( contHeight / height ) * width;
-    e.target.style.marginLeft = ( -( t - contWidth ) / 2 ) + 'px';
+    target.style.marginLeft = ( -( t - contWidth ) / 2 ) + 'px';
   } else {
-    e.target.style.width = '100%';
+    target.style.width = '100%';
     t = ( contWidth / width ) * height;
-    e.target.style.marginTop = ( -( t - contHeight ) / 2 ) + 'px';
+    target.style.marginTop = ( -( t - contHeight ) / 2 ) + 'px';
   }
+  target.classList.add('aligned');
 }

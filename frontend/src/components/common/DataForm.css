@@ -22,15 +22,11 @@
     justify-content: space-between;
     align-items: center;
   }
-  .data-form__photo,
   .data-form a.button {
     width: 250px;
   }
   .data-form__fields {
     width: calc(100% - 280px);
-  }
-  .data-form__photo img {
-    width: 100%;
   }
 
   .data-form__cont {
