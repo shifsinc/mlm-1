@@ -100,7 +100,7 @@ export default class extends React.Component {
   }
 
   _calcMoney = () => {
-    var rate = this.state.payMethod === 0 ? this.state.moneyRate.rate_usd : this.state.moneyRate.rate_eth;
+    var rate = this.state.payMethod === PAY_METHOD_ETH ? this.state.moneyRate.rate_eth : this.state.moneyRate.rate_usd;
     if( rate === undefined ) rate = 0;
     if( this.state.ytAmount === '' ) return { sum: '', total: '' };
     var sum =  this.state.ytAmount * rate;
