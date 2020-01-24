@@ -1,16 +1,23 @@
-const { makeQuery, beginTransaction } = require('../../utils.js');
-const { INCORRECT_QUERY, OK, loginRegexp, passwordRegexp, emailRegexp, phoneRegexp, USER_NOT_EXISTS } = require('../../const.js');
+const { makeQuery, beginTransaction, checkCaptcha } = require('../../utils.js');
+const { INCORRECT_QUERY, OK, USER_NOT_EXISTS, INCORRECT_CAPTCHA,
+    loginRegexp, passwordRegexp, emailRegexp, phoneRegexp, } = require('../../const.js');
 const { sendConfirmMail } = require('../../email.js');
 const hash = require('js-sha1');
 
-module.exports = function(callback, params){/*login, password, email, refer_phone, refer_type*/
+module.exports = function(callback, params){
+  checkCaptcha(params['g-recaptcha-response'], 2, () => signup(callback, params), () => callback( INCORRECT_CAPTCHA ));
+}
+
+function signup(callback, params){/*login, password, email, refer_phone, refer_type*/
   var login = params.login, password = params.password, email = params.email,
     refer = params.refer_phone, refer_type = params.refer_type;
   if( login === undefined || !loginRegexp.test(login) ||
       password === undefined || !passwordRegexp.test(password) ||
-      email === undefined || !emailRegexp.test(email) ||
-      refer === undefined || !phoneRegexp.test(refer) )
+      email === undefined || !emailRegexp.test(email) )
     return callback( INCORRECT_QUERY );
+
+  if( refer === undefined || !phoneRegexp.test(refer) )
+    return callback({ status: 'error', action: { text: 'Вы не можете зарегестрироваться без рефера' } });
 
   makeQuery(`SELECT user_id FROM users WHERE user_login=? OR user_email=?`, [ login, email ],
     res => {

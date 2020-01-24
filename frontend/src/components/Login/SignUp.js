@@ -6,7 +6,7 @@ import Input from '../common/Input.js'
 import Switch from './Switch.js'
 import noPhoto from '../../img/noPhoto.png';
 import { loginRegexp, emailRegexp, phoneRegexp, passwordRegexp } from '../../const.js';
-import { RECAPTCHA_PUBLIC_KEY } from '../../config.js';
+import { RECAPTCHAV2_PUBLIC_KEY } from '../../config.js';
 
 export default class extends React.Component {
   constructor(props){/*updateLocation*/
@@ -42,22 +42,22 @@ export default class extends React.Component {
             submitTitle="РЕГИСТРАЦИЯ"
             submitCallback={data => {
               return this.props.apiCall('signup',
-                { ...data, refer_phone: this.state._refer_phone, refer_type: this.state.refer_type });
+                { ...data, refer_phone: this.state.refer_phone, refer_type: this.state.refer_type });
             }}
             updateLocation = { this.props.updateLocation }>
           <Switch location="/signup" updateLocation={ this.props.updateLocation }></Switch>
-          <Input attr={{ name: 'login', autoFocus: true }} regexp={ loginRegexp } label="Логин"></Input>
+          <Input required attr={{ name: 'login', autoFocus: true }} regexp={ loginRegexp } label="Логин"></Input>
 
-          <Input attr={{ name: 'email'  }}
+          <Input required attr={{ name: 'email'  }}
             regexp={ emailRegexp } label="E-mail"></Input>
-          <Input attr={{ name: 'email_repeat' }}
+          <Input required attr={{ name: 'email_repeat' }}
             regexp={ emailRegexp } label="Повторите E-mail"></Input>
-          <Input attr={{ name: 'password', type: 'password' }}
+          <Input required attr={{ name: 'password', type: 'password' }}
             regexp={ passwordRegexp } label="Пароль"></Input>
-          <Input attr={{ name: 'password_repeat', type: 'password' }}
+          <Input required attr={{ name: 'password_repeat', type: 'password' }}
             regexp={ passwordRegexp } label="Повторите пароль"></Input>
 
-          <div className="g-recaptcha" data-sitekey={ RECAPTCHA_PUBLIC_KEY }></div>
+          <div className="g-recaptcha" data-sitekey={ RECAPTCHAV2_PUBLIC_KEY }></div>
 
         </Form>
       </div>

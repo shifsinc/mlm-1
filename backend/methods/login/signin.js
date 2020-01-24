@@ -1,7 +1,11 @@
-const { makeQuery, validateUser } = require('../../utils.js');
-const { INCORRECT_QUERY, AUTH_FAILED, ADMIN_ROLE } = require('../../const.js');
+const { makeQuery, validateUser, checkCaptcha } = require('../../utils.js');
+const { INCORRECT_QUERY, AUTH_FAILED, ADMIN_ROLE, INCORRECT_CAPTCHA } = require('../../const.js');
 
-module.exports = function(callback, params){/*login, password*/
+module.exports = function(callback, params){
+  checkCaptcha(params['g-recaptcha-response'], 3, () => signin(callback, params), () => callback( INCORRECT_CAPTCHA ));
+}
+
+function signin(callback, params){/*login, password*/
   var login = params.login, password = params.password;
   if( login === undefined || password === undefined ) return callback( INCORRECT_QUERY );
 

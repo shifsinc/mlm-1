@@ -1,5 +1,6 @@
 const mysql = require('mysql');
-const { MYSQL_AUTH, MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS,  RECAPTCHA_PRIVATE_KEY } = require('./config.js');
+const { MYSQL_AUTH, MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASS,
+  RECAPTCHAV2_PRIVATE_KEY, RECAPTCHAV3_PRIVATE_KEY } = require('./config.js');
 const {
   INCORRECT_QUERY,
   AUTH_FAILED,
@@ -156,9 +157,10 @@ module.exports.sendMail = function(to, text, callback){
 
 ///////////////////
 
-module.exports.checkCaptcha = function(token, onSuccess, onFailed){
+module.exports.checkCaptcha = function(token, version, onSuccess, onFailed){
+  if( !token ) return onFailed();
   var query = querystring.stringify({
-    secret: RECAPTCHA_PRIVATE_KEY,
+    secret: version === 2 ? RECAPTCHAV2_PRIVATE_KEY : RECAPTCHAV3_PRIVATE_KEY,
     response: token
   });
   const req = https.request({
@@ -174,7 +176,7 @@ module.exports.checkCaptcha = function(token, onSuccess, onFailed){
     res.on('data', d => data += d);
     res.on('end', () => {
       try{
-        var json = JSON.parse(query);
+        var json = JSON.parse(data);
       } catch(e){console.log(e); return}
       if( json.success ) onSuccess();
       else onFailed();

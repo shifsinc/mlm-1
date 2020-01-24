@@ -42,4 +42,8 @@ exports.MAIL_PORT = 465;
 exports.MAIL_USER = 'info@yodafx.pro';
 exports.MAIL_PASS = '5.mF;!XkO{[?';
 
-exports.RECAPTCHA_PRIVATE_KEY = '';
+exports.RECAPTCHAV2_PRIVATE_KEY = '6LdF5c4UAAAAANqjHBY7A8WDi_vziWDrJ0lY9RP0';
+exports.RECAPTCHAV3_PRIVATE_KEY = '6LciPdIUAAAAAOoPzR9Xk6wdJMD9BKQREUA-cj83';
+
+exports.ADMIN_ETH = '0x373856e432f80d8170573284579c84be3d488a1e';
+exports.ADMIN_PAYPAL = '';//'vitalycool@gmail.com';

@@ -9,6 +9,7 @@ exports.TRANSACTION_NOT_EXISTS = { status: 'error', text: 'transaction not exist
 exports.INCORRECT_FILE = { status: 'error', text: 'incorrect file', action: { text: 'Неверный тип файла' } }
 exports.DATA_NOT_UNIQUE = { status: 'error', text: 'data not unique', action: { text: 'Данные не уникальны' } }
 exports.NO_DATA_PAGES = { status: 'ok', result: { count: 0, data: [] } }
+exports.INCORRECT_CAPTCHA = { status: 'error', text: 'incorrect captcha', action: { text: 'Captcha error' } }
 
 exports.NO_PHOTO = 'noPhoto.png';
 
@@ -30,8 +31,8 @@ exports.INCORRECT_TOKEN = { status: 'error', text: 'token invalid', action: { te
 exports.ADMIN_ROLE = 1;
 exports.USER_ROLE = 2;
 
-exports.PAY_METHOD_PAYPAL = 0;
-exports.PAY_METHOD_ETH = 1;
+exports.PAY_METHOD_ETH = 0;
+exports.PAY_METHOD_PAYPAL = 1;
 exports.PAY_COMMISSION = 1.02;
 
 exports.MAX_DEPOSITS = {
