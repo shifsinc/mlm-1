@@ -58,7 +58,7 @@ export default class extends React.Component {
     });
   }
 
-  _onUpdateSubmit = data => {console.log(data)
+  _onUpdateSubmit = data => {
     data.rate = RATES_TITLES.indexOf( data.rate );
     return this.props.apiCall('admin/addNews', { section: 'robot_update', ...data }).then(r => {
       if( r.status !== 'error' ) this.setState({ popup: null, rand: Math.random() });

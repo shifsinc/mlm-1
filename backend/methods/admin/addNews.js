@@ -6,7 +6,7 @@ module.exports = function(callback, params, _user_id){/*title, text, section, ra
     section = params.section, rate = parseInt(params.rate),
     images = Array.isArray( params.images ) ? params.images : null;
     videos = Array.isArray( params.videos ) ? params.videos : null;
-  if( isNaN(rate) ) rate = null;
+  if( isNaN(rate) || !rate ) rate = null;
   if( !( /^(news|blog|robot_update)$/.test(section) ) ||
     ( rate !== null && ( rate < 1 || rate > 4 ) )) return callback( INCORRECT_QUERY );
 
