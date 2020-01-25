@@ -51,6 +51,8 @@ exports.RATES_PRICES = {
 exports.WITHDRAW_COMMISSION = 0.02;
 exports.MIN_WITHDRAW_AMOUNT = 10;
 
+exports.TRANSACTION_TIMEOUT = 24*60*60*1000;
+
 exports.ROBOT_LICENSE_VALID = 6;//months
 exports.ROBOT_SALE_TIME = 15778476000;//6 months
 

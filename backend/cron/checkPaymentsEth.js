@@ -1,7 +1,8 @@
 /*every 10 min*/
 const { initMysqlConnection, makeQuery } = require('../utils.js');
 const { ADMIN_ETH, ETHERSCAN_TOKEN } = require('../config.js');
-const ethApi = require('etherscan-api').init(ETHERSCAN_TOKEN);
+const { TRANSACTION_TIMEOUT } = require('../const.js');
+const ethApi = require('etherscan-api').init( ETHERSCAN_TOKEN );
 
 initMysqlConnection(() => {
 
@@ -26,6 +27,9 @@ initMysqlConnection(() => {
 
 function _hnd(internal_tr, eth_tr){
   internal_tr.forEach(i_tr => {
+    var tr_date = new Date(i_tr.tr_dt);
+    if( new Date() - tr_date > TRANSACTION_TIMEOUT )
+      return makeQuery(`UPDATE transactions SET tr_status='rejected' WHERE tr_id=?`, [ i_tr.tr_id ]);
     eth_tr.result.forEach(e_tr => {
 
       var e_tr_value = ( e_tr.value / 1000000000000000000 ).toFixed(5), i_tr_value = parseFloat( i_tr.tr_real_amount).toFixed(5);
