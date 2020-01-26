@@ -42,6 +42,10 @@ export default class extends React.Component {
 
             <Form submitTitle="ВЫВЕСТИ" formTitle={ 'Вы уверены, что хотите списать ' + this.state.amount + ' YT?' }
               submitCallback={ this._onConfirm }>
+              <div className="popup__text">
+                Перед подтверждением проверьте Ваш кошелёк ETHEREUM:
+              </div>
+              <div className="popup__text"><b>{ this.props.data.account_ethereum }</b></div>
               <Input label="Введите пароль" attr={{ name: 'current_password', type: 'password' }}></Input>
             </Form>
           </Popup>

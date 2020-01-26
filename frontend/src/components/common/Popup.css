@@ -34,3 +34,7 @@
   top: 7px;
   transform: rotate(45deg);
 }
+
+.popup__text {
+  margin: 15px 0;
+}

@@ -85,7 +85,7 @@ export default class extends React.Component {
           <Form formTitle={ 'КУПИТЬ ПАКЕТ "' + RATES_TITLES[ this.state.selectedRate ] + '"?' }
             submitTitle="Да" submitCallback={ this._onBuySubmit }>
 
-            <div className="purchase-robot__popup__prompt">С Вашего счета будет списано { this.state.currentPrice } YT</div>
+            <div className="popup__text">С Вашего счета будет списано { this.state.currentPrice } YT</div>
             <Input label="Введите пароль" attr={{ name: 'current_password', type: 'password' }}></Input>
             <Link className="button button-inactive purchase-robot__popup-confirm__button"
               onClick={ this._closePopup }>Нет</Link>

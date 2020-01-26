@@ -13,6 +13,7 @@ export default class extends React.Component {
     this.state = { balance: {}, bonuses: {} };
 
     props.apiCall('getUserBalance').then( r => this.setState({ balance: r.result }) );
+    props.apiCall('getBilling').then( r => this.setState({ billing: r.result }) );
     props.apiCall('getUserBonuses').then( r => this.setState({ bonuses: r.result }) );
   }
 
@@ -26,7 +27,7 @@ export default class extends React.Component {
         <Bonuses data={{ ...this.state.bonuses, ...this.state.balance }}></Bonuses>
       </div>
 
-      <WithdrawMoney apiCall={ this.props.apiCall } data={ this.state.balance }
+      <WithdrawMoney apiCall={ this.props.apiCall } data={{ ...this.state.balance, ...this.state.billing }}
         onWithdraw={ amount => this.setState({
           balance: { ...this.state.balance, account_balance: this.state.balance.account_balance - amount },
           rand: Math.random() })

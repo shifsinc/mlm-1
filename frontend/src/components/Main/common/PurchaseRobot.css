@@ -93,10 +93,6 @@
   margin-top: 24px;
 }
 
-.purchase-robot__popup__prompt {
-  margin: 15px 0;
-}
-
 @media screen and (max-width: 900px) {
   .purchase-robot__robot {
     width: 50%;
