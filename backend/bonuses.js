@@ -38,6 +38,12 @@ function calcStats(user, amount){
       WHERE user_id=?`,
       [ yt_left, yt_right, yt_sum_left, yt_sum_right, binary_cycles, user.user_id ]);
 
+    user.stats_yt_left = yt_left;
+    user.stats_yt_right = yt_right;
+    user.stats_yt_sum_left = yt_sum_left;
+    user.stats_yt_sum_right = yt_sum_right;
+    user.stats_binary_cycles += binary_cycles;
+
     return binary_cycles;
 }
 
