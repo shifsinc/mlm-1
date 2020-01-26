@@ -16,7 +16,7 @@
   padding: 0;
   z-index: 10;
   max-height: 300px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .select-input__options__item {
   cursor: pointer;

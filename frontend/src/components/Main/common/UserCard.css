@@ -5,7 +5,7 @@
 .user-card__cont {
   width: 700px;
   height: 550px;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 10px;
 }
 .user-card__status-img {

@@ -1,7 +1,7 @@
 .admin__add-content-popup {
   width: 700px;
   max-height: 500px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .admin__add-content-popup textarea {
   width: 100%;
