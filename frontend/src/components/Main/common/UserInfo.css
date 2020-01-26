@@ -1,6 +1,7 @@
 .user-info {
   height: 100%;
   position: relative;
+  min-height: 550px;
 }
 .user-info__left,
 .user-info__right {
@@ -18,6 +19,7 @@
 .user-info__rate {
   width: 100%;
   max-width: 200px;
+  max-height: 200px;
 }
 .user-info__right {
   padding-left: 240px;
