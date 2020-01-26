@@ -17,6 +17,8 @@ module.exports = function(callback, params, _user_id){/*payMethod, amount*/
     } else return callback( INCORRECT_QUERY );
 
     getUserAccount(_user_id, acc => {
+      if( acc.account_ethereum === undefined )
+        return callback({ status: 'error', action: { text: 'Необходимо указать платежные данные' } });
 
       var acc_id = acc.account_id;
       makeQuery(`INSERT INTO transactions(tr_real_amount, tr_platform_amount, tr_pay_method, tr_receiver_id, tr_type)
