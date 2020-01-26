@@ -249,6 +249,7 @@ CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`transactions` (
   `tr_sender_id` INT NULL,
   `tr_receiver_id` INT NOT NULL,
   `tr_type` ENUM('in', 'out', 'internal', 'bonus_linear', 'bonus_binary', 'bonus_match', 'bonus_lead', 'bonus_extra') NOT NULL,
+  `tr_external_id` VARCHAR(70) NULL DEFAULT NULL,
   PRIMARY KEY (`tr_id`),
   UNIQUE INDEX `tr_id_UNIQUE` (`tr_id` ASC),
   CONSTRAINT `sender`
