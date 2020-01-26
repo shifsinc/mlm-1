@@ -26,6 +26,7 @@ function _view(props){
                   <Link className="admin__delete-button" onClick={ () => props._deleteClick(d) }></Link>
                 </div> : undefined
             }
+            <h4 className="news__item__title">{ d.news_title }</h4>
             <div className="news__item__text">{ d.news_text }</div>
             <div><ImagesView data={ d.images }></ImagesView></div>
             <div><VideosView data={ d.videos }></VideosView></div>
