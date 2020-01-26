@@ -11,7 +11,7 @@ module.exports = function(callback, params, _user_id){/*offset, count*/
     u.user_name,
     u.user_surname,
     u.user_rate,
-    u.user_status,
+    u.user_status+0 AS user_status,
     a.account_ethereum
     FROM events e
     LEFT JOIN transactions t ON e.tr_id=t.tr_id

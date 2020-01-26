@@ -8,7 +8,7 @@ import Link from '../../common/Link.js'
 import ViewSelect from '../../common/ViewSelect.js'
 import Popup from '../../common/Popup.js'
 import { formatDate } from '../../../utils.js'
-import { EVENTS_TITLES } from '../../../const.js'
+import { EVENTS_TITLES, STATUS_TITLES } from '../../../const.js'
 
 export default class extends React.Component {
   constructor(props){/*apiCall*/
@@ -38,7 +38,7 @@ export default class extends React.Component {
             <tr><td>Рефер</td><td>{ popupData.user_name } { popupData.user_surname }</td></tr>
 
             { popupData.event_type === 'new_status' ? (
-              <tr><td>Новый статус</td><td>{ popupData.user_status }</td></tr>
+              <tr><td>Новый статус</td><td>{ STATUS_TITLES[ popupData.user_status ] }</td></tr>
             ) : undefined }
 
             { popupData.event_type === 'bonus_start' ? (
