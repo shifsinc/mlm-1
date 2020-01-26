@@ -8,8 +8,8 @@ import { alignPhoto } from '../../../utils.js'
 
 export default function(props){/*data, userClick, updateLocation*/
   var data = props.data ? props.data : {};
-  var cyclesLeft = Math.floor( data.stats_yt_left / BINARY_CYCLE_AMOUNT ),
-    cyclesRight = Math.floor( data.stats_yt_right / BINARY_CYCLE_AMOUNT );
+  /*var cyclesLeft = Math.floor( data.stats_yt_left / BINARY_CYCLE_AMOUNT ),
+    cyclesRight = Math.floor( data.stats_yt_right / BINARY_CYCLE_AMOUNT );*/
   return (
     <div className="account__info interface-block">
       <div className="account__info__photo main-avatar">
@@ -79,8 +79,9 @@ export default function(props){/*data, userClick, updateLocation*/
           </div>
           <div className="account__info__cont3__item">
             <div onClick={ () => props.updateLocation('/finances') }>
-              { isNaN( cyclesLeft ) ? 0 : cyclesLeft }/
-              { isNaN( cyclesRight ) ? 0 : cyclesRight }
+              {/*{ isNaN( cyclesLeft ) ? 0 : cyclesLeft }/
+              { isNaN( cyclesRight ) ? 0 : cyclesRight }*/}
+              { data.stats_binary_cycles }
             </div>
             <div>Бинарные циклы</div>
           </div>
