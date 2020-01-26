@@ -24,9 +24,9 @@ function onResponse(res){
     } catch(e){ console.log(e); return; }
     if( !json.length ) return;
 
+    const exit = () => process.exit();
     var rate = (1 / json[0].price).toFixed(6);
-    makeQuery(`UPDATE money_rate SET rate_eth=?`, [ rate ]);
+    makeQuery(`UPDATE money_rate SET rate_eth=?`, [ rate ], exit, exit);
 
-    process.exit();
   });
 }
