@@ -13,23 +13,17 @@ export default class extends React.Component {
       balance: {},
       moneyRate: {},
       wallets: {},
+      billing: {},
       payMethod: 0,
       ytAmount: '',
       view: 0,
       serverTotal: 0
     }
 
-    props.apiCall('getUserBalance').then(r => {
-      if( r.status === 'error' ) return;
-      this.setState({ balance: r.result });
-    });
-    props.apiCall('getMoneyRate').then(r => {
-      if( r.status === 'error' ) return;
-      this.setState({ moneyRate: r.result });
-    });
-    props.apiCall('getPaymentWallets').then(r => {
-      this.setState({ wallets: r.result });
-    });
+    props.apiCall('getUserBalance').then(r => this.setState({ balance: r.result }));
+    props.apiCall('getMoneyRate').then(r => this.setState({ moneyRate: r.result }));
+    props.apiCall('getPaymentWallets').then(r => this.setState({ wallets: r.result }));
+    props.apiCall('getBilling').then(r => this.setState({ billing: r.result }));
   }
 
   render(){
@@ -63,6 +57,10 @@ export default class extends React.Component {
               <h2>ОПЛАТА</h2>
               <h5>ОТПРАВЬТЕ</h5>
               <span>{ this.state.serverTotal.toFixed(5) } { this.state.payMethod === PAY_METHOD_ETH ? 'ETH' : 'USD' }</span>
+              <h5>
+                С адреса: { this.state.payMethod === PAY_METHOD_ETH ?
+                    this.state.billing.account_ethereum : this.state.billing.account_paypal }
+              </h5>
               <Input className="add-money__wallet label-top" label="На адрес:" attr={{
                   readOnly: true,
                   value: this.state.payMethod === PAY_METHOD_ETH ? this.state.wallets.eth_wallet : this.state.wallets.paypal_wallet
