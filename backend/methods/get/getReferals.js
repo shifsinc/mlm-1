@@ -33,9 +33,14 @@ module.exports = function(callback, params, _user_id){/*count, offset, pattern, 
         user_dt,
         user_rate + 0 AS user_rate
         FROM users
-        WHERE user_id IN(?) AND user_login LIKE ? ${lineCond}
+        WHERE user_id IN(?) AND (
+          user_name LIKE ?
+          OR user_surname LIKE ?
+          OR user_email LIKE ?
+          OR user_phone LIKE ?
+        ) ${lineCond}
         ORDER BY user_dt
-        LIMIT ?,?`, [ result_ids, pattern, offset, count ],
+        LIMIT ?,?`, [ result_ids, pattern, pattern, pattern, pattern, offset, count ],
         res => {
 
           makeQuery(`SELECT COUNT(*) AS count FROM users WHERE user_id IN(?) AND user_login LIKE ? ${lineCond}`,

@@ -16,8 +16,12 @@ module.exports = function(callback, params, _user_id){/*pattern, offset, count*/
     FROM users u
     JOIN users_stats s ON u.user_id=s.user_id
     WHERE u.user_login LIKE ?
+      OR u.user_name LIKE ?
+      OR u.user_surname LIKE ?
+      OR u.user_email LIKE ?
+      OR u.user_phone LIKE ?
     ORDER BY u.user_id DESC
-    LIMIT ?,?`, [ pattern, offset, count ],
+    LIMIT ?,?`, [ pattern, pattern, pattern, pattern, pattern, offset, count ],
     res => {
 
       makeQuery(`SELECT COUNT(*) AS count FROM users WHERE user_login LIKE ?`, [ pattern ], count => {
