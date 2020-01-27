@@ -12,7 +12,7 @@ export default class extends React.Component {
   }
 
   _updateTree = user_id => {
-    this.props.apiCall('getReferalsTree', { levels: 5, user_id }).then( r => this.setState({ tree: r.result }) );
+    this.props.apiCall('getReferalsTree', { levels: 3, user_id }).then( r => this.setState({ tree: r.result }) );
   }
 
   componentDidUpdate = prevProps => {

@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`users` (
   `user_blocked` BOOL NOT NULL DEFAULT '0',
   `user_refer` INT(11) NULL DEFAULT NULL,
   `user_refer_type` ENUM('l', 'r') NULL DEFAULT NULL,
+  `user_tree_refer` INT(11) NULL DEFAULT NULL,
   `user_name` VARCHAR(40) NULL DEFAULT NULL,
   `user_surname` VARCHAR(40) NULL DEFAULT NULL,
   `user_email` VARCHAR(45) NOT NULL,
@@ -88,10 +89,16 @@ CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`users` (
   UNIQUE INDEX `user_login_UNIQUE` (`user_login` ASC),
   UNIQUE INDEX `user_email_UNIQUE` (`user_email` ASC),
   UNIQUE INDEX `user_phone_UNIQUE` (`user_phone` ASC),
+  UNIQUE INDEX `users_tree_UNIQUE` (`user_tree_refer`, `user_refer_type`),
   INDEX `role_idx` (`role_id` ASC),
   INDEX `refer_idx` (`user_refer` ASC),
   CONSTRAINT `refer`
     FOREIGN KEY (`user_refer`)
+    REFERENCES `yodafxpr_mlm_db`.`users` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `user_tree_refer`
+    FOREIGN KEY (`user_tree_refer`)
     REFERENCES `yodafxpr_mlm_db`.`users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
@@ -372,6 +379,31 @@ ENGINE = InnoDB;
 
 USE `yodafxpr_mlm_db`;
 DELIMITER $$
+
+
+/*users tree*/
+DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`users_BEFORE_INSERT` $$
+CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`users_BEFORE_INSERT` BEFORE INSERT ON `users` FOR EACH ROW
+BEGIN
+  IF( new.user_refer IS NOT NULL ) THEN
+
+    SET @cycle = 1;
+    SET @ref = new.user_refer;
+    SET @ref_type = new.user_refer_type;
+    WHILE @cycle DO
+
+      SET @_ref = (SELECT user_id FROM users WHERE user_tree_refer=@ref AND user_refer_type=@ref_type);
+      IF( @_ref IS NULL ) THEN SET @cycle = 0;
+      ELSE SET @ref = @_ref;
+      END IF;
+
+    END WHILE;
+
+    SET new.user_tree_refer=@ref;
+
+  END IF;
+END$$
+
 
 /*stats_first_line_referals, stats_second_line_referals, stats_left_referals, stats_right_referals*/
 DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`users_AFTER_INSERT` $$
