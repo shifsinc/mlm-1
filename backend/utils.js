@@ -12,15 +12,18 @@ const {
 const nodemailer = require('nodemailer');
 const https = require('https');
 const querystring = require('querystring');
+const { promisify } = require('util');
 
-var _con;
+var _con, _promiseQuery;
 module.exports.initMysqlConnection = function(onSuccess, onError){
   _con = mysql.createConnection( MYSQL_AUTH );
+  _promiseQuery = promisify(_con.query).bind(_con);
   _con.connect( err => {
     if(err && onError) onError( { status: 'error', text: err.sqlMessage/*'Internal error'*/ } );
     else onSuccess();
   });
 }
+
 function makeQuery(query, params = [], onSuccess, onError){
   if(!_con) return;
   _con.query(query, params, (err, result) => {
@@ -29,6 +32,18 @@ function makeQuery(query, params = [], onSuccess, onError){
   });
 }
 module.exports.makeQuery = makeQuery;
+
+async function makeQueryAsync(query, params = []){
+  if(!_promiseQuery) return;
+  try {
+    var result = await _promiseQuery(query, params);
+  } catch(e){
+    return { status: 'error', text: e.sqlMessage/*'Internal error'*/ };
+  }
+  return { status: 'ok', result };
+}
+module.exports.makeQueryAsync = makeQueryAsync;
+
 module.exports.beginTransaction = function(callback, onError){
   _con.beginTransaction(e => {
     if(e) onError && onError(e);
