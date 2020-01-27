@@ -10,8 +10,8 @@ export default function(props){/*regexp, className, attr, label, required*/
 
       var testResult = regexp.reduce((s,r) => r.test(targ.value) + s, 0);
       if( regexp.length && !testResult && targ.value ) targ.classList.add('incorrect');
-    }
-    targ.classList.remove('incorrect');
+      else targ.classList.remove('incorrect');
+    } else ;
   }
 
   var cn = [ 'input' ];
