@@ -26,7 +26,7 @@ export default function(props){/*regexp, className, attr, label, required*/
         <div className="input__label">{ props.label }</div>
         { props.children }
         { props.hint ? (
-          <div className="input__button input__hint"><Hint position="top">
+          <div className="input__button input__hint"><Hint size="sm" position="top">
             { props.hint }
           </Hint></div>
         ) : undefined }

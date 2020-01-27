@@ -15,18 +15,27 @@
   display: none;
   position: absolute;
   right: 0;
-
   background-color: var(--color2);
   color: #FFF;
   border-radius: 3px;
   padding: 5px 10px;
   z-index: 10;
+  text-align: left;
 }
 .hint__text:after {
   content: '';
   position: absolute;
   right: 7.5px;
   border: solid 5px transparent;
+}
+.hint.sm .hint__text {
+  width: 200px;
+}
+.hint.md .hint__text {
+  width: 280px;
+}
+.hint.bg .hint__text {
+  width: 400px;
 }
 
 .hint.bottom .hint__text {

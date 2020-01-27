@@ -47,7 +47,8 @@ export default class extends React.Component {
             <Input attr={{ name: "ethereum",
               value: this.state.account_ethereum,
               onChange: e => this.setState({ account_ethereum: e.target.value }) }}
-              regexp={ ethereumRegexp } label="Ваш Ethereum-адрес"/>
+              regexp={ ethereumRegexp } label="Ваш Ethereum-адрес"
+              hint="Ваш Ethereum адрес, начиная с 0x"/>
 
             {/*<Input attr={{ name: "paypal",
               value: this.state.account_paypal,

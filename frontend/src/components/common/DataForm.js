@@ -62,22 +62,29 @@ export default class extends React.Component {
 
             <Input attr={{ name: 'phone', value: this.state.user_phone,
               onChange: e => this.setState({ user_phone: e.target.value }) }}
-              regexp={ phoneRegexp } required label="Телефон"></Input>
+              regexp={ phoneRegexp } required label="Телефон"
+              hint="Номер телефона должен содержать только цифры">
+          </Input>
+
 
             <div className="data-form__cont">
               <Input attr={{ name: 'social_link', value: this.state.user_social,
                 onChange: e => this.setState({ user_social: e.target.value }) }}
-                regexp={ linkRegexp } required label="Страница в социальной сети"></Input>
+                regexp={ linkRegexp } required label="Страница в социальной сети"
+                hint="Скопируйте ссылку на свой профиль из адресной строки браузера">
+            </Input>
 
               <Input attr={{ name: 'telegram', value: this.state.user_telegram,
                 onChange: e => this.setState({ user_telegram: e.target.value }) }}
-                regexp={ telegramRegexp }  label="Telegram"></Input>
+                regexp={ telegramRegexp }  label="Telegram"
+                hint="Введите свое имя пользователя Telegram"></Input>
             </div>
             {
               this.props.passwordFields ? (
                 <div className="data-form__cont">
                   <Input attr={{ name: 'new_password', type: 'password' }}
-                    regexp={ passwordRegexp } label="Новый пароль"></Input>
+                    regexp={ passwordRegexp } label="Новый пароль"
+                    hint="8 – 30 символов. Обязателен ввод минимум одного специального символа, одной буквы в верхнем регистре, одной цифры"></Input>
 
                   <Input attr={{ name: 'new_password_repeat', type: 'password' }}
                     regexp={ passwordRegexp } label="Повторите новый пароль"></Input>

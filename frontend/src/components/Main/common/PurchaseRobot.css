@@ -54,9 +54,6 @@
 .hint-master > .hint__button {
   background-image: url('../../../img/icon/info-master@2x.png');
 }
-.purchase-robot__robot__hint > .hint__text {
-  width: 280px;
-}
 .purchase-robot__robot__hint > .hint__text > ul {
   list-style-type: none;
   padding: 0;

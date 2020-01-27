@@ -55,6 +55,5 @@
   padding: 5px;
 }
 .input__hint .hint__text {
-  width: 250px;
   line-height: 18px !important;
 }

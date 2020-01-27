@@ -46,16 +46,20 @@ export default class extends React.Component {
             }}
             updateLocation = { this.props.updateLocation }>
           <Switch location="/signup" updateLocation={ this.props.updateLocation }></Switch>
-          <Input required attr={{ name: 'login', autoFocus: true }} regexp={ loginRegexp } label="Логин"></Input>
+          <Input required attr={{ name: 'login', autoFocus: true }} regexp={ loginRegexp } label="Логин"
+            hint="5-30 символов. Допускается ввод только букв английского алфавита (оба регистра), символа '_', цифр 0-9. Логин не может начинаться с цифры."></Input>
 
           <Input required attr={{ name: 'email'  }}
             regexp={ emailRegexp } label="E-mail"></Input>
           <Input required attr={{ name: 'email_repeat' }}
             regexp={ emailRegexp } label="Повторите E-mail"></Input>
           <Input required attr={{ name: 'password', type: 'password' }}
-            regexp={ passwordRegexp } label="Пароль"></Input>
+            regexp={ passwordRegexp } label="Пароль"
+            hint="8 – 30 символов. Обязателен ввод минимум одного специального символа, одной буквы в верхнем регистре, одной цифры.">
+          </Input>
           <Input required attr={{ name: 'password_repeat', type: 'password' }}
-            regexp={ passwordRegexp } label="Повторите пароль"></Input>
+            regexp={ passwordRegexp } label="Повторите пароль">
+          </Input>
 
           <div className="g-recaptcha" data-sitekey={ RECAPTCHAV2_PUBLIC_KEY }></div>
 

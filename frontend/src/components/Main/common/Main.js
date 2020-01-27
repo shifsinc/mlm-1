@@ -64,7 +64,7 @@ export default class extends React.Component {
 						(<StartWork apiCall={ this.props.apiCall } updateLocation={ this.props.updateLocation }></StartWork>) :
 						(<View { ...this.props } showUserCard={ this._showUserCard }></View>)
 					}
-          <Hint>{ PAGES_HINTS[ loc ] }</Hint>
+          <Hint size="bg">{ PAGES_HINTS[ loc ] }</Hint>
 				</>)
 		}
 
