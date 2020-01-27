@@ -3,6 +3,9 @@ import './SignUp.css'
 import './common.css'
 import Form from '../common/Form.js'
 import Input from '../common/Input.js'
+import Link from '../common/Link.js'
+import ViewSelect from '../common/ViewSelect.js'
+import Popup from '../common/Popup.js'
 import Switch from './Switch.js'
 import noPhoto from '../../img/noPhoto.png';
 import { loginRegexp, emailRegexp, phoneRegexp, passwordRegexp } from '../../const.js';
@@ -19,7 +22,9 @@ export default class extends React.Component {
       refer_email: '',
       refer_phone,
       refer_type,
-      referEditDisabled: false
+      referEditDisabled: false,
+      popup: null,
+      redirectPath: null
     };
     this._fetchRefer( refer_phone );
   }
@@ -41,8 +46,12 @@ export default class extends React.Component {
         <Form className="login-form interface-block"
             submitTitle="РЕГИСТРАЦИЯ"
             submitCallback={data => {
-              return this.props.apiCall('signup',
-                { ...data, refer_phone: this.state.refer_phone, refer_type: this.state.refer_type });
+              return this.props.apiCall('signup', { ...data, refer_phone: this.state.refer_phone, refer_type: this.state.refer_type })
+                .then(r => {
+                  if( r.status === 'error' ) return r;
+                  this.setState({ popup: 0, redirectPath: r.action.path });
+                  return {};
+                });
             }}
             updateLocation = { this.props.updateLocation }>
           <Switch location="/signup" updateLocation={ this.props.updateLocation }></Switch>
@@ -60,6 +69,14 @@ export default class extends React.Component {
           <Input required attr={{ name: 'password_repeat', type: 'password' }}
             regexp={ passwordRegexp } label="Повторите пароль">
           </Input>
+
+          <ViewSelect active={ this.state.popup }>
+            <Popup className="sign-up__popup" onClose={ () => this.props.updateLocation(this.state.redirectPath) }>
+              <h4>Вам на электронную почту поступит письмо для подтверждения регистрации</h4>
+              <Link className="button" path={ this.state.redirectPath } updateLocation={ this.props.updateLocation }>Закрыть</Link>
+            </Popup>
+
+          </ViewSelect>
 
           <div className="g-recaptcha" data-sitekey={ RECAPTCHAV2_PUBLIC_KEY }></div>
 

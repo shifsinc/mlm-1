@@ -11,6 +11,10 @@
   max-height: 200px;
   margin-top: 10px;
 }
+.sign-up__popup {
+  max-width: calc(100% - 20px);
+  padding: 20px;
+}
 
 @media screen and (min-width: 900px) {
   .sign-up__refer {
@@ -18,5 +22,8 @@
     position: absolute;
     left: -220px;
     top: 0;
+  }
+  .sign-up__popup {
+    width: 400px
   }
 }
