@@ -38,3 +38,12 @@
 .popup__text {
   margin: 15px 0;
 }
+
+@media screen and (max-width: 900px){
+  .popup {
+    width: auto;
+    height: auto;
+    max-width: calc(100% - 20px);
+    max-height: calc(100% - 20px);
+  }
+}

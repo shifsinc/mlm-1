@@ -1,12 +1,13 @@
 .user-card {
   overflow: visible;
   padding: 0;
-}
-.user-card__cont {
   width: 700px;
   height: 550px;
+}
+.user-card__cont {
   overflow-y: auto;
   padding: 10px;
+  height: 100%;
 }
 .user-card__status-img {
   width: 100px;
@@ -19,9 +20,5 @@
 @media screen and (max-width: 900px){
   .user-card {
     margin: 50px auto !important;
-  }
-  .user-card__cont {
-    width: 300px;
-    height: 100%;
   }
 }

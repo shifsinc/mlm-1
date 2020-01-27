@@ -58,7 +58,7 @@
     height: auto;
   }
   .user-info__photo {
-    margin-bottom: 20px;
+    margin: 0 auto 20px auto;
   }
   .user-info__rate {
     margin: auto;

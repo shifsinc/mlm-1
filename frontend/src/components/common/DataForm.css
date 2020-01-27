@@ -4,7 +4,8 @@
 
 .data-form__photo {
   cursor: pointer;
-  display: inline-block;
+  display: block;
+  margin: auto;
 }
 .data-form__photo input {
   display: none;
