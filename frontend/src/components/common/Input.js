@@ -1,5 +1,6 @@
 import React from 'react';
 import './Input.css';
+import Hint from './Hint.js'
 
 export default function(props){/*regexp, className, attr, label, required*/
   var _onBlur = e => {
@@ -24,6 +25,11 @@ export default function(props){/*regexp, className, attr, label, required*/
           } } className={ props.required ? 'required': '' }/>
         <div className="input__label">{ props.label }</div>
         { props.children }
+        { props.hint ? (
+          <div className="input__button input__hint"><Hint position="top">
+            { props.hint }
+          </Hint></div>
+        ) : undefined }
       </label>
     </div>
   );

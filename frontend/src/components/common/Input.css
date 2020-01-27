@@ -37,14 +37,24 @@
 }
 
 .input__button {
-  position: absolute;
+  position: absolute !important;
   top: 20px;
   right: 0;
   cursor: pointer;
   height: 35px;
+  width: 35px;
   line-height: 35px;
+  z-index: 2;
 }
 
 .input_inactive input {
   background-color: var(--color6);
+}
+
+.input__hint {
+  padding: 5px;
+}
+.input__hint .hint__text {
+  width: 250px;
+  line-height: 18px !important;
 }
