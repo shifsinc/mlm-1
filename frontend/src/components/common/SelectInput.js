@@ -25,7 +25,8 @@ export default class extends React.Component {
             name: this.props.name,
             readOnly: true,
             value: options[ selected ],
-            onClick: () => this.setState({ optionsOpened: !this.state.optionsOpened })
+            onClick: () => this.setState({ optionsOpened: !this.state.optionsOpened }),
+            onSelect: e => e.preventDefault()
           }}>
         <div className="select-input__button input__button"><div></div></div>
       </Input>
