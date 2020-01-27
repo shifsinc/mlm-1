@@ -10,6 +10,7 @@ exports.INCORRECT_FILE = { status: 'error', text: 'incorrect file', action: { te
 exports.DATA_NOT_UNIQUE = { status: 'error', text: 'data not unique', action: { text: 'Данные не уникальны' } }
 exports.NO_DATA_PAGES = { status: 'ok', result: { count: 0, data: [] } }
 exports.INCORRECT_CAPTCHA = { status: 'error', text: 'incorrect captcha', action: { text: 'Captcha error' } }
+exports.NO_PAYMENT_INFO = { status: 'error', text: 'no payment info', action: { text: 'Платежные данные не заполнены' } }
 
 exports.NO_PHOTO = 'noPhoto.png';
 

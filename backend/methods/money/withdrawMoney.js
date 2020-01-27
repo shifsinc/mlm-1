@@ -1,5 +1,6 @@
 const { makeQuery, checkUserPwd, getUserAccount } = require('../../utils.js');
-const { INCORRECT_QUERY, OK,WITHDRAW_COMMISSION, MIN_WITHDRAW_AMOUNT, NOT_ENOUGH_MONEY } = require('../../const.js');
+const { INCORRECT_QUERY, OK,WITHDRAW_COMMISSION, MIN_WITHDRAW_AMOUNT,
+  NOT_ENOUGH_MONEY, NO_PAYMENT_INFO } = require('../../const.js');
 const getMoneyRate = require('./getMoneyRate.js');
 
 module.exports = function(callback, params, _user_id){/*amount, current_password*/
@@ -15,6 +16,7 @@ module.exports = function(callback, params, _user_id){/*amount, current_password
     getUserAccount(_user_id, acc => {
 
       var acc_id = acc.account_id, balance = acc.account_balance;
+      if( acc.account_ethereum === null ) return callback(NO_PAYMENT_INFO);
       if( balance < amount ) return callback(NOT_ENOUGH_MONEY);
       getMoneyRate(r => {
         if( r.status === 'error' ) return callback(r);
