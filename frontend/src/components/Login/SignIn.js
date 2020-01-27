@@ -9,8 +9,10 @@ import { RECAPTCHAV3_PUBLIC_KEY } from '../../config.js';
 export default class extends React.Component {
 
   componentDidMount = () => {
+    this._captchaLoaded = false;
     var captcha = window.document.createElement('script');
     captcha.src = 'https://www.google.com/recaptcha/api.js?render=' + RECAPTCHAV3_PUBLIC_KEY;
+    captcha.onload = () => this._captchaLoaded = true;
     window.document.head.appendChild(captcha);
   }
 
@@ -18,7 +20,7 @@ export default class extends React.Component {
     return (<Form className="login-form interface-block"
         submitTitle="ВОЙТИ"
         submitCallback={data => {
-          return window.grecaptcha.execute(RECAPTCHAV3_PUBLIC_KEY, {action: 'login'})
+          return this._captchaLoaded && window.grecaptcha.execute(RECAPTCHAV3_PUBLIC_KEY, {action: 'login'})
           .then(token => this.props.apiCall('signin', { ...data, 'g-recaptcha-response': token }))
           .then( r => {
             if(r.result) this.props.updateAuth(r.result.token, r.result.admin ? 1 : 0);
