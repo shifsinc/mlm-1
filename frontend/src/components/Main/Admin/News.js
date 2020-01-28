@@ -16,7 +16,8 @@ export default class extends React.Component {
       popup: null,
       listOpened: true,
       section: 0,
-      videos: []
+      videos: [],
+      editData: null
     }
   }
 
@@ -51,6 +52,9 @@ export default class extends React.Component {
 
         <AddNewsPopup { ...this.props } formTitle="НОВОСТЬ" onClose={ this._closePopup } section="news"></AddNewsPopup>
 
+        <AddNewsPopup { ...this.props } formTitle="РЕДАКТИРОВАТЬ ЗАПИСЬ БЛОГА/НОВОСТЬ"
+          onClose={ this._closePopup } editData={ this.state.editData }></AddNewsPopup>
+
       </ViewSelect>
     </div>);
   }
@@ -66,7 +70,7 @@ export default class extends React.Component {
   }
 
   _editClick = (section, d) => {
-
+    this.setState({ popup: 2, editData: d });
   }
 
 }

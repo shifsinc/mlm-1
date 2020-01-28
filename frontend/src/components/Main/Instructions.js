@@ -14,11 +14,7 @@ export default class extends React.Component {
             component={ FilesView }  onPageCount={ 5 }></PageView>
         </TitleBlock>
         <div className="interface-block">
-          <PageView callback={ p => this.props.apiCall('getFiles', { section: 'videos', ...p })
-            .then(r => {
-              if( r.result ) r.result.data = r.result.data.map(f => f.file_descr);
-              return r;
-            }) } component={ VideosView }  onPageCount={ 4 }></PageView>
+          <PageView callback={ p => this.props.apiCall('getFiles', { section: 'videos', ...p }) } component={ VideosView }  onPageCount={ 4 }></PageView>
         </div>
       </div>
     );

@@ -7,6 +7,8 @@
 .robot__updates {
   flex: 3;
   margin-left: 20px;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 @media screen and (max-width: 900px) {

@@ -2,6 +2,7 @@ import React from 'react';
 
 import PageView from '../../common/PageView.js'
 import Link from '../../common/Link.js'
+import Input from '../../common/Input.js'
 import SelectInput from '../../common/SelectInput.js'
 import ViewSelect from '../../common/ViewSelect.js'
 import AddContentPopup from './common/AddContentPopup.js'
@@ -15,9 +16,12 @@ export default class extends React.Component {
     this.state = {
       popup: null
     }
+    this.rate = null;
+    this.rateEdit = null;
   }
 
   render(){
+    var { editData } = this.state;
     return (<div className="admin__instructions">
       <div className="interface-block admin__first-block">
         <h4>Файлы инструкций</h4>
@@ -35,9 +39,18 @@ export default class extends React.Component {
 
       <ViewSelect active={ this.state.popup }>
         <AddContentPopup formTitle="НОВОЕ ВИДЕО" onClose={ this._closePopup }
-          submitCallback={ this._onVideoSubmit }>
-            <textarea name="descr" placeholder="Вставьте код youtube"></textarea>
-            <SelectInput label="Тариф" name="rate" options={ RATES_TITLES }></SelectInput>
+          submitCallback={ this._onAddSubmit }>
+            <Input textarea attr={{ name: 'descr' }} label="Вставьте код youtube"></Input>
+            <SelectInput label="Тариф" options={ RATES_TITLES }
+              onSelect={ n => this.rate = n }></SelectInput>
+        </AddContentPopup>
+
+        <AddContentPopup formTitle="РЕДАКТИРОВАТЬ ВИДЕО" onClose={ this._closePopup }
+          submitCallback={ this._onEditSubmit }>
+            <Input textarea attr={{ name: 'descr' }} label="Вставьте код youtube"
+              startValue={ editData ? editData.file_descr : undefined }></Input>
+            <SelectInput label="Тариф" options={ RATES_TITLES }
+              onSelect={ n => this.editRate = n } startValue={ editData ? editData.file_rate : undefined }></SelectInput>
         </AddContentPopup>
       </ViewSelect>
     </div>);
@@ -47,8 +60,8 @@ export default class extends React.Component {
     this.setState({ popup: null });
   }
 
-  _editClick = d => {
-
+  _editClick = d => {console.log(d)
+    this.setState({ popup: 1, editData: d });
   }
 
   _deleteClick = d => {
@@ -57,10 +70,20 @@ export default class extends React.Component {
     });
   }
 
-  _onVideoSubmit = data => {
+  _onAddSubmit = data => {
     if( !data.descr ) return;
-    data.rate = RATES_TITLES.indexOf( data.rate );
+    data.rate = this.rate;
     return this.props.apiCall('admin/addFile', { section: 'videos', ...data }).then(r => {
+      if( r.status !== 'error' ) this.setState({ popup: null, rand: Math.random() });
+      return r;
+    });
+  }
+
+  _onEditSubmit = data => {
+    if( !data.descr ) return;
+    data.rate = this.editRate;
+    data.file_id = this.state.editData.file_id;
+    return this.props.apiCall('admin/editFile', data).then(r => {
       if( r.status !== 'error' ) this.setState({ popup: null, rand: Math.random() });
       return r;
     });
