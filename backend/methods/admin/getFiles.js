@@ -12,7 +12,8 @@ module.exports = function(callback, params, _user_id){/*count, offset, section*/
     file_type,
     file_title,
     file_descr,
-    file_name
+    file_name,
+    file_rate+0 AS file_rate
     FROM files
     WHERE file_section=?
     ORDER BY file_dt DESC LIMIT ?,?`, [ section, offset, count ],

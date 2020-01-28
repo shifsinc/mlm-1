@@ -11,7 +11,8 @@ module.exports = function(callback, params, _user_id){/*count, offset, section*/
     news_id,
     news_dt,
     news_title,
-    news_text
+    news_text,
+    news_rate+0 AS news_rate
     FROM news
     WHERE news_type=?
     ORDER BY news_dt DESC LIMIT ?,?`, [ section, offset, count ],
