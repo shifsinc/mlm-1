@@ -22,7 +22,7 @@ async function sendEthTransaction(to, value, callback){
   const transactionParameters = {
     to,
     from: addr,
-    value: value * 1000000000000000000 + ''
+    value: window.BigInt( value * 1000000000000000000).toString(16)
   }
   eth.sendAsync({
     method: 'eth_sendTransaction',
