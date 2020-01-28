@@ -46,3 +46,17 @@ module.exports.alignPhoto = ({ target }) => {
   }
   target.classList.add('aligned');
 }
+
+const { RECAPTCHAV3_PUBLIC_KEY } = require('./config.js');
+module.exports.addCaptchaScript = (version, onload) => {
+  var captcha = window.document.createElement('script');
+  if( version === 2 ){
+    captcha.src = 'https://www.google.com/recaptcha/api.js';
+    captcha.setAttribute('async', true);
+    captcha.setAttribute('defer', true);
+  } else if( version === 3 ){
+    captcha.src = 'https://www.google.com/recaptcha/api.js?render=' + RECAPTCHAV3_PUBLIC_KEY;
+  }
+  captcha.onload = onload;
+  window.document.head.appendChild(captcha);
+}

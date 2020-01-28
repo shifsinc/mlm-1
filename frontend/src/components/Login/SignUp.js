@@ -10,6 +10,7 @@ import Switch from './Switch.js'
 import noPhoto from '../../img/noPhoto.png';
 import { loginRegexp, emailRegexp, phoneRegexp, passwordRegexp } from '../../const.js';
 import { RECAPTCHAV2_PUBLIC_KEY } from '../../config.js';
+import { addCaptchaScript } from '../../utils.js';
 
 export default class extends React.Component {
   constructor(props){/*updateLocation*/
@@ -30,11 +31,7 @@ export default class extends React.Component {
   }
 
   componentDidMount = () => {
-    var captcha = window.document.createElement('script');
-    captcha.src = 'https://www.google.com/recaptcha/api.js';
-    captcha.setAttribute('async', true);
-    captcha.setAttribute('defer', true);
-    window.document.head.appendChild(captcha);
+    addCaptchaScript(2);
   }
 
   render(){

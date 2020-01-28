@@ -5,15 +5,12 @@ import Input from '../common/Input.js'
 import Switch from './Switch.js'
 import Link from '../common/Link.js'
 import { RECAPTCHAV3_PUBLIC_KEY } from '../../config.js';
+import { addCaptchaScript } from '../../utils.js';
 
 export default class extends React.Component {
 
   componentDidMount = () => {
-    this._captchaLoaded = false;
-    var captcha = window.document.createElement('script');
-    captcha.src = 'https://www.google.com/recaptcha/api.js?render=' + RECAPTCHAV3_PUBLIC_KEY;
-    captcha.onload = () => this._captchaLoaded = true;
-    window.document.head.appendChild(captcha);
+    addCaptchaScript(3, () => this._captchaLoaded = true);
   }
 
   render() {/*updateLocation, updateAuth*/

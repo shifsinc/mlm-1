@@ -1,10 +1,15 @@
-const { makeQuery, sendMail  } = require('../../utils.js');
-const { INCORRECT_QUERY, OK, emailRegexp, USER_NOT_EXISTS, PASSWORD_RESET_TIMEOUT, FORBIDDEN } = require('../../const.js');
+const { makeQuery, checkCaptcha } = require('../../utils.js');
+const { INCORRECT_QUERY, OK, emailRegexp, USER_NOT_EXISTS,
+  PASSWORD_RESET_TIMEOUT, FORBIDDEN, INCORRECT_CAPTCHA } = require('../../const.js');
 const { DOMAIN } = require('../../config.js');
 const hash = require('js-sha1');
 const { sendResetMail } = require('../../email.js');
 
-module.exports = function(callback, params){/*email*/
+module.exports = function(callback, params){
+  checkCaptcha(params['g-recaptcha-response'], 2, () => reset(callback, params), () => callback( INCORRECT_CAPTCHA ));
+}
+
+function reset(callback, params){/*email*/
   var email = params.email;
   if( email === undefined || !emailRegexp.test(email) ) return callback( INCORRECT_QUERY );
 
