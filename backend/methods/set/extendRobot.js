@@ -24,7 +24,7 @@ module.exports = function(callback, params, _user_id){/*current_password*/
             callback(e);
           });
 
-      });
+      }, callback);
 
     }, callback);
 
