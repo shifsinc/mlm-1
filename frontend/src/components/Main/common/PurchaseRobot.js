@@ -46,8 +46,11 @@ export default class extends React.Component {
       popup: null,
       selectedRate: null,
       currentRate: props.data ? props.data.user_rate : null,
-      currentPrice: null
+      currentPrice: null,
+      keys: []
     };
+    props.apiCall('getUserRobotKeys', { count: 2, offset: 0 })
+      .then(d => this.setState({ keys: d.result.data.map(d => d.key_account) }));
   }
   render(){
     var data = this.props.data ? this.props.data : {};
@@ -95,7 +98,7 @@ export default class extends React.Component {
 
         <AddRobotKeysPopup title="ПОЗДРАВЛЯЕМ С ПОКУПКОЙ РОБОТА!"
           onClose={ () => { this.props.okCallback(this.state.selectedRate, 2); this._closePopup() } }
-          onSubmit={ this._onAddKeysSubmit } extraInput={ this.state.selectedRate >= 3 }>
+          onSubmit={ this._onAddKeysSubmit } extraInput={ this.state.selectedRate >= 3 } data={ this.state.keys }>
         </AddRobotKeysPopup>
 
         <Popup className="purchase-robot__popup-save" onClose={ this._closePopup }>

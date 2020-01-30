@@ -12,16 +12,18 @@ module.exports = function(callback, params, _user_id){/*accounts, current_passwo
       var values = [], _values = [];
       accounts.forEach(a => {
         if( !robotKeyRegexp.test(a) ) return;
-        values.push(`(?,?,?,?,?)`);
-        _values.push( ...[ _user_id, rate, a, MAX_DEPOSITS[ rate ], validDt ] );
+        /*values.push(`(?,?,?,?,?)`);
+        _values.push( ...[ _user_id, rate, a, MAX_DEPOSITS[ rate ], validDt ] );*/
+        values.push(`(?,?,?,?)`);
+        _values.push( _user_id, a, MAX_DEPOSITS[ rate ], validDt );
       });
-      
+
       if( ( values.length === 2 && rate < 3 ) || values.length > 2 ) return callback( FORBIDDEN );
 
-      makeQuery(`DELETE FROM robot_keys WHERE user_id=? AND key_rate=?`, [ _user_id, rate ],
+      makeQuery(`DELETE FROM robot_keys WHERE user_id=?/* AND key_rate=?*/`, [ _user_id/*, rate*/ ],
         res => {
 
-          makeQuery(`INSERT INTO robot_keys(user_id, key_rate, key_account, key_max_deposit, key_valid_dt)
+          makeQuery(`INSERT INTO robot_keys(user_id, /*key_rate,*/ key_account, key_max_deposit, key_valid_dt)
             VALUES ` + values.join(','), _values,
             res => {
               callback( OK );

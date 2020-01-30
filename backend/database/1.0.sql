@@ -335,7 +335,7 @@ CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`robot_keys` (
   `key_id` INT NOT NULL AUTO_INCREMENT,
   `key_dt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` INT(11) NOT NULL,
-  `key_rate` ENUM('client', 'light', 'advanced', 'master') NOT NULL,
+  `key_rate` ENUM('client', 'light', 'advanced', 'master') NULL DEFAULT NULL,
   `key_account` VARCHAR(32) NOT NULL,
   `key_max_deposit` INT(11) NOT NULL,
   `key_valid_dt` TIMESTAMP NULL DEFAULT NULL,
