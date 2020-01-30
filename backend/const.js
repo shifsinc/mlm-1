@@ -17,14 +17,14 @@ exports.NO_PHOTO = 'noPhoto.png';
 exports.loginRegexp = /^[a-zA-Z][a-zA-Z_0-9]{4,29}$/;
 exports.emailRegexp = exports.paypalRegexp = /^.+@[a-zA-Z\-0-9\.]+$/;
 exports.passwordRegexp = /(?=^.{8,30}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-exports.nameRegexp = /^[\wа-яА-Я]+$/;
+exports.nameRegexp = /^[\wа-яА-Я]{1, 40}$/;
 exports.phoneRegexp = /^[0-9]{11,15}$/;
 exports.linkRegexp = /^https?:\/\/[a-zA-Z\-0-9\.]+(\/.*)?$/;
-exports.telegramRegexp = /^\w+$/;
+exports.telegramRegexp = /^\w{1,64}$/;
 exports.tokenRegexp = /^[a-z0-9]{40}$/;
 exports.ethereumRegexp = /^0x[a-z0-9]{40}$/;
 exports.filenameRegexp = /^[a-z0-9]{40}$/;
-exports.robotKeyRegexp = /^[0-9]+$/;
+exports.robotKeyRegexp = /^[0-9]{1,32}$/;
 
 exports.PASSWORD_RESET_TOKEN_VALID_TIME = 24*60*60*1000//ms
 exports.PASSWORD_RESET_TIMEOUT = 3 * 24*60*60*1000//ms
