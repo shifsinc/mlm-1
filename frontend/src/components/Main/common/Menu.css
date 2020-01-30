@@ -141,3 +141,9 @@
 .admin-icon.active:before {
   background-image: url('../../../img/icon/admin_active@2x.png');
 }
+
+@media screen and (max-width: 900px){
+  #menu.close .menu__item.active:before {
+    background-image: url('../../../img/icon/menu.svg');
+  }
+}
