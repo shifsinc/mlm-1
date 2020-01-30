@@ -6,19 +6,7 @@ import UserCard from './UserCard.js'
 import ViewSelect from '../../common/ViewSelect.js'
 import { getUserCardInfo } from '../../../utils.js'
 import Hint from '../../common/Hint.js'
-
-const PAGES_HINTS = {
-  '/account': 'account',
-  '/robot': 'long long long long long long long long long long long long long long long long long long long long long long long long long long long text',
-  '/team': 'Сайт будет представлять собой функциональную копию https://da-vinci.pro/. Все приведенные скриншоты будут скриншотами с вышеуказанного сайта. При создании копии сайта необходимо опираться на пример, но при этом использовать иной дизайн. Сайт должен иметь адаптивную верстку и работать максимально быстро для повышения комфорта работы с сайтом. Сайт будет иметь личный кабинет, в котором и будет происходить основная работа с сайтом.',
-  '/marketing': '',
-  '/finances': '',
-  '/instructions': '',
-  '/blog': '',
-  '/settings': '',
-  '/admin': '',
-}
-
+import { PAGES_HINTS } from '../../../const.js'
 
 const VIEWS = {
 	'/account': require('../Account.js').default,
