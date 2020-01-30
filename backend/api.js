@@ -28,7 +28,7 @@ const adminWrapper = method => {
 module.exports = {
   POST: {
     [ API_PREFIX + '/signin' ]: require('./methods/login/signin.js'),
-    [ API_PREFIX + '/signout' ]: authWrapper( require('./methods/login/signout.js') ),
+    [ API_PREFIX + '/signout' ]: require('./methods/login/signout.js'),
     [ API_PREFIX + '/signup' ]: require('./methods/login/signup.js'),
     [ API_PREFIX + '/passwordResetRequest' ]: require('./methods/login/passwordResetRequest.js'),
     [ API_PREFIX + '/passwordReset' ]: require('./methods/login/passwordReset.js'),
