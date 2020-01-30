@@ -3,7 +3,7 @@ import './VideosView.css'
 import Link from '../../common/Link.js'
 import '../Admin/common.css'
 
-export default function(props){/*data, _admin, _editClick, _deleteClick*/console.log(props.data)
+export default function(props){/*data, _admin, _editClick, _deleteClick*/
   var data = props.data ? props.data : [];
   var className = '';
   if( data.length > 1 ) className = 'multiple';
