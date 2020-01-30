@@ -12,7 +12,7 @@ import { EVENTS_TITLES, STATUS_TITLES } from '../../../const.js'
 
 async function sendEthTransaction(to, value, callback){
   var eth = window.ethereum;
-  if( !eth ) return;
+  if( !eth ) return alert('Install MetaMask extension for ethereum support');
   try {
     await eth.enable();
   } catch(e){alert(e.message); return;}
