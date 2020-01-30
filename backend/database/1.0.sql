@@ -805,8 +805,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `yodafxpr_mlm_db`;
-INSERT INTO `yodafxpr_mlm_db`.`users` (`user_id`, `user_login`, `user_password_hash`, `user_name`, `user_email`, `user_data_filled`) VALUES (1, 'root', SHA('rootPass12345aA!'), 'root', 'root@yodafx.pro', 1),
-  (2, 'admin', SHA('rootPass12345aA!'), 'admin', 'admin@yodafx.pro', 1);
+INSERT INTO `yodafxpr_mlm_db`.`users` (`user_id`, `role_id`, `user_login`, `user_password_hash`, `user_name`, `user_email`, `user_data_filled`, `user_start_work`) VALUES (1, 1, '_root', SHA('rootPass12345aA!'), 'root', 'root@yodafx.pro', 1, 1),
+  (2, 1, 'admin', SHA('adminPass12345aA!'), 'admin', 'admin@yodafx.pro', 1, 1);
 
 COMMIT;
 
