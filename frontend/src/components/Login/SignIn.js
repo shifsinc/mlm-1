@@ -17,12 +17,14 @@ export default class extends React.Component {
     return (<Form className="login-form interface-block"
         submitTitle="ВОЙТИ"
         submitCallback={data => {
-          return this._captchaLoaded && window.grecaptcha.execute(RECAPTCHAV3_PUBLIC_KEY, {action: 'login'})
+          if( !this._captchaLoaded ) return new Promise.resolve({});
+
+          return window.grecaptcha.execute(RECAPTCHAV3_PUBLIC_KEY, {action: 'login'})
           .then(token => this.props.apiCall('signin', { ...data, 'g-recaptcha-response': token }))
           .then( r => {
             if(r.result) this.props.updateAuth(r.result.token, r.result.admin ? 1 : 0);
             return r;
-          });
+          })
         }} updateLocation = { this.props.updateLocation }>
         <Switch location="/signin" updateLocation={ this.props.updateLocation }></Switch>
         <Input required attr={{ name: 'login', autoFocus: true }} label="E-mail или логин"></Input>
