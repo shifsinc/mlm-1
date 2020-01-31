@@ -18,7 +18,7 @@ export default function(props){/*data, userClick*/
             if( d._is_sender ){
               descr = <>{ descr + ' ПОЛЬЗОВАТЕЛЮ ' }
                 <Link active onClick={ () => props.userClick(d.receiver_id) }>{ d.receiver_code }</Link></>
-            } else {
+            } else if( d.sender_id ) {
               descr = <>{ descr + ' ОТ ПОЛЬЗОВАТЕЛЯ ' }
                 <Link active onClick={ () => props.userClick(d.sender_id) }>{ d.sender_code }</Link></>
             }
