@@ -3,6 +3,7 @@
   padding: 0;
   width: 700px;
   height: 550px;
+  max-width: calc(100% - 50px);
 }
 .user-card__cont {
   overflow-y: auto;
