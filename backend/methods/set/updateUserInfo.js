@@ -1,6 +1,6 @@
 const { makeQuery, checkUserPwd, getUserByCode } = require('../../utils.js');
 const { INCORRECT_QUERY, OK, AUTH_FAILED, INCORRECT_FILE, DATA_NOT_UNIQUE,
-  nameRegexp, phoneRegexp, linkRegexp, telegramRegexp, passwordRegexp, filenameRegexp } = require('../../const.js');
+  nameRegexp, phoneRegexp, socialRegexp, telegramRegexp, passwordRegexp, filenameRegexp } = require('../../const.js');
 const { PHOTOS_PATH } = require('../../config.js');
 
 const { existsSync } = require('fs');
@@ -8,7 +8,7 @@ const readChunk = require('read-chunk');
 const fileType = require('file-type');
 
 module.exports = function(callback, params, _user_id){
-  /*name, surname, phone, social_link, telegram, new_password, current_password, photo*/
+  /*name, surname, phone, social, telegram, new_password, current_password, photo*/
   var pwd = params.current_password;
   if( pwd === undefined ) return callback( INCORRECT_QUERY );
 
@@ -18,7 +18,7 @@ module.exports = function(callback, params, _user_id){
     if( params.name !== undefined && nameRegexp.test(params.name) ) upd.user_name = params.name;
     if( params.surname !== undefined && nameRegexp.test(params.surname) ) upd.user_surname = params.surname;
     if( params.phone !== undefined && phoneRegexp.test(params.phone) ) upd.user_phone = params.phone;
-    if( params.social_link !== undefined && linkRegexp.test(params.social_link) ) upd.user_social = params.social_link;
+    if( params.social !== undefined && socialRegexp.test(params.social) ) upd.user_social = params.social;
     if( params.telegram !== undefined && telegramRegexp.test(params.telegram) ) upd.user_telegram = params.telegram;
     if( params.new_password !== undefined && passwordRegexp.test(params.new_password) ) upd.user_password_hash = params.new_password;
     if( params.photo !== undefined && filenameRegexp.test(params.photo) ){

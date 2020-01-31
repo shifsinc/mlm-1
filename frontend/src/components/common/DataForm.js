@@ -3,7 +3,7 @@ import './DataForm.css'
 import Form from './Form.js'
 import Input from './Input.js'
 import addPhoto from '../../img/addPhoto.png';
-import { nameRegexp, phoneRegexp, linkRegexp, telegramRegexp, passwordRegexp } from '../../const.js';
+import { nameRegexp, phoneRegexp, socialRegexp, telegramRegexp, passwordRegexp } from '../../const.js';
 import { alignPhoto } from '../../utils.js'
 
 export default class extends React.Component {
@@ -68,10 +68,10 @@ export default class extends React.Component {
 
 
             <div className="data-form__cont">
-              <Input attr={{ name: 'social_link', value: this.state.user_social,
+              <Input attr={{ name: 'social', value: this.state.user_social,
                 onChange: e => this.setState({ user_social: e.target.value }) }}
-                regexp={ linkRegexp } required label="Страница в социальной сети"
-                hint="Скопируйте ссылку на свой профиль из адресной строки браузера">
+                regexp={ socialRegexp } label="Instagram"
+                hint="Укажите свой аккаунт Instagram без '@'">
             </Input>
 
               <Input attr={{ name: 'telegram', value: this.state.user_telegram,

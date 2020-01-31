@@ -1,6 +1,6 @@
 const { makeQuery } = require('../../utils.js');
 const { INCORRECT_QUERY, OK, FORBIDDEN, DATA_NOT_UNIQUE,
-    nameRegexp, phoneRegexp, linkRegexp, telegramRegexp, filenameRegexp } = require('../../const.js');
+    nameRegexp, phoneRegexp, socialRegexp, telegramRegexp, filenameRegexp } = require('../../const.js');
 const { PHOTOS_PATH } = require('../../config.js');
 
 const { existsSync } = require('fs');
@@ -9,16 +9,16 @@ const fileType = require('file-type');
 
 const NO_PHOTO_LOADED = { status: 'error', action: { text: 'Пожалуйста, выберите фото' } }
 
-module.exports = function(callback, params, _user_id){/*name, surname, phone, social_link, telegram, photo*/
+module.exports = function(callback, params, _user_id){/*name, surname, phone, social, telegram, photo*/
   var name = params.name, surname = params.surname,
-    phone = params.phone, social = params.social_link, telegram = params.telegram, photo = params.photo;
+    phone = params.phone, social = params.social, telegram = params.telegram, photo = params.photo;
   if( name === undefined || !nameRegexp.test(name) ||
     surname === undefined || !nameRegexp.test(surname) ||
-    phone === undefined || !phoneRegexp.test(phone) ||
-    social === undefined || !linkRegexp.test(social) )
+    phone === undefined || !phoneRegexp.test(phone) )
     return callback( INCORRECT_QUERY );
 
   if( telegram === undefined || !telegramRegexp.test(telegram) ) telegram = null;
+  if( social === undefined || !socialRegexp.test(social) ) social = null;
 
   var filepath = PHOTOS_PATH + photo;
   if( photo === undefined || !filenameRegexp.test(photo) || !existsSync( filepath ) ) return callback( NO_PHOTO_LOADED );
