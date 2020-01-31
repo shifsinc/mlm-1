@@ -8,6 +8,7 @@ module.exports = function(callback, params, _user_id){/*accounts, current_passwo
   checkUserPwd(_user_id, pwd, () => {
     makeQuery(`SELECT user_rate + 0 AS user_rate, user_license_valid_dt FROM users WHERE user_id=?`, [ _user_id ], res => {
       var rate = res.result[0].user_rate, validDt = res.result[0].user_license_valid_dt;
+      if( rate === null ) return callback( FORBIDDEN );
 
       var values = [], _values = [];
       accounts.forEach(a => {
