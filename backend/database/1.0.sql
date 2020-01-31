@@ -463,7 +463,8 @@ CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`users_AFTER_UPDATE` AFT
 BEGIN
   IF(new.user_license_valid_dt <> old.user_license_valid_dt ||
     ( old.user_license_valid_dt IS NULL && new.user_license_valid_dt IS NOT NULL )) THEN
-    UPDATE robot_keys SET key_valid_dt=new.user_license_valid_dt WHERE user_id=new.user_id AND key_rate=new.user_rate;
+    UPDATE robot_keys SET key_valid_dt=new.user_license_valid_dt
+      WHERE user_id=new.user_id AND (key_rate=new.user_rate OR key_rate IS NULL);
   END IF;
 
   IF(new.user_rate IS NOT NULL && old.user_rate IS NULL) THEN
