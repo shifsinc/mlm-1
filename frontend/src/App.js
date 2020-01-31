@@ -125,8 +125,8 @@ class App extends React.Component {
   _apiCall = (method, data) => {
     return apiCall(method, this.state.authToken, data);
   }
-  _uploadFile = (method, file) => {
-    return uploadFile(method, this.state.authToken, file);
+  _uploadFile = (method, file, params) => {
+    return uploadFile(method, this.state.authToken, file, params);
   }
 
   _getSearchParams = () => {

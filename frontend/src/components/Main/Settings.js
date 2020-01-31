@@ -89,7 +89,7 @@ export default class extends React.Component {
         this.setState({ popup: 0 });
       }
       if( data.photo ){
-        this.props.uploadFile( 'uploadPhoto', data.photo[0] ).then(r => {
+        this.props.uploadFile( 'uploadPhoto', data.photo[0].slice() ).then(r => {
           if( !r.result ) return resolve(r);
           data.photo = r.result.filename;
           next();

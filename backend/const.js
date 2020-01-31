@@ -11,6 +11,7 @@ exports.DATA_NOT_UNIQUE = { status: 'error', text: 'data not unique', action: { 
 exports.NO_DATA_PAGES = { status: 'ok', result: { count: 0, data: [] } }
 exports.INCORRECT_CAPTCHA = { status: 'error', text: 'incorrect captcha', action: { text: 'Captcha error' } }
 exports.NO_PAYMENT_INFO = { status: 'error', text: 'no payment info', action: { text: 'Платежные данные не заполнены' } }
+exports.INTERNAL_ERROR = { status: 'error', text: 'internal error', action: { text: 'Внутренняя ошибка' } }
 
 exports.NO_PHOTO = 'noPhoto.png';
 
@@ -24,7 +25,7 @@ exports.socialRegexp = /^[\w]{1,50}$/;
 exports.telegramRegexp = /^\w{1,64}$/;
 exports.tokenRegexp = /^[a-z0-9]{40}$/;
 exports.ethereumRegexp = /^0x[a-z0-9]{40}$/;
-exports.filenameRegexp = /^[a-z0-9]{40}$/;
+exports.filenameRegexp = /^[a-z0-9]{40}(\.[\w]+)?$/;
 exports.robotKeyRegexp = /^[0-9]{1,32}$/;
 
 exports.PASSWORD_RESET_TOKEN_VALID_TIME = 24*60*60*1000//ms

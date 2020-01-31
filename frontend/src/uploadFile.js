@@ -1,8 +1,12 @@
 import { API_ENDPOINT } from './config.js'
 
-export default (method, token, file) => {
+export default (method, token, file, params = {}) => {
+  params._file = true;
+  params.token = token;
+  var paramsArr = [];
+  Object.keys(params).map(key => paramsArr.push( key + '=' + params[key] ));
   return file.arrayBuffer().then(buf => {
-    return fetch(API_ENDPOINT + method + '?_file=true&token=' + token, {
+    return fetch(API_ENDPOINT + method + '?' + paramsArr.join('&'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/octet-stream'

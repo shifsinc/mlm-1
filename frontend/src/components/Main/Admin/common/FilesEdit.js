@@ -69,8 +69,9 @@ export default class extends React.Component {
   _onAddSubmit = data => {
     if( !data.file.length ) return;
     data.rate = this.rate;
+    var file = data.file[0];
     var resolve;
-    this.props.uploadFile('admin/uploadFile', data.file[0]).then(r => {
+    this.props.uploadFile('admin/uploadFile', file.slice(), { filename: file.name }).then(r => {
       if( r.status === 'error' ) resolve(r);
       delete data.file;
       var p = Object.assign({}, r.result, { section: this.props.section }, data);

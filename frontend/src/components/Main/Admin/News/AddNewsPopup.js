@@ -55,7 +55,8 @@ export default class extends React.Component {
     _onAddSubmit = d => {
       d.rate = this.rate;
       if( d.images ){
-        Promise.all( d.images.map(img => this.props.uploadFile('admin/uploadFile', img)) ).then(r => {
+        var prom = Array.prototype.map.call( d.images, img => this.props.uploadFile('admin/uploadFile', img.slice()) );
+        Promise.all( prom ).then(r => {
           d.images = r.map(f => f.result.filename);
           this._sendAddRequest(d);
         });
