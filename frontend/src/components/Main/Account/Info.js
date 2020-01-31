@@ -41,13 +41,15 @@ export default function(props){/*data, userClick, updateLocation*/
             </td></tr>
             <tr><td>E-mail:</td><td>{ data.user_email }</td></tr>
             <tr><td>Телефон:</td><td>{ data.user_phone }</td></tr>
-            <tr>
-              <td>Instagram:</td>
-              <td><a className="link_active" active target="_blank noopener noreferrer"
-                href={ 'https://instagram.com/' + data.user_social }>
-                { data.user_social }
-              </a></td>
-            </tr>
+            { data.user_social ? (
+              <tr>
+                <td>Instagram:</td>
+                <td><a className="link_active" active target="_blank noopener noreferrer"
+                  href={ 'https://instagram.com/' + data.user_social }>
+                  { data.user_social }
+                </a></td>
+              </tr>
+            ) : undefined}
             { data.user_refer_id ? (
               <tr>
                 <td>Спонсор:</td>
