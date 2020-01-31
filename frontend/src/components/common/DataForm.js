@@ -39,7 +39,7 @@ export default class extends React.Component {
         updateLocation = { this.props.updateLocation }>
         <div className="data-form__flex-cont">
           <label className="data-form__photo main-avatar">
-            <input name="photo" type="file" onInput={ this._onPhotoInput }/>
+            <input name="photo" type="file" onChange={ this._onPhotoInput }/>
             <img alt="avatar" src={ this.state.user_photo_url } ref={ r => this.imgElem = r } onLoad={ alignPhoto }/>
           </label>
           <div className="data-form__fields">
