@@ -37,12 +37,16 @@ module.exports.alignPhoto = ({ target }) => {
   var t;
   if( contWidth / contHeight < width / height ){
     target.style.height = '100%';
+    target.style.width = 'auto';
     t = ( contHeight / height ) * width;
     target.style.marginLeft = ( -( t - contWidth ) / 2 ) + 'px';
+    target.style.marginTop = '0';
   } else {
     target.style.width = '100%';
+    target.style.height = 'auto';
     t = ( contWidth / width ) * height;
     target.style.marginTop = ( -( t - contHeight ) / 2 ) + 'px';
+    target.style.marginLeft = '0';
   }
   target.classList.add('aligned');
 }
