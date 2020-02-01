@@ -27,7 +27,7 @@ export default class extends React.Component {
   }
 
   render(){
-
+    var { userData } = this.state;
     return (<div className="admin__users interface-block admin__first-block">
 
         <ViewSelect active={ this.state.view }>
@@ -36,7 +36,7 @@ export default class extends React.Component {
             this.setState({ pattern: e.target.value });
           } }}></Input>
 
-          <PageView component={ _view }  componentProps={{ userClick: this._userClick }} onPageCount={ 15 }
+          <PageView component={ _view }  componentProps={{ userClick: this._showUserInfo }} onPageCount={ 15 }
             callback={ p => this.props.apiCall('admin/searchUsers', p) }
             callbackArgs={{ pattern: this.state.pattern }}></PageView></>
 
@@ -44,10 +44,10 @@ export default class extends React.Component {
             <div className="admin__users__user-info__top">
               <Link className="button" onClick={ this._backClick }>Назад</Link>
               <Link className="button" onClick={ this._blockClick }>
-                { this.state.userData.user_blocked ? 'РАЗБЛОКИРОВАТЬ' : 'ЗАБЛОКИРОВАТЬ' }
+                { userData.user_blocked ? 'РАЗБЛОКИРОВАТЬ' : 'ЗАБЛОКИРОВАТЬ' }
               </Link>
             </div>
-            <UserInfo data={ this.state.userData } userClick={ user_id => this._userClick({ user_id }) }></UserInfo>
+            <UserInfo data={ userData } userClick={ user_id => this._showUserInfo({ user_id }) }></UserInfo>
             <div className="admin__users__user-info__bottom">
               <Link className="button" onClick={ this._addMoneyClick }>НАЧИСЛИТЬ YT</Link>
               <Link className="button" onClick={ this._changeStatusClick }>ИЗМЕНИТЬ СТАТУС</Link>
@@ -72,7 +72,7 @@ export default class extends React.Component {
             <Form className="admin__users__popup" formTitle="ИЗМЕНИТЬ СТАТУС"
               submitTitle="ПОДТВЕРДИТЬ" submitCallback={ this._changeStatusSubmit }>
 
-              <SelectInput label="Статус" name="status" startValue={ this.state.userData.user_status - 1 }
+              <SelectInput label="Статус" name="status" startValue={ userData.user_status - 1 }
                 options={ STATUS_TITLES.slice(1) }></SelectInput>
               <Input label="Введите пароль" attr={{ name: 'current_password', type: 'password' }}></Input>
 
@@ -83,7 +83,7 @@ export default class extends React.Component {
             <Form className="admin__users__popup" formTitle="ИЗМЕНИТЬ ТАРИФ"
               submitTitle="ПОДТВЕРДИТЬ" submitCallback={ this._changeRateSubmit }>
 
-              <SelectInput label="Тариф" name="rate" startValue={ this.state.userData.user_rate - 1 }
+              <SelectInput label="Тариф" name="rate" startValue={ userData.user_rate - 1 }
                 options={ RATES_TITLES.slice(1) }></SelectInput>
               <Input label="Введите пароль" attr={{ name: 'current_password', type: 'password' }}></Input>
 
@@ -97,10 +97,9 @@ export default class extends React.Component {
     this.setState({ view: 0 })
   }
   _blockClick = () => {
-    var userData = this.state.userData;
+    var { userData } = this.state;
     this.props.apiCall('admin/blockUser', { user_id: userData.user_id, block: !userData.user_blocked }).then(r => {
-      if( r.status !== 'error' )
-        this.setState({ userData: Object.assign({}, this.state.userData, { user_blocked: r.result.user_blocked }) });
+      if( r.status !== 'error' ) this._showUserInfo(userData);
 
     });
   }
@@ -126,8 +125,12 @@ export default class extends React.Component {
     return this.__submit('admin/setUserRate', d);
   }
   __submit = (method, d) => {
-    return this.props.apiCall(method, Object.assign(d, { user_id: this.state.userData.user_id })).then(r => {
-      if( r.status !== 'error' ) this.setState({ popup: null });
+    var { userData } = this.state;
+    return this.props.apiCall(method, Object.assign(d, { user_id: userData.user_id })).then(r => {
+      if( r.status !== 'error' ){
+        this.setState({ popup: null });
+        this._showUserInfo(userData);
+      }
       return r;
     });
   }
@@ -136,7 +139,7 @@ export default class extends React.Component {
     this.setState({ popup: null })
   }
 
-  _userClick = d => {
+  _showUserInfo = d => {
     getUserCardInfo(this.props.apiCall, d.user_id, r => {
       if( r.status === 'error' ) return;
       this.setState({ userData: r, view: 1 });
