@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`users` (
   `user_telegram` VARCHAR(64) NULL DEFAULT NULL,
   `user_photo` VARCHAR(45) NULL DEFAULT NULL,
   `user_status` ENUM('investor', 'bronze', 'silver', 'gold', 'platinum', 'sapphire', 'emerald', 'diamond', 'diamond2') NOT NULL DEFAULT 'investor',
+  `user_admin_set_status` ENUM('investor', 'bronze', 'silver', 'gold', 'platinum', 'sapphire', 'emerald', 'diamond', 'diamond2') NULL DEFAULT NULL,
   `user_rate` ENUM('client', 'light', 'advanced', 'master') NULL DEFAULT NULL,
   `user_license_valid_dt` TIMESTAMP NULL DEFAULT NULL,
   `user_rate_ts` TIMESTAMP NULL DEFAULT NULL,
@@ -692,7 +693,10 @@ BEGIN
   IF(new.stats_binary_cycles <> old.stats_binary_cycles) THEN
     SET @rate = (SELECT user_rate+0 FROM users WHERE user_id=new.user_id);
     SET @status = calc_user_status( @rate, new.stats_binary_cycles );
-    UPDATE users SET user_status=@status WHERE user_id=new.user_id;
+    SET @ADMIN_SET_STATUS=(SELECT user_admin_set_status+0 FROM users WHERE user_id=new.user_id);
+    IF( @ADMIN_SET_STATUS IS NULL || @ADMIN_SET_STATUS < @status ) THEN
+      UPDATE users SET user_status=@status WHERE user_id=new.user_id;
+    END IF;
   END IF;
 END$$
 
@@ -717,7 +721,11 @@ BEGIN
     SET new.user_rate_ts=CURRENT_TIMESTAMP;
 
     SET @cycles = (SELECT stats_binary_cycles FROM users_stats WHERE user_id=new.user_id);
-    SET new.user_status = calc_user_status(new.user_rate, @cycles);
+    SET @status = calc_user_status(new.user_rate, @cycles);
+    SET @ADMIN_SET_STATUS = new.user_admin_set_status+0;
+    IF( @ADMIN_SET_STATUS IS NULL || @ADMIN_SET_STATUS < @status ) THEN
+      SET new.user_status = @status;
+    END IF;
   END IF;
 END$$
 

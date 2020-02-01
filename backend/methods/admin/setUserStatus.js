@@ -8,7 +8,7 @@ module.exports = function(callback, params, _user_id){/*user_id, status, current
 
   checkUserPwd(_user_id, pwd, () => {
 
-    makeQuery(`UPDATE users SET user_status=? WHERE user_id=?`, [ status, user_id ], res => {
+    makeQuery(`UPDATE users SET user_status=?, user_admin_set_status=? WHERE user_id=?`, [ status, status, user_id ], res => {
       callback( OK );
     }, callback);
 
