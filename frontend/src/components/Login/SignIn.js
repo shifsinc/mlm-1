@@ -17,7 +17,7 @@ export default class extends React.Component {
     return (<Form className="login-form interface-block"
         submitTitle="ВОЙТИ"
         submitCallback={data => {
-          if( !this._captchaLoaded ) return new Promise.resolve({});
+          if( !this._captchaLoaded ) return Promise.resolve({});
 
           return window.grecaptcha.execute(RECAPTCHAV3_PUBLIC_KEY, {action: 'login'})
           .then(token => this.props.apiCall('signin', { ...data, 'g-recaptcha-response': token }))

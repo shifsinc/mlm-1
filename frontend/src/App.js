@@ -46,7 +46,7 @@ class App extends React.Component {
     );
   }
 
-  _getCurrentView = () => {
+  _getCurrentView = () => {console.log(this.state.location)
     var isSignedIn = this.state.authToken ? true : false;
     var props = {
       updateLocation: this._updateLocation,
@@ -103,6 +103,7 @@ class App extends React.Component {
         break;
       case '/confirmEmail':
         this._apiCall('confirmEmail', { confirmToken: props.params.confirmToken }).then(r => {
+          if( r.status === 'error' ) return;
           this._updateLocation(r.action.path);
         });
         break;

@@ -22,7 +22,7 @@
   cursor: pointer;
   user-select: none;
   padding: 10px;
-  height: 40px;
+  min-height: 40px;
   line-height: 20px;
 }
 .select-input__options__item:hover {

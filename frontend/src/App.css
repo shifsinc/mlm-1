@@ -123,7 +123,7 @@ a, a:visited {
   margin-bottom: 20px;
 }
 .icon-before-text {
-  padding-left: 8px;
+  padding-left: 4px;
 }
 .icon-before-text:before {
   content: '';
@@ -133,7 +133,6 @@ a, a:visited {
   background-repeat: no-repeat;
   background-position: 50%;
   background-size: 70%;
-  margin-right: 5px;
 }
 
 .cover {
