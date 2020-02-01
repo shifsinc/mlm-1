@@ -525,7 +525,7 @@ BEGIN
         END IF;
       END IF;
 
-      SET @user_id = (SELECT user_refer FROM users WHERE user_id=@user_id);
+      SET @user_id = (SELECT user_tree_refer FROM users WHERE user_id=@user_id);
       SET @user_status = (SELECT user_status FROM users WHERE user_id=@user_id);
     END WHILE;
 
@@ -579,7 +579,7 @@ BEGIN
       END IF;
     END IF;
 
-    SET @user_id = (SELECT user_refer FROM users WHERE user_id=@user_id);
+    SET @user_id = (SELECT user_tree_refer FROM users WHERE user_id=@user_id);
     SET @user_status = (SELECT user_status FROM users WHERE user_id=@user_id);
   END WHILE;
 
