@@ -8,12 +8,9 @@ module.exports = function(callback, params, _user_id){/*user_id, amount, current
   checkUserPwd(_user_id, pwd, () => {
     getUserAccount(user_id, acc => {
 
-      makeQuery(`UPDATE accounts SET account_balance=account_balance+? WHERE account_id=?`, [ amount, acc.account_id ],
-        res => {
-          makeQuery(`INSERT INTO transactions(tr_platform_amount, tr_receiver_id, tr_type)
-            VALUES(?,?,?)`, [ amount, acc.account_id, 'internal' ], res => {
-              callback(OK);
-          }, callback);
+        makeQuery(`INSERT INTO transactions(tr_platform_amount, tr_receiver_id, tr_type)
+          VALUES(?,?,?)`, [ amount, acc.account_id, 'internal' ], res => {
+            callback(OK);
         }, callback);
 
     }, callback);
