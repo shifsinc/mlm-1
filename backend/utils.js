@@ -7,6 +7,7 @@ const {
   USER_NOT_EXISTS,
   ADMIN_ROLE,
   FORBIDDEN,
+  INTERNAL_ERROR,
   tokenRegexp
 } = require('./const.js');
 const nodemailer = require('nodemailer');
@@ -19,7 +20,7 @@ module.exports.initMysqlConnection = function(onSuccess, onError){
   _con = mysql.createConnection( MYSQL_AUTH );
   _promiseQuery = promisify(_con.query).bind(_con);
   _con.connect( err => {
-    if(err && onError) onError( { status: 'error', text: err.sqlMessage/*'Internal error'*/ } );
+    if(err && onError) onError( INTERNAL_ERROR/*{ status: 'error', text: err.sqlMessage }*/ );
     else onSuccess();
   });
 }
@@ -27,7 +28,7 @@ module.exports.initMysqlConnection = function(onSuccess, onError){
 function makeQuery(query, params = [], onSuccess, onError){
   if(!_con) return;
   _con.query(query, params, (err, result) => {
-    if(err) onError && onError({ status: 'error', text: err.sqlMessage/*'Internal error'*/ });
+    if(err) onError && onError( INTERNAL_ERROR/*{ status: 'error', text: err.sqlMessage}*/ );
     else onSuccess && onSuccess({ status: 'ok', result } );
   });
 }
@@ -38,7 +39,7 @@ async function makeQueryAsync(query, params = []){
   try {
     var result = await _promiseQuery(query, params);
   } catch(e){
-    return { status: 'error', text: e.sqlMessage/*'Internal error'*/ };
+    return INTERNAL_ERROR;//{ status: 'error', text: e.sqlMessage };
   }
   return { status: 'ok', result };
 }
