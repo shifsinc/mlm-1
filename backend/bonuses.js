@@ -133,7 +133,7 @@ function calc(user_id, amount, onSuccess, onError, level = 1){
     s.*,
     b.*
     FROM users u
-    JOIN users u1 ON u.user_refer=u1.user_id
+    JOIN users u1 ON u.user_tree_refer=u1.user_id
     JOIN users_stats s ON u1.user_id=s.user_id
     JOIN users_bonuses b ON u1.user_id=b.user_id
     WHERE u.user_id=?`, [ user_id ],
