@@ -2,10 +2,10 @@ import React from 'react';
 import './StepView.css'
 
 export default class extends React.Component {
-  constructor(props){/*title, stepTitles, components, componentsProps*/
+  constructor(props){/*title, stepTitles, components, componentsProps, startStep*/
     super(props);
     this.state = {
-      currentStep: 0
+      currentStep: props.startStep ? props.startStep : 0
     }
   }
 
