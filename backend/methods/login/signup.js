@@ -24,11 +24,11 @@ function signup(callback, params){/*login, password, email, refer_phone, refer_t
       if( res.result.length )
         return callback({ status: 'error', text: 'user already exists', action: { text: 'Пользователь уже существует' } });
 
-      makeQuery(`SELECT user_id, general_link_type FROM users WHERE user_phone=?`, [ refer ],
+      makeQuery(`SELECT user_id, general_link_type, user_blocked FROM users WHERE user_phone=?`, [ refer ],
         res => {
 
           var query, values, refer_id = null, confirmToken = hash( Math.random() + '' );
-          if(!res.result.length){
+          if( !res.result.length || res.result[0].user_blocked ){
             return callback( USER_NOT_EXISTS );
             /*query = `INSERT INTO users(user_login, user_password_hash, user_email, email_confirm_token)
               VALUES(?,SHA(?),?,?)`;
