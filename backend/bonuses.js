@@ -141,15 +141,17 @@ function calc(user_id, amount, onSuccess, onError, level = 1){
       if( !res.result.length ) return onSuccess();
       var r = res.result[0];
 
-      var binary_cycles = calcStats(r, amount);
+      if( r.user_rate !== null ){
+        var binary_cycles = calcStats(r, amount);
 
-      var args = [ r, amount, level, binary_cycles ];
-      linear( ...args );
-      binary( ...args );
-      match( ...args );
-      lead( ...args );
-      start( ...args );
-      extra( ...args );
+        var args = [ r, amount, level, binary_cycles ];
+        linear( ...args );
+        binary( ...args );
+        match( ...args );
+        lead( ...args );
+        start( ...args );
+        extra( ...args );
+      }
 
       calc(r.user_id, amount, onSuccess, onError, level + 1);
     }, onError);
