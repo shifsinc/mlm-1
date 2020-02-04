@@ -8,7 +8,7 @@ import { formatDate } from '../../../utils.js'
 export default function(props){/*data, userClick, updateLocation*/
   var data = props.data ? props.data : [];
   return (
-    <Table titles={ [ 'ИМЯ ФАМИЛИЯ', 'ЗАРЕГЕСТРИРОВАН','НОМЕР ТЕЛЕФОНА', 'ПОЧТА', 'ТАРИФ', 'НАПРАВЛЕНИЕ', '' ] }>
+    <Table titles={ [ 'ИМЯ ФАМИЛИЯ', 'ЗАРЕГИСТРИРОВАН','НОМЕР ТЕЛЕФОНА', 'ПОЧТА', 'ТАРИФ', 'НАПРАВЛЕНИЕ', '' ] }>
       {
         data.map((d, i) => {
           return (<tr key={ i }>
