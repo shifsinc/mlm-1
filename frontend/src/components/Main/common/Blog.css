@@ -13,4 +13,5 @@
 .blog__item__text {
   margin: 10px 5px;
   font-family: montserrat;
+  white-space: break-spaces;
 }
