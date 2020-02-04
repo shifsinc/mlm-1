@@ -45,7 +45,10 @@ export default class extends React.Component {
             submitCallback={data => {
               return this.props.apiCall('signup', { ...data, refer_phone: this.state.refer_phone, refer_type: this.state.refer_type })
                 .then(r => {
-                  if( r.status === 'error' ) return r;
+                  if( r.status === 'error' ){
+                    window.grecaptcha && window.grecaptcha.reset();
+                    return r;
+                  }
                   this.setState({ popup: 0, redirectPath: r.action.path });
                   return {};
                 });

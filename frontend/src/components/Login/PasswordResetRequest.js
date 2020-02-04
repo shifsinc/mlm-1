@@ -13,8 +13,13 @@ export default class extends React.Component {/*updateLocation*/
     return (<Form className="login-form interface-block"
         formTitle="Запрос сброса пароля"
         submitTitle="ОТПРАВИТЬ"
-        submitCallback={data => this.props.apiCall('passwordResetRequest', data)}
-        updateLocation = { this.props.updateLocation }>
+        submitCallback={data =>
+          this.props.apiCall('passwordResetRequest', data)
+          .then(r => {
+            if( r.status === 'error' ) window.grecaptcha && window.grecaptcha.reset();
+            return r;
+          })
+        } updateLocation = { this.props.updateLocation }>
         <Input attr={{ name: 'email', autoFocus: true }} regexp={ emailRegexp } label="Ваш E-mail"></Input>
         <div className="g-recaptcha" data-sitekey={ RECAPTCHAV2_PUBLIC_KEY }></div>
       </Form>);
