@@ -739,36 +739,30 @@ BEGIN
 
     SET @bonus = new.bonus_linear - old.bonus_linear;
     SET @profit = @profit + @bonus;
-    INSERT INTO transactions(tr_platform_amount, tr_status, tr_receiver_id, tr_type)
-      VALUES(@bonus, 'ok', ( SELECT account_id FROM accounts WHERE account_owner=new.user_id ), 'bonus_linear');
 
-  ELSEIF( new.bonus_binary > old.bonus_binary ) THEN
+  END IF;
+  IF( new.bonus_binary > old.bonus_binary ) THEN
 
     SET @bonus = new.bonus_binary - old.bonus_binary;
     SET @profit = @profit + @bonus;
-    INSERT INTO transactions(tr_platform_amount, tr_status, tr_receiver_id, tr_type)
-      VALUES(@bonus, 'ok', ( SELECT account_id FROM accounts WHERE account_owner=new.user_id ), 'bonus_binary');
 
-  ELSEIF( new.bonus_match > old.bonus_match ) THEN
+  END IF;
+  IF( new.bonus_match > old.bonus_match ) THEN
 
     SET @bonus = new.bonus_match - old.bonus_match;
     SET @profit = @profit + @bonus;
-    INSERT INTO transactions(tr_platform_amount, tr_status, tr_receiver_id, tr_type)
-      VALUES(@bonus, 'ok', ( SELECT account_id FROM accounts WHERE account_owner=new.user_id ), 'bonus_match');
 
-  ELSEIF( new.bonus_lead > old.bonus_lead ) THEN
+  END IF;
+  IF( new.bonus_lead > old.bonus_lead ) THEN
 
     SET @bonus = new.bonus_lead - old.bonus_lead;
     SET @profit = @profit + @bonus;
-    INSERT INTO transactions(tr_platform_amount, tr_status, tr_receiver_id, tr_type)
-      VALUES(@bonus, 'ok', ( SELECT account_id FROM accounts WHERE account_owner=new.user_id ), 'bonus_lead');
 
-  ELSEIF( new.bonus_extra > old.bonus_extra ) THEN
+  END IF;
+  IF( new.bonus_extra > old.bonus_extra ) THEN
 
     SET @bonus = new.bonus_extra - old.bonus_extra;
     SET @profit = @profit + @bonus;
-    INSERT INTO transactions(tr_platform_amount, tr_status, tr_receiver_id, tr_type)
-      VALUES(@bonus, 'ok', ( SELECT account_id FROM accounts WHERE account_owner=new.user_id ), 'bonus_extra');
 
   END IF;
 

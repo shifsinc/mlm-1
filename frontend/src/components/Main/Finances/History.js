@@ -22,9 +22,14 @@ export default function(props){/*data, userClick*/
               descr = <>{ descr + ' ОТ ПОЛЬЗОВАТЕЛЯ ' }
                 <Link active onClick={ () => props.userClick(d.sender_id) }>{ d.sender_code }</Link></>
             }
-          }
-          if( d.tr_type === 'in' ){
+          } else if( d.tr_type === 'in' ){
             descr += ' (' + (d.tr_real_amount.toFixed(5) + ' ' + PAY_METHOD_TITLES[ d.tr_pay_method ] ) + ')';
+          } else if( d.tr_type.startsWith('bonus') ){
+            descr = (<>
+              { descr + '. Пользователь ' }
+              <Link active onClick={ () => props.userClick(d.sender_id) }>{ d.sender_code }</Link>
+              { ` совершил покупку на сумму ${d.tr_real_amount} YT` }
+              </>)
           }
           return (<tr key={ i }>
             <td>{ d.tr_platform_amount + ' YT' }</td>
