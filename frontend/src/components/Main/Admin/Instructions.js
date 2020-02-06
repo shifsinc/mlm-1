@@ -60,7 +60,7 @@ export default class extends React.Component {
     this.setState({ popup: null });
   }
 
-  _editClick = d => {console.log(d)
+  _editClick = d => {
     this.setState({ popup: 1, editData: d });
   }
 

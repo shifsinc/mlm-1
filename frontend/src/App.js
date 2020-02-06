@@ -46,7 +46,7 @@ class App extends React.Component {
     );
   }
 
-  _getCurrentView = () => {console.log(this.state.location)
+  _getCurrentView = () => {
     var isSignedIn = this.state.authToken ? true : false;
     var props = {
       updateLocation: this._updateLocation,

@@ -22,7 +22,7 @@ export default class extends React.Component {
   }
 
   render(){
-    var { editData } = this.state;console.log(editData)
+    var { editData } = this.state;
     return (<div className="admin__robot">
       <div className="interface-block admin__first-block">
         <h4>Файлы робота</h4>
