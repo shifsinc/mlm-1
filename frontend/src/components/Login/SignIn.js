@@ -19,7 +19,7 @@ export default class extends React.Component {
         submitCallback={data => {
           if( !this._captchaLoaded ) return Promise.resolve({});
 
-          return window.grecaptcha.execute(RECAPTCHAV3_PUBLIC_KEY, {action: 'login'})
+          return window.grecaptcha && window.grecaptcha.execute(RECAPTCHAV3_PUBLIC_KEY, {action: 'login'})
           .then(token => this.props.apiCall('signin', { ...data, 'g-recaptcha-response': token }))
           .then( r => {
             if(r.result) this.props.updateAuth(r.result.token, r.result.admin ? 1 : 0);
