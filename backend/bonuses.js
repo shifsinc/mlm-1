@@ -1,4 +1,4 @@
-const { makeQuery, getPersonalRev } = require('./utils.js');
+const { makeQueryAsync, beginTransaction, getPersonalRev } = require('./utils.js');
 const {
   BINARY_CYCLE_AMOUNT,
   LINEAR_BONUS_VALUES,
@@ -9,12 +9,12 @@ const {
   EXTRA_BONUS_TIME, EXTRA_BONUS_REV, EXTRA_BONUS_AMOUNT
 } = require('./const.js');
 
-function _addTransaction(p, type){
-  makeQuery(`INSERT INTO transactions(tr_real_amount, tr_platform_amount, tr_status, tr_sender_id, tr_receiver_id, tr_type)
+async function _addTransaction(p, type){
+  await makeQueryAsync(`INSERT INTO transactions(tr_real_amount, tr_platform_amount, tr_status, tr_sender_id, tr_receiver_id, tr_type)
     VALUES(?, ?, 'ok', (SELECT account_id FROM accounts WHERE account_owner=?), ?, '${type}')`, p);
 }
 
-function calcStats(user, amount){
+async function calcStats(user, amount){
     var yt_left = user.stats_yt_left, yt_right = user.stats_yt_right,
       yt_sum_left = user.stats_yt_sum_left, yt_sum_right = user.stats_yt_sum_right;
 
@@ -34,7 +34,7 @@ function calcStats(user, amount){
     yt_left -= cycle_amount;
     yt_right -= cycle_amount;
 
-    makeQuery(`UPDATE users_stats SET
+    await makeQueryAsync(`UPDATE users_stats SET
       stats_yt_left=?,
       stats_yt_right=?,
       stats_yt_sum_left=?,
@@ -52,15 +52,15 @@ function calcStats(user, amount){
     return binary_cycles;
 }
 
-function linear(user, amount, init_user_id, level){
+async function linear(user, amount, init_user_id, level){
   if( level > 2 || user.user_rate === null ) return;
   var bonus = amount * LINEAR_BONUS_VALUES[ user.user_rate ][ level ];
 
-  makeQuery(`UPDATE users_bonuses SET bonus_linear=bonus_linear+? WHERE user_id=?`, [ bonus, user.user_id ]);
-  _addTransaction([ amount, bonus, init_user_id, user.account_id ], 'bonus_linear');
+  await makeQueryAsync(`UPDATE users_bonuses SET bonus_linear=bonus_linear+? WHERE user_id=?`, [ bonus, user.user_id ]);
+  await _addTransaction([ amount, bonus, init_user_id, user.account_id ], 'bonus_linear');
 }
 
-function binary(user, amount, init_user_id, level, binary_cycles){
+async function binary(user, amount, init_user_id, level, binary_cycles){
   if( user.user_rate === null || binary_cycles === 0 ) return;
 
   if( user.user_refer_type !== null ){/*bonus conditions*/
@@ -80,64 +80,59 @@ function binary(user, amount, init_user_id, level, binary_cycles){
   var cycle_amount = binary_cycles * BINARY_CYCLE_AMOUNT;
   var bonus = cycle_amount * BINARY_BONUS_VALUES[ user.user_rate ];
 
-  makeQuery(`UPDATE users_bonuses SET bonus_binary=bonus_binary+? WHERE user_id=?`, [ bonus, user.user_id ]);
-  _addTransaction([ amount, bonus, init_user_id, user.account_id ], 'bonus_binary');
+  await makeQueryAsync(`UPDATE users_bonuses SET bonus_binary=bonus_binary+? WHERE user_id=?`, [ bonus, user.user_id ]);
+  await _addTransaction([ amount, bonus, init_user_id, user.account_id ], 'bonus_binary');
 }
 
-function match(user, amount, init_user_id, level){
+async function match(user, amount, init_user_id, level){
   if( level > MATCH_BONUS_LEVELS[ user.user_status ] || user.user_rate === null ) return 0;
   var bonus = amount * MATCH_BONUS_VALUES[ user.user_rate ];
 
-  makeQuery(`UPDATE users_bonuses SET bonus_match=bonus_match+? WHERE user_id=?`, [ bonus, user.user_id ]);
-  _addTransaction([ amount, bonus, init_user_id, user.account_id ], 'bonus_match');
+  await makeQueryAsync(`UPDATE users_bonuses SET bonus_match=bonus_match+? WHERE user_id=?`, [ bonus, user.user_id ]);
+  await _addTransaction([ amount, bonus, init_user_id, user.account_id ], 'bonus_match');
 }
 
-function lead(user, amount, init_user_id, level, binary_cycles){
+async function lead(user, amount, init_user_id, level, binary_cycles){
   if( user.bonus_lead_counter == 0 ) return;
   var cycles = Math.min(binary_cycles, user.bonus_lead_counter);
   var cycle_amount = cycles * BINARY_CYCLE_AMOUNT;
   var bonus = cycle_amount * LEAD_BONUS_VALUE;
 
-  makeQuery(`UPDATE users_bonuses SET bonus_lead=bonus_lead+?, bonus_lead_counter=bonus_lead_counter-?
+  await makeQueryAsync(`UPDATE users_bonuses SET bonus_lead=bonus_lead+?, bonus_lead_counter=bonus_lead_counter-?
       WHERE user_id=?`, [ bonus, cycles, user.user_id ]);
-  _addTransaction([ amount, bonus, init_user_id, user.account_id ], 'bonus_lead');
+  await _addTransaction([ amount, bonus, init_user_id, user.account_id ], 'bonus_lead');
 }
 
-function start(user, amount, init_user_id, level){
+async function start(user, amount, init_user_id, level){
   if( level > 1 || user.user_rate === null ) return;
-  getPersonalRev(user.user_id, sum => {
 
-    var time = new Date() - new Date( user.user_rate_ts );
-    if( time < START_BONUS_TIME && sum > START_BONUS_VALUES[ user.user_rate ] && !user.bonus_start_reached ){
-      makeQuery(`INSERT INTO events(user_id, event_type) VALUES(?, 'bonus_start')`, [ user.user_id ]);
-      makeQuery(`UPDATE users_bonuses SET bonus_start_reached=1 WHERE user_id=?`, [ user.user_id ]);
-    }
-
-  });
+  var sum = await getPersonalRev(user.user_id);
+  if( sum === null ) return;
+  var time = new Date() - new Date( user.user_rate_ts );
+  if( time < START_BONUS_TIME && sum > START_BONUS_VALUES[ user.user_rate ] && !user.bonus_start_reached ){
+    await makeQueryAsync(`INSERT INTO events(user_id, event_type) VALUES(?, 'bonus_start')`, [ user.user_id ]);
+    await makeQueryAsync(`UPDATE users_bonuses SET bonus_start_reached=1 WHERE user_id=?`, [ user.user_id ]);
+  }
 }
 
-function extra(user, amount, init_user_id, level){
+async function extra(user, amount, init_user_id, level){
   if( level > 1 ) return;
-  getPersonalRev(user.user_id, sum => {
+  var sum = await getPersonalRev(user.user_id);
+  if( sum === null ) return;
+  var bonus, counter = Math.floor( sum / EXTRA_BONUS_REV ),
+    time = new Date() - new Date( user.user_rate_ts );
 
-    var bonus, counter = Math.floor( sum / EXTRA_BONUS_REV ),
-      time = new Date() - new Date( user.user_rate_ts );
+  if( time < EXTRA_BONUS_TIME && counter > user.bonus_extra_counter ){
+    bonus = EXTRA_BONUS_AMOUNT * ( counter - user.bonus_extra_counter );
+  } else return;
 
-    if( time < EXTRA_BONUS_TIME && counter > user.bonus_extra_counter ){
-      bonus = EXTRA_BONUS_AMOUNT * ( counter - user.bonus_extra_counter );
-      makeQuery(`UPDATE users_stats SET bonus_extra_counter=? WHERE user_id=?`, [ counter, user.user_id ]);
-    } else return;
-
-
-    makeQuery(`UPDATE users_bonuses SET bonus_extra=bonus_extra+?, bonus_extra_counter=? WHERE user_id=?`,
-      [ bonus, counter, user.user_id ]);
-    _addTransaction([ amount, bonus, init_user_id, user.account_id ], 'bonus_extra');
-
-  });
+  await makeQueryAsync(`UPDATE users_bonuses SET bonus_extra=bonus_extra+?, bonus_extra_counter=? WHERE user_id=?`,
+    [ bonus, counter, user.user_id ]);
+  await _addTransaction([ amount, bonus, init_user_id, user.account_id ], 'bonus_extra');
 }
 
-function traverseVisual(user_id, callback, onError, level = 1){
-  makeQuery(`SELECT
+async function traverseVisual(user_id, callback, level = 1){
+  var res = await makeQueryAsync(`SELECT
     u.user_refer_type AS referal_dir,
     u1.*,
     s.*,
@@ -148,15 +143,17 @@ function traverseVisual(user_id, callback, onError, level = 1){
     JOIN users_stats s ON u1.user_id=s.user_id
     JOIN users_bonuses b ON u1.user_id=b.user_id
     JOIN accounts a ON u1.user_id=a.account_owner
-    WHERE u.user_id=?`, [ user_id ],
-    res => {
-      var r = res.result[0];
-      callback( r, level );
-      if(r) traverseVisual(r.user_id, callback, onError, level + 1);
-    }, onError);
+    WHERE u.user_id=?`, [ user_id ]);
+  if( res.status === 'error' ) return res;
+  var r = res.result[0];
+
+  if(r){
+    await callback( r, level );
+    return await traverseVisual(r.user_id, callback, level + 1);
+  } else return 1;
 }
-function traverseRefer(user_id, callback, onError, level = 1){
-  makeQuery(`SELECT
+async function traverseRefer(user_id, callback, level = 1){
+  var res = await makeQueryAsync(`SELECT
     u.user_refer_type AS referal_dir,
     u1.*,
     s.*,
@@ -167,38 +164,41 @@ function traverseRefer(user_id, callback, onError, level = 1){
     JOIN users_stats s ON u1.user_id=s.user_id
     JOIN users_bonuses b ON u1.user_id=b.user_id
     JOIN accounts a ON u1.user_id=a.account_owner
-    WHERE u.user_id=?`, [ user_id ],
-    res => {
-      var r = res.result[0];
-      callback( r, level );
-      if(r) traverseRefer(r.user_id, callback, onError, level + 1);
-    }, onError);
+    WHERE u.user_id=?`, [ user_id ]);
+  if( res.status === 'error' ) return res;
+  var r = res.result[0];
+  if(r){
+    await callback( r, level );
+    return await traverseRefer(r.user_id, callback, level + 1);
+  } else return 1;
 }
 
-function calc(user_id, amount, onSuccess, onError){
+async function calc(user_id, amount, onSuccess, onError){
+  var r;
 
-  traverseVisual(user_id, (data, level) => {
-    if( !data ) return onSuccess();
+  r = await traverseVisual(user_id, async (data, level) => {
     if( data.user_rate === null ) return;
 
-    var binary_cycles = calcStats(data, amount);
+    var binary_cycles = await calcStats(data, amount);
 
     var args = [ data, amount, user_id, level, binary_cycles ];
-    binary( ...args );
-    lead( ...args );
-  }, onError);
+    await binary( ...args );
+    await lead( ...args );
+  });
+  if( r !== 1 ) return onError(r);
 
-  traverseRefer(user_id, (data, level) => {
-    if( !data ) return onSuccess();
+  r = await traverseRefer(user_id, async (data, level) => {
     if( data.user_rate === null ) return;
 
     var args = [ data, amount, user_id, level ];
-    linear( ...args );
-    match( ...args );
-    start( ...args );
-    extra( ...args );
-  }, onError);
+    await linear( ...args );
+    await match( ...args );
+    await start( ...args );
+    await extra( ...args );
+  });
+  if( r !== 1 ) return onError(r);
 
+  onSuccess();
 }
 
 module.exports = calc;

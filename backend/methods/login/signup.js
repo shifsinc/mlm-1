@@ -1,4 +1,4 @@
-const { makeQuery, beginTransaction, checkCaptcha } = require('../../utils.js');
+const { makeQuery, checkCaptcha } = require('../../utils.js');
 const { INCORRECT_QUERY, OK, USER_NOT_EXISTS, INCORRECT_CAPTCHA,
     loginRegexp, passwordRegexp, emailRegexp, phoneRegexp, } = require('../../const.js');
 const { sendConfirmMail } = require('../../email.js');

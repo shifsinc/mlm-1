@@ -730,7 +730,7 @@ BEGIN
 END$$
 
 
-/*bonuses(transaction+balance update), stats_day_profi, stats_total_profit*/
+/*bonuses(balance update), stats_day_profi, stats_total_profit*/
 DROP TRIGGER IF EXISTS `yodafxpr_mlm_db`.`users_bonuses_AFTER_UPDATE` $$
 CREATE DEFINER = CURRENT_USER TRIGGER `yodafxpr_mlm_db`.`users_bonuses_AFTER_UPDATE` AFTER UPDATE ON `users_bonuses` FOR EACH ROW
 BEGIN

@@ -1,4 +1,4 @@
-const { makeQuery, beginTransaction, checkUserPwd } = require('../../utils.js');
+const { makeQuery, checkUserPwd } = require('../../utils.js');
 const { spendMoney } = require('../../money.js');
 const { INCORRECT_QUERY, OK, ROBOT_LICENSE_VALID, ROBOT_SALE_TIME, RATES_PRICES, FORBIDDEN } = require('../../const.js');
 
@@ -11,7 +11,7 @@ module.exports = function(callback, params, _user_id){/*rate, current_password*/
     makeQuery(`SELECT user_rate + 0 AS user_rate, user_rate_ts, user_rate_first FROM users WHERE user_id=?`, [ _user_id ], res => {
       var { user_rate, user_rate_ts, user_rate_first } = res.result[0];
       if( user_rate !== null && rate <= user_rate ) return callback( FORBIDDEN );
-      
+
       var isUpgrade = (user_rate_first !== null) && ( ( new Date() - new Date( user_rate_ts ) ) <= ROBOT_SALE_TIME ), price;
 
       if( isUpgrade ) price = RATES_PRICES[ rate ] - RATES_PRICES[ user_rate ];

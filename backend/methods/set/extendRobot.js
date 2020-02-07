@@ -1,4 +1,4 @@
-const { makeQuery, beginTransaction, checkUserPwd } = require('../../utils.js');
+const { makeQuery, checkUserPwd } = require('../../utils.js');
 const { spendMoney } = require('../../money.js');
 const { OK, ROBOT_LICENSE_VALID, RATES_PRICES } = require('../../const.js');
 

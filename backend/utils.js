@@ -141,14 +141,13 @@ module.exports.getUserByCode = function(code, onSuccess, onError){
 
 /////////////
 
-module.exports.getPersonalRev = function(user_id, callback, onError){
-  makeQuery(`SELECT
+module.exports.getPersonalRev = async function(user_id){
+  var r = await makeQueryAsync(`SELECT
     SUM(stats_purchase_sum) AS sum
     FROM users_stats
-    WHERE user_id IN (SELECT user_id FROM users WHERE user_refer=?)`, [ user_id ],
-    res => {
-      callback( res.result[0].sum );
-    }, onError);
+    WHERE user_id IN (SELECT user_id FROM users WHERE user_refer=?)`, [ user_id ]);
+  if( r.status !== 'error' ) return r.result[0].sum;
+  else return null;
 }
 
 /////////////
