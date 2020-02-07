@@ -30,7 +30,7 @@ module.exports.getUserCardInfo = (apiCall, user_id, callback) => {
   });
 }
 
-module.exports.alignPhoto = ({ target }) => {
+ function alignPhoto({ target }, _){
   var width = target.clientWidth, height = target.clientHeight,
   contWidth = target.parentElement.clientWidth, contHeight = target.parentElement.clientHeight;
 
@@ -49,7 +49,10 @@ module.exports.alignPhoto = ({ target }) => {
     target.style.marginLeft = '0';
   }
   target.classList.add('aligned');
+
+  if(!_) window.addEventListener('resize', () => alignPhoto({ target }, true));
 }
+module.exports.alignPhoto = alignPhoto;
 
 const { RECAPTCHAV3_PUBLIC_KEY } = require('./config.js');
 module.exports.addCaptchaScript = (version, onload) => {

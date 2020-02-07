@@ -1,17 +1,13 @@
 .videos-view__video {
-  position: relative;
-  display: inline;
+  display: inline-block;
+  width: calc(50% - 8px);
+  margin: 4px;
+  vertical-align: middle;
 }
 .videos-view__video__cont {
-  width: calc(100% - 20px);
-  margin: 10px;
+  width: 100%;
   padding-top: 60%;
   position: relative;
-  display: inline-block;
-}
-.videos-view__video__cont.multiple {
-  width: calc(50% - 20px);
-  padding-top: 30%;
 }
 .videos-view__video__cont > iframe {
   position: absolute;
@@ -24,5 +20,7 @@
 }
 
 @media screen and (max-width: 900px) {
-
+  .videos-view__video {
+    width: calc(100% - 8px);
+  }
 }

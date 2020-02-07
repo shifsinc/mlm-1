@@ -46,12 +46,12 @@ class BlogItem extends React.Component {
       <div className="blog__item__date">
         { formatDate(new Date( d.news_dt ), false) }
       </div>
+      <ImagesView data={ d.images }></ImagesView>
+      <VideosView data={ d.videos }></VideosView>
       <div className={ 'blog__item__text show-more-text' + ( this.state.opened ? '_opened' : '' ) }>
         <span>{ this.state.opened ? d.news_text : d.news_text.slice(0, BLOG_VISIBLE_LENGTH) + '...' }</span>
         <div className="show-more" onClick={ () => this.setState({ opened: true }) }></div>
       </div>
-      <ImagesView data={ d.images }></ImagesView>
-      <VideosView data={ d.videos }></VideosView>
     </div>);
   }
 }

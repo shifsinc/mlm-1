@@ -42,12 +42,12 @@ class NewsItem extends React.Component {
           </div> : undefined }
 
       <h4 className="news__item__title">{ d.news_title }</h4>
+      <ImagesView data={ d.images }></ImagesView>
+      <VideosView data={ d.videos }></VideosView>
       <div className={ 'news__item__text show-more-text' + ( this.state.opened ? '_opened' : '' ) }>
         <span>{ this.state.opened ? d.news_text : d.news_text.slice(0, NEWS_VISIBLE_LENGTH) + '...' }</span>
         <div className="show-more" onClick={ () => this.setState({ opened: true }) }></div>
       </div>
-      <div><ImagesView data={ d.images }></ImagesView></div>
-      <div><VideosView data={ d.videos }></VideosView></div>
       <div className="news__item__date">
         { formatDate(new Date( d.news_dt ), false) }
       </div>
