@@ -3,6 +3,7 @@
   width: calc(50% - 8px);
   margin: 4px;
   vertical-align: middle;
+  position: relative;
 }
 .videos-view__video__cont {
   width: 100%;

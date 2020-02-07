@@ -18,8 +18,10 @@ export default function(props){/*data, _admin, _deleteClick, _editClick*/
             <td>{ d.file_descr }</td>
             {
               props._admin ? (<td>
-                  <Link className="admin__edit-button" onClick={ () => props._editClick(d) }></Link>
-                  <Link className="admin__delete-button" onClick={ () => props._deleteClick(d) }></Link>
+                  <div className="admin__controls">
+                    <Link className="admin__edit-button" onClick={ () => props._editClick(d) }></Link>
+                    <Link className="admin__delete-button" onClick={ () => props._deleteClick(d) }></Link>
+                  </div>
                 </td>) : undefined
             }
           </tr>);
