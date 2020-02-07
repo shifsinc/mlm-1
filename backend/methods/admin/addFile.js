@@ -12,7 +12,7 @@ module.exports = function(callback, params, _user_id){/*section, title, descr, f
     filename = params.filename ? params.filename : null, rate = parseInt( params.rate );
   if( isNaN(rate) || rate === 0 ) rate = null;
   if( !( /^(marketing|instructions|videos|robot)$/.test(section) ) ||
-    filename === undefined || !filenameRegexp.test(filename) ||
+    (filename !== null && !filenameRegexp.test(filename)) ||
     ( rate !== null && ( rate < 1 || rate > 4 ) ) ) return callback( INCORRECT_QUERY );
 
   var filetype, filepath = FILES_PATH + filename;
