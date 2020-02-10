@@ -23,13 +23,15 @@ module.exports = function(callback, params, _user_id){/*count, offset*/
         FROM transactions t
         LEFT JOIN accounts a1 ON a1.account_id=t.tr_sender_id LEFT JOIN users u1 ON u1.user_id=a1.account_owner
         LEFT JOIN accounts a2 ON a2.account_id=t.tr_receiver_id LEFT JOIN users u2 ON u2.user_id=a2.account_owner
-        WHERE tr_sender_id=? OR tr_receiver_id=? ORDER BY tr_dt DESC LIMIT ?,?`, [ acc_id, acc_id, offset, count ],
+        WHERE (tr_sender_id=? AND tr_type < 4) OR tr_receiver_id=? 
+        ORDER BY tr_dt DESC LIMIT ?,?`, [ acc_id, acc_id, offset, count ],
         res => {
 
           makeQuery(`SELECT COUNT(*) AS count FROM transactions WHERE tr_sender_id=? OR tr_receiver_id=?`, [ acc_id, acc_id ],
             count => {
               var data = res.result.map(r => {
                 if( r.tr_type === 'internal' ) r._is_sender =  ( r.sender_id === _user_id ) ? true : false;
+
                 return r;
               });
               var resp = Object.assign({}, res, { result: {
