@@ -18,6 +18,8 @@ function signup(callback, params){/*login, password, email, refer_phone, refer_t
 
   if( refer === undefined || !phoneRegexp.test(refer) )
     return callback({ status: 'error', action: { text: 'Вы не можете зарегестрироваться без рефера' } });
+  if( refer_type !== undefined && !/^[lr]$/.test(refer_type) )
+    return callback({ status: 'error', action: { text: 'Неверный тип рефера' } });
 
   makeQuery(`SELECT user_id FROM users WHERE user_login=? OR user_email=?`, [ login, email ],
     res => {
@@ -37,7 +39,7 @@ function signup(callback, params){/*login, password, email, refer_phone, refer_t
           } else {
             query = `INSERT INTO users(user_login, user_password_hash, user_email, user_refer, user_refer_type, email_confirm_token)
               VALUES(?,SHA(?),?,?,?,?)`;
-            refer_type = ( refer_type !== undefined && /^[lr]$/.test(refer_type) ) ? refer_type : res.result[0].general_link_type;
+            refer_type = ( refer_type === undefined ) ? res.result[0].general_link_type : refer_type;
             refer_id = res.result[0].user_id;
             values = [ login, password, email, res.result[0].user_id, refer_type, confirmToken ];
           }
