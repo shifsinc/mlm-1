@@ -56,7 +56,7 @@ exports.MIN_WITHDRAW_AMOUNT = 10;
 
 exports.TRANSACTION_TIMEOUT = 24*60*60;//sec
 
-exports.ROBOT_LICENSE_VALID = 6;//months
+exports.ROBOT_LICENSE_VALID = 12;//months
 exports.ROBOT_SALE_TIME = 15778476000;//6 months
 
 exports.BINARY_CYCLE_AMOUNT = 250;
