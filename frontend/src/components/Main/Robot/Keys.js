@@ -21,7 +21,7 @@ export default class extends React.Component {
           popup: 0,
           popupData: data.map(d => d.key_account),
       }) }></div>
-      <Table titles={ [ 'НОМЕР СЧЕТА', 'МАКС. ДЕПОЗИТ', 'ЛИЦЕНЗИЯ', 'ДЕЙСТВИТЕЛЬНА ДО' ] }>
+      <Table titles={ [ 'НОМЕР СЧЕТА', 'МАКС. ДЕПОЗИТ', 'ЛИЦЕНЗИЯ', 'ДЕЙСТВИТЕЛЬНА ДО', 'КЛЮЧ' ] }>
         {
           data.map((d, i) => {
             return (<tr key={ i }>
@@ -29,6 +29,7 @@ export default class extends React.Component {
               <td>{ '$ ' + d.key_max_deposit }</td>
               <td>{ ( new Date(d.key_valid_dt) - new Date() > 0 ) ? 'Активна' : 'Не активна' }</td>
               <td>{ formatDate( d.key_valid_dt ) }</td>
+              <td>{ d.key_key }</td>
             </tr>);
           })
         }
