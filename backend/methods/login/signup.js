@@ -15,9 +15,9 @@ function signup(callback, params){/*login, password, email, refer_phone, refer_t
       password === undefined || !passwordRegexp.test(password) ||
       email === undefined || !emailRegexp.test(email) )
     return callback( INCORRECT_QUERY );
-
   if( refer === undefined || !phoneRegexp.test(refer) )
     return callback({ status: 'error', action: { text: 'Вы не можете зарегестрироваться без рефера' } });
+  if( refer_type === 'g' ) refer_type = undefined;
   if( refer_type !== undefined && !/^[lr]$/.test(refer_type) )
     return callback({ status: 'error', action: { text: 'Неверный тип рефера' } });
 
