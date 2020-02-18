@@ -340,8 +340,10 @@ CREATE TABLE IF NOT EXISTS `yodafxpr_mlm_db`.`robot_keys` (
   `key_account` VARCHAR(32) NOT NULL,
   `key_max_deposit` INT(11) NOT NULL,
   `key_valid_dt` TIMESTAMP NULL DEFAULT NULL,
+  `key_key` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`key_id`),
   UNIQUE INDEX `key_id_UNIQUE` (`key_id` ASC),
+  UNIQUE INDEX `key_account_UNIQUE` (`user_id`, `key_account`),
   INDEX `user_idx` (`user_id` ASC),
   CONSTRAINT `user_fk1`
     FOREIGN KEY (`user_id`)
