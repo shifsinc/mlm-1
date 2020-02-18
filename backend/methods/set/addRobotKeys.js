@@ -1,5 +1,5 @@
 const { makeQuery, checkUserPwd } = require('../../utils.js');
-const { INCORRECT_QUERY, OK, MAX_DEPOSITS, ROBOT_LICENSE_VALID, robotKeyRegexp, FORBIDDEN  } = require('../../const.js');
+const { INCORRECT_QUERY, OK, MAX_DEPOSITS, robotKeyRegexp, FORBIDDEN  } = require('../../const.js');
 
 module.exports = function(callback, params, _user_id){/*accounts, current_password*/
   var accounts = params.accounts, pwd = params.current_password;
