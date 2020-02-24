@@ -6,7 +6,7 @@ exports.phoneRegexp = /^[0-9]{11,15}$/;
 exports.linkRegexp = /^https?:\/\/[a-zA-Z\-0-9.]+(\/.*)?$/;
 exports.socialRegexp = /^[\w]{1,50}$/;
 exports.telegramRegexp = /^\w{1,64}$/;
-exports.ethereumRegexp = /^0x[a-z0-9]{40}$/;
+exports.ethereumRegexp = /^0x[a-z0-9]{35,50}$/;
 exports.robotKeyRegexp = /^[0-9]{1,32}$/;
 
 exports.RATES_COUNT = 4;
